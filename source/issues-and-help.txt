@@ -1,0 +1,53 @@
+.. _rust-issues-and-help:
+
+=============
+Issues & Help
+=============
+
+We are lucky to have a vibrant MongoDB Rust community that includes users
+with varying levels of experience using the {+driver-short+}. The
+quickest way to get support for general questions is through the
+`MongoDB Community Forums <https://community.mongodb.com>`_.
+
+To learn more, refer to our `support channels
+<http://www.mongodb.org/about/support>`_.
+
+Bugs / Feature Requests
+-----------------------
+
+If you think you've found a bug or want to request a new feature in the
+{+driver-short+}, please open a case in our issue management tool,
+JIRA:
+
+1. `Create an account and login <https://jira.mongodb.org>`_.
+#. Navigate to `the RUST project <https://jira.mongodb.org/browse/RUST>`_.
+#. Click **Create Issue**. Please provide as much information as possible
+   about the issue or request in the ticket.
+
+Bug reports in JIRA for the {+driver-short+} and the Core Server
+(SERVER) project are **public**.
+
+If you’ve identified a security vulnerability in a driver or any other
+MongoDB project, please report it according to the instructions found in the
+:manual:`Create a Vulnerability Report page </tutorial/create-a-vulnerability-report>`.
+
+Pull Requests
+-------------
+
+We are happy to accept contributions to help improve the
+{+driver-short+}. We guide user contributions to ensure they meet
+the standards of the codebase. Please ensure that any pull requests
+include documentation, tests, and pass the integration and unit tests in
+the source code.
+
+To get started, check out the source and create a feature branch:
+
+.. code-block:: bash
+
+   $ git clone https://github.com/mongodb/mongo-rust-driver.git
+   $ cd mongo-rust-driver
+   $ git checkout -b myNewFeature
+
+Finally, follow the `Testing guidelines
+<https://github.com/mongodb/mongo-rust-driver#running-the-tests>`__ to
+ensure your code passes any newly added and existing tests.
