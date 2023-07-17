@@ -6,12 +6,12 @@ Connections
 
 .. toctree::
 
-   /fundamentals/connection/connection-guide
+   /fundamentals/connections/connection-guide
 
 ..
-   /fundamentals/connection/connection-options
-   /fundamentals/connection/network-compression
-   /fundamentals/connection/tls
+   /fundamentals/connections/connection-options
+   /fundamentals/connections/network-compression
+   /fundamentals/connections/tls
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
 
 .. contents:: On this page
