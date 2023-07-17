@@ -51,8 +51,10 @@ your MongoDB instance.
 
 The last part of the connection string specifies connection and authentication
 options. In the example, we set two connection options:
-``maxPoolSize=20`` and ``w=majority``. To learn more about connection
-options, see the :ref:`rust-connection-options` reference.
+``maxPoolSize=20`` and ``w=majority``.
+
+.. To learn more about connection
+.. options, see the :ref:`rust-connection-options` reference.
 
 Connection Example
 ~~~~~~~~~~~~~~~~~~
@@ -78,9 +80,10 @@ To specify your connection URI, pass it to the ``parse()``
 method of ``ClientOptions``. To set any other
 options, set the relevant field of the ``ClientOptions`` struct.
 
-To learn more about connection options, see the
-:ref:`Connection Options <rust-connection-options>` reference. To
-learn more about creating a client, see the API documentation for `Client
+.. To learn more about connection options, see the
+.. :ref:`Connection Options <rust-connection-options>` reference.
+
+To learn more about creating a client, see the API documentation for `Client
 <{+api+}/struct.Client.html>`__ and `with_options() <{+api+}/struct.Client.html#method.with_options>`__.
 
 You can set the {+stable-api+} version as an option to avoid
