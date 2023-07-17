@@ -53,7 +53,7 @@ The last part of the connection string specifies connection and authentication
 options. In the example, we set two connection options:
 ``maxPoolSize=20`` and ``w=majority``.
 
-.. To learn more about connection
+.. TODO To learn more about connection
 .. options, see the :ref:`rust-connection-options` reference.
 
 Connection Example
@@ -69,7 +69,7 @@ your connections and runs database commands.
    creating a new one each time. The ``Client`` type is safe for
    concurrent use by multiple threads or async tasks.
    
-   .. To learn more about how connection pools work in the driver, see
+   .. TODO To learn more about how connection pools work in the driver, see
    .. the :ref:`FAQ page <rust-faq-connection-pool>`.
 
 You can create a client that uses your connection string and other
@@ -80,7 +80,7 @@ To specify your connection URI, pass it to the ``parse()``
 method of ``ClientOptions``. To set any other
 options, set the relevant field of the ``ClientOptions`` struct.
 
-.. To learn more about connection options, see the
+.. TODO To learn more about connection options, see the
 .. :ref:`Connection Options <rust-connection-options>` reference.
 
 To learn more about creating a client, see the API documentation for `Client
@@ -89,7 +89,7 @@ To learn more about creating a client, see the API documentation for `Client
 You can set the {+stable-api+} version as an option to avoid
 breaking changes when you upgrade to a new server version.
 
-.. To learn more about the {+stable-api+} feature, see the
+.. TODO To learn more about the {+stable-api+} feature, see the
 .. :ref:`{+stable-api+} page <rust-stable-api>`.
 
 The following code shows how you can create a client that uses an Atlas
@@ -98,7 +98,7 @@ verify that the connection is successful. Select from the
 :guilabel:`Sync` or :guilabel:`Async` tabs below for corresponding
 connection code samples.
 
-.. To learn more about asynchronous and synchronous runtimes, see the
+.. TODO To learn more about asynchronous and synchronous runtimes, see the
 .. :ref:`Runtimes <TODO link>` guide.
 
 .. tabs::
@@ -117,7 +117,7 @@ connection code samples.
 
 .. .. tip::
 .. 
-..    Follow the :ref:`Quick Start guide <rust-connect-to-your-cluster>`
+..    TODO Follow the :ref:`Quick Start guide <rust-connect-to-your-cluster>`
 ..    to retrieve your Atlas connection string.
 
 .. note::
