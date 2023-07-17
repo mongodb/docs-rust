@@ -20,14 +20,14 @@ Read Operations
    /fundamentals/crud/read-operations/text
    /fundamentals/crud/read-operations/changestream
 
-- :ref:`rust-query-guide`
-- :ref:`rust-count-guide`
-- :ref:`rust-retrieve-guide`
-- :ref:`rust-cursor-guide`
-- :ref:`rust-distinct-guide`
-- :ref:`rust-sort-guide`
-- :ref:`rust-skip-guide`
-- :ref:`rust-limit-guide`
-- :ref:`rust-project-guide`
-- :ref:`rust-search-text-guide`
-- :ref:`rust-monitor-changes-guide`
+.. - :ref:`rust-query-guide`
+.. - :ref:`rust-count-guide`
+.. - :ref:`rust-retrieve-guide`
+.. - :ref:`rust-cursor-guide`
+.. - :ref:`rust-distinct-guide`
+.. - :ref:`rust-sort-guide`
+.. - :ref:`rust-skip-guide`
+.. - :ref:`rust-limit-guide`
+.. - :ref:`rust-project-guide`
+.. - :ref:`rust-search-text-guide`
+.. - :ref:`rust-monitor-changes-guide`

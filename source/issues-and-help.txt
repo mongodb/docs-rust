@@ -7,7 +7,7 @@ Issues & Help
 We are lucky to have a vibrant MongoDB Rust community that includes users
 with varying levels of experience using the {+driver-short+}. The
 quickest way to get support for general questions is through the
-`MongoDB Community Forums <https://community.mongodb.com>`_.
+`MongoDB Community Forums <https://www.mongodb.com/community/forums/>`_.
 
 To learn more, refer to our `support channels
 <http://www.mongodb.org/about/support>`_.
@@ -21,8 +21,8 @@ JIRA:
 
 1. `Create an account and login <https://jira.mongodb.org>`_.
 #. Navigate to `the RUST project <https://jira.mongodb.org/browse/RUST>`_.
-#. Click **Create Issue**. Please provide as much information as possible
-   about the issue or request in the ticket.
+#. Click **Create** to create a ticket. Please provide as much
+   information as possible about the issue or request in the ticket.
 
 Bug reports in JIRA for the {+driver-short+} and the Core Server
 (SERVER) project are **public**.
@@ -48,6 +48,6 @@ To get started, check out the source and create a feature branch:
    $ cd mongo-rust-driver
    $ git checkout -b myNewFeature
 
-Finally, follow the `Testing guidelines
+Finally, follow the `testing guidelines
 <https://github.com/mongodb/mongo-rust-driver#running-the-tests>`__ to
 ensure your code passes any newly added and existing tests.
