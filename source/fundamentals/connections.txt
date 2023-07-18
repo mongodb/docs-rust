@@ -26,7 +26,7 @@ Overview
 Learn how to configure your application's connection to a MongoDB
 deployment using the {+driver-short+} in the following sections:
 
-- :ref:`Connect to MongoDB <rust-connect-to-mongodb>`
+- :ref:`Connection Guide <rust-connect-to-mongodb>`
 
 .. - :ref:`Connection Options <rust-connection-options>`
 .. - :ref:`Enable Network Compression <rust-network-compression>`
