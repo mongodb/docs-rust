@@ -50,13 +50,14 @@ the :ref:`Additional Information section <addl-info-runcommand>`.
 
 .. note:: Read Preference
 
-   ``run_command()`` does not obey the read preference you
+   The ``run_command()`` method does not obey the read preference you
    may have set on your ``Database`` object elsewhere in your code. By
-   default, these methods use the ``primary`` read preference.
+   default, it uses the ``primary`` read preference.
    
    You can set a read preference for command execution by
    passing an options object. The following code shows how to specify a
-   read preference and pass it as an option to the ``run_command()`` method:
+   read preference in a ``SelectionCriteria`` instance and pass it as an
+   option to the ``run_command()`` method:
    
    .. code-block:: rust
 
@@ -99,8 +100,8 @@ with the following fields:
        
        .. seealso::
   
-          To learn more about logical time, see our :website:`blog post about
-          the Global Logical Clock </blog/post/transactions-background-part-4-the-global-logical-clock>`.
+          To learn more about logical time, see our blog post about the
+          :website:`Global Logical Clock </blog/post/transactions-background-part-4-the-global-logical-clock>`.
 
    * - ``$clusterTime``
      - Provides a document that returns the signed cluster time. Cluster time is a
@@ -185,9 +186,6 @@ For more information about the concepts in this guide, see the following documen
 - :manual:`Database Commands </reference/command/>`
 - :manual:`hello Command </reference/command/hello/>`
 - :manual:`explain Command </reference/command/explain/>`
-
-.. TODO To learn how to retrieve data from a cursor, see the
-.. :ref:`rust-cursor` guide.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
