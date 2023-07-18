@@ -28,7 +28,7 @@ Parts of a Connection URI
 The following example explains each part of a sample connection URI:
 
 .. figure:: /includes/figures/connection_uri_parts.png
-   :alt: Part of a connection string
+   :alt: Parts of a connection URI
 
 In this example, we use ``mongodb`` for the protocol, which specifies the
 :manual:`Standard Connection String Format
@@ -38,16 +38,16 @@ You can also use the :manual:`DNS Seed List Connection Format
 want more flexibility in your deployment and the ability to change the
 servers in rotation without reconfiguring clients.
 
-The next part of the connection string contains your username and, if
+The part of the connection string after the protocol contains your username and, if
 you are using password-based authentication, your password. Replace the value of
 ``user`` with your username and ``pass`` with your password. If you are using an
 authentication mechanism that does not require a username and password, omit
 this part of the connection URI.
 
-The next part of the connection string specifies the hostname or IP address and
-port of your MongoDB instance. In the preceding example, we use ``sample.host``
-as the hostname and ``27017`` as the port. Replace these values to point to
-your MongoDB instance.
+The part of the connection string after the credentials specifies the
+hostname or IP address and port of your MongoDB instance. In the
+preceding example, we use ``sample.host`` as the hostname and ``27017``
+as the port. Replace these values to point to your MongoDB instance.
 
 The last part of the connection string specifies connection and authentication
 options. In the example, we set two connection options:
@@ -56,11 +56,11 @@ options. In the example, we set two connection options:
 .. TODO To learn more about connection
 .. options, see the :ref:`rust-connection-options` reference.
 
-Connection Example
-~~~~~~~~~~~~~~~~~~
+The Client Type
+~~~~~~~~~~~~~~~
 
-To connect to MongoDB, you need to create a client. A client manages
-your connections and runs database commands.
+To connect to MongoDB, you need to create a ``Client`` instance. A
+client manages your connections and runs database commands.
 
 .. tip:: Reuse Your Client
    
@@ -91,6 +91,11 @@ breaking changes when you upgrade to a new server version.
 
 .. TODO To learn more about the {+stable-api+} feature, see the
 .. :ref:`{+stable-api+} page <rust-stable-api>`.
+
+.. _rust-atlas-connection-example:
+
+Connection Example
+~~~~~~~~~~~~~~~~~~
 
 The following code shows how you can create a client that uses an Atlas
 connection string and the {+stable-api+} version, connect to MongoDB, and
@@ -131,7 +136,7 @@ connection code samples.
 Other Ways to Connect to MongoDB
 --------------------------------
 
-If you are connecting to a single MongoDB server instance or replica set
+If you need to connect to a single MongoDB server instance or replica set
 that is not hosted on Atlas, see the following sections to find out how to
 connect.
 
@@ -140,21 +145,21 @@ Connect to a MongoDB Server on Your Local Machine
 
 .. include:: /includes/localhost-connection.rst
 
-To test whether you can connect to your server, replace the connection
-string with your localhost connection string in the preceding code example.
-
 Connect to a Replica Set
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-A MongoDB replica set deployment is a group of connected instances that
-store the same set of data. This configuration provides data
-redundancy and high data availability.
+A MongoDB replica set deployment is a group of connected instances, or nodes,
+where the nodes store the same set of data. This configuration of instances
+provides data redundancy and high data availability.
 
 To connect to a replica set deployment, specify the hostname and port numbers
 of each instance, separated by commas, and the replica set name as the value
-of the ``replicaSet`` parameter in the connection string. In the following
-example, the hostnames are ``host1``, ``host2``, and ``host3``, and the
-port numbers are all ``27017``. The replica set name is ``myRS``.
+of the ``replicaSet`` parameter in the connection string.
+
+In the following example, the hostnames are ``host1``, ``host2``, and
+``host3``, and the port numbers are all ``27017``. The replica set name
+is ``myRS``. The following code shows the connection URI for the replica
+set with these specifications:
 
 .. code-block:: none
 
@@ -164,7 +169,8 @@ When connecting to a replica set, the driver takes the following actions by defa
 
 - Discovers all replica set members when given the address of any one member.
 - Dispatches operations to the appropriate member, such as instructions
-  to write against the **primary**.
+  to write against the **primary** node. To learn more about the replica
+  set primary, see :manual:`Replica Set Primary </core/replica-set-primary/>` in the Server manual.
 
 .. tip::
 
@@ -180,7 +186,8 @@ specify the ``directConnection`` option. Direct connections display the
 following behavior:
 
 - They don't support SRV strings.
-- They fail on writes when the specified host is not the **primary**.
+- They fail on writes when the specified host is not the primary.
 - They require you to :manual:`specify a secondary read preference
   </core/read-preference/#mongodb-readmode-secondary>` when the
-  specified host isn't the **primary**.
+  specified host isn't the primary. To learn more about replica set
+  secondaries, see :manual:`Replica Set Secondary Members </core/replica-set-secondary/>` in the Server manual.
