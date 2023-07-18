@@ -2,7 +2,7 @@ If you need to run the {+server+} on your local machine for development
 purposes, you must complete the following:
 
 1. :manual:`Install and configure </installation/>` the {+server+}.
-   Select the installation tutorial for your machine and operating
+   Select the appropriate installation tutorial for your machine and operating
    system.
 
 #. After you complete the installation, start the server.
@@ -34,6 +34,7 @@ instance by performing the following steps:
    the following output in your console:
 
    .. code-block:: none
+      :copyable: false
 
       Pinged your deployment. You successfully connected to MongoDB!
 
