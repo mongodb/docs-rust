@@ -1,0 +1,242 @@
+.. _rust-aggregation:
+
+===========
+Aggregation
+===========
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to perform **aggregation operations** in
+the {+driver-short+}.
+
+Aggregation operations process data in your MongoDB collections based on
+specifications you can set in an **aggregation pipeline**. An aggregation
+pipeline consists of one or more **stages**. Each stage performs an
+operation based on its expression operators. After the driver executes
+the aggregation pipeline, it returns an aggregated result.
+
+Analogy
+~~~~~~~
+
+Aggregation operations function similar to car factories with assembly
+lines. The assembly lines have stations with specialized tools to
+perform specific tasks. For example, when building a machine, the
+assembly line begins with raw parts. Then, the assembly line transforms
+and assembles the parts into the final product.
+
+The assembly line represents the *aggregation pipeline*, the individual
+stations represent the *aggregation stages*, the specialized tools
+represent the *expression operators*, and the finished product
+resembles the *aggregated result*.
+
+Compare Aggregation and Find Operations
+---------------------------------------
+
+The following table lists the different tasks you can perform with find
+operations, compared to what you can achieve with aggregation
+operations. The aggregation framework provides expanded functionality
+that allows you to transform and manipulate your data.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Find Operations
+     - Aggregation Operations
+
+   * - | Select *certain* documents to return
+       | Select *which* fields to return
+       | Sort the results
+       | Limit the results
+       | Count the results
+     - | Select *certain* documents to return
+       | Select *which* fields to return
+       | Sort the results
+       | Limit the results
+       | Count the results
+       | Rename fields
+       | Compute new fields
+       | Summarize data
+       | Connect and merge data sets
+
+Limitations
+-----------
+
+When performing aggregation operations, consider the following
+limitations:
+
+- Returned documents must not violate the :manual:`BSON document size
+  limit </reference/limits/#BSON-Document-Size>` of 16 megabytes.
+- Pipeline stages have a memory limit of 100 megabytes by default. If
+  required, you may exceed this limit by setting the `allow_disk_use
+  <{+api+}/options/struct.AggregateOptions.html#structfield.allow_disk_use>`__
+  field in your ``AggregateOptions``.
+- The :manual:`$graphLookup
+  </reference/operator/aggregation/graphLookup/>` operator
+  has a strict memory limit of 100 megabytes and ignores
+  the ``allow_disk_use`` setting.
+
+Examples
+--------
+
+The examples in this section use the following ``User`` struct as a
+model for documents in the ``site-users`` collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/aggregation.rs
+   :start-after: start-struct
+   :end-before: end-struct
+   :language: rust
+   :dedent:
+
+To run the examples in this section, load the sample data into the
+``db.site-users`` collection with the following snippet:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/aggregation.rs
+   :start-after: begin-insert
+   :end-before: end-insert
+   :language: rust
+   :dedent:
+
+Each document represents a tea on the menu of a shop and contains
+information about the tea type, the available toppings, and the price.
+
+Average Rating
+~~~~~~~~~~~~~~
+
+The following example calculates and displays the average rating and
+number of ratings for each tea category.
+
+The aggregation pipeline uses the ``$group`` stage to group the
+documents by the ``category`` field, calculates the average using the
+``$avg`` expression operator, and counts the number of documents using
+the ``$sum`` expression operator.
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go
+
+      // create group stage
+      groupStage := bson.D{
+          {"$group", bson.D{
+              {"_id", "$category"},
+              {"average_price", bson.D{{"$avg", "$price"}}},
+              {"type_total", bson.D{{"$sum", 1}}},
+          }}}
+      
+      // pass the pipeline to the Aggregate() method
+      cursor, err := coll.Aggregate(context.TODO(), mongo.Pipeline{groupStage})
+      if err != nil {
+          panic(err)
+      }
+      
+      // display the results
+      var results []bson.M
+      if err = cursor.All(context.TODO(), &results); err != nil {
+          panic(err)
+      }
+      for _, result := range results {
+          fmt.Printf("Average price of %v tea options: $%v \n", result["_id"], result["average_price"])
+          fmt.Printf("Number of %v tea options: %v \n\n", result["_id"], result["type_total"])
+      }
+
+   .. output::
+      :language: none
+      :visible: false
+
+      Average price of black tea options: $6.075
+      Number of black tea options: 4 
+
+      Average price of green tea options: $5.70
+      Number of green tea options: 4  
+
+Omit Fields in Results
+~~~~~~~~~~~~~~~~~~~~~~
+
+The following example matches documents where you can get milk foam as a
+topping and lists the two cheapest options.
+
+The aggregation pipeline contains the following stages:
+
+- ``$match`` stage to match documents where the ``toppings`` field contains "milk foam"
+- ``$unset`` stage to omit the ``_id`` and ``category`` fields
+- ``$sort`` stage to sort the ``price`` and ``toppings`` in ascending order
+- ``$limit`` stage to show the first two documents
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go
+
+      // create the stages
+      matchStage := bson.D{{"$match", bson.D{{"toppings", "milk foam"}}}}
+      unsetStage := bson.D{{"$unset", bson.A{"_id", "category"}}}
+      sortStage := bson.D{{"$sort", bson.D{{"price", 1}, {"toppings", 1}}}}
+      limitStage := bson.D{{"$limit", 2}}
+      
+      // pass the pipeline to the Aggregate() method
+      cursor, err := coll.Aggregate(context.TODO(), mongo.Pipeline{matchStage, unsetStage, sortStage, limitStage})
+      if err != nil {
+          panic(err)
+      }
+      
+      // display the results
+      var results []Tea
+      if err = cursor.All(context.TODO(), &results); err != nil {
+          panic(err)
+      }
+      for _, result := range results {
+          fmt.Printf("Tea: %v \nToppings: %v \nPrice: $%v \n\n", result.Type, strings.Join(result.Toppings, ", "), result.Price)
+      }
+
+   .. output::
+      :language: none
+      :visible: false
+
+      Tea: Hojicha 
+      Toppings: lemon, ginger, milk foam 
+      Price: $5.55 
+      
+      Tea: Gyokuro 
+      Toppings: berries, milk foam 
+      Price: $5.65 
+
+Additional Information
+----------------------
+
+To learn more about the terms mentioned, see the following
+guides:
+
+- :manual:`Expression Operators </reference/operator/aggregation/>`
+- :manual:`Aggregation Pipeline </core/aggregation-pipeline/>`
+- :manual:`Aggregation Stages </meta/aggregation-quick-reference/#stages>`
+- :manual:`Operator Expressions </meta/aggregation-quick-reference/#operator-expressions>`
+- :manual:`Aggregation Pipeline Limits </core/aggregation-pipeline-limits/>`
+
+To view more aggregation examples, see the following guides:
+
+- :ref:`Count <golang-count-aggregation>`
+- :ref:`Limit <golang-limit-aggregation>`
+- :ref:`Skip <golang-skip-aggregation>`
+- :ref:`Text <golang-search-text-aggregation>`
+
+To learn more about the ``Aggregate()`` method and its behavior, see
+:ref:`Retrieve Data <golang-retrieve-aggregation>`.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types discussed in this
+guide, see the following API Documentation:
+
+- `Aggregate() <{+api+}/mongo#Collection.Aggregate>`__
+- `AggregateOptions <{+api+}/mongo/options#AggregateOptions>`__

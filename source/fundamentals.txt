@@ -10,6 +10,7 @@ Fundamentals
 
    /fundamentals/connections
    /fundamentals/crud
+   /fundamentals/aggregation
 
 ..
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
@@ -18,7 +19,6 @@ Fundamentals
    /fundamentals/auth
    /fundamentals/enterprise-auth
    /fundamentals/bson
-   /fundamentals/aggregation
    /fundamentals/indexes
    /fundamentals/transactions
    /fundamentals/logging
