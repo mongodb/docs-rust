@@ -86,17 +86,10 @@ limitations:
 Examples
 --------
 
-The examples in this section use the following ``User`` struct as a
-model for documents in the ``site-users`` collection:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/aggregation.rs
-   :start-after: start-struct
-   :end-before: end-struct
-   :language: rust
-   :dedent:
+.. TODO decide if we should use structs on this page. might get long
 
 To run the examples in this section, load the sample data into the
-``db.site-users`` collection with the following snippet:
+``db.site_users`` collection with the following code:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/aggregation.rs
    :start-after: begin-insert
@@ -104,11 +97,12 @@ To run the examples in this section, load the sample data into the
    :language: rust
    :dedent:
 
-Each document represents a tea on the menu of a shop and contains
-information about the tea type, the available toppings, and the price.
+Each document represents a user of a book-reviewing website and contains
+information about their name, age, genre interests, and date that they were
+last active on the website.
 
-Average Rating
-~~~~~~~~~~~~~~
+Age Insights by Genre
+~~~~~~~~~~~~~~~~~~~~~
 
 The following example calculates and displays the average rating and
 number of ratings for each tea category.
