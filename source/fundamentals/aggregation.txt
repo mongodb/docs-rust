@@ -122,7 +122,6 @@ The aggregation pipeline contains the following stages:
       :start-after: begin-age-agg
       :end-before: end-age-agg
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output:: 
@@ -162,7 +161,6 @@ The aggregation pipeline contains the following stages:
       :start-after: begin-lastactive-agg
       :end-before: end-lastactive-agg
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output:: 
@@ -197,7 +195,6 @@ The aggregation pipeline contains the following stages:
       :start-after: begin-popular-agg
       :end-before: end-popular-agg
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output:: 
