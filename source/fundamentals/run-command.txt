@@ -13,10 +13,10 @@ Run a Command
 Overview
 --------
 
-In this guide, you can learn how to run a database command with the
-{+driver-short+}. You can use database commands to perform a variety of
-administrative and diagnostic tasks, such as fetching server statistics,
-initializing a replica set, or running an aggregation pipeline.
+In this guide, you can learn how to use the {+driver-short+}
+to run a database command. You can use database commands to perform a
+variety of administrative and diagnostic tasks, such as fetching server
+statistics, initializing a replica set, or running an aggregation pipeline.
 
 .. important:: Prefer Driver Methods to Database Commands
 
@@ -26,7 +26,7 @@ initializing a replica set, or running an aggregation pipeline.
    
    To perform administrative tasks, use the :mongosh:`MongoDB Shell </>`
    instead of the {+driver-short+}. Calling the ``db.runCommand()``
-   method inside the shell is the preferred method to issue database
+   method inside the shell is the preferred way to issue database
    commands, as it provides a consistent interface between the shell and
    drivers.
 
@@ -51,7 +51,7 @@ the :ref:`Additional Information section <addl-info-runcommand>`.
 .. note:: Read Preference
 
    The ``run_command()`` method does not obey the read preference you
-   may have set on your ``Database`` object elsewhere in your code. By
+   might have set on your ``Database`` object elsewhere in your code. By
    default, it uses the ``primary`` read preference.
    
    You can set a read preference for command execution by
@@ -72,10 +72,10 @@ the :ref:`Additional Information section <addl-info-runcommand>`.
 Response
 --------
 
-Each method returns a ``Document`` object that contains
+The ``run_command()`` method returns a ``Document`` object that contains
 the response from the database after the command has been executed. Each
 database command performs a different function, so the response content
-can vary across commands. However, every response contains documents
+can vary across commands. However, every response contains a document
 with the following fields:
 
 .. list-table::
@@ -86,16 +86,16 @@ with the following fields:
      - Description
 
    * - <command result>
-     - Provides fields specific to the database command. For example,
+     - Fields specific to the database command. For example,
        ``count`` returns the ``n`` field and ``explain`` returns the
        ``queryPlanner`` field.
 
    * - ``ok``
-     - Indicates whether the command has succeeded (``1``)
+     - Whether the command has succeeded (``1``)
        or failed (``0``).
 
    * - ``operationTime``
-     - Indicates the logical time of the operation. MongoDB uses the
+     - The logical time of the operation. MongoDB uses the
        logical time to order operations.
        
        .. seealso::
@@ -104,14 +104,14 @@ with the following fields:
           :website:`Global Logical Clock </blog/post/transactions-background-part-4-the-global-logical-clock>`.
 
    * - ``$clusterTime``
-     - Provides a document that returns the signed cluster time. Cluster time is a
+     - A document that contains the signed cluster time. Cluster time is a
        logical time used for the ordering of operations.
 
-       The document contains the following fields:
+       This document contains the following fields:
 
-       - ``clusterTime``, which is the timestamp of the highest known cluster time for the member.
-       - ``signature``, which is a document that contains the hash of the cluster time and the ID
-         of the key used to sign the cluster time.
+       - ``clusterTime``, the timestamp of the highest known cluster time for the member
+       - ``signature``, a document that contains the hash of the cluster time and the ID
+         of the key used to sign the cluster time
 
 Example
 -------
@@ -130,7 +130,7 @@ collection of the ``plants`` database. The ``explain`` command runs in the
 Output
 ~~~~~~
 
-In the output, you should see fields explaining the
+The output includes fields explaining the
 execution of the ``count`` operation, such as the winning plan, which is
 the plan selected by the query optimizer, and any rejected
 plans. The output also contains information about the execution of the
