@@ -104,105 +104,109 @@ last active on the website.
 Age Insights by Genre
 ~~~~~~~~~~~~~~~~~~~~~
 
-The following example calculates and displays the average rating and
-number of ratings for each tea category.
-
-The aggregation pipeline uses the ``$group`` stage to group the
-documents by the ``category`` field, calculates the average using the
-``$avg`` expression operator, and counts the number of documents using
-the ``$sum`` expression operator.
-
-.. io-code-block::
-   :copyable: true
-
-   .. input::
-      :language: go
-
-      // create group stage
-      groupStage := bson.D{
-          {"$group", bson.D{
-              {"_id", "$category"},
-              {"average_price", bson.D{{"$avg", "$price"}}},
-              {"type_total", bson.D{{"$sum", 1}}},
-          }}}
-      
-      // pass the pipeline to the Aggregate() method
-      cursor, err := coll.Aggregate(context.TODO(), mongo.Pipeline{groupStage})
-      if err != nil {
-          panic(err)
-      }
-      
-      // display the results
-      var results []bson.M
-      if err = cursor.All(context.TODO(), &results); err != nil {
-          panic(err)
-      }
-      for _, result := range results {
-          fmt.Printf("Average price of %v tea options: $%v \n", result["_id"], result["average_price"])
-          fmt.Printf("Number of %v tea options: %v \n\n", result["_id"], result["type_total"])
-      }
-
-   .. output::
-      :language: none
-      :visible: false
-
-      Average price of black tea options: $6.075
-      Number of black tea options: 4 
-
-      Average price of green tea options: $5.70
-      Number of green tea options: 4  
-
-Omit Fields in Results
-~~~~~~~~~~~~~~~~~~~~~~
-
-The following example matches documents where you can get milk foam as a
-topping and lists the two cheapest options.
+The following example calculates the average, minimum, and maximum age of users
+interested in each genre.
 
 The aggregation pipeline contains the following stages:
 
-- ``$match`` stage to match documents where the ``toppings`` field contains "milk foam"
-- ``$unset`` stage to omit the ``_id`` and ``category`` fields
-- ``$sort`` stage to sort the ``price`` and ``toppings`` in ascending order
-- ``$limit`` stage to show the first two documents
+- An ``$unwind`` stage to separate each array entry in the
+  ``genre_interests`` field into a new document.
+- A ``$group`` stage to group documents by the value of the
+  ``genre_interests`` field. This stage finds the average, minimum, and
+  maximum user age for users using the ``$avg``, ``$min``, and ``$max``
+  operators, respectively.
 
 .. io-code-block::
-   :copyable: true
 
-   .. input::
-      :language: go
+   .. input:: /includes/fundamentals/code-snippets/aggregation.rs
+      :start-after: begin-age-agg
+      :end-before: end-age-agg
+      :language: rust
+      :copyable: true
+      :dedent:
 
-      // create the stages
-      matchStage := bson.D{{"$match", bson.D{{"toppings", "milk foam"}}}}
-      unsetStage := bson.D{{"$unset", bson.A{"_id", "category"}}}
-      sortStage := bson.D{{"$sort", bson.D{{"price", 1}, {"toppings", 1}}}}
-      limitStage := bson.D{{"$limit", 2}}
-      
-      // pass the pipeline to the Aggregate() method
-      cursor, err := coll.Aggregate(context.TODO(), mongo.Pipeline{matchStage, unsetStage, sortStage, limitStage})
-      if err != nil {
-          panic(err)
-      }
-      
-      // display the results
-      var results []Tea
-      if err = cursor.All(context.TODO(), &results); err != nil {
-          panic(err)
-      }
-      for _, result := range results {
-          fmt.Printf("Tea: %v \nToppings: %v \nPrice: $%v \n\n", result.Type, strings.Join(result.Toppings, ", "), result.Price)
-      }
-
-   .. output::
-      :language: none
+   .. output:: 
+      :language: console
       :visible: false
 
-      Tea: Hojicha 
-      Toppings: lemon, ginger, milk foam 
-      Price: $5.55 
-      
-      Tea: Gyokuro 
-      Toppings: berries, milk foam 
-      Price: $5.65 
+      * { "_id": "memoir", "avg_age": 25.8, "min_age": 18, "max_age": 39 }
+      * { "_id": "sci-fi", "avg_age": 42, "min_age": 18, "max_age": 66 }
+      * { "_id": "fiction", "avg_age": 33.333333333333336, "min_age": 16, "max_age": 66 }
+      * { "_id": "nonfiction", "avg_age": 53.5, "min_age": 31, "max_age": 76 }
+      * { "_id": "self help", "avg_age": 56, "min_age": 56, "max_age": 56 }
+      * { "_id": "poetry", "avg_age": 39, "min_age": 39, "max_age": 39 }
+      * { "_id": "literary", "avg_age": 49.5, "min_age": 21, "max_age": 76 }
+      * { "_id": "fantasy", "avg_age": 34.666666666666664, "min_age": 18, "max_age": 66 }
+      * { "_id": "mystery", "avg_age": 24.666666666666668, "min_age": 20, "max_age": 31 }
+      * { "_id": "theory", "avg_age": 33, "min_age": 21, "max_age": 45 }
+      * { "_id": "art", "avg_age": 39, "min_age": 39, "max_age": 39 }
+      * { "_id": "sports", "avg_age": 22.5, "min_age": 16, "max_age": 29 }
+
+Group by Time Component
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example finds how many users were last active in each
+month.
+
+The aggregation pipeline contains the following stages:
+
+- A ``$project`` stage to extract the month from the ``last_active``
+  field as a number into the ``month_last_active`` field.
+- A ``$group`` stage to group documents by the ``month_last_active``
+  field and counts the number of documents for each month.
+- A ``$sort`` stage to set an ascending sort on the month.
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/aggregation.rs
+      :start-after: begin-lastactive-agg
+      :end-before: end-lastactive-agg
+      :language: rust
+      :copyable: true
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      * { "_id": { "month_last_active": 1 }, "number": 3 }
+      * { "_id": { "month_last_active": 5 }, "number": 4 }
+      * { "_id": { "month_last_active": 6 }, "number": 1 }
+      * { "_id": { "month_last_active": 7 }, "number": 1 }
+      * { "_id": { "month_last_active": 8 }, "number": 2 }
+      * { "_id": { "month_last_active": 11 }, "number": 1 }
+
+Calculate Popular Genres
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example finds the three most popular genres based on how
+often they appear in users' interests.
+
+The aggregation pipeline contains the following stages:
+
+- An ``$unwind`` stage to separate each array entry in the
+  ``genre_interests`` field into a new document.
+- A ``$group`` stage to group documents by the ``genre_interests``
+  field and counts the number of documents for each genre.
+- A ``$sort`` stage to set a descending sort on the genre popularity.
+- A ``$limit`` stage to show only the first three genres.
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/aggregation.rs
+      :start-after: begin-popular-agg
+      :end-before: end-popular-agg
+      :language: rust
+      :copyable: true
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      * { "_id": "fiction", "number": 6 }
+      * { "_id": "memoir", "number": 5 }
+      * { "_id": "literary", "number": 4 }
 
 Additional Information
 ----------------------
@@ -216,15 +220,15 @@ guides:
 - :manual:`Operator Expressions </meta/aggregation-quick-reference/#operator-expressions>`
 - :manual:`Aggregation Pipeline Limits </core/aggregation-pipeline-limits/>`
 
-To view more aggregation examples, see the following guides:
+.. TODO To view more aggregation examples, see the following guides:
+.. 
+.. - :ref:`Count <>`
+.. - :ref:`Limit <>`
+.. - :ref:`Skip <>`
+.. - :ref:`Text <>`
 
-- :ref:`Count <golang-count-aggregation>`
-- :ref:`Limit <golang-limit-aggregation>`
-- :ref:`Skip <golang-skip-aggregation>`
-- :ref:`Text <golang-search-text-aggregation>`
-
-To learn more about the ``Aggregate()`` method and its behavior, see
-:ref:`Retrieve Data <golang-retrieve-aggregation>`.
+.. TODO To learn more about the ``aggregate()`` method and its behavior, see
+.. :ref:`Retrieve Data <>`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -232,5 +236,5 @@ API Documentation
 To learn more about any of the methods or types discussed in this
 guide, see the following API Documentation:
 
-- `Aggregate() <{+api+}/mongo#Collection.Aggregate>`__
-- `AggregateOptions <{+api+}/mongo/options#AggregateOptions>`__
+- `aggregate() <{+api+}/struct.Collection.html#method.aggregate>`__
+- `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__
