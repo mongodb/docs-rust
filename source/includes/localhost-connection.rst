@@ -1,9 +1,9 @@
 If you need to run the {+server+} on your local machine for development
 purposes, you must complete the following:
 
-1. :manual:`Install and configure </installation/>` the {+server+}.
-   Select the appropriate installation tutorial for your machine and operating
-   system.
+1. Follow the :manual:`Install MongoDB </installation/>` tutorial to
+   install the {+server+} on your machine. Select the appropriate
+   installation tutorial for your machine and operating system.
 
 #. After you complete the installation, start the server.
 
@@ -30,7 +30,7 @@ instance by performing the following steps:
    In this connection string, ``<port>`` is the port number you
    configured your server to listen for incoming connections.
 
-#. Run the program. If the code executes successfully, you should see
+#. Run the connection code. If the code executes successfully, you should see
    the following output in your console:
 
    .. code-block:: none

@@ -38,10 +38,11 @@ You can also use the :manual:`DNS Seed List Connection Format
 want more flexibility in your deployment and the ability to change the
 servers in rotation without reconfiguring clients.
 
-The part of the connection string after the protocol contains your username and, if
-you are using password-based authentication, your password. Replace the value of
-``user`` with your username and ``pass`` with your password. If you are using an
-authentication mechanism that does not require a username and password, omit
+If you are using password-based authentication, the part of the
+connection string after the protocol contains your username and
+password. Replace the placeholder for ``user`` with your username and
+``pass`` with your password. If you are using an authentication
+mechanism that does not require a username and password, omit 
 this part of the connection URI.
 
 The part of the connection string after the credentials specifies the
@@ -56,8 +57,8 @@ options. In the example, we set two connection options:
 .. TODO To learn more about connection
 .. options, see the :ref:`rust-connection-options` reference.
 
-The Client Type
-~~~~~~~~~~~~~~~
+MongoDB Client
+~~~~~~~~~~~~~~
 
 To connect to MongoDB, you need to create a ``Client`` instance. A
 client manages your connections and runs database commands.
@@ -189,5 +190,6 @@ following behavior:
 - They fail on writes when the specified host is not the primary.
 - They require you to :manual:`specify a secondary read preference
   </core/read-preference/#mongodb-readmode-secondary>` when the
-  specified host isn't the primary. To learn more about replica set
-  secondaries, see :manual:`Replica Set Secondary Members </core/replica-set-secondary/>` in the Server manual.
+  specified host isn't the primary member. To learn more about these
+  replica set members, see :manual:`Replica Set Secondary Members
+  </core/replica-set-secondary/>` in the Server manual.
