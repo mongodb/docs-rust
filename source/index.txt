@@ -8,6 +8,7 @@
 
    /fundamentals
    API Documentation <{+api+}/>
+   /issues-and-help
    /compatibility
    View the Source <https://github.com/mongodb/mongo-rust-driver>
 
@@ -18,7 +19,6 @@
    /usage-examples
    /faq
    /connection-troubleshooting
-   /issues-and-help
 
 Introduction
 ------------
@@ -26,7 +26,7 @@ Introduction
 Welcome to the documentation site for the official {+driver-long+}. 
 You can add the driver to your application to work with MongoDB in Rust. 
 Import it by adding it to your project's ``Cargo.toml`` file or set up a
-runnable project by following our Quick Start guide.
+runnable project by following the Quick Start guide.
 
 Quick Start
 -----------
@@ -72,8 +72,9 @@ FAQ
 Issues & Help
 -------------
 
-.. Learn how to report bugs, contribute to the driver, and find
-.. additional resources for asking questions in the :ref:`rust-issues-and-help` section.
+Learn how to report bugs, contribute to the driver, and find
+additional resources for asking questions in the
+:ref:`rust-issues-and-help` section.
 
 Compatibility
 -------------
