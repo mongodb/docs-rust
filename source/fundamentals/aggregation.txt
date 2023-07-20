@@ -35,7 +35,7 @@ transformed final product, the finished car.
 The assembly line represents the *aggregation pipeline*, the individual
 stations represent the *aggregation stages*, the specialized tools
 represent the *expression operators*, and the finished product
-resembles the *aggregated result*.
+represents the *aggregated result*.
 
 Compare Aggregation and Find Operations
 ---------------------------------------
@@ -97,6 +97,8 @@ collection called ``db.site_users`` with the following code:
    :end-before: end-insert
    :language: rust
    :dedent:
+
+.. include:: /includes/fundamentals/automatic-creation.rst
 
 Each document represents a user of a book-reviewing website and contains
 information about their name, age, genre interests, and date that they were
