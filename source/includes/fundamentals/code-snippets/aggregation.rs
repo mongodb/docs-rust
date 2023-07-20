@@ -30,7 +30,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-insert
 
     // begin-age-agg
-    let pipeline1 = vec![
+    let age_pipeline = vec![
         doc! { "$unwind": doc! { "path": "$genre_interests" } },
         doc! { "$group": doc! {
             "_id": "$genre_interests",
@@ -40,7 +40,7 @@ async fn main() -> mongodb::error::Result<()> {
         } }
     ];
 
-    let mut results = my_coll.aggregate(pipeline1, None).await?;
+    let mut results = my_coll.aggregate(age_pipeline, None).await?;
     while let Some(result) = results.try_next().await? {
         let doc: Document = bson::from_document(result)?;
         println!("* {}", doc);
@@ -48,14 +48,14 @@ async fn main() -> mongodb::error::Result<()> {
     // end-age-agg
 
     // begin-lastactive-agg
-    let pipeline2 = vec![
+    let last_active_pipeline = vec![
         doc! { "$project": { "month_last_active" : doc! { "$month" : "$last_active" } } },
         doc! { "$group": doc! { "_id" : doc! {"month_last_active": "$month_last_active"} , 
                                 "number" : doc! { "$sum" : 1 } } },
         doc! { "$sort": { "_id.month_last_active" : 1 } }
     ];
 
-    let mut results = my_coll.aggregate(pipeline2, None).await?;
+    let mut results = my_coll.aggregate(last_active_pipeline, None).await?;
     while let Some(result) = results.try_next().await? {
         let doc: Document = bson::from_document(result)?;
         println!("* {}", doc);
@@ -63,14 +63,14 @@ async fn main() -> mongodb::error::Result<()> {
     // end-lastactive-agg
 
     // begin-popular-agg
-    let pipeline3 = vec![
+    let popularity_pipeline = vec![
         doc! { "$unwind" : "$genre_interests" },
         doc! { "$group" : doc! { "_id" : "$genre_interests" , "number" : doc! { "$sum" : 1 } } },
         doc! { "$sort" : doc! { "number" : -1 } },
         doc! { "$limit": 3 }
     ];
 
-    let mut results = my_coll.aggregate(pipeline3, None).await?;
+    let mut results = my_coll.aggregate(popularity_pipeline, None).await?;
     while let Some(result) = results.try_next().await? {
         let doc: Document = bson::from_document(result)?;
         println!("* {}", doc);
