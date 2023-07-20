@@ -7,13 +7,13 @@
    :maxdepth: 1
 
    /fundamentals
+   /quick-start
    API Documentation <{+api+}/>
    /issues-and-help
    /compatibility
    View the Source <https://github.com/mongodb/mongo-rust-driver>
 
 ..
-   /quick-start
    /quick-reference
    /whats-new
    /usage-examples
@@ -31,8 +31,8 @@ runnable project by following the Quick Start guide.
 Quick Start
 -----------
 
-.. Learn how to establish a connection to MongoDB Atlas and begin
-.. working with data in the :ref:`rust-quickstart` section.
+Learn how to establish a connection to MongoDB Atlas and begin
+working with data in the :ref:`rust-quickstart` section.
 
 Quick Reference
 ---------------
