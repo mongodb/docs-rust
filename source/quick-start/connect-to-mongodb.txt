@@ -1,0 +1,66 @@
+.. _node-quick-start-connect-to-mongodb:
+
+==================
+Connect to MongoDB
+==================
+
+.. procedure::
+   :style: connected
+
+   .. step:: Create your Node.js Application
+
+      Create a file to contain your application called ``index.rs`` in your
+      ``rust_quickstart/src`` project directory. 
+      
+      Copy and paste the following code into the ``index.rs`` file:
+      
+      .. tabs::
+         .. tab:: Synchronous API
+            :tabid: synchronous-api
+
+            .. code-block:: rust
+               
+
+
+ 
+
+   .. step:: Assign the Connection String
+
+      Replace the ``<connection string uri>`` placeholder with the 
+      connection string that you copied from the :ref:`node-quick-start-connection-string`
+      step of this guide.
+
+   .. step:: Run your Node.js Application
+
+      In your shell, run the following command to start this application:
+      
+      .. code-block:: none
+
+         node index.js
+
+      You should see the details of the retrieved movie document in the 
+      command line output:
+
+      .. code-block:: none
+
+         {
+           _id: ...,
+           plot: 'A young man is accidentally sent 30 years into the past...',
+           genres: [ 'Adventure', 'Comedy', 'Sci-Fi' ],
+           ...
+           title: 'Back to the Future',
+           ...
+         }
+
+      If you encounter an error or see no output, check whether you specified the
+      proper connection string in the ``index.js`` file, and that you loaded the
+      sample data.
+
+After you complete these steps, you should have a working application that
+uses the driver to connect to your MongoDB deployment, runs a query on
+the sample data, and prints out the result.
+
+.. include:: /includes/quick-start/troubleshoot.rst
+
+.. button:: Next Steps
+   :uri: /quick-start/next-steps/
