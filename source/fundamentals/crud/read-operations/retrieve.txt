@@ -72,11 +72,11 @@ Modify Behavior
 ~~~~~~~~~~~~~~~
 
 You can modify the behavior of ``find()`` and ``find_one()`` by passing
-in a ``FindOptions`` or ``FindOneOptions`` type to the matching method.
+a ``FindOptions`` or ``FindOneOptions`` type to the matching method.
 If you don't specify any options, the driver uses the default values for
 each setting.
 
-The following table describes commonly used options that you can set in
+The following table describes commonly used settings that you can specify in
 ``FindOptions`` and ``FindOneOptions``:
 
 .. list-table::
@@ -99,8 +99,8 @@ The following table describes commonly used options that you can set in
        | Default: ``nil``
 
    * - ``read_concern`` 
-     - | The read concern to use for the find operation. If no read
-         concern is set, the operation inherits the one set for the
+     - | The read concern to use for the find operation. If you don't
+         set a read concern, the operation inherits the one set for the
          collection. To learn more about read concerns, see
          :manual:`Read Concern </reference/read-concern/>`
          in the Server manual.
@@ -119,229 +119,178 @@ documentation <rust-crud-retrieve-api>`.
 Examples
 ~~~~~~~~
 
-The following example passes a context, filter, and ``FindOptions`` to
-the ``Find()`` method, which performs the following actions:
+find() Example
+``````````````
 
-- Matches documents where the ``rating`` value is between ``5`` and
-  ``9`` (exclusive)
-- Sorts matched documents in ascending order by ``date_ordered``
+The following example passes a filter and ``FindOptions`` to
+the ``find()`` method to perform the following actions:
+
+- Matches documents where the value of ``last_ordered`` is before 2018
+  and the value of ``quantity`` is below ``100``
+- Sorts matched documents in descending order by ``quantity``
 
 .. io-code-block::
-   :copyable: true
 
-   .. input::
-      :language: go
-
-      filter := bson.D{
-          {"$and",
-              bson.A{
-                  bson.D{{"rating", bson.D{{"$gt", 5}}}},
-                  bson.D{{"rating", bson.D{{"$lt", 9}}}},
-              }},
-      }
-      sort := bson.D{{"date_ordered", 1}}
-      opts := options.Find().SetSort(sort)
-      
-      cursor, err := coll.Find(context.TODO(), filter, opts)
-      if err != nil {
-          panic(err)
-      }
-      
-      var results []Review
-      if err = cursor.All(context.TODO(), &results); err != nil {
-          panic(err)
-      }
-      for _, result := range results {
-          res, _ := json.Marshal(result)
-          fmt.Println(string(res))
-      }
+   .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
+      :start-after: begin-find-many
+      :end-before: end-find-many
+      :language: rust
+      :dedent:
 
    .. output::
-      :language: none
+      :language: console
       :visible: false
 
-      {"Item":"Sencha","Rating":7,"DateOrdered":"2009-11-18T05:00:00Z"}
-      {"Item":"Masala","Rating":8,"DateOrdered":"2009-12-01T05:00:00Z"}
+      * { "_id": ObjectId("..."), "item": "watering can", "quantity": 19, "last_ordered": DateTime("2017-11-01 ...") }
+      * { "_id": ObjectId("..."), "item": "basket", "quantity": 56, "last_ordered": DateTime("2017-03-15 ...") }
 
-Find One Example
-````````````````
+find_one() Example
+``````````````````
 
-The following example passes a context, filter, and ``FindOneOptions``
-to the ``FindOne()`` method, which performs the following actions:
+The following example passes a filter and ``FindOneOptions`` to
+the ``find_one()`` method to perform the following actions:
 
-- Matches documents where the ``date_ordered`` value is on or before November
-  30, 2009
+- Matches documents where the value of ``quantity`` is at least ``20``
 - Skips the first two matched documents
 
 .. io-code-block::
-   :copyable: true
 
-   .. input::
-      :language: go
-
-      filter := bson.D{{"date_ordered", bson.D{{"$lte", time.Date(2009, 11, 30, 0, 0, 0, 0, time.Local)}}}}
-      opts := options.FindOne().SetSkip(2)
-      
-      var result Review
-      err := coll.FindOne(context.TODO(), filter, opts).Decode(&result)
-      if err != nil {
-          panic(err)
-      }
-      
-      res, _ := json.Marshal(result)
-      fmt.Println(string(res))
+   .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
+      :start-after: begin-find-one
+      :end-before: end-find-one
+      :language: rust
+      :dedent:
 
    .. output::
-      :language: none
+      :language: console
       :visible: false
 
-      {"Item":"Masala","Rating":9,"DateOrdered":"2009-11-12T05:00:00Z"}
+      * { "_id": ObjectId("..."), "item": "placemat", "quantity": 80, "last_ordered": DateTime("2018-07-15 ...") }
 
-.. _golang-retrieve-aggregation:
+.. _rust-retrieve-aggregation:
 
 Aggregation Operations
 ----------------------
 
-Use **aggregation operations** to retrieve and transform data from
-MongoDB. Perform aggregation operations using the ``Aggregate()``
+Use **aggregation operations** to retrieve and transform data from your
+collections. You can perform aggregation operations by using the ``aggregate()``
 method.
 
 Aggregation
 ~~~~~~~~~~~
 
-The ``Aggregate()`` method expects you to pass a ``Context`` type and
-an **aggregation pipeline**. An aggregation pipeline defines how to
-transform data through stages. Some of the stages are matching
-documents, renaming fields, and grouping values.
+The ``aggregate()`` method takes an **aggregation pipeline** as a
+parameter. An aggregation pipeline includes one or more **stages** that
+specify how to transform data.
+
+.. TODO To learn more about aggregation, see the
+.. :ref:`Aggregation <rust-aggregation>` guide.
 
 The method returns the resulting documents in a ``Cursor`` type. If
-you omit the :manual:`$match </reference/operator/aggregation/match/#mongodb-pipeline-pipe.-match>`
-stage, the pipeline proceeds using all documents in the collection.
+your aggregation pipeline does not contain a :manual:`$match
+</reference/operator/aggregation/match/>` stage, the pipeline processes
+all of the documents in the collection.
 
-To learn how to access data in a cursor, see :ref:`golang-cursor`.
+.. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
 
 Modify Behavior
 ~~~~~~~~~~~~~~~
 
-The ``Aggregate()`` method optionally takes an ``AggregateOptions``
-type, which represents options you can use to modify its behavior. If
-you don't specify any options, the driver uses the default values for
-each option.
+You can modify the behavior of ``aggregate()`` by passing
+an ``AggregateOptions`` type as an optional parameter.
+If you don't specify any options, the driver uses the default values for
+each setting.
 
-The ``AggregateOptions`` type allows you to configure options with the
-following methods:
+The following table describes commonly used settings that you can specify in
+``AggregateOptions``:
 
 .. list-table::
    :widths: 30 70
    :header-rows: 1
 
-   * - Method
+   * - Setting
      - Description
 
-   * - ``SetAllowDiskUse()`` 
-     - | Whether to write to temporary files.
+   * - ``allow_disk_use`` 
+     - | Enables writing to temporary files. If ``true``,
+         aggregation stages can write data to the ``_tmp`` subdirectory in the
+         ``dbPath`` directory.
+
        | Default: ``false``
 
-   * - ``SetBatchSize()`` 
-     - | The number of documents to return in each batch.  
-       | Default: none
+   * - ``batch_size`` 
+     - The number of documents the server should return in each cursor batch.
 
-   * - ``SetBypassDocumentValidation()`` 
-     - | Whether to allow the write to opt-out of document level validation.
-       | Default: ``false``
-
-   * - ``SetCollation()`` 
+   * - ``collation``
      - | The type of language collation to use when sorting results.  
        | Default: ``nil``
 
-   * - ``SetMaxTime()`` 
-     - | The maximum amount of time that the query can run on the server.
+   * - ``hint`` 
+     - | The index to use for the operation.  
        | Default: ``nil``
 
-   * - ``SetMaxAwaitTime()`` 
-     - | The maximum amount of time for the server to wait on new documents to satisfy a tailable cursor query.
-       | Default: ``nil``
+   * - ``read_concern`` 
+     - | The read concern to use for the find operation. If you don't
+         set a read concern, the operation inherits the one set for the
+         collection. To learn more about read concerns, see
+         :manual:`Read Concern </reference/read-concern/>`
+         in the Server manual.
 
-   * - ``SetComment()`` 
-     - | An arbitrary string to help trace the operation through the database profiler, currentOp and logs.
-       | Default: ``""``
-
-   * - ``SetHint()`` 
-     - | The index to use to scan for documents to retrieve.
-       | Default: ``nil``
-
-   * - ``SetLet()`` 
-     - | Specifies parameters for the aggregate expression, which improves command readability by separating the variables from the query text.
-       | Default: none
+   * - ``write_concern`` 
+     - | The write concern to use for the find operation. If you don't
+         set a write concern, the operation inherits the one set for the
+         collection. To learn more about write concerns, see
+         :manual:`Write Concern </reference/write-concern/>`
+         in the Server manual.
 
 Example
-```````
+~~~~~~~
 
-The following example passes a context and an aggregation pipeline that
-performs the following actions:
+The following example passes an aggregation pipeline to
+the ``aggregate()`` method to perform the following actions:
 
-- Groups reviews by item ordered
-- Calculates the average rating for each item
+- Extracts the year from the ``last_ordered`` field into the
+  ``year_last_ordered`` field
+- Groups documents by the ``year_last_ordered`` field and calculates the
+  sum of the ``quantity`` fields for each year
+- Sets an ascending sort on the ``year_last_ordered`` field
 
 .. io-code-block::
-   :copyable: true
 
-   .. input::
-      :language: go
-
-      groupStage := bson.D{
-         {"$group", bson.D{
-            {"_id", "$item"},
-            {"average", bson.D{
-               {"$avg", "$rating"},
-            }},
-      }}}
-
-      cursor, err := coll.Aggregate(context.TODO(), mongo.Pipeline{groupStage})
-      if err != nil {
-         panic(err)
-      }
-
-      var results []bson.M
-      if err = cursor.All(context.TODO(), &results); err != nil {
-         panic(err)
-      }
-      for _, result := range results {
-         fmt.Printf("%v had an average rating of %v \n", result["_id"], result["average"])
-      }
+   .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
+      :start-after: begin-agg
+      :end-before: end-agg
+      :language: rust
+      :dedent:
 
    .. output::
-      :language: none
+      :language: console
       :visible: false
 
-      Sencha had an average rating of 8.5 
-      Hibiscus had an average rating of 4 
-      Masala had an average rating of 9
-
-To learn more about how to construct an aggregation pipeline, see
-the MongoDB server manual page on :manual:`Aggregation
-</core/aggregation-pipeline/>`.
+      * { "_id": { "year_last_ordered": 2018 }, "remaining_qty": 181 }
+      * { "_id": { "year_last_ordered": 2017 }, "remaining_qty": 75 }
+      * { "_id": { "year_last_ordered": 2016 }, "remaining_qty": 214 }
 
 Additional Information
 ----------------------
 
-For runnable examples of the find operations, see the following usage
-examples:
+.. TODO For runnable examples of the find operations, see the following usage
+.. examples:
+.. 
+.. - :ref:`rust-find-one`
+.. - :ref:`rust-find-multiple`
 
-- :ref:`golang-find-one`
-- :ref:`golang-find-multiple`
-
-To learn more about the operations mentioned, see the following
-guides:
-
-- :ref:`golang-query-document`
-- :ref:`golang-cursor`
-- :ref:`golang-skip`
-- :ref:`golang-sort-results`
-- :ref:`golang-limit`
-- :ref:`golang-project`
-- :ref:`golang-aggregation`
-- :ref:`golang-collations`
+.. TODO To learn more about the operations mentioned, see the following
+.. guides:
+.. 
+.. - :ref:`rust-query-guide`
+.. - :ref:`rust-cursor-guide`
+.. - :ref:`rust-skip-guide`
+.. - :ref:`rust-sort-guide`
+.. - :ref:`rust-limit-guide`
+.. - :ref:`rust-project-guide`
+.. - :ref:`rust-aggregation-guide`
+.. - :ref:`rust-collations-guide`
 
 .. _rust-crud-retrieve-api:
 
@@ -351,11 +300,11 @@ API Documentation
 To learn more about any of the methods or types discussed in this
 guide, see the following API Documentation:
 
-- `FindOne() <{+api+}/mongo#Collection.FindOne>`__
-- `SingleResult <{+api+}/mongo#SingleResult>`__
-- `Find() <{+api+}/mongo#Collection.Find>`__
-- `FindOptions <{+api+}/mongo/options#FindOptions>`__
-- `FindOneOptions <{+api+}/mongo/options#FindOneOptions>`__
-- `Cursor <{+api+}/mongo#Cursor>`__
-- `Aggregate() <{+api+}/mongo#Collection.Aggregate>`__
-- `AggregateOptions <{+api+}/mongo/options#AggregateOptions>`__
+- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
+- `Option <https://doc.rust-lang.org/nightly/core/option/enum.Option.html>`__
+- `find() <{+api+}/struct.Collection.html#method.find>`__
+- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
+- `FindOneOptions <{+api+}/options/struct.FindOneOptions.html>`__
+- `Cursor <{+api+}/struct.Cursor.html>`__
+- `aggregate() <{+api+}/struct.Collection.html#method.aggregate>`__
+- `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__
