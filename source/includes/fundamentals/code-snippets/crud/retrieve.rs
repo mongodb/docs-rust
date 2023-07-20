@@ -20,7 +20,7 @@ async fn main() -> mongodb::error::Result<()> {
         doc! { "item": "hanger", "quantity": 214, "last_ordered": Utc.with_ymd_and_hms(2016, 8, 1, 0, 0, 0).unwrap() }
     ];
 
-    //my_coll.insert_many(docs, None).await?;
+    my_coll.insert_many(docs, None).await?;
     // end-insert
 
     // begin-find-many
@@ -30,10 +30,12 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut results = my_coll.find(
         doc! { "$and": vec!
-        [
-            doc! { "last_ordered": doc! {"$lt": Utc.with_ymd_and_hms(2018, 1, 1, 0, 0, 0).unwrap() } },
-            doc! {"quantity": doc! {"$lt": 100} }
-        ] },
+            [
+                doc! { "last_ordered": 
+                    doc! { "$lt": Utc.with_ymd_and_hms(2018, 1, 1, 0, 0, 0).unwrap() }
+                },
+                doc! { "quantity": doc! { "$lt": 100 } }
+            ] },
         opts
     ).await?;
 
@@ -46,8 +48,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-find-one
     let opts: FindOneOptions = FindOneOptions::builder().skip(2).build();
-
-    let result = my_coll.find_one(doc! { "quantity": doc! {"$gte": 20} }, opts).await?;
+    let result = my_coll.find_one(doc! { "quantity": doc! { "$gte": 20 } }, opts).await?;
 
     println!("* {}", result.unwrap());
     // end-find-one

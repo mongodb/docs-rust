@@ -114,7 +114,8 @@ The following table describes commonly used settings that you can specify in
        | Default: ``nil``
 
 For a full list of settings you can specify for each type, see the :ref:`API
-documentation <rust-crud-retrieve-api>`.
+documentation <rust-crud-retrieve-api>` for ``FindOptions`` and
+``FindOneOptions``.
 
 Examples
 ~~~~~~~~
@@ -242,6 +243,9 @@ The following table describes commonly used settings that you can specify in
          collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>`
          in the Server manual.
+
+For a full list of settings, see the :ref:`API
+documentation <rust-crud-retrieve-api>` for ``AggregateOptions``.
 
 Example
 ~~~~~~~
