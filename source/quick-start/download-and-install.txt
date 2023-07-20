@@ -7,7 +7,7 @@ Download and Install
 .. procedure::
    :style: connected
 
-   .. step:: Install Rust, Cargo, and Rustup
+   .. step:: Install Rust and Cargo
 
       Ensure you have Rust {+min-rust-version+} or later, and Cargo, the
       Rust package manager, installed in your development environment.
@@ -18,7 +18,7 @@ Download and Install
    .. step:: Create a Project Directory
 
       In your shell, run the following command to create a 
-      directory called ``node_quickstart`` for this project:
+      directory called ``rust_quickstart`` for this project:
 
       .. code-block:: bash
 
@@ -31,7 +31,7 @@ Download and Install
 
          cd rust_quickstart
 
-      Run the following command to initialize your Node.js project:
+      Run the following command to initialize your Rust project:
 
       .. code-block:: bash
 
