@@ -6,8 +6,8 @@
    :titlesonly:
    :maxdepth: 1
 
-   /fundamentals
    /quick-start
+   /fundamentals
    API Documentation <{+api+}/>
    /issues-and-help
    /compatibility
