@@ -22,7 +22,11 @@ Download and Install
 
       .. code-block:: bash
 
-         mkdir rust_quickstart
+         cargo new rust_quickstart
+      
+      When this command successfully completes, you should have a ``Cargo.toml`` 
+      file and a ``src`` directory with a ``main.rs`` file in your
+      ``rust_quickstart`` directory.
 
       Run the following command to navigate into the project 
       directory:
@@ -31,15 +35,12 @@ Download and Install
 
          cd rust_quickstart
 
-      Run the following command to initialize your Rust project:
+      Run the following command to navigate into the source 
+      directory:
 
       .. code-block:: bash
 
-         cargo init
-
-      When this command successfully completes, you should have a ``Cargo.toml`` 
-      file and a ``src`` directory in your ``node_quickstart`` directory.
-
+         cd src
 
    .. step:: Install the Rust Driver
 

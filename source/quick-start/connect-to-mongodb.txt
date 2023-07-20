@@ -9,51 +9,56 @@ Connect to MongoDB
 
    .. step:: Create your Node.js Application
 
-      Create a file to contain your application called ``index.rs`` in your
+      Open the file to contain your application called ``main.rs`` in your
       ``rust_quickstart/src`` project directory. 
       
-      Copy and paste the following code into the ``index.rs`` file:
+      Copy and paste the following code into the ``main.rs`` file:
       
       .. tabs::
+         .. tab:: Asynchronous API
+            :tabid: asynchronous-api
+
+            .. literalinclude:: /code-snippets/quick-start/connect-async.rs
+               :language: rust
+         
          .. tab:: Synchronous API
             :tabid: synchronous-api
 
-            .. code-block:: rust
-               
-
+            .. literalinclude:: /code-snippets/quick-start/connect-sync.rs
+               :language: rust
 
  
 
    .. step:: Assign the Connection String
 
-      Replace the ``<connection string uri>`` placeholder with the 
-      connection string that you copied from the :ref:`node-quick-start-connection-string`
+      Replace the ``<connection string>`` placeholder with the 
+      connection string that you copied from the :ref:`rust-quick-start-connection-string`
       step of this guide.
 
-   .. step:: Run your Node.js Application
+   .. step:: Run your Rust Application
 
       In your shell, run the following command to start this application:
       
       .. code-block:: none
 
-         node index.js
+         cargo run
 
       You should see the details of the retrieved movie document in the 
       command line output:
 
       .. code-block:: none
 
-         {
-           _id: ...,
-           plot: 'A young man is accidentally sent 30 years into the past...',
-           genres: [ 'Adventure', 'Comedy', 'Sci-Fi' ],
-           ...
-           title: 'Back to the Future',
-           ...
-         }
+         Some(Document(Document({"_id":
+         ObjectId("573a1390f29313caabcd5293"), "plot": String("Young
+         Pauline is left a lot of money when her wealthy uncle dies.
+         However, her uncle's secretary has been named as her guardian
+         until she marries, at which time she will officially take
+         ..."), "genres": Array([String("Action")]), "runtime":
+         Int32(199), "cast": Array([String("Pearl White"), String("Crane
+         Wilbur"), String("Paul Panzer"), String("Edward Josè")]), ...
 
       If you encounter an error or see no output, check whether you specified the
-      proper connection string in the ``index.js`` file, and that you loaded the
+      proper connection string in the ``main.rs`` file, and that you loaded the
       sample data.
 
 After you complete these steps, you should have a working application that
