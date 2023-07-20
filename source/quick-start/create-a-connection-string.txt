@@ -45,7 +45,7 @@ To connect to an instance or deployment not hosted on Atlas, see
       Click the button on the right of the connection string to copy it to
       your clipboard as shown in the following screenshot:
 
-      .. TODO add image when bug is resolved https://jira.mongodb.org/browse/AG-925
+      ..  TODO add image when bug is resolved https://jira.mongodb.org/browse/AG-925
 
    .. step:: Update the Placeholders
 
