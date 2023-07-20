@@ -81,6 +81,8 @@ document into the ``books`` collection:
 
       Inserted document with _id: ObjectId("...")
 
+.. include:: /includes/fundamentals/automatic-creation.rst
+
 Modify insert_one Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -164,6 +166,8 @@ multiple documents into the ``books`` collection:
       ObjectId("...")
       ObjectId("...")
       ObjectId("...")
+
+.. include:: /includes/fundamentals/automatic-creation.rst
 
 Modify insert_many Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
