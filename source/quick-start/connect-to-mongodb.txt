@@ -1,4 +1,4 @@
-.. _node-quick-start-connect-to-mongodb:
+.. _rust-quick-start-connect-to-mongodb:
 
 ==================
 Connect to MongoDB
@@ -15,6 +15,7 @@ Connect to MongoDB
       Copy and paste the following code into the ``main.rs`` file:
       
       .. tabs::
+
          .. tab:: Asynchronous API
             :tabid: asynchronous-api
 
