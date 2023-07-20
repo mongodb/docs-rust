@@ -79,8 +79,7 @@ document into the ``books`` collection:
       :language: console
       :visible: false
 
-      * { "_id": "memoir", "avg_age": 25.8, "min_age": 18, "max_age": 39 }
-      * { "_id": "sci-fi", "avg_age": 42, "min_age": 18, "max_age": 66 }
+      Inserted document with _id: ObjectId("...")
 
 Modify insert_one Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,8 +160,10 @@ multiple documents into the ``books`` collection:
       :language: console
       :visible: false
 
-      * { "_id": "memoir", "avg_age": 25.8, "min_age": 18, "max_age": 39 }
-      * { "_id": "sci-fi", "avg_age": 42, "min_age": 18, "max_age": 66 }
+      Inserted documents with _ids:
+      ObjectId("...")
+      ObjectId("...")
+      ObjectId("...")
 
 Modify insert_many Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -285,9 +286,11 @@ API Documentation
 To learn more about any of the methods or types discussed in this
 guide, see the following API Documentation:
 
-.. - `WriteError <{+api+}/mongo#WriteError>`__
-.. - `InsertOne() <{+api+}/mongo#Collection.InsertOne>`__
-.. - `InsertOneResult <{+api+}/mongo#InsertOneResult>`__
-.. - `InsertMany() <{+api+}/mongo#Collection.InsertMany>`__
-.. - `InsertManyResult <{+api+}/mongo#InsertManyResult>`__
-.. - `BulkWriteException <{+api+}/mongo#BulkWriteException>`__
+- `insert_one() <{+api+}/struct.Collection.html#method.insert_one>`__
+- `InsertOneResult <{+api+}/results/struct.InsertOneResult.html>`__
+- `InsertOneOptions <{+api+}/options/struct.InsertOneOptions.html>`__
+- `insert_many() <{+api+}/struct.Collection.html#method.insert_many>`__
+- `InsertManyResult <{+api+}/results/struct.InsertManyResult.html>`__
+- `InsertManyOptions <{+api+}/options/struct.InsertManyOptions.html>`__
+- `BulkWriteError <{+api+}/error/struct.BulkWriteError.html>`__
+- `BulkWriteFailure <{+api+}/error/struct.BulkWriteFailure.html>`__
