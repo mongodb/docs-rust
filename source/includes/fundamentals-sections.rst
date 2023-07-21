@@ -3,6 +3,8 @@ Fundamentals section:
 
 - :ref:`Connect to MongoDB <rust-connection>`
 - :ref:`Read from and Write to MongoDB <rust-crud>`
+- :ref:`Perform Aggregations <rust-aggregation>`
+- :ref:`Run A Database Command <rust-run-command>`
 
 ..
   - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
@@ -10,11 +12,9 @@ Fundamentals section:
   - :ref:`Authenticate to MongoDB <rust-authentication-mechanisms>`
   - :ref:`Connect with Enterprise Authentication Mechanisms <rust-enterprise-authentication-mechanisms>`
   - :ref:`Convert Data to and from BSON <rust-bson>`
-  - :ref:`Perform Aggregations <rust-aggregation>`
   - :ref:`Construct Indexes <rust-indexes>`
   - :ref:`Specify Collations to Order Results <rust-collations>`
   - :ref:`Record Log Messages <rust-logging>`
-  - :ref:`Run A Database Command <rust-run-command>`
   - :ref:`Monitor Driver Events <rust-monitoring>`
   - :ref:`Store and Retrieve Large Files by Using GridFS <rust-gridfs>`
   - :ref:`Use a Time Series Collection <rust-time-series>`
