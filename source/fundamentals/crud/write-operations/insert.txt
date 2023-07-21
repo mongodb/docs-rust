@@ -26,13 +26,13 @@ The _id Field
 -------------
 
 In MongoDB, each document *must* contain a unique ``_id`` field.
-You can take the following approaches to manage the ``_id`` field:
+MongoDB allows you to manage this field in the following ways:
 
 - Manage this field yourself, ensuring that each ``_id`` value you set
   is unique. 
 - Let the driver automatically generate unique ``ObjectId`` values. The
   driver generates a unique ``ObjectId`` value for each document if you do
-  not specify the ``_id`` field when performing an insert.
+  not specify a value for the ``_id`` field when performing an insert.
 
 Unless you provide strong guarantees for uniqueness, we recommend that
 you let the driver automatically generate ``_id`` values for your
@@ -40,8 +40,9 @@ documents.
 
 .. important:: Duplicate _id Values
 
-   Duplicate ``_id`` values violate unique index constraints, causing
-   the operation to fail with a ``BulkWriteFailure``.
+   If you attempt to perform a write operation that includes duplicate ``_id``
+   values, the duplicate values violate unique index constraints and cause
+   the write operation to fail.
 
 To learn more about the ``_id`` field, see :manual:`Unique Indexes
 </core/index-unique/>` in the Server manual.
@@ -68,6 +69,7 @@ The following example uses the ``insert_one()`` method to insert a
 document into the ``books`` collection:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/insert.rs
       :start-after: begin-insert-one
@@ -87,8 +89,8 @@ Modify insert_one Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of the ``insert_one()`` method by
-constructing and passing an optional ``InsertOneOptions`` struct. The
-following table describes the available options to set in
+constructing and passing an ``InsertOneOptions`` struct. The
+following table describes the options available in
 ``InsertOneOptions``:
 
 .. list-table::
@@ -100,9 +102,9 @@ following table describes the available options to set in
      - Description
 
    * - ``bypass_document_validation``
-     - | If ``true``, allows the write to opt-out of document-level
-         validation. To learn more about validation, see :manual:`Schema
-         Validation </core/schema-validation>` in the Server manual.
+     - | If ``true``, allows the driver to perform a write that violates
+         document-level validation. To learn more about validation, see
+         :manual:`Schema Validation </core/schema-validation>` in the Server manual.
 
        | Type: ``bool``
        | Default: ``false``
@@ -115,10 +117,10 @@ following table describes the available options to set in
        | Type: ``WriteConcern``
 
    * - ``comment``
-     - | An arbitrary ``Bson`` value tagged to the operation to trace
-         the operation through the database profiler, ``currentOp``, and
-         logs. This option is only available on {+server+} versions 4.4
-         and later.
+     - | An arbitrary ``Bson`` value tied to the operation to trace
+         it through the database profiler, ``currentOp``, and
+         logs. This option is available only when connecting to
+         {+server+} versions 4.4 and later.
     
        | Type: ``Bson``
 
@@ -151,6 +153,7 @@ The following example uses the ``insert_many()`` method to insert
 multiple documents into the ``books`` collection:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/insert.rs
       :start-after: begin-insert-many
@@ -173,8 +176,8 @@ Modify insert_many Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of the ``insert_many()`` method by
-constructing and passing an optional ``InsertManyOptions`` struct. The
-following table describes the available options to set in
+constructing and passing an ``InsertManyOptions`` struct. The
+following table describes the options available in
 ``InsertManyOptions``:
 
 .. list-table::
@@ -186,19 +189,20 @@ following table describes the available options to set in
      - Description
 
    * - ``bypass_document_validation``
-     - | If ``true``, allows the write to opt-out of document-level
-         validation. To learn more about validation, see :manual:`Schema
-         Validation </core/schema-validation>` in the Server manual.
+     - | If ``true``, allows the driver to perform a write that violates
+         document-level validation. To learn more about validation, see
+         :manual:`Schema Validation </core/schema-validation>` in the Server manual.
 
        | Type: ``bool``
        | Default: ``false``
 
    * - ``ordered``
-     - | If ``true``, the operation retuns when an insert fails without performing the
-         remaining writes. If ``false``, even if an insert fails, the
-         operation continues with the remaining writes. To learn more
-         about ordered inserts, see the :ref:`Ordered Behavior
-         <rust-ordered-behavior>` section of this guide.
+     - | If ``true``, when any insert fails, the operation returns
+         without inserting the remaining documents. If ``false``, even
+         if an insert fails, the operation continues with the remaining
+         writes. To learn more about ordered inserts, see the
+         :ref:`Ordered Behavior Example <rust-ordered-behavior>` section
+         of this guide.
        
        | Type: ``bool``
        | Default: ``true``
@@ -211,10 +215,10 @@ following table describes the available options to set in
        | Type: ``WriteConcern``
 
    * - ``comment``
-     - | An arbitrary ``Bson`` value tagged to the operation to trace
-         the operation through the database profiler, ``currentOp``, and
-         logs. This option is only available on {+server+} versions 4.4
-         and later.
+     - | An arbitrary ``Bson`` value tied to the operation to trace
+         it through the database profiler, ``currentOp``, and
+         logs. This option is available only when connecting to
+         {+server+} versions 4.4 and later.
     
        | Type: ``Bson``
 
@@ -230,10 +234,11 @@ instance:
 
 .. _rust-ordered-behavior:
 
-Ordered Behavior
-~~~~~~~~~~~~~~~~
+Ordered Behavior Example
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Assume you want to insert the following documents:
+Assume you want to insert the following documents into the ``books``
+collection:
 
 .. code-block:: json
    :copyable: false
@@ -243,14 +248,17 @@ Assume you want to insert the following documents:
    { "_id": 1, "title": "Blueberries for Sal" }
    { "_id": 3, "title": "Goodnight Moon" }
 
-If you attempt to insert these documents with default ``InsertManyOptions``, a
-``BulkWriteError`` occurs during the third insert because of the duplicate
-``_id`` value, but the documents before the error-producing document still get
-inserted into your collection.
+When you attempt to insert these documents, the result depends on the
+value of the ``ordered`` option in your ``InsertManyOptions``:
 
-If you specify ``ordered`` as ``false`` in your ``InsertManyOptions``
-instance, every insert that does not cause a duplicate key error
-completes successfully.
+- If ``ordered`` is ``true`` (the default value), the driver throws a
+  ``BulkWriteError`` when it attempts to insert the document with the
+  duplicate ``_id`` value. However, the driver still inserts the
+  documents before the error occurs. 
+
+- If you set ``ordered`` to ``false``, the driver still throws a
+  ``BulkWriteError`` when it attempts to insert the document with the
+  duplicate ``_id`` value, but it inserts every other document.
 
 The following code shows how to perform an unordered write operation to
 insert the preceding documents:
