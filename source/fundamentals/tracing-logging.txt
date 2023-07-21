@@ -56,7 +56,7 @@ The following table describes components that you can emit events
 against and their corresponding targets:
 
 .. list-table::
-   :widths: 30 40 30
+   :widths: 25 25 50
    :header-rows: 1
 
    * - Component
