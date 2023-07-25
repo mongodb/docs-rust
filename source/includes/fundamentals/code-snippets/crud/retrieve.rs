@@ -13,11 +13,10 @@ async fn main() -> mongodb::error::Result<()> {
     let my_coll: Collection<Document> = client.database("db").collection("inventory");
 
     let docs = vec![
-        doc! { "item": "candle", "quantity": 101, "last_ordered": Utc.with_ymd_and_hms(2018, 1, 15, 0, 0, 0).unwrap() },
-        doc! { "item": "basket", "quantity": 56, "last_ordered": Utc.with_ymd_and_hms(2017, 3, 15, 0, 0, 0).unwrap() },
-        doc! { "item": "placemat", "quantity": 80, "last_ordered": Utc.with_ymd_and_hms(2018, 7, 15, 0, 0, 0).unwrap() },
-        doc! { "item": "watering can", "quantity": 19, "last_ordered": Utc.with_ymd_and_hms(2017, 11, 1, 0, 0, 0).unwrap() },
-        doc! { "item": "hanger", "quantity": 214, "last_ordered": Utc.with_ymd_and_hms(2016, 8, 1, 0, 0, 0).unwrap() }
+        doc! { "item": "candle", "category": "decor", "unit_price": 2.89 },
+        doc! { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
+        doc! { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
+        doc! { "item": "watering can", "category": "garden", "unit_price": 11.99 }
     ];
 
     my_coll.insert_many(docs, None).await?;
@@ -25,16 +24,14 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-find-many
     let opts: FindOptions = FindOptions::builder()
-        .sort(doc! { "quantity": -1 })
+        .sort(doc! { "unit_price": -1 })
         .build();
 
     let mut results = my_coll.find(
         doc! { "$and": vec!
             [
-                doc! { "last_ordered": 
-                    doc! { "$lt": Utc.with_ymd_and_hms(2018, 1, 1, 0, 0, 0).unwrap() }
-                },
-                doc! { "quantity": doc! { "$lt": 100 } }
+                doc! { "unit_price": doc! { "$lt": 12.00 } },
+                doc! { "category": doc! { "$ne": "kitchen" } }
             ] },
         opts
     ).await?;
@@ -48,7 +45,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-find-one
     let opts: FindOneOptions = FindOneOptions::builder().skip(2).build();
-    let result = my_coll.find_one(doc! { "quantity": doc! { "$gte": 20 } }, opts).await?;
+    let result = my_coll.find_one(doc! { "unit_price": doc! { "$lte": 20.00 } }, opts).await?;
 
     println!("* {}", result.unwrap());
     // end-find-one
@@ -56,10 +53,9 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-agg
     let pipeline = vec![
-        doc! { "$project": { "year_last_ordered" : doc! { "$year" : "$last_ordered" }, "quantity": 1 } },
-        doc! { "$group": doc! { "_id" : doc! {"year_last_ordered": "$year_last_ordered"} ,
-                                "remaining_qty" : doc! { "$sum" : "$quantity" } } },
-        doc! { "$sort": { "_id.year" : 1 } }
+        doc! { "$group": doc! { "_id" : doc! {"category": "$category"} ,
+                                "avg_price" : doc! { "$avg" : "$unit_price" } } },
+        doc! { "$sort": { "_id.avg_price" : 1 } }
     ];
 
     let mut results = my_coll.aggregate(pipeline, None).await?;

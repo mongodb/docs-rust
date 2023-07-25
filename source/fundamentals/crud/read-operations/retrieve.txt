@@ -14,33 +14,31 @@ Overview
 --------
 
 In this guide, you can learn how to retrieve data from your MongoDB
-collections using **read operations**.
+collections using **read operations**. Read operations are commands that
+retrieve documents from the server.
 
-Read operations allow you to perform the following actions:
+There are two types of read operations:
 
-- Retrieve documents from your collections by using :ref:`find
-  operations <rust-retrieve-find>`
-- Transform documents in your collections by using
-  :ref:`aggregation operations <rust-retrieve-aggregation>`
+- :ref:`Find operations <rust-retrieve-find>`, which allow you to
+  retrieve documents from your collections
+- :ref:`Aggregation operations <rust-retrieve-aggregation>`, which allow
+  you to transform the data in your collections
 
-Sample Data
-~~~~~~~~~~~
+Sample Data for Examples
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. TODO decide on structs in crud
 
-To run the examples in this guide, load the sample data into a
-collection called ``db.inventory`` with the following code:
+The examples in this guide use the following sample documents. Each
+document represents an item in a store's inventory and contains
+information about its categorization and unit price:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/retrieve.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-insert
-   :end-before: end-insert
-
-.. include:: /includes/fundamentals/automatic-creation.rst
-
-Each document represents an item in a store's inventory and contains
-information about its quantity and the last time a restock was ordered.
+.. code-block:: json
+   
+   { "item": "candle", "category": "decor", "unit_price": 2.89 },
+   { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
+   { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
+   { "item": "watering can", "category": "garden", "unit_price": 11.99 }
 
 .. _rust-retrieve-find:
 
@@ -54,27 +52,41 @@ Find All Matching Documents
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``find()`` method takes a query filter as a parameter. The method
-returns *all* documents that match the filter criteria in a ``Cursor``
-type.
+returns *all* documents that match the filter criteria.
 
+If any documents match the filter criteria, the method returns a ``Cursor``
+type that contains these documents. If it does not match any documents,
+it returns an empty ``Cursor``. To learn more about the ``Cursor`` type,
+see the :ref:`API documentation <rust-crud-retrieve-api>`.
+
+To see an example that uses this method to retrieve data, see
+the :ref:`find() example <rust-find-example>`.
+
+.. TODO To learn about query filters, see :ref:`Specify a Query <...>`.
 .. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
 
 Find One Document
 ~~~~~~~~~~~~~~~~~
 
 The ``find_one()`` method takes a query filter as a parameter. The
-method returns *the first document* that matches the filter criteria as
-either a ``Some`` type or a ``None`` type, if no document is matched.
+method returns *the first document* that matches the filter criteria. If
+a document matches the filter criteria, the method returns a ``Some``
+type. If it does not match any documents, it returns a ``None`` type.
+
+To see an example that uses this method to retrieve data, see
+the :ref:`find_one() example <rust-find-one-example>`.
 
 .. _rust-retrieve-options:
 
 Modify Behavior
 ~~~~~~~~~~~~~~~
 
-You can modify the behavior of ``find()`` and ``find_one()`` by passing
-a ``FindOptions`` or ``FindOneOptions`` type to the matching method.
-If you don't specify any options, the driver uses the default values for
-each setting.
+You can modify the behavior of ``find()`` by passing
+a ``FindOptions`` instance as a parameter, and you can modify the
+behavior of ``find_one()`` by passing a ``FindOneOptions`` instance.
+
+To use default values for each setting, specify ``None`` for the options
+parameter.
 
 The following table describes commonly used settings that you can specify in
 ``FindOptions`` and ``FindOneOptions``:
@@ -87,7 +99,9 @@ The following table describes commonly used settings that you can specify in
      - Description
 
    * - ``collation`` 
-     - | The type of language collation to use when sorting results.  
+     - | The collation to use when sorting results.
+.. TODO link to collation fundamentals page
+
        | Default: ``nil``
 
    * - ``hint`` 
@@ -120,15 +134,18 @@ documentation <rust-crud-retrieve-api>` for ``FindOptions`` and
 Examples
 ~~~~~~~~
 
+.. _rust-find-example:
+
 find() Example
 ``````````````
 
-The following example passes a filter and ``FindOptions`` to
-the ``find()`` method to perform the following actions:
+This example shows how to call the ``find()`` method with the
+following parameters:
 
-- Matches documents where the value of ``last_ordered`` is before 2018
-  and the value of ``quantity`` is below ``100``
-- Sorts matched documents in descending order by ``quantity``
+- A query filter that matches documents where the value of ``unit_price``
+  is less than ``12.00`` and the value of ``category`` is not ``"kitchen"``
+- A ``FindOptions`` instance that sorts matched documents in descending
+  order by ``unit_price``
 
 .. io-code-block::
 
@@ -142,17 +159,20 @@ the ``find()`` method to perform the following actions:
       :language: console
       :visible: false
 
-      * { "_id": ObjectId("..."), "item": "watering can", "quantity": 19, "last_ordered": DateTime("2017-11-01 ...") }
-      * { "_id": ObjectId("..."), "item": "basket", "quantity": 56, "last_ordered": DateTime("2017-03-15 ...") }
+      * { "_id": ObjectId("..."), "item": "watering can", "category": "garden", "unit_price": 11.99 }
+      * { "_id": ObjectId("..."), "item": "candle", "category": "decor", "unit_price": 2.89 }
+
+.. _rust-find-one-example:
 
 find_one() Example
 ``````````````````
 
-The following example passes a filter and ``FindOneOptions`` to
-the ``find_one()`` method to perform the following actions:
+This example shows how to call the ``find_one()`` method with the
+following parameters:
 
-- Matches documents where the value of ``quantity`` is at least ``20``
-- Skips the first two matched documents
+- A query filter that matches documents where the value of ``unit_price``
+  is less than or equal to ``20.00``
+- A ``FindOneOptions`` instance that skips the first two matched documents
 
 .. io-code-block::
 
@@ -166,7 +186,7 @@ the ``find_one()`` method to perform the following actions:
       :language: console
       :visible: false
 
-      * { "_id": ObjectId("..."), "item": "placemat", "quantity": 80, "last_ordered": DateTime("2018-07-15 ...") }
+      * { "_id": ObjectId("..."), "item": "watering can", "category": "garden", "unit_price": 11.99 }
 
 .. _rust-retrieve-aggregation:
 
@@ -198,9 +218,10 @@ Modify Behavior
 ~~~~~~~~~~~~~~~
 
 You can modify the behavior of ``aggregate()`` by passing
-an ``AggregateOptions`` type as an optional parameter.
-If you don't specify any options, the driver uses the default values for
-each setting.
+an ``AggregateOptions`` instance as an optional parameter.
+
+To use default values for each setting, specify ``None`` for the options
+parameter.
 
 The following table describes commonly used settings that you can specify in
 ``AggregateOptions``:
@@ -223,7 +244,9 @@ The following table describes commonly used settings that you can specify in
      - The number of documents the server should return in each cursor batch.
 
    * - ``collation``
-     - | The type of language collation to use when sorting results.  
+     - | The collation to use when sorting results.
+.. TODO link to collation fundamentals page
+
        | Default: ``nil``
 
    * - ``hint`` 
@@ -250,11 +273,13 @@ documentation <rust-crud-retrieve-api>` for ``AggregateOptions``.
 Example
 ~~~~~~~
 
-The following example passes an aggregation pipeline to
-the ``aggregate()`` method to perform the following actions:
+This example shows how to call the ``aggregate()`` method with a
+pipeline that contains the following stages:
 
-- Extracts the year from the ``last_ordered`` field into the
-  ``year_last_ordered`` field
+- A ``$group`` stage to group documents by the ``category`` field
+
+
+
 - Groups documents by the ``year_last_ordered`` field and calculates the
   sum of the ``quantity`` fields for each year
 - Sets an ascending sort on the ``year_last_ordered`` field
