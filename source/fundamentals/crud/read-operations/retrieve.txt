@@ -56,8 +56,7 @@ returns *all* documents that match the filter criteria.
 
 If any documents match the filter criteria, the method returns a ``Cursor``
 type that contains these documents. If it does not match any documents,
-it returns an empty ``Cursor``. To learn more about the ``Cursor`` type,
-see the :ref:`API documentation <rust-crud-retrieve-api>`.
+it returns an empty ``Cursor`` type.
 
 To see an example that uses this method to retrieve data, see
 the :ref:`find() example <rust-find-example>`.
@@ -100,7 +99,7 @@ The following table describes commonly used settings that you can specify in
 
    * - ``collation`` 
      - | The collation to use when sorting results.
-.. TODO link to collation fundamentals page
+       | .. TODO link to collation fundamentals page
 
        | Default: ``nil``
 
@@ -127,9 +126,19 @@ The following table describes commonly used settings that you can specify in
      - | The sort to use when returning results.  
        | Default: ``nil``
 
-For a full list of settings you can specify for each type, see the :ref:`API
-documentation <rust-crud-retrieve-api>` for ``FindOptions`` and
-``FindOneOptions``.
+.. note:: Instantiating Options
+   
+   The {+driver-short+} implements the Builder design pattern for the
+   creation of many different types, such as ``FindOneOptions`` or
+   ``FindOptions``. When you instantiate a new options instance, you
+   must call the type's ``builder()`` method. By using the ``builder()``
+   method, you can construct an options instance by setting options one
+   at a time.
+
+For a full list of settings you can specify for each type, see the API
+documentation for `FindOptions
+<{+api+}/options/struct.FindOptions.html>`__ and `FindOneOptions
+<{+api+}/options/struct.FindOneOptions.html>`__.
 
 Examples
 ~~~~~~~~
@@ -144,8 +153,8 @@ following parameters:
 
 - A query filter that matches documents where the value of ``unit_price``
   is less than ``12.00`` and the value of ``category`` is not ``"kitchen"``
-- A ``FindOptions`` instance that sorts matched documents in descending
-  order by ``unit_price``
+- A ``FindOptions`` instance that sorts matched documents by
+``unit_price`` in descending order
 
 .. io-code-block::
 
@@ -197,12 +206,13 @@ Use **aggregation operations** to retrieve and transform data from your
 collections. You can perform aggregation operations by using the ``aggregate()``
 method.
 
-Aggregation
-~~~~~~~~~~~
+Aggregate Document Data
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``aggregate()`` method takes an **aggregation pipeline** as a
 parameter. An aggregation pipeline includes one or more **stages** that
-specify how to transform data.
+specify how to transform data. A stage includes an aggregation operator
+(prefixed with a ``$``) and any required parameters for that operator.
 
 .. TODO To learn more about aggregation, see the
 .. :ref:`Aggregation <rust-aggregation>` guide.
@@ -245,7 +255,7 @@ The following table describes commonly used settings that you can specify in
 
    * - ``collation``
      - | The collation to use when sorting results.
-.. TODO link to collation fundamentals page
+       | .. TODO link to collation fundamentals page
 
        | Default: ``nil``
 
@@ -267,6 +277,15 @@ The following table describes commonly used settings that you can specify in
          :manual:`Write Concern </reference/write-concern/>`
          in the Server manual.
 
+.. note:: Instantiating Options
+   
+   The {+driver-short+} implements the Builder design pattern for the
+   creation of many different types, such as ``AggregateOptions``. When
+   you instantiate a new options instance, you
+   must call the type's ``builder()`` method. By using the ``builder()``
+   method, you can construct an options instance by setting options one
+   at a time.
+
 For a full list of settings, see the :ref:`API
 documentation <rust-crud-retrieve-api>` for ``AggregateOptions``.
 
@@ -276,13 +295,9 @@ Example
 This example shows how to call the ``aggregate()`` method with a
 pipeline that contains the following stages:
 
-- A ``$group`` stage to group documents by the ``category`` field
-
-
-
-- Groups documents by the ``year_last_ordered`` field and calculates the
-  sum of the ``quantity`` fields for each year
-- Sets an ascending sort on the ``year_last_ordered`` field
+- A ``$group`` stage to group documents by the ``category`` field and
+  calculate the average of the ``unit_price`` field by ``category``
+- A ``$sort`` stage to by ``avg_price`` in ascending order
 
 .. io-code-block::
 
@@ -296,9 +311,9 @@ pipeline that contains the following stages:
       :language: console
       :visible: false
 
-      * { "_id": { "year_last_ordered": 2018 }, "remaining_qty": 181 }
-      * { "_id": { "year_last_ordered": 2017 }, "remaining_qty": 75 }
-      * { "_id": { "year_last_ordered": 2016 }, "remaining_qty": 214 }
+      * { "_id": { "category": "decor" }, "avg_price": 2.89 }
+      * { "_id": { "category": "kitchen" }, "avg_price": 20.84 }
+      * { "_id": { "category": "garden" }, "avg_price": 11.99 }
 
 Additional Information
 ----------------------
@@ -326,11 +341,12 @@ Additional Information
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
+To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
 
 - `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
-- `Option <https://doc.rust-lang.org/nightly/core/option/enum.Option.html>`__
+- `Some <https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some>`__
+- `None <https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None>`__
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__
 - `FindOneOptions <{+api+}/options/struct.FindOneOptions.html>`__
