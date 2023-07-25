@@ -45,7 +45,11 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-find-one
     let opts: FindOneOptions = FindOneOptions::builder().skip(2).build();
-    let result = my_coll.find_one(doc! { "unit_price": doc! { "$lte": 20.00 } }, opts).await?;
+    let result = my_coll.find_one(
+        doc! { "unit_price":
+            doc! { "$lte": 20.00 } },
+        opts
+    ).await?;
 
     println!("{}", serde_json::to_string_pretty(&result).unwrap());
     // end-find-one

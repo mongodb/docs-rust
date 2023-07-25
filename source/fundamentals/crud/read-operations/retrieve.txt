@@ -99,8 +99,6 @@ The following table describes commonly used settings that you can specify in
 
    * - ``collation`` 
      - | The collation to use when sorting results.
-       | .. TODO link to collation fundamentals page
-
        | Default: ``nil``
 
    * - ``hint`` 
@@ -125,6 +123,8 @@ The following table describes commonly used settings that you can specify in
    * - ``sort`` 
      - | The sort to use when returning results.  
        | Default: ``nil``
+
+.. TODO link to collation fundamentals page under collations setting
 
 .. note:: Instantiating Options
    
@@ -154,7 +154,7 @@ following parameters:
 - A query filter that matches documents where the value of ``unit_price``
   is less than ``12.00`` and the value of ``category`` is not ``"kitchen"``
 - A ``FindOptions`` instance that sorts matched documents by
-``unit_price`` in descending order
+  ``unit_price`` in descending order
 
 .. io-code-block::
 
@@ -270,8 +270,6 @@ The following table describes commonly used settings that you can specify in
 
    * - ``collation``
      - | The collation to use when sorting results.
-       | .. TODO link to collation fundamentals page
-
        | Default: ``nil``
 
    * - ``hint`` 
@@ -292,14 +290,7 @@ The following table describes commonly used settings that you can specify in
          :manual:`Write Concern </reference/write-concern/>`
          in the Server manual.
 
-.. note:: Instantiating Options
-   
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of many different types, such as ``AggregateOptions``. When
-   you instantiate a new options instance, you
-   must call the type's ``builder()`` method. By using the ``builder()``
-   method, you can construct an options instance by setting options one
-   at a time.
+.. TODO link to collation fundamentals page under collations setting
 
 For a full list of settings, see the :ref:`API
 documentation <rust-crud-retrieve-api>` for ``AggregateOptions``.
