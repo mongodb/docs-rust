@@ -12,8 +12,8 @@ Download and Install
       Ensure you have Rust {+min-rust-version+} or later, and Cargo, the
       Rust package manager, installed in your development environment.
 
-      For information on how to install Rust and Cargo see
-      `downloading and installing Rust <https://www.rust-lang.org/tools/install>`__.
+      For information on how to install Rust and Cargo, see
+      the official Rust guide on `downloading and installing Rust <https://www.rust-lang.org/tools/install>`__.
 
    .. step:: Create a Project Directory
 
@@ -35,30 +35,29 @@ Download and Install
 
          cd rust_quickstart
 
-      Run the following command to navigate into the source 
-      directory:
-
-      .. code-block:: bash
-
-         cd src
-
    .. step:: Install the Rust Driver
 
-      Run the following command in your shell to install
-      the driver in your project directory:
+      Open the ``cargo.toml`` file in vim or the IDE of your choice and
+      under the ``[dependencies]`` line, write the following:
 
       .. code-block:: bash
 
-         cargo add mongodb@{+version+}
+         mongodb = "{+version+}"
+         bson = "2.6.1"
 
-      This command performs the following actions:
+      if you're planning on using the ``asynchronous`` API, add the
+      following line to your ``cargo.toml`` file:
 
-      - Downloads the ``mongodb`` package and the dependencies it requires
-      - Saves the package in the ``.cargo`` directory
+      .. code-block:: bash
+
+         tokio = "1.29.1"
+
+      This step performs the following action:
+
       - Records the dependency information in the ``Cargo.toml`` file
 
 After you complete these steps, you should have Rust and Cargo installed 
-and a new project directory with the driver dependencies installed.
+and a new project directory with the driver dependencies recorded.
 
 .. include:: /includes/quick-start/troubleshoot.rst
 

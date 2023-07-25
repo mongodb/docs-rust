@@ -1,24 +1,19 @@
-use mongodb::{ bson::doc, options::{ ClientOptions, ServerApi, ServerApiVersion }, Client };
+use mongodb::{ bson::doc, Client, Collection };
 
 fn main() -> mongodb::error::Result<()> {
    // Replace the placeholder with your Atlas connection string
    let uri = "<connection string>";
-   let mut client_options = ClientOptions::parse(uri)?;
-
-   // Set the server_api field of the client_options object to Stable API version 1
-   let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
-   client_options.server_api = Some(server_api);
    
    // Create a new client and connect to the server
-   let client = Client::with_options(client_options)?;
+   let client = Client::with_uri_str(uri)?;
 
    // Get a handle on the "movies" collection in the "sample_mflix" database
-   let coll = client.database("sample_mflix").collection::<mongodb::options::UpdateModifications>("movies");
+   let my_coll: Collection<Document> =  client.database("sample_mflix").collection("movies");
 
-   //Find the movie "The Perils of Pauline" in the "movies" collection
-   let my_movie = coll.find_one(doc! {"title" : "The Perils of Pauline" }, None)?;
+   // Find the movie "The Perils of Pauline" in the "movies" collection
+   let my_movie = my_coll.find_one(doc! { "title": "The Perils of Pauline" }, None)?;
 
-   //print the document that contains the movie found
-   println!("{:?}", my_movie);
+   // Print the document that contains the movie found
+   println!("{:?}", my_movie.unwrap());
    Ok(())
 }
