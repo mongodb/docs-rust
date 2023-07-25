@@ -82,11 +82,11 @@ format:
 
 .. code-block:: rust
 
-   vec![
-       doc! { "<update operator>": doc!{"<field>": <value>} },
-       doc! { "<update operator>": doc!{"<field>": <value>} },
+   doc! {
+       "<update operator>": doc!{"<field>": <value>},
+       "<update operator>": doc!{"<field>": <value>},
        ...
-   ]
+   }
 
 See the MongoDB server manual for a :manual:`complete list of update operators
 and descriptions </reference/operator/update-field/>`.
@@ -99,8 +99,57 @@ and descriptions </reference/operator/update-field/>`.
    :manual:`updates with aggregation pipelines
    </tutorial/update-documents-with-aggregation-pipeline/>`.
 
-Return Values
-~~~~~~~~~~~~~
+Modify Update Behavior
+~~~~~~~~~~~~~~~~~~~~~~
+
+You can modify the behavior of the ``update_one()`` and ``update_many``
+methods by constructing and passing an ``UpdateOptions`` struct. The
+following table describes the options available in
+``UpdateOptions``:
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :class: compatibility-large
+
+   * - Option
+     - Description
+
+   * - ``bypass_document_validation``
+     - | If ``true``, allows the driver to perform a write that violates
+         document-level validation. To learn more about validation, see
+         :manual:`Schema Validation </core/schema-validation>` in the Server manual.
+
+       | Type: ``bool``
+       | Default: ``false``
+
+   * - ``write_concern``
+     - | The write concern for the operation. To learn more about write
+         concerns, see :manual:`Write Concern
+         </reference/write-concern/>` in the Server manual.
+       
+       | Type: ``WriteConcern``
+
+   * - ``comment``
+     - | An arbitrary ``Bson`` value tied to the operation to trace
+         it through the database profiler, ``currentOp``, and
+         logs. This option is available only when connecting to
+         {+server+} versions 4.4 and later.
+    
+       | Type: ``Bson``
+
+The following code shows how to construct an ``InsertOneOptions``
+instance:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/insert.rs
+   :start-after: begin-one-options
+   :end-before: end-one-options
+   :language: rust
+   :copyable:
+   :dedent:
+
+Return Value
+~~~~~~~~~~~~
 
 The ``update_one()`` and ``update_many()`` methods return an
 ``UpdateResult`` type that contains information about the update
@@ -123,7 +172,7 @@ contains the following properties:
    * - ``upserted_id`` 
      - The ``_id`` of the upserted document, or ``nil`` if there is none
 
-If multiple documents match the query filter passed to ``UpdateOne()``,
+If multiple documents match the query filter you pass to ``UpdateOne()``,
 the method selects and updates the first matched document. If no
 documents match the query filter, the update operation makes no
 changes.
@@ -133,8 +182,8 @@ changes.
 
 .. _rust-update-example:
 
-Example
-```````
+Update Example
+``````````````
 
 The following documents describe employees of a company:
 
@@ -205,28 +254,31 @@ The following shows the updated documents resulting from the preceding update op
 
 .. _rust-replace-document:
 
-Replace
--------
+Replace a Document
+------------------
 
-Use the ``ReplaceOne()`` method to replace a single document.
+To replace a document, use the ``replace_one()`` method. To
+see an example that uses this method, see the :ref:`example
+<rust-replace-example>` in this section.
 
 Parameters
 ~~~~~~~~~~
 
-``ReplaceOne()`` expects a **replacement document**, which is the document
-that you want to take the place of an existing document. Replacement
-documents use the following format:
+The ``replace_one()`` method requires a **replacement document**, the
+document that will replace an existing document. Replacement documents
+use the following format:
 
-.. code-block:: go
+.. code-block:: rust
 
-   bson.D{{"<field>", "<value>"}, {"<field>", "<value>"}, ... }
+   doc! { "<field>": <value>, "<field>": <value>, ... }
 
 Return Values
 ~~~~~~~~~~~~~
 
-``ReplaceOne()`` returns an ``UpdateResult`` type that
-contains information about the replace operation if the operation is
-successful. The ``UpdateResult`` type contains the following properties:
+The ``replace_one`` method returns an
+``UpdateResult`` type that contains information about the update
+operation, if the operation is successful. The ``UpdateResult`` type
+contains the following properties:
 
 .. list-table::
    :widths: 30 70
@@ -235,72 +287,70 @@ successful. The ``UpdateResult`` type contains the following properties:
    * - Property
      - Description
 
-   * - ``MatchedCount`` 
+   * - ``matched_count``
      - The number of documents matched by the filter
 
-   * - ``ModifiedCount`` 
+   * - ``modified_count``
      - The number of documents modified by the operation
 
-   * - ``UpsertedCount`` 
-     - The number of documents upserted by the operation
-
-   * - ``UpsertedID`` 
+   * - ``upserted_id`` 
      - The ``_id`` of the upserted document, or ``nil`` if there is none
 
-If multiple documents match the query filter passed to ``ReplaceOne()``,
-the method selects and replaces the first matched document. Your replace
-operation fails if no documents match the query filter.
+If multiple documents match the query filter you pass to ``replace_one()``,
+the method selects and replaces the first matched document. If no
+documents match the query filter, the replace operation makes no
+changes.
 
-Example
-```````
+.. _rust-replace-example:
 
-The following document describes a kitchen item:
+Replace Example
+```````````````
+
+The following document describes an employee of a company:
 
 .. code-block:: json
    :copyable: false
 
    {
-      "_id" : 2056,
-      "item" : "Mug",
-      "brand" : "Simply Ceramics",
-      "price" : 2.99,
-      "material" : "Glass"
+     "_id": 4501,
+     "name": "Matt DeGuy",
+     "role": "Consultant",
+     "team_members": [ "Jill Gillison", "Susan Lee" ]
    }
 
-The following example uses the ``ReplaceOne()`` method to substitute
-this document with one that contains an ``item`` field with a
-value of "Cup" and a ``quantity`` field with a value of 107:
+This example uses the ``replace_one()`` method to replace
+the preceding document with one that has the following fields:
+
+- A ``name`` value of ``"Susan Lee"``
+- A ``role`` value of ``"Lead Consultant"``
+- A ``team_members`` value of ``[ "Jill Gillison" ]``
 
 .. io-code-block::
-   :copyable: true
 
-   .. input::
-      :language: go
+   .. input:: /includes/fundamentals/code-snippets/crud/change.rs
+      :start-after: begin-replace
+      :end-before: end-replace
+      :language: rust
+      :dedent:
 
-      filter := bson.D{{"_id", 2056}}
-      replacement := bson.D{{"item", "Cup"}, {"quantity", 107}}
-
-      result, err := collection.ReplaceOne(context.TODO(), filter, replacement)
-      fmt.Printf("Documents matched: %v\n", result.MatchedCount)
-      fmt.Printf("Documents replaced: %v\n", result.ModifiedCount)
-
-   .. output::
-      :language: none
+   .. output:: 
+      :language: console
       :visible: false
 
-      Documents matched: 1
-      Documents replaced: 1
+      Matched 1 document(s)
+      Modified 1 document(s)
 
 The replaced document contains the contents of the replacement document
-and the immutable ``_id`` field as follows:
+and the immutable ``_id`` field:
 
 .. code-block:: json
    :copyable: false
 
    {
-      "_id" : 2056,
-      "item" : "Cup",
-      "quantity" : 107
+     "_id": 4501,
+     "name": "Susan Lee",
+     "role": "Lead Consultant",
+     "team_members": [ "Jill Gillison" ]
    }
 
 Additional Information
@@ -313,13 +363,14 @@ Additional Information
 .. - :ref:`rust-update-many`
 .. - :ref:`rust-replace`
 .. 
-.. To learn more about the operations mentioned, see the following
-.. guides:
-.. 
+To learn more about the concepts mentioned, see the following
+guides:
+
+.. - :manual:`Update Operators </reference/operator/update/#update-operators>`
+
 .. - :ref:`rust-query-document`
 .. - :ref:`rust-upsert`
 .. - :ref:`rust-compound-operations`
-.. - :manual:`Update Operators </reference/operator/update/#update-operators>`
 
 .. TODO To learn more about updating array elements, see :ref:`rust-update-arrays`.
 
@@ -329,3 +380,10 @@ API Documentation
 To learn more about any of the methods or types discussed in this
 guide, see the following API Documentation:
 
+- `update_one() <{+api+}/struct.Collection.html#method.update_one>`__
+- `update_many() <{+api+}/struct.Collection.html#method.update_many>`__
+- `UpdateResult <{+api+}/results/struct.UpdateResult.html>`__
+- `UpdateOptions <{+api+}/options/struct.UpdateOptions.html>`__
+- `replace_one() <{+api+}/struct.Collection.html#method.replace_one>`__
+- `ReplaceOptions <{+api+}/options/struct.ReplaceOptions.html>`__
+- `WriteError <{+api+}/error/struct.WriteError.html>`__
