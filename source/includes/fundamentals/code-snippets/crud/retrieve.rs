@@ -38,7 +38,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     while let Some(result) = results.try_next().await? {
         let doc: Document = bson::from_document(result)?;
-        println!("* {}", doc);
+        println!("{}", serde_json::to_string_pretty(&doc).unwrap());
     }
     // end-find-many
     print!("\n");
@@ -47,7 +47,7 @@ async fn main() -> mongodb::error::Result<()> {
     let opts: FindOneOptions = FindOneOptions::builder().skip(2).build();
     let result = my_coll.find_one(doc! { "unit_price": doc! { "$lte": 20.00 } }, opts).await?;
 
-    println!("* {}", result.unwrap());
+    println!("{}", serde_json::to_string_pretty(&result).unwrap());
     // end-find-one
     print!("\n");
 
@@ -61,7 +61,7 @@ async fn main() -> mongodb::error::Result<()> {
     let mut results = my_coll.aggregate(pipeline, None).await?;
     while let Some(result) = results.try_next().await? {
         let doc: Document = bson::from_document(result)?;
-        println!("* {}", doc);
+        println!("{}", serde_json::to_string_pretty(&doc).unwrap());
     }
     // end-agg
 
