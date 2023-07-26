@@ -7,8 +7,9 @@ Read Operations
 .. toctree::
    :caption: Read Operations
 
-..
    /fundamentals/crud/read-operations/query
+
+..
    /fundamentals/crud/read-operations/count
    /fundamentals/crud/read-operations/retrieve
    /fundamentals/crud/read-operations/cursor

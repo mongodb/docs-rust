@@ -9,7 +9,6 @@ CRUD Operations
 
    /fundamentals/crud/read-operations
    /fundamentals/crud/write-operations
-   /fundamentals/crud/query
 
 ..
    /fundamentals/crud/compound-operations
