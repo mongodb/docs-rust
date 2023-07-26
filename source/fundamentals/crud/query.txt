@@ -221,8 +221,7 @@ This code snippet returns the following results:
 .. code-block:: javascript
    :copyable: false
 
-   { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 },
-   { "_id": 4, "fruit": "pear", "quantity": 28, "rating": 4 }
+   { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 }
 
 For more information on this operator, see the reference manual entry for
 the :manual:`$mod operator </reference/operator/query/mod/>`.
