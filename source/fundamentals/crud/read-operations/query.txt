@@ -281,7 +281,11 @@ Additional Information
 ----------------------
 
 For more information on specifying a query and operators, see the manual on
+<<<<<<< HEAD
 :ref:`Query Operators </reference/operator/query`.
+=======
+:ref:`Query Operators </reference/operator/query/>`.
+>>>>>>> c95ddeb (final toc)
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
