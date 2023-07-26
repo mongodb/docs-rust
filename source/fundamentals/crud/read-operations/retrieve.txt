@@ -25,8 +25,7 @@ There are two types of read operations:
 This guide includes the following sections:
 
 - :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: Provides
-  and describes the sample data that is used by the example read
-  operations.
+  and describes the sample data that is used by the examples
 
 - :ref:`Find Operations <rust-retrieve-find>`: Describes how to use the
   driver to execute find operations
