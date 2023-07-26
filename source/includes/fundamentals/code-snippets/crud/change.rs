@@ -37,5 +37,9 @@ async fn main() -> mongodb::error::Result<()> {
     );
     // end-replace
 
+    // begin-options
+    let _opts: UpdateOptions = UpdateOptions::builder().upsert(true).build();
+    // end-options
+
     Ok(())
 }
