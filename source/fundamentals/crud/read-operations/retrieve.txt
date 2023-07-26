@@ -1,8 +1,8 @@
 .. _rust-retrieve-guide:
 
-==============
+=============
 Retrieve Data
-==============
+=============
 
 .. contents:: On this page
    :local:
@@ -24,8 +24,26 @@ There are two types of read operations:
 - :ref:`Aggregation operations <rust-retrieve-aggregation>`, which allow
   you to transform the data in your collections
 
+This guide includes the following sections:
+
+- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: Provides
+  and describes the sample data that is used by the example read
+  operations.
+
+- :ref:`Find Operations <rust-retrieve-find>`: Describes how to use the
+  driver to retrieve documents from your collections
+
+- :ref:`Aggregation Operations <rust-retrieve-aggregation>`: Describes how to use the
+  driver to transform the data in your collections
+
+- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
+  Provides links to additional resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-retrieve-sample-data:
+
 Sample Data for Examples
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 .. TODO decide on structs in crud
 
@@ -34,6 +52,7 @@ document represents an item in a store's inventory and contains
 information about its categorization and unit price:
 
 .. code-block:: json
+   :copyable: false
    
    { "item": "candle", "category": "decor", "unit_price": 2.89 },
    { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
@@ -51,12 +70,13 @@ consist of the ``find()`` and ``find_one()`` methods.
 Find All Matching Documents
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``find()`` method takes a query filter as a parameter. The method
-returns *all* documents that match the filter criteria.
+To find *all of the documents* that match your criteria, use the
+``find()`` method. This method takes a query filter as a parameter. A
+query filter consists of the fields and values that form criteria for
+documents to match.
 
-If any documents match the filter criteria, the method returns a ``Cursor``
-type that contains these documents. If it does not match any documents,
-it returns an empty ``Cursor`` type.
+The method returns a ``Cursor`` type that you can iterate through to
+retrieve any documents that match the filter criteria.
 
 To see an example that uses this method to retrieve data, see
 the :ref:`find() example <rust-find-example>`.
@@ -67,9 +87,12 @@ the :ref:`find() example <rust-find-example>`.
 Find One Document
 ~~~~~~~~~~~~~~~~~
 
-The ``find_one()`` method takes a query filter as a parameter. The
-method returns *the first document* that matches the filter criteria. If
-a document matches the filter criteria, the method returns a ``Some``
+To find *the first document* that matches your criteria, use the
+``find_one()`` method. This method takes a query filter as a parameter. A
+query filter consists of the fields and values that form criteria for
+documents to match.
+
+If a document matches the filter criteria, the method returns a ``Some``
 type. If it does not match any documents, it returns a ``None`` type.
 
 To see an example that uses this method to retrieve data, see
@@ -77,15 +100,15 @@ the :ref:`find_one() example <rust-find-one-example>`.
 
 .. _rust-retrieve-options:
 
-Modify Behavior
-~~~~~~~~~~~~~~~
+Modify Find Behavior
+~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of ``find()`` by passing
 a ``FindOptions`` instance as a parameter, and you can modify the
 behavior of ``find_one()`` by passing a ``FindOneOptions`` instance.
 
-To use default values for each setting, specify ``None`` for the options
-parameter.
+To use default values for each setting, specify the value ``None`` as
+the options parameter.
 
 The following table describes commonly used settings that you can specify in
 ``FindOptions`` and ``FindOneOptions``:
@@ -102,11 +125,13 @@ The following table describes commonly used settings that you can specify in
        | Default: ``nil``
 
    * - ``hint`` 
-     - | The index to use for the operation.  
+     - | The index to use for the operation. To learn more about
+         indexes, see :manual:`Indexes </indexes/>` in the Server
+         manual.
        | Default: ``nil``
 
    * - ``projection`` 
-     - | The projection to use when returning results.  
+     - | The projection to use when returning results.
        | Default: ``nil``
 
    * - ``read_concern`` 
@@ -121,19 +146,24 @@ The following table describes commonly used settings that you can specify in
        | Default: ``nil``
 
    * - ``sort`` 
-     - | The sort to use when returning results.  
+     - | The sort to use when returning results. By default, the driver
+         returns documents in their natural order, or as they appear in
+         the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
+         in the Server manual glossary.
        | Default: ``nil``
 
+.. TODO link to projection fundamentals page under projection setting
 .. TODO link to collation fundamentals page under collations setting
+.. TODO link to skip fundamentals page under skip setting
+.. TODO link to sort fundamentals page under sort setting
 
 .. note:: Instantiating Options
    
    The {+driver-short+} implements the Builder design pattern for the
    creation of many different types, such as ``FindOneOptions`` or
-   ``FindOptions``. When you instantiate a new options instance, you
-   must call the type's ``builder()`` method. By using the ``builder()``
-   method, you can construct an options instance by setting options one
-   at a time.
+   ``FindOptions``. You can use each type's ``builder()`` method to
+   construct an options instance by chaining option builder functions
+   one at a time.
 
 For a full list of settings you can specify for each type, see the API
 documentation for `FindOptions
@@ -142,6 +172,10 @@ documentation for `FindOptions
 
 Examples
 ~~~~~~~~
+
+The following sections contain examples that use the ``find()`` and
+``findOne()`` methods to retrieve sample documents that match filter
+criteria.
 
 .. _rust-find-example:
 
@@ -239,14 +273,14 @@ all of the documents in the collection.
 
 .. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
 
-Modify Behavior
-~~~~~~~~~~~~~~~
+Modify Aggregation Behavior
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of ``aggregate()`` by passing
 an ``AggregateOptions`` instance as an optional parameter.
 
-To use default values for each setting, specify ``None`` for the options
-parameter.
+To use default values for each setting, specify the value ``None`` as
+the options parameter.
 
 The following table describes commonly used settings that you can specify in
 ``AggregateOptions``:
@@ -273,7 +307,9 @@ The following table describes commonly used settings that you can specify in
        | Default: ``nil``
 
    * - ``hint`` 
-     - | The index to use for the operation.  
+     - | The index to use for the operation. To learn more about
+         indexes, see :manual:`Indexes </indexes/>` in the Server
+         manual.
        | Default: ``nil``
 
    * - ``read_concern`` 
@@ -292,8 +328,8 @@ The following table describes commonly used settings that you can specify in
 
 .. TODO link to collation fundamentals page under collations setting
 
-For a full list of settings, see the :ref:`API
-documentation <rust-crud-retrieve-api>` for ``AggregateOptions``.
+For a full list of settings, see the API
+documentation for `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__.
 
 Example
 ~~~~~~~
@@ -330,6 +366,8 @@ pipeline that contains the following stages:
         "avg_price": 20.84
       }
 
+.. _rust-crud-retrieve-addtl-info:
+
 Additional Information
 ----------------------
 
@@ -351,8 +389,6 @@ Additional Information
 .. - :ref:`rust-aggregation-guide`
 .. - :ref:`rust-collations-guide`
 
-.. _rust-crud-retrieve-api:
-
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
@@ -360,8 +396,6 @@ To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
 
 - `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
-- `Some <https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some>`__
-- `None <https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None>`__
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__
 - `FindOneOptions <{+api+}/options/struct.FindOneOptions.html>`__

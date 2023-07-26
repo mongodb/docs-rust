@@ -8,8 +8,6 @@ use std::env;
 async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
-
-    // begin-insert
     let my_coll: Collection<Document> = client.database("db").collection("inventory");
 
     let docs = vec![
@@ -20,14 +18,13 @@ async fn main() -> mongodb::error::Result<()> {
     ];
 
     my_coll.insert_many(docs, None).await?;
-    // end-insert
 
     // begin-find-many
     let opts: FindOptions = FindOptions::builder()
         .sort(doc! { "unit_price": -1 })
         .build();
 
-    let mut results = my_coll.find(
+    let mut cursor = my_coll.find(
         doc! { "$and": vec!
             [
                 doc! { "unit_price": doc! { "$lt": 12.00 } },
@@ -36,7 +33,7 @@ async fn main() -> mongodb::error::Result<()> {
         opts
     ).await?;
 
-    while let Some(result) = results.try_next().await? {
+    while let Some(result) = cursor.try_next().await? {
         let doc: Document = bson::from_document(result)?;
         println!("{}", serde_json::to_string_pretty(&doc).unwrap());
     }
@@ -62,8 +59,8 @@ async fn main() -> mongodb::error::Result<()> {
         doc! { "$sort": { "_id.avg_price" : 1 } }
     ];
 
-    let mut results = my_coll.aggregate(pipeline, None).await?;
-    while let Some(result) = results.try_next().await? {
+    let mut cursor = my_coll.aggregate(pipeline, None).await?;
+    while let Some(result) = cursor.try_next().await? {
         let doc: Document = bson::from_document(result)?;
         println!("{}", serde_json::to_string_pretty(&doc).unwrap());
     }
