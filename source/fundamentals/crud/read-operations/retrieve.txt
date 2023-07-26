@@ -19,10 +19,8 @@ retrieve documents from the server.
 
 There are two types of read operations:
 
-- :ref:`Find operations <rust-retrieve-find>`, which allow you to
-  retrieve documents from your collections
-- :ref:`Aggregation operations <rust-retrieve-aggregation>`, which allow
-  you to transform the data in your collections
+- Find operations, which allow you to retrieve documents from your collections
+- Aggregation operations, which allow you to transform the data in your collections
 
 This guide includes the following sections:
 
@@ -31,10 +29,10 @@ This guide includes the following sections:
   operations.
 
 - :ref:`Find Operations <rust-retrieve-find>`: Describes how to use the
-  driver to retrieve documents from your collections
+  driver to execute find operations
 
 - :ref:`Aggregation Operations <rust-retrieve-aggregation>`: Describes how to use the
-  driver to transform the data in your collections
+  driver to execute aggregation operations
 
 - :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
   Provides links to additional resources and API documentation for types
