@@ -46,8 +46,8 @@ The driver provides the following methods to change documents:
 
 .. TODO link to compound operations
 
-The ``_id`` Field
-~~~~~~~~~~~~~~~~~
+The _id Field
+~~~~~~~~~~~~~
 
 Each document in a MongoDB collection has a unique and immutable ``_id``
 field. You cannot try to change the ``_id`` field through an update or
@@ -380,8 +380,9 @@ the options available in ``UpdateOptions``:
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
-    
        | Type: ``Bson``
+
+.. TODO add links to guides for relevant options
 
 The following code shows how to construct an ``UpdateOptions``
 instance:
@@ -402,7 +403,7 @@ Additional Information
 .. - :ref:`rust-update-one`
 .. - :ref:`rust-update-many`
 .. - :ref:`rust-replace`
-.. 
+
 To learn more about the concepts mentioned, see the following
 guides:
 
