@@ -24,17 +24,17 @@ There are two types of read operations:
 
 This guide includes the following sections:
 
-- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: Provides
-  and describes the sample data that is used by the examples
+- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: presents
+  the sample data that is used by the read operation examples
 
-- :ref:`Find Operations <rust-retrieve-find>`: Describes how to use the
+- :ref:`Find Operations <rust-retrieve-find>`: describes how to use the
   driver to execute find operations
 
-- :ref:`Aggregation Operations <rust-retrieve-aggregation>`: Describes how to use the
+- :ref:`Aggregation Operations <rust-retrieve-aggregation>`: describes how to use the
   driver to execute aggregation operations
 
 - :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
-  Provides links to additional resources and API documentation for types
+  provides links to additional resources and API documentation for types
   and methods mentioned in this guide
 
 .. _rust-retrieve-sample-data:
