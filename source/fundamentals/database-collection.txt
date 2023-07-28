@@ -26,17 +26,42 @@ see :manual:`Documents </core/document/>` in the Server manual.
 Access a Database
 -----------------
 
-You can access a database by using the following methods on a ``Client``
+You can access a database by calling the following methods on a ``Client``
 instance:
 
 - ``database()``: access a database by its name
-- ``database_with_options()``: set options while accessing a database
+- ``database_with_options()``: set options (``DatabaseOptions``) while accessing a database
 - ``default_database()``: access the default database specified in the
   ``ClientOptions`` instance or connection string used to create the
   ``Client`` instance
 
 The preceding methods return a ``Database`` instance, which you can use
-to perform database-level operations and access collections.
+to perform database-level operations and access collections. If you
+perform an insert operation against a collection of a nonexistent
+database, the server implicitly creates the database and collection.
+
+.. note:: List Databases
+   
+   To see a list of your deployment's databases, call the
+   ``list_database_names()`` method on your client. To see information
+   about each database, call the ``list_databases()`` method.
+
+   The following example shows how to print a list of databases by using
+   the ``list_database_names()`` method:
+
+   .. io-code-block::
+   
+      .. input:: /includes/fundamentals/code-snippets/db-coll.rs
+         :start-after: begin-list-db
+         :end-before: end-list-db
+         :language: rust
+         :dedent:
+   
+      .. output:: 
+         :language: console
+         :visible: false
+   
+         ["admin", "local", "test_db", ...]
 
 The following example uses the ``database()`` method to access a
 database called ``test_db``:
@@ -47,27 +72,79 @@ database called ``test_db``:
    :start-after: start-database
    :end-before: end-database
 
+Drop a Database
+~~~~~~~~~~~~~~~
+
+To drop, or permanently delete, a database, call the ``drop()`` method
+on your ``Database`` instance. The following code shows how to drop a
+database:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
+   :language: rust
+   :dedent:
+   :start-after: start-drop-db
+   :end-before: end-drop-db
+
+Run a Database Command
+~~~~~~~~~~~~~~~~~~~~~~
+
+To learn about how to run a database command, see :ref:`rust-run-command`.
+
 Access a Collection
 -------------------
 
-Use the `getCollection()
-<{+api+}/apidocs/mongodb-driver-sync/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)>`__
-method of a ``MongoDatabase`` instance to access a
-``MongoCollection`` in a database of your connected MongoDB instance.
+You can access a collection by calling the following methods on a ``Database``
+instance:
 
-The following example accesses a collection named "testCollection" from
-a ``MongoDatabase``:
+- ``collection()``: access a collection by its name
+- ``collection_with_options()``: set options (``CollectionOptions``) while accessing a collection
 
-.. code-block:: java
+The preceding methods return a ``Collection`` instance. If you
+perform an insert operation against a nonexistent collection, the server
+implicitly creates the collection.
 
-   MongoDatabase database = mongoClient.getDatabase("testDatabase");
-   MongoCollection<Document> collection = database.getCollection("testCollection");
+.. note:: List Collections
+   
+   To see a list of collections in a database, call the
+   ``list_collection_names()`` method on your database. To see information
+   about each collection, call the ``list_collections()`` method.
 
-.. tip::
+   The following example shows how to print a list of collections in a
+   database by using the ``list_collection_names()`` method:
 
-   If the provided collection name does not already exist in the database,
-   MongoDB implicitly creates the collection when you first insert data
-   into that collection.
+   .. io-code-block::
+   
+      .. input:: /includes/fundamentals/code-snippets/db-coll.rs
+         :start-after: begin-list-coll
+         :end-before: end-list-coll
+         :language: rust
+         :dedent:
+   
+      .. output::
+         :language: console
+         :visible: false
+   
+         ["my_coll", "coll_xyz", ...]
+
+This example uses the ``collection_with_options()`` method to
+perform the following actions:
+
+- Access a collection called ``coll_xyz``
+- Set a write preference on the collection in the ``CollectionOptions`` type
+
+.. important:: Parametrized Collections
+   
+   You must parameterize your ``Collection`` instance by specifying what
+   data type it contains. 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
+   :language: rust
+   :dedent:
+   :start-after: start-coll
+   :end-before: end-coll
+
+Drop a Database
+~~~~~~~~~~~~~~~
 
 Create a Collection
 -------------------
