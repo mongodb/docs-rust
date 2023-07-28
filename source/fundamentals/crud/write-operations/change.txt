@@ -19,7 +19,7 @@ In this guide, you can learn how to change documents in MongoDB by using
 Update operations change the fields that you specify while leaving other
 fields and values unchanged. Replace operations remove all existing
 fields of a document except for the ``_id`` field and substitute the
-removed fields with the new fields and values.
+removed fields with new fields and values.
 
 In MongoDB, all methods to change documents follow the same pattern:
 
@@ -324,7 +324,6 @@ the options available in ``UpdateOptions``:
 
 .. list-table::
    :header-rows: 1
-   :stub-columns: 1
    :class: compatibility-large
 
    * - Option
