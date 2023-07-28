@@ -13,7 +13,7 @@ Modify Documents
 Overview
 --------
 
-In this guide, you can learn how to change documents in MongoDB by using
+In this guide, you can learn how to modify documents in MongoDB by using
 **update** and **replace** operations.
 
 Update operations change the fields that you specify while leaving other
