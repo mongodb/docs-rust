@@ -1,5 +1,5 @@
 use bson::Document;
-use mongodb::{ bson::doc, Client, Collection };
+use mongodb::{ bson::doc, Client, Collection, options::UpdateOptions };
 use std::env;
 
 #[tokio::main]
@@ -11,11 +11,11 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-update
     let update_doc =
-        doc!(
-        "$set": doc!{ "department": "Business Operations", 
-                      "role": "Analytics Specialist" },
-        "$inc": doc!{ "bonus": 500 }
-    );
+        doc! {
+            "$set": doc!{ "department": "Business Operations",
+                          "role": "Analytics Specialist" },
+            "$inc": doc!{ "bonus": 500 }
+    };
 
     let res = my_coll.update_many(doc! { "department": "Marketing" }, update_doc, None).await?;
     println!("Modified {} document(s)", res.modified_count);
@@ -23,11 +23,11 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-replace
     let replace_doc =
-        doc!(
+        doc! {
         "name": "Susan Lee",
         "role": "Lead Consultant",
         "team_members": vec! [ "Jill Gillison" ]
-    );
+    };
 
     let res = my_coll.replace_one(doc! { "_id": 4501 }, replace_doc, None).await?;
     println!(
@@ -37,8 +37,11 @@ async fn main() -> mongodb::error::Result<()> {
     );
     // end-replace
 
+    let filter_doc = doc! {};
+
     // begin-options
-    let _opts: UpdateOptions = UpdateOptions::builder().upsert(true).build();
+    let opts: UpdateOptions = UpdateOptions::builder().upsert(true).build();
+    let _res = my_coll.update_one(filter_doc, update_doc, opts).await?;
     // end-options
 
     Ok(())

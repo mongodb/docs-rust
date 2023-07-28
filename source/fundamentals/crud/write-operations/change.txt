@@ -1,7 +1,7 @@
 .. _rust-change-guide:
 
 ================
-Change Documents
+Modify Documents
 ================
 
 .. contents:: On this page
@@ -13,7 +13,7 @@ Change Documents
 Overview
 --------
 
-In this guide, you can learn how to change documents in MongoDB using
+In this guide, you can learn how to change documents in MongoDB by using
 **update** and **replace** operations.
 
 Update operations change the fields that you specify while leaving other
@@ -28,50 +28,50 @@ In MongoDB, all methods to change documents follow the same pattern:
 
 .. note::
 
-   ``changeX`` is a placeholder and not a real method.
+   ``changeX()`` is a placeholder and not a real method.
 
 These methods take the following parameters:
 
 - A query filter to match one or more documents to change
 - An update document that specifies the field and value changes
-- Options to modify the default behavior of the method
+-  *(Optional)* An options type to modify the default behavior of the method
 
-The driver provides the following methods to change documents:
+The {+driver-short+} provides the following methods to change documents:
 
 - ``update_one()``
 - ``update_many()``
 - ``replace_one()``
-- ``find_one_and_update()`` *(not discussed in this guide)*
-- ``find_one_and_replace()`` *(not discussed in this guide)*
 
-.. TODO link to compound operations
+.. TODO link to compound operations - You can retrieve and modify data
+.. in one step using compound operations. To learn more, see ...
 
 The _id Field
 ~~~~~~~~~~~~~
 
 Each document in a MongoDB collection has a unique and immutable ``_id``
-field. You cannot try to change the ``_id`` field through an update or
-replace operation. If you attempt to change this field, the driver raises a
-``WriteError``.
+field. If you attempt to change the ``_id`` field through an update or
+replace operation, the driver raises a ``WriteError`` and performs no
+updates.
 
 .. _rust-update-documents:
 
 Update Documents
 ----------------
 
-To update one document, use the ``update_one()`` method.
+You can perform update operations with the following methods:
 
-To update one or more documents, use the ``update_many()`` method. To
-see an example that uses this method, see the :ref:`example <rust-update-example>` in this
-section.
+- ``update_one()``, which updates the first document that matches the
+  search criteria
+- ``update_many()``, which updates all documents that match the search
+  criteria
 
 Parameters
 ~~~~~~~~~~
 
-Each method takes an **update document** that includes at least one
-**update operator**. The update operator specifies the type of update to
-perform. The update document also includes the fields and values that
-describe the change. Update documents use the following format:
+Each method takes a query filter and an **update document** that
+includes at least one **update operator**. The update operator
+specifies the type of update to perform and includes the fields and
+values that describe the change. Update documents use the following format:
 
 .. code-block:: rust
 
@@ -107,9 +107,9 @@ Return Value
 ~~~~~~~~~~~~
 
 The ``update_one()`` and ``update_many()`` methods return an
-``UpdateResult`` type that contains information about the update
-operation, if the operation is successful. The ``UpdateResult`` type
-contains the following properties:
+``UpdateResult`` type if the operation is successful. The
+``UpdateResult`` type contains the following properties that describe
+the operation:
 
 .. list-table::
    :widths: 30 70
@@ -138,7 +138,7 @@ changes.
 .. _rust-update-example:
 
 Update Example
-``````````````
+~~~~~~~~~~~~~~
 
 The following documents describe employees of a company:
 
@@ -212,16 +212,16 @@ The following shows the updated documents resulting from the preceding update op
 Replace a Document
 ------------------
 
-To replace a document, use the ``replace_one()`` method. To
-see an example that uses this method, see the :ref:`example
-<rust-replace-example>` in this section.
+You can perform a replace operation with the ``replace_one()`` method.
+This method replaces all existing fields of a document except for the ``_id``
+field with new fields and values that you specify.
 
 Parameters
 ~~~~~~~~~~
 
-The ``replace_one()`` method requires a **replacement document**, the
-document that will replace an existing document. Replacement documents
-use the following format:
+The ``replace_one()`` method takes a query filter and a **replacement
+document**, which contains the fields and values that will replace an
+existing document. Replacement documents use the following format:
 
 .. code-block:: rust
 
@@ -235,9 +235,9 @@ Return Values
 ~~~~~~~~~~~~~
 
 The ``replace_one`` method returns an
-``UpdateResult`` type that contains information about the update
-operation, if the operation is successful. The ``UpdateResult`` type
-contains the following properties:
+``UpdateResult`` type if the operation is successful. The
+``UpdateResult`` type contains the following properties that describe
+the operation:
 
 .. list-table::
    :widths: 30 70
@@ -263,7 +263,7 @@ changes.
 .. _rust-replace-example:
 
 Replace Example
-```````````````
+~~~~~~~~~~~~~~~
 
 The following document describes an employee of a company:
 
@@ -315,7 +315,7 @@ and the immutable ``_id`` field:
 .. _rust-update-options:
 
 Modify Update and Replace Behavior
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 You can modify the behavior of the ``update_one()``, ``update_many``,
 and ``replace_one()`` methods by constructing and passing an
@@ -385,7 +385,7 @@ the options available in ``UpdateOptions``:
 .. TODO add links to guides for relevant options
 
 The following code shows how to construct an ``UpdateOptions``
-instance:
+instance and pass it to the ``update_one()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/change.rs
    :start-after: begin-options
@@ -407,7 +407,7 @@ Additional Information
 To learn more about the concepts mentioned, see the following
 guides:
 
-.. - :manual:`Update Operators </reference/operator/update/#update-operators>`
+- :manual:`Update Operators </reference/operator/update/#update-operators>`
 
 .. - :ref:`rust-query-document`
 .. - :ref:`rust-upsert`
