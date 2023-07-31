@@ -107,7 +107,7 @@ that has the value of "pear":
    .. output::
       :language: rust
 
-      { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
+      { "_id": 3, "name": "banana", "quantity": 36, "price": 4 }
 
 .. note::
 
