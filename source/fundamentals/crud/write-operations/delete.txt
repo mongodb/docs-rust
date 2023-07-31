@@ -31,14 +31,13 @@ information about its categorization and unit price:
    :copyable: false
    
    { "item": "trowel", "category": "garden", "unit_price": 9.89 },
-   { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
    { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
    { "item": "watering can", "category": "garden", "unit_price": 11.99 }
 
 Delete Operations
 -----------------
 
-The {driver-short} provides the ``delete_one()`` and ``delete_many()``
+The {+driver-short+} provides the ``delete_one()`` and ``delete_many()``
 methods to perform delete operations.
 
 Parameters
@@ -50,10 +49,8 @@ form criteria for documents to match.
 
 You can also optionally pass a ``DeleteOptions`` type as a parameter to
 either method. You can specify settings in a ``DeleteOptions`` instance
-to configure the delete operation.
-
-To use default values for each setting, specify the value ``None`` as
-the options parameter.
+to configure the delete operation. To use default values for each
+setting, specify the value ``None`` as the options parameter.
 
 The following table describes settings that you can specify in a
 ``DeleteOptions`` instance:
@@ -143,7 +140,7 @@ following parameters:
 
       Deleted documents: 2
 
-.. tip::
+.. note::
 
    If the preceding example used the ``delete_one()`` method instead of
    ``delete_many()`` for the delete operation, the driver would delete
