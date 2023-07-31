@@ -99,8 +99,8 @@ that has the value of "pear":
 .. code-block:: rust
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
-      :start-after: begin-literal-query
-      :end-before: end-literal-query
+      :start-after: begin-literal
+      :end-before: end-literal
       :language: rust
       :dedent:
 

@@ -17,13 +17,13 @@ async fn main() -> mongodb::error::Result<()> {
     // Inserts sample documents into the collection
     my_coll.insert_many(docs, None).await?;
 
-    //begin-literal-query
+    //begin-literal
     let query = doc! { "name": "pear" };
     let mut cursor = my_coll.find(query, None).await?;
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
-    }
-    //end-literal-query
+    } 
+    //end-literal
 
     //begin-comparison
     // $gt means "greater than"
