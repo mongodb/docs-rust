@@ -49,25 +49,25 @@ method to match a subset of documents.
 
 This guide includes the following sections:
 
-- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: Presents
+- :ref:`Sample Data for Examples <rust-query-sample-data>`: Presents
   the sample data that is used by the read operation examples.
 
 - :ref:`Literal Value Queries <rust-literal-values>`: Describes how to
-query for data that exactly matches a value you provide in the query
-filter.
+  query for data that exactly matches a value you provide in the query
+  filter.
 
 - :ref:`Comparison Operators <rust-query-operators>`: Describes how to
-query for data based on comparisons with values in a collection.
+  query for data based on comparisons with values in a collection.
 
 - :ref:`Logical Operators <rust-logical-operators>`: Describes how to
-query for data using logic applied to the results of field-level operators.
+  query for data using logic applied to the results of field-level operators.
 
 - :ref:`Element Operators <rust-element-operators>`: Describes how to
-query based on the presence, absence, or type of field.
+  query based on the presence, absence, or type of field.
 
 - :ref:`Evaluation Operators <rust-evaluation-operators>`: Describes how
-to execute higher-level logic, like regex and text searches, when
-querying for documents in a collection.
+  to execute higher-level logic, like regex and text searches, when
+  querying for documents in a collection.
 
 .. _rust-query-sample-data:
 
@@ -117,15 +117,15 @@ that has the value of "pear":
 
    .. code-block:: rust
 
-   my_coll.find(doc! {
-      "price": doc! { "$eq": 5 }
-   }).await?;
+      my_coll.find(doc! {
+         "price": doc! { "$eq": 5 }
+      }).await?;
 
    .. code-block:: rust
 
-   my_coll.find(doc! {
-      "price": 5
-   }).await?;
+      my_coll.find(doc! {
+         "price": 5
+      }).await?;
 
 .. _rust-query-operators:
 
@@ -153,7 +153,6 @@ for documents with a quantity value greater than 5 and prints them out:
 
    .. output::
       :language: rust
-      :copyable: false
 
       { "_id": 1, "name": "orange", "qty": 6, "price": 5 },
       { "_id": 2, "name": "banana", "qty": 7, "price": 4 },
@@ -185,7 +184,6 @@ documents with a quantity value that is not greater than 5 and prints them out:
 
    .. output::
       :language: rust
-      :copyable: false
 
       { "_id": 2, "fruit": "apple", "quantity": 4, "price": 2, "description": "a red or green fruit" }
 
@@ -240,7 +238,6 @@ field:
    
    .. output::
       :language: rust
-      :copyable: false
 
       { "_id": 2, "fruit": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" }
 
@@ -272,7 +269,6 @@ a remainder of 0:
 
    .. output::
       :language: rust
-      :copyable: false
 
       { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 }
 
