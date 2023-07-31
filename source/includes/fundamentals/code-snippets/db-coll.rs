@@ -33,5 +33,34 @@ async fn main() -> mongodb::error::Result<()> {
     let my_coll: Collection<Document> = db.collection_with_options("coll_xyz", coll_opts);
     // end-coll
 
+    // begin-drop-coll
+    my_coll.drop(None).await?;
+    // end-drop-coll
+
+    // begin-create-coll
+    db.create_collection("coll_abc", None).await?;
+    // end-create-coll
+
+    // begin-document-validation
+    let validator =
+        doc! {
+      "$jsonSchema": doc! {
+         "bsonType": "object",
+         "title": "Answer Value Validation",
+         "properties": doc! {
+            "answer": doc! {
+               "enum": vec! [ "never", "sometimes", "often", "always" ],
+            }
+         }
+      }
+    };
+    let validation_opts = CreateCollectionOptions::builder()
+        .validator(validator)
+        .validation_action(Some(ValidationAction::Error))
+        .validation_level(Some(ValidationLevel::Moderate))
+        .build();
+    db.create_collection("survey_answers", validation_opts).await?;
+    // end-document-validation
+
     Ok(())
 }

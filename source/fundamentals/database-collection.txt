@@ -101,7 +101,8 @@ instance:
 
 The preceding methods return a ``Collection`` instance. If you
 perform an insert operation against a nonexistent collection, the server
-implicitly creates the collection.
+implicitly creates the collection. To learn how to explicitly create a collection,
+see the :ref:`Create a Collection <rust-create-collection>` section of this guide.
 
 .. note:: List Collections
    
@@ -132,37 +133,162 @@ perform the following actions:
 - Access a collection called ``coll_xyz``
 - Set a write preference on the collection in the ``CollectionOptions`` type
 
-.. important:: Parametrized Collections
-   
-   You must parameterize your ``Collection`` instance by specifying what
-   data type it contains. 
-
 .. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
    :language: rust
    :dedent:
    :start-after: begin-coll
    :end-before: end-coll
 
-Create a Collection
-~~~~~~~~~~~~~~~~~~~
+To learn more about write concerns, see :manual:`Write Concern </reference/write-concern/>` in
+the Server manual.
+
+.. important:: Parametrized Collections
+   
+   You must parameterize your ``Collection`` instance by specifying what
+   data type, such as ``Document``, it contains. The ``Collection``
+   methods that accept or return instances of the documents in the
+   collection accept or return instances of this generic parameter.
+
+   The following example shows equivalent ways of parametrizing a
+   collection with the ``Document`` type:
+
+   .. code-block:: rust
+      :copyable: false
+      
+      let my_coll: Collection<Document> = client.database("<db>").collection("<coll>");
+      let my_coll = client.database("<db>").collection::<Document>("<coll>");
+   
+   You can parameterize your collection with the ``Document`` type, but
+   we recommend that you define and use types that model your data. By
+   parameterizing your ``Collection`` instance with a custom type, you
+   can eliminate repeated serialization code and improve your
+   application's performance.
+
+.. TODO in the prev admonition, link to serialization guide
 
 Drop a Collection
 ~~~~~~~~~~~~~~~~~
 
-.. warning:: Dropping a Collection Deletes All Data in the Collection
+To drop, or permanently delete, a collection, call the ``drop()`` method
+on your ``Collection`` instance. The following code shows how to drop a
+collection:
 
-   Dropping a collection from your database also permanently deletes all
+.. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-drop-coll
+   :end-before: end-drop-coll
+
+.. warning:: Dropping a Collection Deletes Data
+
+   Dropping a collection from your database permanently deletes all
    documents within that collection and all indexes on that collection.
-   Only drop collections that contain data that is no longer needed.
+   You should drop only collections that contain data that you no longer
+   need to access.
+
+.. _rust-create-collection:
+
+Create a Collection
+-------------------
+
+You can explicitly create a collection by calling the
+``create_collection()`` method on a ``Database`` instance. The
+``create_collection()`` method takes the collection name and an optional
+``CreateCollectionOptions`` type as parameters.
+
+To learn about the settings you can specify in a
+``CreateCollectionOptions`` instance, see its `API documentation
+<{+api+}/options/struct.CreateCollectionOptions.html>`__.
+
+The following code shows how to create a collection called ``coll_abc``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-create-coll
+   :end-before: end-create-coll
 
 Document Validation
 ~~~~~~~~~~~~~~~~~~~
 
-**Document validation** provides the ability to validate documents
-against a series of filters during writes to a collection.
+**Document validation** lets you restrict the types of documents that
+can exist in a collection. If you implement document validation, you
+can successfully execute only write operations that adhere to the
+validation rules.
 
-For more information, see the server documentation for :manual:`document
-validation </core/document-validation>`.
+You can specify document validation when creating a collection by
+setting the following fields in a ``CreateCollectionOptions`` instance:
+
+- ``validator``: specifies a validator to restrict the schema of
+  documents. To learn more about specifying a validator, see :manual:`validator
+  </reference/command/collMod/?utm_source=compass&utm_medium=product#mongodb-collflag-validator>` in the Server manual.
+- ``validation_level``: specifies how strictly the database should apply
+  the validation rules to existing documents during update operations.
+  To learn more about specifying a validation level, see :manual:`validationLevel
+  </reference/command/collMod/?utm_source=compass&utm_medium=product#mongodb-collflag-validationLevel>` in the Server manual.
+- ``validation_action``: specifies whether the database should raise an
+  error or a warning if inserted documents do not adhere to the
+  validation rules. To learn more about specifying a validation action, see :manual:`validationAction
+  </reference/command/collMod/?utm_source=compass&utm_medium=product#mongodb-collflag-validationAction>` in the Server manual.
+
+This example creates a collection called ``survey_answers`` with the
+following document validation specifications:
+
+- The ``validator`` setting specifies that the ``answer`` field in each
+  document must have a value of ``"never"``, ``"sometimes"``, ``"often"``, or
+  ``"always"``.
+- The ``validation_action`` setting specifies that the driver should
+  raise an error if a write operation violates the validation rule.
+- The ``validation_level`` setting specifies that the validation is
+  ``Moderate``, so the validation rules apply only to inserts and
+  updates on existing valid documents.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-document-validation
+   :end-before: end-document-validation
+
+With these document validation rules, you can successfully insert the
+following document:
+
+.. code-block:: json
+   
+   {
+     "_id": { ... },
+     "question": "How often do you listen to music when exercising?",
+     "answer": "often"
+   }
+
+However, if you attempt to insert the following document, the driver
+raises an error because the value of ``answer`` does not match any of
+the valid options:
+
+.. io-code-block::
+   :copyable: false
+
+   .. input::
+      :language: json
+
+      {
+        "_id": { ... },
+        "question": "How often do you listen to music when exercising?",
+        "answer": "most of the time"
+      }
+
+   .. output::
+      :language: none
+      :visible: false
+
+      Error: Error { kind: Write(WriteError(WriteError { code: 121, code_name:
+      None, message: "Document failed validation", details:
+      Some(Document({"failingDocumentId":
+      ObjectId("..."), "details":
+      Document({"operatorName": String("$jsonSchema"), "title": String("Answer
+      Value Validation"), ... })})) })), ... }
+
+To learn more about document validation, see :manual:`Schema Validation
+</core/schema-validation/>` in the Server manual.
 
 .. _addl-info-db-coll:
 
@@ -171,8 +297,19 @@ Additional Information
 
 For more information about the concepts in this guide, see the following documentation:
 
+- :ref:`Insert Documents <rust-insert-guide>`
+- :manual:`Databases and Collections </core/databases-and-collections/>`
+- :manual:`Documents </core/document/>`
+- :manual:`Schema Validation </core/schema-validation/>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
+- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database_with_options() <{+api+}/struct.Client.html#method.database>`__
+- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database() <{+api+}/struct.Client.html#method.database>`__
 - `database() <{+api+}/struct.Client.html#method.database>`__
