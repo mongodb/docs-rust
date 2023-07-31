@@ -96,7 +96,7 @@ a value you provide in the query filter. The following operation uses a
 literal query to search for documents containing a field called "name"
 that has the value of "pear":
 
-.. code-block:: rust
+.. io-code-block::
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-literal
