@@ -48,15 +48,21 @@ Connect to MongoDB
 
       .. code-block:: none
 
-         { "_id": ObjectId("573a1390f29313caabcd5293"), "plot": "Young
-         Pauline is left a lot of money when her wealthy uncle dies.
-         However, her uncle's secretary has been named as her guardian
-         until she marries, at which time she will officially take ...",
-         "genres": ["Action"], "runtime": 199, "cast": ["Pearl White",
-         "Crane Wilbur", "Paul Panzer", "Edward Josè"],
-         "num_mflix_comments": 0, "poster":
-         "https://m.media-amazon.com/images/M/MV5BMzgxODk1Mzk2Ml5BMl5BanBnXkFtZTgwMDg0NzkwMjE@._V1_SY1000_SX677_AL_.jpg",
-         "title": "The Perils of Pauline",  ...
+         {
+            "_id": {
+               "$oid": "573a1390f29313caabcd5293"
+            },
+            "plot": "Young Pauline is left a lot of money when her wealthy uncle dies. However, her uncle's secretary has been named as her guardian until she marries, at which time she will officially take ...",
+            "genres": [
+               "Action"
+            ],
+            "runtime": 199,
+            "cast": [
+               "Pearl White",
+               "Crane Wilbur",
+               "Paul Panzer",
+               "Edward Josè"
+            ] ...
 
       If you encounter an error or see no output, check whether you specified the
       proper connection string in the ``main.rs`` file, and that you loaded the
