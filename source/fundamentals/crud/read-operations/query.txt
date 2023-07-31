@@ -22,7 +22,7 @@ To match a subset of documents, specify a **query filter** containing
 your **match criteria**. Match criteria consist of the fields and
 values you want present in a document. A query filter contains at least
 one set of match criteria to determine which documents to include in the
-resulting set.
+resulting set. An empty query filter returns all the documents in a collection.
 
 In a query filter, you can match fields with :ref:`literal values
 <rust-literal-values>` or with :ref:`query operators
@@ -173,8 +173,9 @@ operator or a literal value query.
 Example
 ~~~~~~~
 
-The following operation uses the logical operator ``$not`` to search for
-documents with a quantity value that is not greater than 5 and prints them out:
+The following operation uses the logical operator ``$and`` to search for
+documents with a quantity value that is greater than 5 and a price that
+is less than 5 and prints them out:
 
 .. io-code-block::
 
@@ -187,8 +188,7 @@ documents with a quantity value that is not greater than 5 and prints them out:
    .. output::
       :language: rust
 
-      { "_id": 2, "fruit": "apple", "quantity": 4, "price": 2, "description": "a red or green fruit" }
-
+      { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
 .. note::
 
    If a query filter contains a literal value query with multiple field-value pairs,
@@ -206,7 +206,7 @@ documents with a quantity value that is not greater than 5 and prints them out:
    .. code-block:: rust
 
       my_coll.find(doc! {
-         $and: [
+         $and: vec! [
             doc! { "price": { "$eq": 5 }},
             doc! { "qty": { "$gt": 4 }}
          ]
@@ -276,3 +276,18 @@ a remainder of 0:
 
 For a full list of evaluation operators, see the :manual:`Evaluation
 Query Operators </reference/operator/query-evaluation/>` page.
+
+Additional Information
+----------------------
+
+For more information on specifying a query and operators, see the manual on
+:ref:`Operators </reference/operator/`.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types used in this
+guide, see the following API Documentation:
+
+- `Find() <{+api+}/mongo#Collection.Find>`__
+- `Cursor <{+api+}/mongo#Cursor>`__
