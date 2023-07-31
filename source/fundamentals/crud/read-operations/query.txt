@@ -1,4 +1,4 @@
-.. _rust-fundamentals-query-document:
+.. _rust-query-guide:
 
 ===============
 Specify a Query
@@ -13,215 +13,268 @@ Specify a Query
 Overview
 --------
 
-Most CRUD operations allow you to narrow the set of matched documents by
-specifying matching criteria in a **query document**. Query documents contain
-one or more query operators that apply to specific fields which determine which
-documents to include in the result set.
+In this guide, you can learn how to specify a query to match a subset
+of documents.
 
-In a query document, you can match fields against literal values, such as
-``{ title: 'The Room' }``, or you can compose
-:manual:`query operators </reference/operator/query/>` to express more
-complex matching criteria. In this guide, we cover the following categories
-of query operators in MongoDB and show examples on how to use them:
+.. rust-query-filter-definition:
 
-- :manual:`Comparison Operators </reference/operator/query-comparison/>`
+To match a subset of documents, specify a **query filter** containing
+your **match criteria**. Match criteria consist of the fields and
+values you want present in a document. A query filter contains at least
+one set of match criteria to determine which documents to include in the
+resulting set.
 
-- :manual:`Logical Operators </reference/operator/query-logical/>`
+In a query filter, you can match fields with :ref:`literal values
+<rust-literal-values>` or with :ref:`query operators
+<rust-query-operators>`. Query operators allow you to perform mathematical
+or logical operations to locate documents within a collection.
 
-- :manual:`Element Operators </reference/operator/query-element/>`
+Match criteria with literal values use the following format:
 
-- :manual:`Evaluation Operators </reference/operator/query-evaluation/>`
+.. code-block:: rust
+   :copyable: false
+
+   filter = doc! {"<field>", "<value>"};
+
+Match criteria with a query operator use the following format:
+
+.. code-block:: rust
+   :copyable: false
+
+   filter = doc! {"<field>", doc! {"<operator>", "<value>"}};
+
+The following sections use :ref:`literal values <rust-literal-values>`
+and :ref:`query operators <rust-query-operators>` with the ``Find()``
+method to match a subset of documents.
+
+This guide includes the following sections:
+
+- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: Presents
+  the sample data that is used by the read operation examples.
+
+- :ref:`Literal Value Queries <rust-literal-values>`: Describes how to
+query for data that exactly matches a value you provide in the query
+filter.
+
+- :ref:`Comparison Operators <rust-query-operators>`: Describes how to
+query for data based on comparisons with values in a collection.
+
+- :ref:`Logical Operators <rust-logical-operators>`: Describes how to
+query for data using logic applied to the results of field-level operators.
+
+- :ref:`Element Operators <rust-element-operators>`: Describes how to
+query based on the presence, absence, or type of field.
+
+- :ref:`Evaluation Operators <rust-evaluation-operators>`: Describes how
+to execute higher-level logic, like regex and text searches, when
+querying for documents in a collection.
+
+.. _rust-query-sample-data:
+
+Sample Data
+-----------
 
 The examples in this guide use the following sample documents. Each
 document represents a fruit in a store's inventory, and contains
-information about its quantity, and its rating:
+information about its quantity, and its price:
 
 
 .. code-block:: rust
 
-   { "_id": 1, "name": "orange", "quantity": 7, "rating": 5 },
-   { "_id": 2, "name": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" },
-   { "_id": 3, "name": "banana", "quantity": 36, "rating": 8 },
-   { "_id": 4, "name": "pear", "quantity": 28, "rating": 4 }
+   { "_id": 1, "name": "orange", "quantity": 7, "price": 5 },
+   { "_id": 2, "name": "apple", "quantity": 4, "price": 2, "description": "a red or green fruit" },
+   { "_id": 3, "name": "banana", "quantity": 36, "price": 4 },
+   { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
 
-Literal Value Queries
----------------------
+.. _rust-literal-values:
 
-Literal value queries allow you to query for data that exactly matches
-a value you provide in the query document. A literal value query has two
-parts: a field name and a value. Documents returned from such a query
-must contain a field that has exactly the same name as the provided name
-and a value for that field that is exactly the same as the provided
-value. The following operation uses a literal query to search for
-documents containing a field called "name" that has a value of "pear":
+Literal Values
+--------------
 
-.. code-block:: rust
-
-   let query = doc! { "name": "pear" };
-   let find_options = FindOptions::builder().sort(doc! { "title": 1 }).build();
-   let mut cursor = myColl.find(query, find_options).await?;
-   while let Some(Document) = cursor.try_next().await? {
-     println!("{}", Document);
-   }
-
-This code snippet returns the following results:
+Literal value query filters allow you to query for data that exactly matches
+a value you provide in the query filter. The following operation uses a
+literal query to search for documents containing a field called "name"
+that has the value of "pear":
 
 .. code-block:: rust
-   :copyable: false
 
-   { "_id": 4, "name": "pear", "quantity": 28, "rating": 4 }
+   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
+      :start-after: begin-literal-query
+      :end-before: end-literal-query
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: rust
+      :copyable: false
+
+      { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
 
 .. note::
 
-  Literal value queries are equivalent to the ``$eq`` comparison
-  operator. As a result, the following two queries are equivalent:
+   Literal value queries function identically to queries that use the ``$eq`` comparison
+   operator. For example, the following queries are equivalent:
 
-  .. code-block:: rust
+   .. code-block:: rust
 
-      myColl.find(doc! {
-         "rating": doc! { "$eq": 5 }
-      }).await?;
+   my_coll.find(doc! {
+      "price": doc! { "$eq": 5 }
+   }).await?;
 
-  .. code-block:: rust
+   .. code-block:: rust
 
-      myColl.find(doc! {
-         "rating": 5
-      }).await?;
+   my_coll.find(doc! {
+      "price": 5
+   }).await?;
 
-Comparison Operators
---------------------
+.. _rust-query-operators:
 
-Comparison operators allow you to query for data based on comparisons
-with values in a collection. Common comparison operators include
+Comparison
+----------
+
+Comparison operators allow you to query for documents by comparing them
+to values in the query filter. Common comparison operators include
 ``$gt`` for "greater than" comparisons, ``$lt`` for "less than" comparisons,
-and ``$ne`` for "not equal to" comparisons. The following operation uses
-the comparison operator ``$gt`` to search for documents with a quantity
-value greater than 5 and prints them out:
+and ``$ne`` for "not equal to" comparisons. 
 
-.. code-block:: rust
+Example
+~~~~~~~
 
-   // $gt means "greater than"
-   let query = doc! { "quantity": doc! { $"gt": 5 } };
-   let find_options = FindOptions::builder().sort(doc! { "title": 1 }).build();
-   let mut cursor = myColl.find(query, find_options).await?;
-   while let Some(Document) = cursor.try_next().await? {
-     println!("{}", Document);
-   }
+The following operation uses the comparison operator ``$gt`` to search
+for documents with a quantity value greater than 5 and prints them out:
 
-This code snippet returns the following results:
+.. io-code-block::
 
-.. code-block:: javascript
-   :copyable: false
+   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
+      :start-after: begin-comparison
+      :end-before: end-comparison
+      :language: rust
+      :dedent:
 
-   { "_id": 1, "name": "orange", "qty": 6, "rating": 2 }
-   { "_id": 2, "name": "banana", "qty": 7, "rating": 1 }
-   { "_id": 4, "fruit": "pear", "quantity": 28, "rating": 4 }
+   .. output::
+      :language: rust
+      :copyable: false
 
-Logical Operators
------------------
+      { "_id": 1, "name": "orange", "qty": 6, "price": 5 },
+      { "_id": 2, "name": "banana", "qty": 7, "price": 4 },
+      { "_id": 4, "fruit": "pear", "quantity": 28, "price": 6 }
 
-Logical operators allow you to query for data using logic applied to the
-results of field-level operators. For instance, you can use the ``$or``
+.. _rust-logical-operators:
+
+Logical
+-------
+
+Logical operators require at least two match criteria and match documents based on
+if they meet some, all, or none of these criteria. For instance, you can use the ``$or``
 method to query for documents that match either a ``$gt`` comparison
-operator or a literal value query. The following operation uses the
-logical operator ``$not`` to search for documents with a quantity value
-that is not greater than 5 and prints them out:
+operator or a literal value query. 
 
-.. code-block:: rust
+Example
+~~~~~~~
 
-   let query = doc! { "qty": doc! { "$not": doc! { "$gt": 5 }}};
-   let find_options = FindOptions::builder().sort(doc! { "title": 1 }).build();
-   let mut cursor = myColl.find(query, find_options).await?;
-   while let Some(Document) = cursor.try_next().await? {
-     println!("{}", Document);
-   }
+The following operation uses the logical operator ``$not`` to search for
+documents with a quantity value that is not greater than 5 and prints them out:
 
-This code snippet returns the following results:
+.. io-code-block::
 
-.. code-block:: rust
-   :copyable: false
+   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
+      :start-after: begin-logical
+      :end-before: end-logical
+      :language: rust
+      :dedent:
 
-   { "_id": 2, "fruit": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" }
+   .. output::
+      :language: rust
+      :copyable: false
+
+      { "_id": 2, "fruit": "apple", "quantity": 4, "price": 2, "description": "a red or green fruit" }
 
 .. note::
 
-  Whenever a query document contains multiple elements, those elements
-  are combined together with an implicit ``$and`` logical operator to
-  figure out which documents match the query. As a result, the following
-  two queries are equivalent:
+   If a query filter contains a literal value query with multiple field-value pairs,
+   the driver matches documents that meet all of the criteria.
 
-  .. code-block:: rust
+   For example, the following queries produce equivalent results:
 
-     myColl.find(doc! {
-       "rating": doc! { "$eq": 5 },
-       "qty": doc! { "$gt": 4 }
-     });
+   .. code-block:: rust
 
-  .. code-block:: rust
+      my_coll.find(doc! {
+         "rating": doc! { "$eq": 5 },
+         "qty": doc! { "$gt": 4 }
+      });
 
-     myColl.find(doc! {
-       $and: [
-          doc! { "rating": { "$eq": 5 }},
-          doc! { "qty": { "$gt": 4 }}
-       ]
-     });
+   .. code-block:: rust
+
+      my_coll.find(doc! {
+         $and: [
+            doc! { "rating": { "$eq": 5 }},
+            doc! { "qty": { "$gt": 4 }}
+         ]
+      });
 
 For more information on comparison operators, see the reference manual
 entry for :manual:`Comparison Query Operators </reference/operator/query-comparison/>`.
 
-Element Operators
------------------
+.. _rust-element-operators:
 
-Element operators allow you to query based on the presence, absence, or
-type of field. The following operation uses the element operator
+Element
+-------
+
+Element operators allow you to match documents based on the types of
+specified fields and if they include specified fields. 
+
+Example
+~~~~~~~
+
+The following operation uses the element operator
 ``$exists`` to search for documents containing the ``description``
 field:
 
-.. code-block:: rust
+.. io-code-block::
 
-   let query = doc! { "description": doc! { "$exists": true } };
-   let find_options = FindOptions::builder().build();
-   let mut cursor = myColl.find(query, find_options);
-   while let Some(Document) = cursor.try_next().await? {
-     println!("{}", Document);
-   }
+   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
+      :start-after: begin-element
+      :end-before: end-element
+      :language: rust
+      :dedent:
+   
+   .. output::
+      :language: rust
+      :copyable: false
 
-This code snippet returns the following results:
+      { "_id": 2, "fruit": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" }
 
-.. code-block:: rust
-   :copyable: false
+For a full list of element operators, see the :manual:`Element
+Query Operators </reference/operator/query-element/>` page.
 
-   { "_id": 2, "fruit": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" }
+.. _rust-evaluation-operators:
 
-For more information on this operator, see the reference manual entry for
-the :manual:`$exists operator </reference/operator/query/exists/>`.
+Evaluation
+----------
 
-Evaluation Operators
---------------------
+Evaluation operators match documents by analyzing values in specified
+fields.
 
-Evaluation operators allow you to execute higher-level logic, like
-regex and text searches, when querying for documents in a collection.
-Common evaluation operators include ``$regex`` and ``$text``.
+Example
+~~~~~~~
+
 The following operation uses the evaluation operator ``$mod`` to search
 for documents with a quantity value that is divisible by 3 with
 a remainder of 0:
 
-.. code-block:: javascript
+.. io-code-block::
 
-   // $mod means "modulo" and returns the remainder after division
-   let query = doc! { "qty": doc! { "$mod": [ 3, 0 ] } };
-   let find_options = FindOptions::builder().build();
-   let mut cursor = myColl.find(query, find_options);
-   while let Some(Document) = cursor.try_next().await? {
-     println!("{}", Document);
-   }
+   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
+      :start-after: begin-evaluation
+      :end-before: end-evaluation
+      :language: rust
+      :dedent:
 
-This code snippet returns the following results:
+   .. output::
+      :language: rust
+      :copyable: false
 
-.. code-block:: javascript
-   :copyable: false
+      { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 }
 
-   { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 }
-
-For more information on this operator, see the reference manual entry for
-the :manual:`$mod operator </reference/operator/query/mod/>`.
+For a full list of evaluation operators, see the :manual:`Evaluation
+Query Operators </reference/operator/query-evaluation/>` page.
