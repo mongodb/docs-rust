@@ -199,7 +199,7 @@ documents with a quantity value that is not greater than 5 and prints them out:
    .. code-block:: rust
 
       my_coll.find(doc! {
-         "rating": doc! { "$eq": 5 },
+         "price": doc! { "$eq": 5 },
          "qty": doc! { "$gt": 4 }
       });
 
@@ -207,7 +207,7 @@ documents with a quantity value that is not greater than 5 and prints them out:
 
       my_coll.find(doc! {
          $and: [
-            doc! { "rating": { "$eq": 5 }},
+            doc! { "price": { "$eq": 5 }},
             doc! { "qty": { "$gt": 4 }}
          ]
       });
@@ -241,7 +241,7 @@ field:
    .. output::
       :language: rust
 
-      { "_id": 2, "fruit": "apple", "quantity": 4, "rating": 6, "description": "a red or green fruit" }
+      { "_id": 2, "fruit": "apple", "quantity": 4, "price": 6, "description": "a red or green fruit" }
 
 For a full list of element operators, see the :manual:`Element
 Query Operators </reference/operator/query-element/>` page.
@@ -272,7 +272,7 @@ a remainder of 0:
    .. output::
       :language: rust
 
-      { "_id": 3, "fruit": "banana", "quantity": 36, "rating": 8 }
+      { "_id": 3, "fruit": "banana", "quantity": 36, "price": 8 }
 
 For a full list of evaluation operators, see the :manual:`Evaluation
 Query Operators </reference/operator/query-evaluation/>` page.
