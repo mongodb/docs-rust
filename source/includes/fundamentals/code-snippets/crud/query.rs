@@ -17,30 +17,50 @@ async fn main() -> mongodb::error::Result<()> {
     // Inserts sample documents into the collection
     my_coll.insert_many(docs, None).await?;
 
+<<<<<<< HEAD
     //begin-literal
+=======
+    //begin-literal-query
+>>>>>>> 5d33bbf (post review)
     let query = doc! { "name": "pear" };
     let mut cursor = my_coll.find(query, None).await?;
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
+<<<<<<< HEAD
     } 
     //end-literal
+=======
+    }
+    //end-literal-query
+>>>>>>> 5d33bbf (post review)
 
     //begin-comparison
     // $gt means "greater than"
     let query = doc! { "quantity": doc! { $"gt": 5 } };
+<<<<<<< HEAD
     let mut cursor = my_coll.find(query, None).await?;
+=======
+    let find_options = FindOptions::builder().sort(doc! { "title": 1 }).build();
+    let mut cursor = my_coll.find(query, find_options).await?;
+>>>>>>> 5d33bbf (post review)
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
     }
     //end-comparison
 
     //begin-logical
+<<<<<<< HEAD
     let query = doc! { "$and": vec! [
            doc! { "qty": doc! { "$gt": 5 } },
            doc! {"price" : doc! {"$lt": 5 } }
        ]
     };
     let mut cursor = my_coll.find(query, None).await?;
+=======
+    let query = doc! { "qty": doc! { "$not": doc! { "$gt": 5 }}};
+    let find_options = FindOptions::builder().sort(doc! { "title": 1 }).build();
+    let mut cursor = my_coll.find(query, find_options).await?;
+>>>>>>> 5d33bbf (post review)
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
     }
@@ -48,7 +68,12 @@ async fn main() -> mongodb::error::Result<()> {
 
     //begin-element
     let query = doc! { "description": doc! { "$exists": true } };
+<<<<<<< HEAD
     let mut cursor = my_coll.find(query, None);
+=======
+    let find_options = FindOptions::builder().build();
+    let mut cursor = my_coll.find(query, find_options);
+>>>>>>> 5d33bbf (post review)
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
     }
@@ -57,7 +82,12 @@ async fn main() -> mongodb::error::Result<()> {
     //begin-evaluation
     // $mod means "modulo" and returns the remainder after division
     let query = doc! { "qty": doc! { "$mod": [ 3, 0 ] } };
+<<<<<<< HEAD
     let mut cursor = my_coll.find(query, None);
+=======
+    let find_options = FindOptions::builder().build();
+    let mut cursor = my_coll.find(query, find_options);
+>>>>>>> 5d33bbf (post review)
     while let Some(Document) = cursor.try_next().await? {
        println!("{}", Document);
     }
