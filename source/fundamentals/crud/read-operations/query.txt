@@ -281,7 +281,7 @@ Additional Information
 ----------------------
 
 For more information on specifying a query and operators, see the manual on
-:ref:`Query Operators </reference/operator/query/>`.
+:manual:`Query Operators </reference/operator/query/>`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
