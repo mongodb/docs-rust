@@ -22,6 +22,7 @@ Read Operations
    /fundamentals/crud/read-operations/changestream
 
 - :ref:`rust-query-guide`
+
 .. - :ref:`rust-count-guide`
 .. - :ref:`rust-retrieve-guide`
 .. - :ref:`rust-cursor-guide`
