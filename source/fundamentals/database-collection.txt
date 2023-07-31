@@ -253,7 +253,8 @@ With these document validation rules, you can successfully insert the
 following document:
 
 .. code-block:: json
-   
+   :copyable: false
+
    {
      "_id": { ... },
      "question": "How often do you listen to music when exercising?",
@@ -305,11 +306,27 @@ For more information about the concepts in this guide, see the following documen
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
+- `Client <{+api+}/struct.Client.html>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `database() <{+api+}/struct.Client.html#method.database>`__
-- `database_with_options() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
+- `database_with_options() <{+api+}/struct.Client.html#method.database_with_options>`__
+- `default_database() <{+api+}/struct.Client.html#method.default_database>`__
+- `Database <{+api+}/struct.Database.html>`__
+- `list_database_names() <{+api+}/struct.Client.html#method.list_database_names>`__
+- `list_databases() <{+api+}/struct.Client.html#method.list_databases>`__
+- `drop() for Database <{+api+}/struct.Database.html#method.drop>`__
+- `collection() <{+api+}/struct.Database.html#method.collection>`__
+- `collection_with_options() <{+api+}/struct.Database.html#method.collection_with_options>`__
+- `CollectionOptions <{+api+}/options/struct.CollectionOptions.html>`__
+- `Collection <{+api+}/struct.Collection.html>`__
+- `list_collection_names() <{+api+}/struct.Database.html#method.list_collection_names>`__
+- `list_collections() <{+api+}/struct.Database.html#method.list_collections>`__
+- `WriteConcern <{+api+}/options/struct.WriteConcern.html>`__
+- `drop() for Collection <{+api+}/struct.Collection.html#method.drop>`__
+- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `validator <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validator>`__
+- `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__
+- `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
+- `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__
+- `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__
