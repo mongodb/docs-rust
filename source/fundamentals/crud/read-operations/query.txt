@@ -287,10 +287,17 @@ Additional Information
 
 For more information on specifying a query and operators, see the manual on
 <<<<<<< HEAD
+<<<<<<< HEAD
 :ref:`Query Operators </reference/operator/query`.
 =======
 :ref:`Query Operators </reference/operator/query/>`.
 >>>>>>> c95ddeb (final toc)
+=======
+:ref:`Query Operators </reference/operator/query/>`.
+=======
+:ref:`Operators </reference/operator/query`.
+>>>>>>> 9611f4c (link fix)
+>>>>>>> 7b3a7eb (link fix)
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -299,4 +306,8 @@ To learn more about any of the methods or types used in this
 guide, see the following API Documentation:
 
 - `Find() <{+api+}//#finding-documents-in-a-collection>`__
+<<<<<<< HEAD
 - `Cursor <{+api+}/struct.Cursor.html>`__
+=======
+- `Cursor <{+api+}/struct.Cursor.html>`__
+>>>>>>> 9611f4c (link fix)
