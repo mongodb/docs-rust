@@ -281,7 +281,7 @@ Additional Information
 ----------------------
 
 For more information on specifying a query and operators, see the manual on
-:ref:`Operators </reference/operator/`.
+:ref:`Operators </reference/operator/query`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -289,5 +289,5 @@ API Documentation
 To learn more about any of the methods or types used in this
 guide, see the following API Documentation:
 
-- `Find() <{+api+}/mongo#Collection.Find>`__
-- `Cursor <{+api+}/mongo#Cursor>`__
+- `Find() <{+api+}//#finding-documents-in-a-collection>`__
+- `Cursor <{+api+}/struct.Cursor.html>`__
