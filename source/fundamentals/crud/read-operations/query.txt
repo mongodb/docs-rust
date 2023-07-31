@@ -106,7 +106,6 @@ that has the value of "pear":
 
    .. output::
       :language: rust
-      :copyable: false
 
       { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
 
@@ -157,6 +156,9 @@ for documents with a quantity value greater than 5 and prints them out:
       { "_id": 1, "name": "orange", "qty": 6, "price": 5 },
       { "_id": 2, "name": "banana", "qty": 7, "price": 4 },
       { "_id": 4, "fruit": "pear", "quantity": 28, "price": 6 }
+
+For more information on comparison operators, see the reference manual
+entry for :manual:`Comparison Query Operators </reference/operator/query-comparison/>`.
 
 .. _rust-logical-operators:
 
@@ -210,8 +212,8 @@ documents with a quantity value that is not greater than 5 and prints them out:
          ]
       });
 
-For more information on comparison operators, see the reference manual
-entry for :manual:`Comparison Query Operators </reference/operator/query-comparison/>`.
+For a full list of logical operators, see the :manual:`Logical
+Query Operators </reference/operator/query-logical/>` page.
 
 .. _rust-element-operators:
 
