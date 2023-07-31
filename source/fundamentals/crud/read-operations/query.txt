@@ -187,6 +187,11 @@ is less than 5 and prints them out:
 
    .. output::
       :language: rust
+<<<<<<< HEAD
+=======
+
+      { "_id": 2, "fruit": "apple", "quantity": 4, "price": 2, "description": "a red or green fruit" }
+>>>>>>> 6089220 (error fix)
 
       { "_id": 4, "name": "pear", "quantity": 28, "price": 6 }
 .. note::
