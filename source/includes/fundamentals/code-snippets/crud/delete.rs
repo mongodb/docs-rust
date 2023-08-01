@@ -13,6 +13,7 @@ async fn main() -> mongodb::error::Result<()> {
     let filter = doc! { "category": "garden" };
     let hint = Hint::Name("_id_".to_string());
     let opts: DeleteOptions = DeleteOptions::builder().hint(hint).build();
+
     let res = my_coll.delete_many(filter, opts).await?;
     println!("Deleted documents: {}", res.deleted_count);
     // end-delete
