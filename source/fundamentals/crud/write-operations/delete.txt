@@ -23,7 +23,7 @@ Sample Data for Examples
 
 .. TODO decide on structs for crud
 
-The examples in this guide use the following sample documents. Each
+The example in this guide uses the following sample documents. Each
 document represents an item in a store's inventory and contains
 information about its categorization and unit price:
 
@@ -112,8 +112,8 @@ Return Value
 The ``delete_one()`` and ``delete_many()`` methods return a
 ``DeleteResult`` type. This type contains the ``deleted_count`` property,
 which describes the number of documents deleted. If no documents match
-the query filter you provide to the method, the delete operation does
-not remove any documents and the value of ``deleted_count`` is ``0``.
+the query filter you specified, the delete operation does
+not remove any documents, and the value of ``deleted_count`` is ``0``.
 
 delete_many() Example
 ~~~~~~~~~~~~~~~~~~~~~
@@ -144,7 +144,7 @@ following parameters:
 
    If the preceding example used the ``delete_one()`` method instead of
    ``delete_many()`` for the delete operation, the driver would delete
-   the first of the two documents that match the query filter.
+   the first of the two documents that matched the query filter.
 
 Additional Information
 ----------------------
