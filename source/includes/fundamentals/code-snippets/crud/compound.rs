@@ -25,7 +25,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-find-delete-options
 
     // begin-find_one_and_delete
-    let filter = doc! { "age": doc! {"$lte": 10} };
+    let filter = doc! { "age": doc! { "$lte": 10 } };
 
     let res = my_coll.find_one_and_delete(filter, None).await?;
     println!("Deleted document:\n{}", serde_json::to_string_pretty(&res).unwrap());
@@ -41,9 +41,10 @@ async fn main() -> mongodb::error::Result<()> {
     // begin-find_one_and_update
     let filter = doc! { "school": "Aurora High School" };
     let update =
-        doc! { "$set": doc! { "school": "Durango High School" }, "$inc": doc! { "age": 1 } };
+        doc! { "$set": doc! { "school": "Durango High School" },
+               "$inc": doc! { "age": 1 } };
     let opts = FindOneAndUpdateOptions::builder()
-        .return_document(Some(mongodb::options::ReturnDocument::After))
+        .return_document(Some(ReturnDocument::After))
         .build();
 
     let res = my_coll.find_one_and_update(filter, update, opts).await?;
@@ -53,13 +54,16 @@ async fn main() -> mongodb::error::Result<()> {
     let filter = doc! { "name": "xxx" };
     let replacement = doc! { "name": "yyy", "age": 10 };
     // begin-find-replace-options
-    let opts = FindOneAndReplaceOptions::builder().bypass_document_validation(true).build();
+    let opts = FindOneAndReplaceOptions::builder().comment(bson!("hello")).build();
     let _res = my_coll.find_one_and_replace(filter, replacement, opts).await?;
     // end-find-replace-options
 
     // begin-find_one_and_replace
     let filter = doc! { "name": doc! { "$regex": "Johnson" } };
-    let replacement = doc! { "name": "Toby Fletcher", "age": 14, "school": "Durango High School" };
+    let replacement =
+        doc! { "name": "Toby Fletcher", 
+               "age": 14,
+               "school": "Durango High School" };
     let opts = FindOneAndReplaceOptions::builder()
         .return_document(Some(ReturnDocument::After))
         .projection(doc! { "name": 1, "school": 1, "_id": 0 })
