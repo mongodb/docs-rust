@@ -35,15 +35,19 @@ Enable Tracing and Logging
 --------------------------
 
 The driver implements the `tracing <https://crates.io/crates/tracing>`__
-crate to enable the driver to emit messages for driver events. Since the
-``tracing`` crate currently does not have a 1.0 version release, you
-should consider the functionality to be unstable.
+crate to enable the driver to emit messages for driver events.
+
+.. important:: ``tracing`` Crate is Unstable
+   
+   Since the ``tracing`` crate currently does not have a 1.0 version
+   release, you should consider the functionality to be unstable.
 
 To enable tracing, logging, or both, you must add the ``tracing``
 dependency and the ``tracing-unstable`` feature flag to your ``mongodb``
 dependency in your ``Cargo.toml`` file:
 
 .. code-block:: none
+   :emphasize-lines: 2, 6
 
    [dependencies]
    tracing = "{+tracing-version+}"
@@ -79,7 +83,7 @@ against and their corresponding targets:
        connections they contain.
 
 To specify the logging component and severity level, you can set the
-``RUST_LOG`` environmental variable when you compile and run your
+``RUST_LOG`` environment variable when you compile and run your
 application. Specify the logging component by setting the value of
 ``RUST_LOG`` to one of the targets provided in the preceding table,
 along with a severity level.
@@ -100,12 +104,20 @@ Implement Tracing
 -----------------
 
 To enable tracing, you must also add the ``tracing-subscriber``
-dependency to your ``Cargo.toml`` file:
+dependency to your ``Cargo.toml`` file. The following code shows a
+sample dependencies list that contains the driver dependencies and the
+``tracing-subscriber`` crate:
 
 .. code-block:: none
-   
+   :emphasize-lines: 3
+
    [dependencies]
+   tracing = "{+tracing-version+}"
    tracing-subscriber = "{+tracing-sub-version+}"
+
+   [dependencies.mongodb]
+   version = "{+version+}"
+   features = ["tracing-unstable"]
 
 Then, in your application, you must register a type implementing the
 ``tracing::Subscriber`` trait to consume events with tracing. The
@@ -123,7 +135,7 @@ specifications of the ``RUST_LOG`` environment variable:
    To learn more about registering a subscriber, see the ``tracing``
    `documentation <https://docs.rs/tracing/latest/tracing/#in-executables>`__.
 
-If you run your application to trace against commands at the ``debug``
+If you run your application and trace against commands at the ``debug``
 level, the driver emits messages whenever you execute an operation. The
 following code shows the command for this tracing specification:
 
@@ -131,7 +143,8 @@ following code shows the command for this tracing specification:
    
    $ RUST_LOG='mongodb::command=debug' cargo run
 
-When you perform a write operation, the driver generates trace messages:
+With ``debug`` level tracing specified, when you perform a write
+operation, the driver generates trace messages:
 
 .. io-code-block::
    :copyable: false
@@ -159,10 +172,15 @@ flag to the ``tracing`` dependency in your ``Cargo.toml`` file. You also
 need to add a dependency for a logging crate, such as ``env_logger``:
 
 .. code-block:: none
+   :emphasize-lines: 2-3
    
    [dependencies]
    tracing = { version = "{+tracing-version+}", features = ["log"] }
    env_logger = "0.10.0"
+
+   [dependencies.mongodb]
+   version = "{+version+}"
+   features = ["tracing-unstable"]
 
 .. tip::
 
@@ -187,7 +205,7 @@ that uses the specifications of the ``RUST_LOG`` environment variable:
    To see examples of other ways to configure the logger,
    visit the ``env_logger`` :github:`GitHub repository <rust-cli/env_logger/tree/main/examples>`.
 
-If you run your application to log against connections at the ``debug``
+If you run your application and log against connections at the ``debug``
 level, the driver emits messages whenever you open, use, and close a
 connection. The following code shows the command for this logging
 specification:
@@ -196,7 +214,8 @@ specification:
    
    $ RUST_LOG='mongodb::connection=debug' cargo run
 
-When you open and use a connection, the driver generates log messages:
+With ``debug`` level tracing specified, when you open and use a connection,
+the driver generates log messages:
 
 .. io-code-block::
    :copyable: false
@@ -219,8 +238,8 @@ When you open and use a connection, the driver generates log messages:
       [2023-07-21T18:13:00Z DEBUG mongodb::connection] Connection created topologyId="..." serverHost="..." serverPort=27017 driverConnectionId=1
       ...
 
-Additional Information
-----------------------
+.. Additional Information
+.. ----------------------
 
 .. TODO For more information about setting client options, see the
 .. :ref:`rust-connection-options` guide.
