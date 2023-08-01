@@ -17,8 +17,7 @@ In this guide, you can learn how to perform **compound operations** in
 the {+driver-short+}.
 
 Compound operations combine the functionality of read and write
-operations into one :manua:`atomic
-</reference/glossary/#std-term-atomic-operation>` action. If you perform
+operations into one :manual:`atomic </reference/glossary/#std-term-atomic-operation>` action. If you perform
 a read operation and a write operation in sequence, someone might change
 your target document between the operations, leading to unexpected
 results. When you perform a compound operation, MongoDB prevents
@@ -528,6 +527,7 @@ To learn more about performing the operations mentioned, see the
 following guides:
 
 .. - :ref:`rust-query-guide`
+
 - :ref:`rust-retrieve-guide`
 - :ref:`rust-delete-guide`
 - :ref:`rust-change-guide`
