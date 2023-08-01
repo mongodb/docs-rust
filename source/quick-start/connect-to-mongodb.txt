@@ -49,10 +49,8 @@ Connect to MongoDB
       .. code-block:: none
 
          {
-            "_id": {
-               "$oid": "573a1390f29313caabcd5293"
-            },
-            "plot": "Young Pauline is left a lot of money when her wealthy uncle dies. However, her uncle's secretary has been named as her guardian until she marries, at which time she will officially take ...",
+            "_id": { ... },
+            "plot": "Young Pauline is left a lot of money when her wealthy ...";
             "genres": [
                "Action"
             ],
@@ -62,8 +60,10 @@ Connect to MongoDB
                "Crane Wilbur",
                "Paul Panzer",
                "Edward Josè"
-            ] ...
-
+            ],
+            ...
+         }
+         
       If you encounter an error or see no output, check whether you specified the
       proper connection string in the ``main.rs`` file, and that you loaded the
       sample data.
