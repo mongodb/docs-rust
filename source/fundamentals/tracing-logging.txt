@@ -37,7 +37,7 @@ Enable Tracing and Logging
 The driver implements the `tracing <https://crates.io/crates/tracing>`__
 crate to enable the driver to emit messages for driver events.
 
-.. important:: ``tracing`` Crate is Unstable
+.. important:: tracing Crate is Unstable
    
    Since the ``tracing`` crate currently does not have a 1.0 version
    release, you should consider the functionality to be unstable.
