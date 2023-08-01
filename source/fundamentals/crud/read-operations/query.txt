@@ -326,6 +326,7 @@ a remainder of 0:
          "quantity": 36,
          "price": 4
       }
+
 For a full list of evaluation operators, see the :manual:`Evaluation
 Query Operators </reference/operator/query-evaluation/>` page.
 
@@ -348,8 +349,8 @@ bits set as ``6`` (which is "00000110"):
    :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
-      :start-after: begin-literal
-      :end-before: end-literal
+      :start-after: begin-bitwise
+      :end-before: end-bitwise
       :language: rust
       :dedent:
 

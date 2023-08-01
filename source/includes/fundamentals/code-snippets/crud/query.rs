@@ -25,25 +25,6 @@ async fn main() -> mongodb::error::Result<()> {
       println!("{}", serde_json::to_string_pretty(&doc).unwrap());
     } 
     //end-literal
-
-    //begin-comparison
-    // $gt means "greater than"
-    let query = doc! { "quantity": doc! { "$gt": 5 } };
-    let mut cursor = my_coll.find(query, None).await?;
-    while let Some(result) = cursor.try_next().await? {
-      let doc: Document = bson::from_document(result)?;
-      println!("{}", serde_json::to_string_pretty(&doc).unwrap());
-    }
-    //end-comparison
-
-    //begin-literal
-    let query = doc! { "name": "pear" };
-    let mut cursor = my_coll.find(query, None).await?;
-    while let Some(result) = cursor.try_next().await? {
-      let doc: Document = bson::from_document(result)?;
-      println!("{}", serde_json::to_string_pretty(&doc).unwrap());
-    } 
-    //end-literal
     println!("");
     //begin-comparison
     // $gt means "greater than"
