@@ -95,13 +95,13 @@ literal query to search for documents containing a field called ``name``
 that has the value of ``pear``:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-literal
       :end-before: end-literal
       :language: rust
       :dedent:
-      :copyable: true
 
    .. output::
       :language: rust
@@ -152,13 +152,13 @@ The following operation uses the comparison operator ``$gt`` to match
 documents with a ``quantity`` value greater than ``5``:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-comparison
       :end-before: end-comparison
       :language: rust
       :dedent:
-      :copyable: true
 
    .. output::
       :language: json
@@ -208,13 +208,13 @@ documents with a ``quantity`` value that is greater than ``10`` and a ``price`` 
 is less than ``5``:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-logical
       :end-before: end-logical
       :language: rust
       :dedent:
-      :copyable: true
 
    .. output::
       :language: json
@@ -269,13 +269,13 @@ The following operation uses the element operator
 field:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-element
       :end-before: end-element
       :language: rust
       :dedent:
-      :copyable: true
    
    .. output::
       :language: json
@@ -308,13 +308,13 @@ for documents with a ``quantity`` value that is divisible by 3 with
 a remainder of 0:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-evaluation
       :end-before: end-evaluation
       :language: rust
       :dedent:
-      :copyable: true
 
    .. output::
       :language: json
@@ -345,13 +345,13 @@ The following example matches documents where the ``price`` has the same
 bits set as ``6`` (which is "00000110"):
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-literal
       :end-before: end-literal
       :language: rust
       :dedent:
-      :copyable: true
 
    .. output::
       :language: rust
@@ -384,13 +384,14 @@ The following example matches documents where the ``vendor`` contains
 
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/query.rs
       :start-after: begin-array
       :end-before: end-array
       :language: rust
       :dedent:
-      :copyable: true
+      
 
    .. output::
       :language: rust
