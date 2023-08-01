@@ -286,7 +286,7 @@ field:
          "name": "apple",
          "quantity": 4,
          "price": 2,
-         "description": "a red or green fruit"
+         "description": "Granny Smith"
       }
 
 For a full list of element operators, see the :manual:`Element
