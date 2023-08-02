@@ -348,7 +348,7 @@ Example
 ~~~~~~~
 
 The following example matches documents where the ``quantity`` has the same
-bits set as ``7``, which is equivalent to  "00000111" in binary:
+bits set as ``7``, which is equivalent to  ``00000111`` in binary:
 
 .. io-code-block::
    :copyable: true
