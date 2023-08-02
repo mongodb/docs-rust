@@ -49,7 +49,7 @@ async fn main() -> mongodb::error::Result<()> {
                "title": "Answer Value Validation",
                "properties": doc! {
                   "answer": doc! {
-                     "enum": vec! [ "inaccurate", "partially accurate", "accurate" ],
+                     "enum": vec! [ "inaccurate", "accurate" ],
                   }
                }
             }

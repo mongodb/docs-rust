@@ -45,6 +45,7 @@ specify the validation rules for your collection:
 
 - ``validation_level``: specifies how strictly the database should apply
   the validation rules to existing documents during update operations.
+  
   Possible values: ``ValidationLevel::Off``,
   ``ValidationLevel::Strict``, ``ValidationLevel::Moderate``.
   
@@ -53,7 +54,9 @@ specify the validation rules for your collection:
 
 - ``validation_action``: specifies whether the database should raise an
   error or a warning if you insert documents that don't follow the
-  validation rules. Possible values: ``ValidationAction::Error``, ``ValidationAction::Warn``.
+  validation rules.
+  
+  Possible values: ``ValidationAction::Error``, ``ValidationAction::Warn``.
   
   To learn more about this setting, see :manual:`validationAction
   </reference/command/collMod/#mongodb-collflag-validationAction>` in the Server manual.
@@ -65,8 +68,7 @@ This example creates a collection called ``survey_answers`` with the
 following document validation specifications:
 
 - The ``validator`` setting specifies that the ``answer`` field in each
-  document must have a value of ``"inaccurate"``, ``"partially accurate"``, or
-  ``"accurate"``.
+  document must have a value of ``"inaccurate"`` or ``"accurate"``.
 - The ``validation_action`` setting specifies that the driver should
   raise an error if a write operation violates the validation rule.
 - The ``validation_level`` setting specifies that the validation is
@@ -125,6 +127,16 @@ the valid options:
       ObjectId("..."), "details":
       Document({"operatorName": String("$jsonSchema"), "title": String("Answer
       Value Validation"), ... })})) })), ... }
+
+.. tip:: Bypass Document Validation
+   
+   If you need to perform a write operation that violates a collection's
+   validation rules, you can set the ``bypass_document_validation``
+   field to ``true`` in the write method's options parameter.
+   
+   To see an example of how to specify this setting in the options for the
+   ``insert_one()`` method, see the :ref:`Modify insert_one Behavior
+   <rust-insertone-bypass-validation-ex>` section of the Insert Documents guide.
 
 To learn more about document validation, see :manual:`Schema Validation
 </core/schema-validation/>` in the Server manual.
