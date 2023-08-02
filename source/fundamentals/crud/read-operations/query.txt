@@ -88,11 +88,10 @@ that describe the fruit or its vendors:
 .. code-block::
    :copyable: true
 
-   .. input:: /includes/fundamentals/code-snippets/crud/query.rs
-      :start-after: begin-sample-docs
-      :end-before: end-sample-docs
-      :language: rust
-      :dedent:
+   { "_id": 1, "name": "orange", "quantity": 7 },
+   { "_id": 2, "name": "apple", "quantity": 4, "description": "Granny Smith" },
+   { "_id": 3, "name": "banana", "quantity": 36},
+   { "_id": 4, "name": "pear", "quantity": 28, "vendors": ["A", "C" ] }
 
 .. _rust-literal-values:
 
