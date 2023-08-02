@@ -65,7 +65,7 @@ Example
 ~~~~~~~
 
 This example creates a collection called ``survey_answers`` with the
-following document validation specifications:
+following validation specifications:
 
 - The ``validator`` setting specifies that the ``answer`` field in each
   document must have a value of ``"inaccurate"`` or ``"accurate"``.
@@ -87,7 +87,7 @@ following documents:
 
 .. code-block:: json
    :copyable: false
-   :emphasize-lines: 4
+   :emphasize-lines: 4, 9
 
    {
      "_id": { ... },
@@ -145,10 +145,14 @@ API Documentation
 -----------------
 
 To learn more about any of the methods or types discussed in this
-section, see the following API Documentation:
+guide, see the following API Documentation:
 
+- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 - `validator <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validator>`__
 - `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__
 - `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
 - `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__
 - `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__
+- `insert_one() <{+api+}/struct.Collection.html#method.insert_one>`__
+- `bypass_document_validation <{+api+}/options/struct.InsertOneOptions.html#structfield.bypass_document_validation>`__

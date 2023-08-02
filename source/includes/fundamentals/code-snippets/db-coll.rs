@@ -59,6 +59,7 @@ async fn main() -> mongodb::error::Result<()> {
         .validation_action(Some(ValidationAction::Error))
         .validation_level(Some(ValidationLevel::Moderate))
         .build();
+
     db.create_collection("survey_answers", validation_opts).await?;
     // end-document-validation
 
