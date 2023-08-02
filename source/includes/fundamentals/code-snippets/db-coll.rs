@@ -44,16 +44,16 @@ async fn main() -> mongodb::error::Result<()> {
     // begin-document-validation
     let validator =
         doc! {
-      "$jsonSchema": doc! {
-         "bsonType": "object",
-         "title": "Answer Value Validation",
-         "properties": doc! {
-            "answer": doc! {
-               "enum": vec! [ "never", "sometimes", "often", "always" ],
+            "$jsonSchema": doc! {
+               "bsonType": "object",
+               "title": "Answer Value Validation",
+               "properties": doc! {
+                  "answer": doc! {
+                     "enum": vec! [ "inaccurate", "partially accurate", "accurate" ],
+                  }
+               }
             }
-         }
-      }
-    };
+        };
     let validation_opts = CreateCollectionOptions::builder()
         .validator(validator)
         .validation_action(Some(ValidationAction::Error))

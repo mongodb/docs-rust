@@ -4,6 +4,7 @@ Fundamentals section:
 - :ref:`Connect to MongoDB <rust-connection>`
 - :ref:`Read from and Write to MongoDB <rust-crud>`
 - :ref:`Manage Databases and Collections <rust-db-coll>`
+- :ref:`Implement Document Validation <rust-doc-validation>`
 - :ref:`Perform Aggregations <rust-aggregation>`
 - :ref:`Run A Database Command <rust-run-command>`
 

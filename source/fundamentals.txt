@@ -11,6 +11,7 @@ Fundamentals
    /fundamentals/connections
    /fundamentals/crud
    /fundamentals/database-collection
+   /fundamentals/document-validation
    /fundamentals/aggregation
    /fundamentals/run-command
 
