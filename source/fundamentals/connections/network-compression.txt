@@ -10,6 +10,9 @@ Network Compression
    :depth: 2
    :class: singlecol
 
+Overview
+--------
+
 In this guide, you can learn how to configure **network compression** for
 your connection to MongoDB by using the {+driver-short+}.
 
@@ -136,6 +139,7 @@ Zstandard as the compression algorithms for a connection:
    :start-after: begin-clientoptions
    :end-before: end-clientoptions
    :language: rust
+   :emphasize-lines: 4-8, 10
    :copyable:
    :dedent:
 
