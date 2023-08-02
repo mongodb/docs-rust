@@ -7,7 +7,7 @@ Network Compression
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 In this guide, you can learn how to configure **network compression** for
@@ -23,7 +23,7 @@ The driver supports the following algorithms:
 #. `Zlib <https://zlib.net/>`__: available in MongoDB 3.6 and later
 #. `Zstandard <https://github.com/facebook/zstd/>`__: available in MongoDB 4.2 and later
 
-.. note:: Multiple Compression Algorithms
+.. note:: Compression Algorithm Selection
 
    If you specify multiple compression algorithms, the driver selects the
    first one that is supported by the MongoDB instance that the driver is
@@ -141,7 +141,7 @@ Zstandard as the compression algorithms for a connection:
 
 .. note::
    
-   To use multiple compression algorithms, as in the preceding
+   To specify multiple compression algorithms, as in the preceding
    example, you must add the feature flags for each compressor to your
    ``mongodb`` dependency.
 
