@@ -61,7 +61,7 @@ async fn main() -> mongodb::error::Result<()> {
     //end-element
     println!("");
     //begin-evaluation
-    // $mod means "modulo" and returns the remainder after division
+    // $mod means "modulo" and checks if the remainder is a specific value
     let query = doc! { "quantity": doc! { "$mod": [ 3, 0 ] } };
     let mut cursor = my_coll.find(query, None).await?;
     while let Some(result) = cursor.try_next().await? {
