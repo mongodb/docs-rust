@@ -104,7 +104,7 @@ following table describes the options available in
    * - ``bypass_document_validation``
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
-         :manual:`Schema Validation </core/schema-validation>` in the Server manual.
+         the guide on :ref:`rust-doc-validation`.
 
        | Type: ``bool``
        | Default: ``false``
@@ -193,7 +193,7 @@ following table describes the options available in
    * - ``bypass_document_validation``
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
-         :manual:`Schema Validation </core/schema-validation>` in the Server manual.
+         the guide on :ref:`rust-doc-validation`.
 
        | Type: ``bool``
        | Default: ``false``
