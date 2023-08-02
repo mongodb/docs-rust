@@ -124,8 +124,6 @@ following table describes the options available in
     
        | Type: ``Bson``
 
-.. _rust-insertone-bypass-validation-ex:
-
 The following code shows how to construct an ``InsertOneOptions``
 instance:
 

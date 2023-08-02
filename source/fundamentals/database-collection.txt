@@ -254,9 +254,9 @@ The following code shows how to create a collection called ``coll_abc``:
    :start-after: begin-create-coll
    :end-before: end-create-coll
 
-While creating a collection, you can implement document validation to
-maintain a consistent document schema and control which write operations
-succeed. To learn how to enable this feature, see the guide on :ref:`rust-doc-validation`.
+.. TODO While creating a collection, you can implement document validation to
+.. maintain a consistent document schema and control which write operations
+.. succeed. To learn how to enable this feature, see the guide on :ref:`rust-doc-validation`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -277,6 +277,5 @@ For more information about the concepts in this guide, see the following documen
 - :ref:`Insert Documents <rust-insert-guide>`
 - :manual:`Databases and Collections </core/databases-and-collections/>`
 - :manual:`Documents </core/document/>`
-- :manual:`Schema Validation </core/schema-validation/>`
 
 To learn how to run a database command, see :ref:`rust-run-command`.
