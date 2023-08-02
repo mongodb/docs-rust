@@ -85,7 +85,7 @@ information about its quantity. Some documents contain additional fields
 that describe the fruit or its vendors:
 
 
-.. code-block::
+.. code-block:: json
    :copyable: true
 
    { "_id": 1, "name": "orange", "quantity": 7 },
