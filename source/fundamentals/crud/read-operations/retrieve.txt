@@ -78,8 +78,8 @@ retrieve any documents that match the filter criteria.
 To see an example that uses this method to retrieve data, see
 the :ref:`find() example <rust-find-example>`.
 
-.. TODO To learn about query filters, see :ref:`Specify a Query <...>`.
-.. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
+To learn about query filters, see :ref:`rust-query-guide`.
+To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
 
 Find One Document
 ~~~~~~~~~~~~~~~~~

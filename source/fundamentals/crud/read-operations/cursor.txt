@@ -1,4 +1,4 @@
-.. _rust-cursor:
+.. _rust-cursor-guide:
 
 =========================
 Access Data From a Cursor
@@ -20,33 +20,39 @@ database results while holding only a subset of them in memory at a
 given time. Read operations that match multiple documents use a cursor
 to return those documents in batches as opposed to all at once.
 
+.. tip::
+
+   Batch size of the cursor can be configured using the options of the
+   method that returns it. For example, setting the batch_size field of
+   ``FindOptions`` will set the batch size of the cursor returned by
+   ``Collection::find``. For more information, see `Cursor
+   <{+api+}/struct.Cursor.html>`__ in the API documentation.
+
 Sample Cursor
 ~~~~~~~~~~~~~
 
 Each section uses the following ``cursor`` variable, which is a
 ``Cursor`` struct that contains all the documents in a collection:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+   :language: rust
    :dedent:
    :start-after: begin cursor def
    :end-before: end cursor def
 
-In the examples in this guide, the driver unmarshals documents held in
-the ``cursor`` variable to a sample ``MyStruct`` struct.
+.. tip::
 
-.. important::
+   For more information of the ``find()`` method, see
+   :ref:`rust-retrieve guide`.
 
-   A cursor is not `goroutine <https://www.golang-book.com/books/intro/10>`__ safe. Do not use the same cursor in
-   multiple goroutines at the same time.
 
-.. _golang-individual-documents:
+.. _rust-individual-documents:
 
 Retrieve Documents Individually
 -------------------------------
 
-To retrieve documents from your cursor individually while blocking the
-current goroutine, use the ``Next()`` method.
+To retrieve documents from your cursor individually, use the
+``next()`` method.
 
 The method returns a document if all of the following conditions are met:
 
@@ -54,17 +60,17 @@ The method returns a document if all of the following conditions are met:
 - The driver didn't throw any errors.
 - The context didn't expire.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+   :language: rust
    :dedent:
-   :start-after: begin cursor next
-   :end-before: end cursor next
+   :start-after: begin-cursor-next
+   :end-before: end-cursor-next
 
 Tailable Cursor
 ~~~~~~~~~~~~~~~
 
 To attempt retrieving a document from a :manual:`tailable cursor
-</core/tailable-cursors/>`, use the ``TryNext()`` method.
+</core/tailable-cursors/>`, use the ``try_next()`` method.
 
 The method returns a document if all of the following conditions are met:
 
@@ -72,51 +78,36 @@ The method returns a document if all of the following conditions are met:
 - The driver didn't throw any errors.
 - The context didn't expire.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+   :language: rust
    :dedent:
-   :start-after: begin cursor try next
-   :end-before: end cursor try next
+   :start-after: begin try next
+   :end-before: end try next
 
-.. _golang-all-documents:
+.. _rust-all-documents:
 
 Retrieve All Documents
 ----------------------
 
-To populate an array with all of your query results, use the ``All()``
+To populate an array with all of your query results, use the ``collect()``
 method:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+   :language: rust
    :dedent:
-   :start-after: begin cursor all
-   :end-before: end cursor all
+   :start-after: begin cursor collect
+   :end-before: end cursor collect
 
-.. important:: Memory
+Tailable Cursor
+~~~~~~~~~~~~~~~
+To attempt to populate an array with all of your query results from a :manual:`tailable cursor
+</core/tailable-cursors/>`, use the ``try_collect()`` method:
 
-   If the number and size of documents returned by your query exceeds
-   available application memory, your program will crash. If you except
-   a large result set, you should :ref:`consume your cursor iteratively
-   <golang-individual-documents>`.
-
-Close the Cursor
-----------------
-
-When your application no longer needs to use a cursor, close the cursor
-with the ``Close()`` method. This method frees the resources your cursor
-consumes in both the client application and the MongoDB server.
-
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+   :language: rust
    :dedent:
-   :start-after: begin close
-   :end-before: end close
-
-.. note:: 
-
-   Close the cursor when you :ref:`retrieve documents individually
-   <golang-individual-documents>` because those methods make a cursor
-   :manual:`tailable </core/tailable-cursors/>`.
+   :start-after: begin try collect
+   :end-before: end try collect
 
 Additional Information
 ----------------------
@@ -124,12 +115,11 @@ Additional Information
 To learn more about the operations discussed in this guide, see the
 following guides:
 
-- :ref:`golang-retrieve`
-- :ref:`golang-query-document`
-- :ref:`golang-bson`
+- :ref:`rust-retrieve-guide`
+- :ref:`rust-query-guide`
 - :manual:`Tailable Cursors </core/tailable-cursors/>`
 
-.. - Fundamentals > BSON page
+.. TODO - Fundamentals > BSON page
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -137,11 +127,12 @@ API Documentation
 To learn more about cursors and how to access their elements, see
 the following API Documentation:
 
-- `Cursor <{+api+}/mongo#Cursor>`__
-- `Cursor.All() <{+api+}/mongo#Cursor.All>`__
-- `Cursor.Next() <{+api+}/mongo#Cursor.Next>`__
-- `Cursor.TryNext() <{+api+}/mongo#Cursor.TryNext>`__
-- `Cursor.Decode() <{+api+}/mongo#Cursor.Decode>`__
+- `Cursor <{+api+}/struct.Cursor.html>`__
+- `Cursor.next() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.next>`__
+- `Cursor.try_next() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_next>`__
+- `Cursor.collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__
+- `Cursor.try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__
+- `Cursor.deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__
 - `Cursor.RemainingBatchLength() <{+api+}/mongo#Cursor.RemainingBatchLength>`__
 - `Cursor.ID() <{+api+}/mongo#Cursor.ID>`__
 - `Cursor.Err() <{+api+}/mongo#Cursor.Err>`__
