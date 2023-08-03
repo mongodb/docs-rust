@@ -33,7 +33,7 @@ client. Call one of the following methods on a `Client
 
 - `database() <{+api+}/struct.Client.html#method.database>`__: retrieve a database by its name
 - `database_with_options() <{+api+}/struct.Client.html#method.database_with_options>`__: set
-  options (`DatabaseOptions <{+api+}/options/struct.DatabaseOptions.html>`) while retrieving a
+  options (`DatabaseOptions <{+api+}/options/struct.DatabaseOptions.html>`__) while retrieving a
   database by its name
 - `default_database() <{+api+}/struct.Client.html#method.default_database>`__: access the
   default database specified for your ``Client`` instance
