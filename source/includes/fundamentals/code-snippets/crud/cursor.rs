@@ -9,7 +9,7 @@ async fn main() -> mongodb::error::Result<()> {
     let my_coll: Collection<Document> = client.database("db").collection("");
     
     //begin cursor def
-    let mut cursor = my_coll.find(None, None).await?;
+    let cursor = my_coll.find(None, None).await?;
     //end cursor def
 
     

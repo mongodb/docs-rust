@@ -34,7 +34,7 @@ Sample Cursor
 Each section uses the following ``cursor`` variable, which is a
 ``Cursor`` struct that contains all the documents in a collection:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: begin cursor def
@@ -43,7 +43,7 @@ Each section uses the following ``cursor`` variable, which is a
 .. tip::
 
    For more information of the ``find()`` method, see
-   :ref:`rust-retrieve guide`.
+   :ref:`rust-retrieve-guide`.
 
 
 .. _rust-individual-documents:
@@ -60,7 +60,7 @@ The method returns a document if all of the following conditions are met:
 - The driver didn't throw any errors.
 - The context didn't expire.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: begin-cursor-next
@@ -78,7 +78,7 @@ The method returns a document if all of the following conditions are met:
 - The driver didn't throw any errors.
 - The context didn't expire.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: begin try next
@@ -92,7 +92,7 @@ Retrieve All Documents
 To populate an array with all of your query results, use the ``collect()``
 method:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: begin cursor collect
@@ -103,7 +103,7 @@ Tailable Cursor
 To attempt to populate an array with all of your query results from a :manual:`tailable cursor
 </core/tailable-cursors/>`, use the ``try_collect()`` method:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/CRUD/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: begin try collect
@@ -133,7 +133,3 @@ the following API Documentation:
 - `Cursor.collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__
 - `Cursor.try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__
 - `Cursor.deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__
-- `Cursor.RemainingBatchLength() <{+api+}/mongo#Cursor.RemainingBatchLength>`__
-- `Cursor.ID() <{+api+}/mongo#Cursor.ID>`__
-- `Cursor.Err() <{+api+}/mongo#Cursor.Err>`__
-- `Cursor.Close() <{+api+}/mongo#Cursor.Close>`__
