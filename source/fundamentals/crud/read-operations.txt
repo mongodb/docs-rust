@@ -9,10 +9,10 @@ Read Operations
 
    /fundamentals/crud/read-operations/retrieve
    /fundamentals/crud/read-operations/query
+   /fundamentals/crud/read-operations/cursor
 
 ..
    /fundamentals/crud/read-operations/count
-   /fundamentals/crud/read-operations/cursor
    /fundamentals/crud/read-operations/distinct
    /fundamentals/crud/read-operations/sort
    /fundamentals/crud/read-operations/skip
