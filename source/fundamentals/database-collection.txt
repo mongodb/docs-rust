@@ -16,9 +16,10 @@ Overview
 In this guide, you can learn how to use the {+driver-short+} to access
 and manage MongoDB databases and collections.
 
-MongoDB organizes data in a hierarchal structure, in which data exists as
-**documents** that are grouped into **collections**. A **database** contains
-one or more collections.
+MongoDB organizes data in a hierarchal structure. A MongoDB
+deployment contains one or more **databases**, and each database
+contains one or more **collections**. In each collection, MongoDB stores
+data as **documents** that contain field-and-value pairs.
 
 To learn more about the document data format,
 see :manual:`Documents </core/document/>` in the Server manual.
@@ -26,20 +27,28 @@ see :manual:`Documents </core/document/>` in the Server manual.
 Access a Database
 -----------------
 
-You can access a database by calling the following methods on a ``Client``
-instance:
+You can access a database by retrieving a `Database <{+api+}/struct.Database.html>`__ instance from your
+client. Call one of the following methods on a `Client
+<{+api+}/struct.Client.html>`__ instance to create a ``Database``:
 
-- ``database()``: access a database by its name
-- ``database_with_options()``: set options (``DatabaseOptions``) while accessing a database
-- ``default_database()``: access the default database specified in the
-  ``ClientOptions`` instance or connection string used to create the
-  ``Client`` instance
+- `database() <{+api+}/struct.Client.html#method.database>`__: retrieve a database by its name
+- `database_with_options() <{+api+}/struct.Client.html#method.database_with_options>`__: set
+  options (`DatabaseOptions <{+api+}/options/struct.DatabaseOptions.html>`) while retrieving a
+  database by its name
+- `default_database() <{+api+}/struct.Client.html#method.default_database>`__: access the
+  default database specified for your ``Client`` instance
+ 
+.. TODO when client options page is completed. To learn how to specify
+.. the default database for your client, see :ref:`clientoptions`.
 
-The preceding methods return a ``Database`` instance, which you can use
+You can use a ``Database`` instance
 to perform database-level operations and access collections that the
-database contains. If you perform an insert operation on a
-collection of a nonexistent database, the server implicitly creates the
-database and collection.
+database contains.
+
+If you pass a name of a nonexistent database to the ``database()`` or
+``database_with_options()`` methods, the driver will still return a
+usable ``Database`` instance. If you try to insert any data into this
+database, the server implicitly creates it.
 
 The following example uses the ``database()`` method to access a
 database called ``test_db``:
@@ -51,10 +60,12 @@ database called ``test_db``:
    :end-before: end-database
 
 List Databases
-~~~~~~~~~~~~~~
+--------------
    
 To see a list of your deployment's databases, call the
-``list_database_names()`` method on your ``Client`` instance. This
+`list_database_names()
+<{+api+}/struct.Client.html#method.list_database_names>`__ method on
+your ``Client`` instance. This
 method returns a ``Vec<String>`` type, a vector containing the database
 names as strings.
 
@@ -75,18 +86,19 @@ the ``list_database_names()`` method:
    
       ["admin", "local", "test_db", ...]
 
-To see detailed information about each database, call the ``list_databases()``
+To see detailed information about each database, call the `list_databases() <{+api+}/struct.Client.html#method.list_databases>`__
 method on your ``Client`` instance. This method returns a
 ``Vec<DatabaseSpecification>`` type. The ``DatabaseSpecification`` type
 contains fields describing each database, such as its size and whether
 it contains data.
 
 Drop a Database
-~~~~~~~~~~~~~~~
+---------------
 
-To drop a database, call the ``drop()`` method
-on your ``Database`` instance. Calling this method permanently deletes
-all of the data in the database's collections. The following code shows
+Dropping a database permanently deletes all of the data in that database's
+collections. To drop a database, call the `drop()
+<{+api+}/struct.Database.html#method.drop>`__ method
+on your ``Database`` instance. The following code shows
 how to drop a database:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
@@ -102,35 +114,24 @@ how to drop a database:
    You should drop only databases that contain data that you no longer
    need to access.
 
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-To learn more about any of the methods or types discussed in this
-section, see the following API Documentation:
-
-- `Client <{+api+}/struct.Client.html>`__
-- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
-- `database() <{+api+}/struct.Client.html#method.database>`__
-- `database_with_options() <{+api+}/struct.Client.html#method.database_with_options>`__
-- `default_database() <{+api+}/struct.Client.html#method.default_database>`__
-- `Database <{+api+}/struct.Database.html>`__
-- `list_database_names() <{+api+}/struct.Client.html#method.list_database_names>`__
-- `list_databases() <{+api+}/struct.Client.html#method.list_databases>`__
-- `drop() for Database <{+api+}/struct.Database.html#method.drop>`__
-
 Access a Collection
 -------------------
 
-You can access a collection by calling the following methods on a ``Database``
-instance:
+You can access a collection by retrieving a `Collection <{+api+}/struct.Collection.html>`__ instance from your
+database. Call one of the following methods on a ``Database`` instance
+to create a ``Collection``:
 
-- ``collection()``: access a collection by its name
-- ``collection_with_options()``: set options (``CollectionOptions``) while accessing a collection
+- `collection() <{+api+}/struct.Database.html#method.collection>`__: retrieve a collection by its name
+- `collection_with_options() <{+api+}/struct.Database.html#method.collection_with_options>`__: set
+  options (`CollectionOptions <{+api+}/options/struct.CollectionOptions.html>`__) while accessing a
+  collection by its name
 
-The preceding methods return a ``Collection`` instance. If you
-perform an insert operation on a nonexistent collection, the server
-implicitly creates the collection. To learn how to explicitly create a collection,
-see the :ref:`Create a Collection <rust-create-collection>` section of this guide.
+If you pass a name of a nonexistent collection to the ``collection()`` or
+``collection_with_options()`` methods, the driver will still return a
+usable ``Collection`` instance. If you try to insert any data into this
+collection, the server implicitly creates it. To learn how to explicitly
+create a collection, see the :ref:`Create a Collection
+<rust-create-collection>` section of this guide.
 
 This example uses the ``collection_with_options()`` method to
 perform the following actions:
@@ -164,17 +165,19 @@ the Server manual.
       let my_coll = client.database("test_db").collection::<Document>("coll_xyz");
 
    We recommend that you define and parameterize your collection with a
-   type that models your data instead of the ``Document`` type. By
-   using a custom type, you can avoid repeated serialization code
-   and improve your application's performance.
+   custom type that models your data instead of the ``Document`` type. By
+   using a type specific to your data, you can improve your
+   application's performance by avoiding repeated
+   serialization code, such as code that verifies certain keys are
+   present and that their values are correctly typed.
 
 .. TODO in the prev admonition, link to serialization guide
 
 List Collections
-~~~~~~~~~~~~~~~~
+----------------
 
 To see a list of collections in a database, call the
-``list_collection_names()`` method on your ``Database`` instance. This
+`list_collection_names() <{+api+}/struct.Database.html#method.list_collection_names>`__ method on your ``Database`` instance. This
 method returns a ``Vec<String>`` type, a vector containing the
 collection names as strings.
 
@@ -195,18 +198,19 @@ database by using the ``list_collection_names()`` method:
    
       ["my_coll", "coll_xyz", ...]
 
-To see detailed information about each collection, call the ``list_collections()``
+To see detailed information about each collection, call the `list_collections() <{+api+}/struct.Database.html#method.list_collections>`__
 method on your ``Database`` instance. This method returns a
 ``Vec<CollectionSpecification>`` type. The ``CollectionSpecification`` type
 contains fields describing each collection, such as its type and settings.
 
 Drop a Collection
-~~~~~~~~~~~~~~~~~
+-----------------
 
-To drop a collection, call the ``drop()`` method
-on your ``Collection`` instance. Calling this method permanently deletes
-all of the data in the collection and any indexes on that collection.
-The following code shows how to drop a collection:
+Dropping a collection permanently deletes all of the data in that
+collection. To drop a collection, call the `drop()
+<{+api+}/struct.Collection.html#method.drop>`__ method
+on your ``Collection`` instance. The following code shows
+how to drop a collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
    :language: rust
@@ -221,29 +225,14 @@ The following code shows how to drop a collection:
    You should drop only collections that contain data that you no longer
    need to access.
 
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-To learn more about any of the methods or types discussed in this
-section, see the following API Documentation:
-
-- `collection() <{+api+}/struct.Database.html#method.collection>`__
-- `collection_with_options() <{+api+}/struct.Database.html#method.collection_with_options>`__
-- `CollectionOptions <{+api+}/options/struct.CollectionOptions.html>`__
-- `Collection <{+api+}/struct.Collection.html>`__
-- `list_collection_names() <{+api+}/struct.Database.html#method.list_collection_names>`__
-- `list_collections() <{+api+}/struct.Database.html#method.list_collections>`__
-- `WriteConcern <{+api+}/options/struct.WriteConcern.html>`__
-- `drop() for Collection <{+api+}/struct.Collection.html#method.drop>`__
-
 .. _rust-create-collection:
 
 Create a Collection
 -------------------
 
 You can explicitly create a collection by calling the
-``create_collection()`` method on a ``Database`` instance. This method
-takes the collection name and an optional ``CreateCollectionOptions``
+`create_collection() <{+api+}/struct.Database.html#method.create_collection>`__ method on a ``Database`` instance. This method
+takes the collection name and an optional `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 type as parameters.
 
 The following code shows how to create a collection called ``coll_abc``:
@@ -257,15 +246,6 @@ The following code shows how to create a collection called ``coll_abc``:
 .. TODO While creating a collection, you can implement document validation to
 .. maintain a consistent document schema and control which write operations
 .. succeed. To learn how to enable this feature, see the guide on :ref:`rust-doc-validation`.
-
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-To learn more about any of the methods or types discussed in this
-section, see the following API Documentation:
-
-- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
-- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 
 .. _addl-info-db-coll:
 
