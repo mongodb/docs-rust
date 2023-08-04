@@ -24,10 +24,9 @@ Read Operations
 
 - :ref:`rust-query-guide`
 - :ref:`rust-retrieve-guide`
+- :ref:`rust-cursor-guide`
 
-.. - :ref:`rust-query-guide`
 .. - :ref:`rust-count-guide`
-.. - :ref:`rust-cursor-guide`
 .. - :ref:`rust-distinct-guide`
 .. - :ref:`rust-sort-guide`
 .. - :ref:`rust-skip-guide`

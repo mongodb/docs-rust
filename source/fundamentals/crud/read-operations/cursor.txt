@@ -52,13 +52,7 @@ Retrieve Documents Individually
 -------------------------------
 
 To retrieve documents from your cursor individually, use the
-``next()`` method.
-
-The method returns a document if all of the following conditions are met:
-
-- A document is currently or will later be available.
-- The driver didn't throw any errors.
-- The context didn't expire.
+``next()`` method in the ``futures::stream::StreamExt`` crate:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
@@ -66,17 +60,8 @@ The method returns a document if all of the following conditions are met:
    :start-after: begin-cursor-next
    :end-before: end-cursor-next
 
-Tailable Cursor
-~~~~~~~~~~~~~~~
-
-To attempt retrieving a document from a :manual:`tailable cursor
-</core/tailable-cursors/>`, use the ``try_next()`` method.
-
-The method returns a document if all of the following conditions are met:
-
-- A document is currently available.
-- The driver didn't throw any errors.
-- The context didn't expire.
+To attempt retrieving documents from your cursor individually, use the
+``try_next()`` method in the ``futures::stream::TryStreamExt`` crate:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
@@ -90,7 +75,7 @@ Retrieve All Documents
 ----------------------
 
 To populate an array with all of your query results, use the ``collect()``
-method:
+method in the ``futures::stream::StreamExt`` crate:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
@@ -98,10 +83,8 @@ method:
    :start-after: begin cursor collect
    :end-before: end cursor collect
 
-Tailable Cursor
-~~~~~~~~~~~~~~~
-To attempt to populate an array with all of your query results from a :manual:`tailable cursor
-</core/tailable-cursors/>`, use the ``try_collect()`` method:
+To attempt to populate an array with all of your query results, use the
+``try_collect()`` method in the ``futures::stream::TryStreamExt`` crate:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
@@ -111,6 +94,10 @@ To attempt to populate an array with all of your query results from a :manual:`t
 
 Additional Information
 ----------------------
+
+A cursor in the {+driver-short+} will automatically be closed via an
+asynchronous ``killCursors`` command if the cursor is still open
+when it goes out of scope.
 
 To learn more about the operations discussed in this guide, see the
 following guides:
@@ -132,4 +119,6 @@ the following API Documentation:
 - `Cursor.try_next() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_next>`__
 - `Cursor.collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__
 - `Cursor.try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__
+- `Cursor.advance() <{+api+}/struct.Cursor.html#method.advance`__
+- `Cursor.current() <{+api+}/struct.Cursor.html#method.current`__
 - `Cursor.deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__

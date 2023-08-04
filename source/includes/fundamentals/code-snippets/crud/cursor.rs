@@ -14,6 +14,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     
     //begin try next
+    let cursor = my_coll.find(None, None).await?;
     while let Some(result) = cursor.try_next().await? {
        let doc: Document = bson::from_document(result)?;
        println!("{}", serde_json::to_string_pretty(&doc).unwrap());
@@ -21,6 +22,7 @@ async fn main() -> mongodb::error::Result<()> {
     //end try next
 
     //begin-cursor-next
+    let cursor = my_coll.find(None, None).await?;
     while let Some(result) = cursor.next().await {
        let doc: Document = bson::from_document(result)?;
        println!("{}", serde_json::to_string_pretty(&doc).unwrap());
@@ -28,6 +30,7 @@ async fn main() -> mongodb::error::Result<()> {
     //end-cursor-next
 
     //begin cursor collect
+    let cursor = my_coll.find(None, None).await?;
     // Stream uses populate vector containing all documents in the cursor
     let v: Vec<_> = cursor.collect().await;
     // Print data in vector
@@ -38,6 +41,7 @@ async fn main() -> mongodb::error::Result<()> {
     //end cursor collect
 
     //begin try collect
+    let cursor = my_coll.find(None, None).await?;
     // TryStream uses try_collect() and collects into a Result<Vec<T>>
     let v: Vec<_> = cursor.try_collect().await?;
     // Print data in vector
