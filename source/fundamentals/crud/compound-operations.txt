@@ -13,8 +13,8 @@ Compound Operations
 Overview
 --------
 
-In this guide, you can learn how to perform **compound operations** in
-the {+driver-short+}.
+In this guide, you can learn how to use the {+driver-short+} to perform
+**compound operations**.
 
 Compound operations combine the functionality of read and write
 operations into one :manual:`atomic </reference/glossary/#std-term-atomic-operation>` action. If you perform
@@ -79,13 +79,13 @@ Find and Delete a Document
 
 The ``find_one_and_delete()`` method finds and deletes the first document that
 matches the specified query filter. If a document matches the filter
-criteria, the method returns a ``Some`` type. If it does not match any
-documents, it returns a ``None`` type.
+criteria, the method returns a ``Some`` type. If no documents match,
+it returns a ``None`` type.
 
 .. note:: 
 
-   If you don't need to find and delete a document in a single
-   operation, you can call the ``find_one()`` method followed by the
+   If you want to perform other operations between finding and deleting
+   a document, you can call the ``find_one()`` method followed by the
    ``delete_one()`` method.
 
 Modify Find and Delete Behavior
@@ -93,7 +93,7 @@ Modify Find and Delete Behavior
 
 You can optionally modify the behavior of the ``find_one_and_delete()``
 method by passing a ``FineOneAndDeleteOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` as
+To use default values for each setting, specify the value ``None`` for
 the options parameter.
 
 The following table describes the options available in
@@ -108,18 +108,20 @@ The following table describes the options available in
 
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
-         run for.
+         run.
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       | Type: ``Document``
        | Default: ``nil``
 
-   * - ``sort`` 
-     - | The sort to use when returning results. By default, the driver
+   * - ``sort``
+     - | The sorting order to use when returning results. By default, the driver
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       | Type: ``Document``
        | Default: ``nil``
 
    * - ``write_concern``
@@ -142,7 +144,7 @@ The following table describes the options available in
        | Default: ``nil``
 
    * - ``let_vars``
-     - | A map of parameters and values. These parameters can be accessed
+     - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
        | Type: ``Document``
@@ -210,13 +212,12 @@ The ``find_one_and_update()`` method finds and updates the first
 document that matches the specified query filter. The operation updates
 the document based on the specifications you provide in an update
 document. If a document matches the filter criteria, the method returns
-a ``Some`` type. If it does not match any documents, it returns a
-``None`` type.
+a ``Some`` type. If no documents match, it returns a ``None`` type.
 
 .. note:: 
 
-   If you don't need to find and update a document in a single
-   operation, you can call the ``find_one()`` method followed by the
+   If you want to perform other operations between finding and updating
+   a document, you can call the ``find_one()`` method followed by the
    ``update_one()`` method.
 
 Modify Find and Update Behavior
@@ -224,7 +225,7 @@ Modify Find and Update Behavior
 
 You can optionally modify the behavior of the ``find_one_and_update()``
 method by passing a ``FindOneAndUpdateOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` as
+To use default values for each setting, specify the value ``None`` for
 the options parameter.
 
 The following table describes the options available in
@@ -252,11 +253,12 @@ The following table describes the options available in
 
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
-         run for.
+         run.
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       | Type: ``Document``
        | Default: ``nil``
 
    * - ``return_document`` 
@@ -265,17 +267,19 @@ The following table describes the options available in
        | Type: ``ReturnDocument``
        | Default: ``ReturnDocument::Before``
 
-   * - ``sort`` 
-     - | The sort to use when returning results. By default, the driver
+   * - ``sort``
+     - | The sorting order to use when returning results. By default, the driver
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       | Type: ``Document``
        | Default: ``nil``
 
    * - ``upsert``
      - | If true, the operation inserts a document if no documents match
          the query filter.
        | Type: ``bool``
+       | Default: ``false``
 
    * - ``write_concern``
      - | The write concern for the operation. To learn more about write
@@ -297,7 +301,7 @@ The following table describes the options available in
        | Default: ``nil``
 
    * - ``let_vars``
-     - | A map of parameters and values. These parameters can be accessed
+     - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
        | Type: ``Document``
@@ -371,14 +375,14 @@ Find and Replace a Document
 The ``find_one_and_replace()`` method finds and replaces the first
 document that matches the specified query filter. The operation replaces
 all of the fields of the document except the ``_id`` field with fields
-and values that you provide. If a document
-matches the filter criteria, the method returns a ``Some`` type. If it
-does not match any documents, it returns a ``None`` type.
+and values that you provide. If a document matches the filter criteria,
+the method returns a ``Some`` type. If no documents match, it returns a
+``None`` type.
 
 .. note:: 
 
-   If you don't need to find and replace a document in a single
-   operation, you can call the ``find_one()`` method followed by the
+   If you want to perform other operations between finding and replacing
+   a document, you can call the ``find_one()`` method followed by the
    ``replace_one()`` method.
 
 Modify Find and Replace Behavior
@@ -386,7 +390,7 @@ Modify Find and Replace Behavior
 
 You can optionally modify the behavior of the ``find_one_and_replace()``
 method by passing a ``FindOneAndReplaceOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` as
+To use default values for each setting, specify the value ``None`` for
 the options parameter.
 
 The following table describes the options available in
@@ -403,17 +407,17 @@ The following table describes the options available in
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
          :manual:`Schema Validation </core/schema-validation>` in the Server manual.
-
        | Type: ``bool``
        | Default: ``false``
 
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
-         run for.
+         run.
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       | Type: ``Document``
        | Default: ``nil``
 
    * - ``return_document`` 
@@ -422,17 +426,19 @@ The following table describes the options available in
        | Type: ``ReturnDocument``
        | Default: ``ReturnDocument::Before``
 
-   * - ``sort`` 
-     - | The sort to use when returning results. By default, the driver
+   * - ``sort``
+     - | The sorting order to use when returning results. By default, the driver
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       | Type: ``Document``
        | Default: ``nil``
 
    * - ``upsert``
      - | If true, the operation inserts a document if no documents match
          the query filter.
        | Type: ``bool``
+       | Default: ``false``
 
    * - ``write_concern``
      - | The write concern for the operation. To learn more about write
@@ -454,7 +460,7 @@ The following table describes the options available in
        | Default: ``nil``
 
    * - ``let_vars``
-     - | A map of parameters and values. These parameters can be accessed
+     - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
        | Type: ``Document``
@@ -523,7 +529,7 @@ following parameters:
 Additional Information
 ----------------------
 
-To learn more about performing the operations mentioned, see the
+To learn more about performing the previous operations, see the
 following guides:
 
 .. - :ref:`rust-query-guide`
