@@ -119,6 +119,6 @@ the following API Documentation:
 - `Cursor.try_next() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_next>`__
 - `Cursor.collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__
 - `Cursor.try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__
-- `Cursor.advance() <{+api+}/struct.Cursor.html#method.advance`__
-- `Cursor.current() <{+api+}/struct.Cursor.html#method.current`__
+- `Cursor.advance() <{+api+}/struct.Cursor.html#method.advance>`__
+- `Cursor.current() <{+api+}/struct.Cursor.html#method.current>`__
 - `Cursor.deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__
