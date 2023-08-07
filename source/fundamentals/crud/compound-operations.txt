@@ -158,12 +158,10 @@ The following table describes the options available in
 
 .. TODO add links to guides for relevant options
 
-.. note:: Instantiating Options
-   
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of a ``FindOneAndDeleteOptions`` instance. You can use the
-   type's ``builder()`` method to construct an options instance by
-   chaining option builder functions one at a time.
+The {+driver-short+} implements the Builder design pattern for the
+creation of a ``FindOneAndDeleteOptions`` instance. You can use the
+type's ``builder()`` method to construct an options instance by
+chaining option builder functions one at a time.
 
 The following code shows how to construct a ``FindOneAndDeleteOptions``
 instance and pass it to the ``find_one_and_delete()`` method:
@@ -316,12 +314,10 @@ The following table describes the options available in
 .. TODO add link to array updates page under option
 .. TODO add links to guides for relevant options
 
-.. note:: Instantiating Options
-   
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of a ``FindOneAndUpdateOptions`` instance. You can use the
-   type's ``builder()`` method to construct an options instance by
-   chaining option builder functions one at a time.
+The {+driver-short+} implements the Builder design pattern for the
+creation of a ``FindOneAndUpdateOptions`` instance. You can use the
+type's ``builder()`` method to construct an options instance by
+chaining option builder functions one at a time.
 
 The following code shows how to construct a ``FindOneAndUpdateOptions``
 instance and pass it to the ``find_one_and_update()`` method:
@@ -474,13 +470,11 @@ The following table describes the options available in
 
 .. TODO add link to array updates page under option
 .. TODO add links to guides for relevant options
-
-.. note:: Instantiating Options
    
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of a ``FindOneAndReplaceOptions`` instance. You can use the
-   type's ``builder()`` method to construct an options instance by
-   chaining option builder functions one at a time.
+The {+driver-short+} implements the Builder design pattern for the
+creation of a ``FindOneAndReplaceOptions`` instance. You can use the
+type's ``builder()`` method to construct an options instance by
+chaining option builder functions one at a time.
 
 The following code shows how to construct a ``FindOneAndReplaceOptions``
 instance and pass it to the ``find_one_and_replace()`` method:
