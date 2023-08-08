@@ -20,17 +20,17 @@ Network compression is a feature that allows you to compress and
 decompress messages sent between your application and MongoDB, reducing
 the total amount of data passed over the network.
 
-The driver supports the following algorithms:
+The driver supports the following compressors:
 
 1. `Snappy <https://google.github.io/snappy/>`__: available in MongoDB 3.4 and later
 #. `Zlib <https://zlib.net/>`__: available in MongoDB 3.6 and later
 #. `Zstandard <https://github.com/facebook/zstd/>`__: available in MongoDB 4.2 and later
 
-.. note:: Compression Algorithm Selection
+.. note:: Compressor Selection
 
-   If you specify multiple compression algorithms, the driver selects the
-   first one that is supported by the MongoDB instance that the driver is
-   connected to.
+   If you specify multiple compressors to use on your connection, the
+   driver selects the first one that is supported by the MongoDB
+   instance that the driver is connected to.
 
 Add Compression Feature Flags
 -----------------------------
@@ -39,8 +39,8 @@ To use a compressor, add the relevant feature flag to your
 ``mongodb`` dependency's feature list in your project's ``Cargo.toml``
 file.
 
-Click on the tabs to see how to add the feature flag for each supported
-compressor to your ``mongodb`` dependency:
+Select the tab for your preferred compressor to see how to add the
+necessary feature flag to your ``mongodb`` dependency:
 
 .. tabs::
 
@@ -71,11 +71,16 @@ compressor to your ``mongodb`` dependency:
          version = "{+version+}"
          features = ["zstd-compression"]
 
+.. tip::
+   
+   To specify multiple compressors, you must add the feature flag for
+   each compressor to your ``mongodb`` dependency.
+
 Enable Network Compression
 --------------------------
 
-You can enable compression on your ``Client`` instance by specifying the
-algorithms in the following ways:
+You can enable compression on your ``Client`` instance by specifying
+compressors in the following ways:
 
 - Adding the ``compressors`` parameter to your connection string. To see
   an example that enables compression this way, see the :ref:`Connection
@@ -90,7 +95,7 @@ algorithms in the following ways:
 Connection String
 ~~~~~~~~~~~~~~~~~
 
-To enable compression on your connection in a connection string, specify
+To enable compression by using a connection string, specify
 the ``compressors`` parameter. You can specify one or more of the
 following values for the ``compressors`` parameter:
 
@@ -99,7 +104,7 @@ following values for the ``compressors`` parameter:
 - ``"zstd"`` for Zstandard compression
 
 The following example shows how to specify Snappy, Zlib, and
-Zstandard as the compression algorithms for a connection:
+Zstandard as the compressors for a connection:
 
 .. code-block:: rust
    :emphasize-lines: 1
@@ -117,8 +122,9 @@ URI Format </reference/connection-string/>` in the Server manual.
 ClientOptions
 ~~~~~~~~~~~~~
 
-To enable compression using within your ``ClientOptions`` instance, set
-the ``compressors`` field and pass the options when creating a client.
+To enable compression within your ``ClientOptions`` instance, set
+the ``compressors`` field, and then pass the options when creating a
+client.
 
 The ``compressors`` field takes a value of
 type ``Vec<Compressor>``. The ``Compressor`` type has the following
@@ -128,12 +134,12 @@ possible values:
 - ``Compressor::Zstd { level: <integer> }`` *(Requires Rust version 1.54)*
 - ``Compressor::Zlib { level: <integer> }``
 
-For the compressors that have a ``level`` field, set the field to
+For the compressors that have a ``level`` field, set the value to
 ``None`` to indicate the default level. A higher ``level`` value
 results in more compression, which is slower.
 
 The following example shows how to specify Snappy, Zlib, and
-Zstandard as the compression algorithms for a connection:
+Zstandard as the compressors for a connection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/network-compression.rs
    :start-after: begin-clientoptions
@@ -142,12 +148,6 @@ Zstandard as the compression algorithms for a connection:
    :emphasize-lines: 4-8, 10
    :copyable:
    :dedent:
-
-.. note::
-   
-   To specify multiple compression algorithms, as in the preceding
-   example, you must add the feature flags for each compressor to your
-   ``mongodb`` dependency.
 
 .. _rust-addl-info-network-compression:
 
