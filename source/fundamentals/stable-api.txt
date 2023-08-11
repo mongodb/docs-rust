@@ -1,0 +1,134 @@
+.. _rust-stable-api:
+
+==============
+{+stable-api+}
+==============
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+.. note::
+
+   The {+stable-api+} feature requires MongoDB Server 5.0 or later.
+
+   You should only use the {+stable-api+} feature if all the MongoDB
+   servers you are connecting to support this feature.
+
+Overview
+--------
+
+In this guide, you can learn how to specify **{+stable-api+}**
+compatibility when connecting to a MongoDB instance or replica set.
+
+The {+stable-api+} feature forces the server to run operations with
+behaviors compatible with the **API version** you specify. An API
+version defines the expected behavior of the operations it covers and
+the format of server responses. The operations and the server responses
+may differ depending on the API version you specify.
+
+When you use the Stable API feature with an official MongoDB driver, you
+can update your driver or server without worrying about backward
+compatibility issues of the commands covered by the {+stable-api+}.
+
+To learn more about the commands the server covers, see
+:manual:`{+stable-api+} </reference/stable-api/>`.
+
+Specify an API Version
+----------------------
+
+To specify an API version, set the ``server_api`` field of ``mongodb::options::ClientOptions``
+with a ``mongodb::options::ServerApi`` struct.
+The ``ServerApi`` struct contains your :ref:`server API version and options <rust-stable-api-options>`.
+
+https://docs.rs/mongodb/latest/mongodb/options/struct.ClientOptions.html#structfield.server_api
+
+After you specify an API version, the client runs operations that are compatible with the API version for the duration of your connection.
+
+.. note::
+
+   The {+driver-long+} currently only supports ``mongodb::options::ServerApiVersion::V1``.
+
+API Version Specification Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example instantiates a ``Client`` that sets the
+{+stable-api+} version and connects to a server.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/stable-api.rs
+   :language: rust
+   :dedent:
+   :start-after: start-stable-api
+   :end-before: end-stable-api
+
+.. _rust-stable-api-options:
+
+Modify Behavior
+---------------
+
+You can further modify the behavior of the {+stable-api+} feature by setting fields on the ``ServerApi`` type.
+
+While the fields can be set manually, prefer using the ``ServerApi`` ``builder()`` function.
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 30 70
+
+   * - Field
+     - Description
+
+   * - ``version``
+     - | The API version to use.
+       | Specified with the ``ServerAPIVersion`` enum.
+       | 
+       | Default: **ServerAPIVersion1**
+
+   * - ``strict``
+     - | Indicates whether the server should return errors for features that aren't part of the API version.
+       |
+       | Default: **false**
+
+   * - ``deprecation_errors``
+     - | Indicates whether the server should return errors for deprecated features.
+       |
+       | Default: **false**
+
+.. _rust-stable-api-options-example:
+       
+Stable API Options Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This example specifies for the server to perform the following actions:
+
+- Use Version 1 of the API
+- Return errors for features that aren't part of Version 1
+- Return errors for deprecated features
+
+.. literalinclude:: /includes/fundamentals/code-snippets/stable-api-behavior.rs
+   :language: rust
+   :dedent:
+   :start-after: start-stable-api-behavior
+   :end-before: end-stable-api-behavior
+
+Additional Information
+----------------------
+
+To learn more about connecting to your MongoDB instance or replica set,
+see :ref:`rust-connection-guide`.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+For more information on the options in this section, see the following
+API Documentation:
+
+- `Client <{+api+}/mongo/options#Client>`__
+- `ClientOptions <{+api+}/mongo/options#ClientOptions>`__
+- `ServerAPI() <{+api+}/mongo/options#ServerAPI>`__
+- `ServerAPIOptions <{+api+}/mongo/options#ServerAPIOptions>`__
+- `ServerApiVersion <{+api+}/mongo/options#ServerAPIVersion>`__
+- `SetDeprecationErrors() <{+api+}/mongo/options#ServerAPIOptions.SetDeprecationErrors>`__
+- `SetStrict() <{+api+}/mongo/options#ServerAPIOptions.SetStrict>`__
