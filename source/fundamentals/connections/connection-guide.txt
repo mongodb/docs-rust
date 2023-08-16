@@ -10,7 +10,7 @@ Connection Guide
    :depth: 2
    :class: singlecol
 
-This guide shows you how to connect to a MongoDB instance or replica set
+In this guide, you can learn how to connect to a MongoDB instance or replica set
 deployment using the {+driver-short+}.
 
 .. _rust-connection-uri:
@@ -132,6 +132,8 @@ connection code samples.
    :ref:`Serverless Instance Limitations page
    <atlas-serverless-drivers>` to identify the minimum driver version
    you need.
+
+.. _rust-other-ways-to-connect:
 
 --------------------------------
 Other Ways to Connect to MongoDB
