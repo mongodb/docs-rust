@@ -117,7 +117,7 @@ Additional Information
 ----------------------
 
 To learn more about connecting to your MongoDB instance or replica set,
-see :ref:`rust-connection-guide`.
+see :ref:`rust-connect-to-mongodb`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
