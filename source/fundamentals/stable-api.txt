@@ -103,9 +103,9 @@ Stable API Options Example
 
 This example enables the {+stable-api+} feature with the following specifications:
 
-- Use Version 1 of the API
-- Return errors for features that aren't part of Version 1
-- Return errors for deprecated features
+- Uses {+stable-api+} version 1
+- Returns errors for features that aren't part of version 1
+- Returns errors for deprecated features
 
 .. literalinclude:: /includes/fundamentals/code-snippets/stable-api-behavior.rs
    :language: rust
