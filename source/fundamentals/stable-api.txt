@@ -33,8 +33,8 @@ When you use the {+stable-api+} feature with an official MongoDB driver, you
 can update your driver or server without worrying about backward
 compatibility issues of the commands covered by the {+stable-api+}.
 
-To learn more about the commands the server covers, see
-:manual:`{+stable-api+} </reference/stable-api/>`.
+To learn more about the commands that the server covers, see
+:manual:`{+stable-api+} </reference/stable-api/>` in the Server manual.
 
 Specify an API Version
 ----------------------
