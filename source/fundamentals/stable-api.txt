@@ -24,7 +24,7 @@ In this guide, you can learn how to specify **{+stable-api+}**
 compatibility when connecting to a MongoDB instance or replica set.
 
 The {+stable-api+} feature forces the server to run operations with
-behaviors compatible with the **API version** you specify. An API
+behaviors that are compatible with the **API version** you specify. An API
 version defines the expected behavior of the operations it covers and
 the format of server responses. The operations and the server responses
 may differ depending on the API version you specify.
