@@ -101,7 +101,7 @@ While you can set the fields in a ``ServerApi`` struct manually, you can use the
 Stable API Options Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example specifies for the server to perform the following actions:
+This example enables the {+stable-api+} feature with the following specifications:
 
 - Use Version 1 of the API
 - Return errors for features that aren't part of Version 1
