@@ -70,7 +70,7 @@ Modify Behavior
 
 You can further modify the behavior of the {+stable-api+} feature by setting fields on the ``ServerApi`` type.
 
-While the fields can be set manually, prefer using the ``ServerApi`` ``builder()`` function.
+While you can set the fields in a ``ServerApi`` struct manually, you can use the builder design pattern to define the struct more efficiently.
 
 .. list-table::
    :header-rows: 1
