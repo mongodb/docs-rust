@@ -81,7 +81,7 @@ While you can set the fields in a ``ServerApi`` struct manually, you can use the
      - Description
 
    * - ``version``
-     - | The API version to use.
+     - | The {+stable-api+} version to use.
        | Specified with the ``ServerAPIVersion`` enum.
        | 
        | Default: **ServerAPIVersion1**
