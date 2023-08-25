@@ -45,7 +45,7 @@ The ``ServerApi`` struct contains your :ref:`server API version and options <rus
 
 https://docs.rs/mongodb/latest/mongodb/options/struct.ClientOptions.html#structfield.server_api
 
-After you specify an API version, the client runs operations that are compatible with the API version for the duration of your connection.
+After you specify an API version, the client runs operations that are compatible with the API version.
 
 .. note::
 
