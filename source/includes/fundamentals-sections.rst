@@ -2,7 +2,7 @@ Learn how to perform the following tasks using the {+driver-short+} in the
 Fundamentals section:
 
 - :ref:`Connect to MongoDB <rust-connection>`
-- :ref:`Specify the Stable API Version <rust-stable-api>`
+- :ref:`Specify the {+stable-api+} Version <rust-stable-api>`
 - :ref:`Read from and Write to MongoDB <rust-crud>`
 - :ref:`Perform Aggregations <rust-aggregation>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
