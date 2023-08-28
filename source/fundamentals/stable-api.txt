@@ -124,7 +124,7 @@ API Documentation
 To learn more about any of the methods or types discussed in this
 guide, see the following API Documentation:
 
-- `Client <{+api+}/mongo/options#Client>`__
+- `Client <{+api+}/struct.Client.html>`__
 - `ClientOptions <{+api+}/mongo/options#ClientOptions>`__
 - `ServerAPI() <{+api+}/mongo/options#ServerAPI>`__
 - `ServerAPIOptions <{+api+}/mongo/options#ServerAPIOptions>`__
