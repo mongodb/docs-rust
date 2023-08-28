@@ -16,12 +16,12 @@ fn main() -> mongodb::error::Result<()> {
 
     // Create a new client and connect to the server
     let client = Client::with_options(client_options)?;
+    // end-stable-api
 
     // Send a ping to confirm a successful connection
     client
         .database("admin")
         .run_command(doc! { "ping": 1 }, None)?;
-    // end-stable-api
     println!("Pinged your deployment. You successfully connected to MongoDB!");
     // end-stable-api
 
