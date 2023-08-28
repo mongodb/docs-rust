@@ -74,7 +74,7 @@ While you can set the fields in a ``ServerApi`` struct manually, you can use the
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
-   :widths: 30 70
+   :class: compatibility-large
 
    * - Field
      - Description
@@ -82,18 +82,21 @@ While you can set the fields in a ``ServerApi`` struct manually, you can use the
    * - ``version``
      - | The {+stable-api+} version to use.
        | Specified with the ``ServerAPIVersion`` enum.
-       |
-       | Default: **ServerAPIVersion1**
+       
+       | Type: ``ServerAPIVersion``
+       | Default: ``ServerAPIVersion1``
 
    * - ``strict``
      - | Indicates whether the server should return errors for features that aren't part of the API version.
        |
-       | Default: **false**
+       | Type: ``bool``
+       | Default: ``false``
 
    * - ``deprecation_errors``
      - | Indicates whether the server should return errors for deprecated features.
        |
-       | Default: **false**
+       | Type: ``bool``
+       | Default: ``false``
 
 .. _rust-stable-api-options-example:
 
