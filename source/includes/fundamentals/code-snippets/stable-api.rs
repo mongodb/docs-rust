@@ -23,7 +23,6 @@ fn main() -> mongodb::error::Result<()> {
         .database("admin")
         .run_command(doc! { "ping": 1 }, None)?;
     println!("Pinged your deployment. You successfully connected to MongoDB!");
-    // end-stable-api
 
     Ok(())
 }
