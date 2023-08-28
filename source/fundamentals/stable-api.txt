@@ -44,8 +44,6 @@ of your ``ClientOptions`` instance to this struct.
 The ``ServerApi`` struct contains your server API version and options.
 To learn more about the options, see the :ref:`Modify Behavior <rust-stable-api-options>` section of this guide.
 
-https://docs.rs/mongodb/latest/mongodb/options/struct.ClientOptions.html#structfield.server_api
-
 After you specify an API version, the client runs operations that are compatible with the API version.
 
 .. note::
