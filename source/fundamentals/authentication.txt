@@ -13,214 +13,175 @@ Authentication Mechanisms
 Overview
 --------
 
-In this guide, you can learn how to use each **authentication
-mechanism** available in the MongoDB Community Edition. MongoDB uses
-authentication mechanisms to confirm an identity and establish trust to
-ensure security in the driver and server before connecting.
+In this guide, you can learn how to use the **authentication
+mechanisms** available in the MongoDB Community Edition. By using an
+authentication mechanism, you can confirm your identity and establish
+trust between the driver and the server while connecting.
 
-To authenticate using ``GSSAPI/Kerberos`` or ``LDAP``, see the
-:ref:`golang-enterprise-authentication-mechanisms` fundamentals page. To
-learn more about establishing a connection to your MongoDB cluster, see
-the :ref:`golang-connection-guide`.
+.. tip::
+   
+   To learn how to authenticate to MongoDB by using ``GSSAPI/Kerberos`` or
+   ``LDAP``, see the guide on :ref:`rust-enterprise-auth`.
+   
+   To learn more about connecting to a MongoDB deployment, see the
+   :ref:`rust-connect-to-mongodb`.
 
-.. TODO TOC
+This guide describes the following authentication mechanisms:
 
-Supported Mechanisms
---------------------
+- :ref:`SCRAM-Based Mechanisms <rust-auth-scram-mechanisms>`
+- :ref:`Amazon Web Services Authentication <rust-auth-aws>`
+- :ref:`X.509 <>`
 
-The Go driver supports the following authentication mechanisms:
+You can specify an authentication mechanism, your credentials, and other
+necessary information in the options in your connection string or in a
+``Credential`` struct that you pass as an option when creating a client.
+In this guide, the examples demonstrate how to configure
+authentication in a ``Credential`` struct.
 
-* :ref:`SCRAM-SHA-256 <golang_sha_256>`
-* :ref:`SCRAM-SHA-1 <golang-sha-1>`
-* :ref:`MONGODB-CR <golang-mongodb-cr>`
-* :ref:`MongoDB-AWS <golang-mongodb-aws>`
-* :ref:`X.509 <golang-x509>`
-
-The Go Driver establishes a connection with an authentication mechanism
-through a `Client <{+api+}/mongo#Client>`__
-type. The ``Client`` type specifies the mechanism and credentials to use
-as connection options in a `Credential <{+api+}/mongo/options#Credential>`__
-type . To configure these options, pass a ``Credential`` type to the
-`SetAuth() <{+api+}/mongo/options#ClientOptions.SetAuth>`__
-method of the `ClientOptions <{+api+}/mongo/options#ClientOptions>`__
-type.
-
-The following sections demonstrate this process with the five
-mechanisms the MongoDB Community Edition supports.
-
-Example Conventions
-~~~~~~~~~~~~~~~~~~~
-
-Each authentication mechanism contains the following placeholders:
-
-* ``username`` - Your MongoDB username
-* ``password`` - Your MongoDB user's password
-* ``hostname`` - Your MongoDB servers network address, accessible by
-  your client
-* ``port`` - Your MongoDB servers port number
-* ``authenticationDb`` - Your MongoDB database that contains the user's
-  authentication data. If you omit this option, the driver uses the
-  default value ``admin``.
-
-.. _golang-default-auth-mechanism:
-
-Default Mechanism
-~~~~~~~~~~~~~~~~~
-
-The default mechanism uses one of the following authentication
-mechanisms depending on what MongoDB versions your server supports:
-
-.. list-table::
-   :header-rows: 1
-   :stub-columns: 1
-   :class: compatibility-large
-
-   * - Mechanism
-     - Versions
-
-   * - ``SCRAM-SHA-256``
-     - MongoDB 4.0 and later
-
-   * - ``SCRAM-SHA-1``
-     - MongoDB 3.0, 3.2, 3.4, and 3.6
-
-   * - ``MONGODB-CR``
-     - MongoDB 2.6 and earlier
-
-To specify the default authentication mechanism, omit the
-``AuthMechanism`` option:
-
-.. code-block:: go
-
-   credential := options.Credential{
-      AuthSource: "<authenticationDb>",
-      Username: "<username>",
-      Password: "<password>",
-   }
-   clientOpts := options.Client().ApplyURI("mongodb://<hostname>:<port>").
-      SetAuth(credential)
-
-   client, err := mongo.Connect(context.TODO(), clientOpts)
-
-To learn more about the challenge-response (CR) and salted
-challenge-response authentication mechanisms (SCRAM) that MongoDB supports,
-see the :manual:`SCRAM </core/security-scram/>` section of the server manual.
-
-.. _golang_sha_256:
+.. _rust-auth-scram-mechanisms:
 
 SCRAM-Based Mechanisms
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
-.. important::
+Salted challenge-response authentication mechanism (SCRAM) refers to a
+group of authentication mechanisms that use a username and
+password to provide authentication of a user to a server. 
 
-   ``SCRAM-SHA-256`` is the default authentication method for MongoDB starting
-   in MongoDB 4.0.
+MongoDB supports the following SCRAM-based authentication mechanisms:
 
-``SCRAM-SHA-256`` is a salted challenge-response authentication mechanism
-(SCRAM) that uses your username and password, encrypted with the ``SHA-256``
-algorithm, to authenticate your user.
+- :ref:`SCRAM-SHA-256 <rust-auth-scramsha256>`: an authentication mechanism that
+  uses your username and password, encrypted with the ``SHA-256``
+  algorithm, to authenticate your user
+- :ref:`SCRAM-SHA-1 <rust-auth-scramsha1>`: an authentication mechanism that
+  uses your username and password, encrypted with the ``SHA-1``
+  algorithm, to authenticate your user
 
-To specify the ``SCRAM-SHA-256`` authentication mechanism, assign the
-``AuthMechanism`` option the value ``"SCRAM-SHA-256"``:
+.. important:: Default Authentication Mechanism
 
-.. code-block:: go
-   :emphasize-lines: 2
+   The default authentication mechanism is a SCRAM-based mechanism that
+   depends on the version of the server that you are connecting to. The following
+   table describes the default mechanism for recent server versions:
 
-   credential := options.Credential{
-      AuthMechanism: "SCRAM-SHA-256",
-      AuthSource: "<authenticationDb>",
-      Username: "<username>",
-      Password: "<password>",
-   }
-   clientOpts := options.Client().ApplyURI("mongodb://<hostname>:<port>").
-      SetAuth(credential)
+   .. list-table::
+      :header-rows: 1
+      :stub-columns: 1
+      :class: compatibility-large
+   
+      * - Mechanism
+        - MongoDB Server Versions
+   
+      * - ``SCRAM-SHA-256``
+        - 4.0 and later
+   
+      * - ``SCRAM-SHA-1``
+        - 3.0, 3.2, 3.4, and 3.6
 
-   client, err := mongo.Connect(context.TODO(), clientOpts)
+   All earlier versions of MongoDB use the ``MONGODB-CR`` authentication
+   mechanism as the default mechanism.
 
-.. _golang-scram-sha-1-auth-mechanism:
-.. _golang-sha-1:
+   To use the default authentication mechanism, omit only the
+   ``mechanism`` field when you instantiate your ``Credential`` struct.
+   This example uses the following placeholders:
+
+   - ``username``: Your username
+   - ``password``: Your password
+   - ``auth_db``: The authentication database associated with the user
+   
+   .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+      :language: rust
+      :dedent:
+      :start-after: start-default
+      :end-before: end-default
+
+.. _rust-auth-scramsha256:
+
+``SCRAM-SHA-256``
+~~~~~~~~~~~~~~~~~
+
+To specify the ``SCRAM-SHA-256`` authentication mechanism, set the
+``mechanism`` field of your ``Credential`` struct to
+``AuthMechanism::ScramSha256``. This example specifies the
+authentication mechanism using the following placeholders:
+
+- ``username``: Your username
+- ``password``: Your password
+- ``auth_db``: The authentication database associated with the user
+
+.. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+   :language: rust
+   :dedent:
+   :start-after: start-scramsha256
+   :end-before: end-scramsha256
+
+.. _rust-auth-scramsha1:
 
 ``SCRAM-SHA-1``
 ~~~~~~~~~~~~~~~
 
-.. important::
+To specify the ``SCRAM-SHA-1`` authentication mechanism, set the
+``mechanism`` field of your ``Credential`` struct to
+``AuthMechanism::ScramSha1``. This example specifies the
+authentication mechanism using the following placeholders:
 
-   ``SCRAM-SHA-1`` is the default authentication method for MongoDB versions
-   3.0, 3.2, 3.4, and 3.6.
+- ``username``: Your username
+- ``password``: Your password
+- ``auth_db``: The authentication database associated with the user
 
-``SCRAM-SHA-1`` is a salted challenge-response mechanism (SCRAM) that uses your
-username and password, encrypted with the ``SHA-1`` algorithm, to authenticate
-your user.
+.. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+   :language: rust
+   :dedent:
+   :start-after: start-scramsha1
+   :end-before: end-scramsha1
 
-To specify the ``SCRAM-SHA-1`` authentication mechanism, assign the
-``AuthMechanism`` option the value ``"SCRAM-SHA-1"``:
+.. _rust-auth-aws:
 
-.. code-block:: go
-   :emphasize-lines: 2
+Amazon Web Services Authentication
+----------------------------------
 
-   credential := options.Credential{
-      AuthMechanism: "SCRAM-SHA-1",
-      AuthSource: "<authenticationDb>",
-      Username: "<username>",
-      Password: "<password>",
-   }
-   clientOpts := options.Client().ApplyURI("mongodb://<hostname>:<port>").
-      SetAuth(credential)
-
-   client, err := mongo.Connect(context.TODO(), clientOpts)
-
-.. _golang-mongodb-cr:
-
-``MONGODB-CR``
-~~~~~~~~~~~~~~
-
-``MONGODB-CR`` is a challenge-response authentication mechanism that uses your
-username and password to authenticate your user.
-
-.. important::
-
-   This authentication mechanism was deprecated starting in MongoDB 3.6
-   and is no longer supported as of MongoDB 4.0.
-
-.. _golang-mongodb-aws:
-
-AWS-Based Mechanism
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. important::
-
-   The MONGODB-AWS authentication mechanism is available only in MongoDB
-   versions 4.4 and later.
-
-The ``MONGODB-AWS`` authentication mechanism uses your Amazon Web Services
+The ``MongoDB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
 user.
 
-To connect to a MongoDB instance with ``MONGODB-AWS`` authentication enabled,
-specify the ``MONGODB-AWS`` authentication mechanism.
+.. important::
+
+   The ``MongoDB-AWS`` authentication mechanism is available only if you
+   are connected to a deployment running MongoDB Server version 4.4 or
+   later.
+   
+   Additionally, the driver only supports the ``MongoDB-AWS``
+   authentication mechanism if you are using the ``tokio`` asynchronous
+   runtime.
 
 The driver obtains the credentials only from the first source in which
 they are found. The driver checks for your credentials in the following
-sources in the order they are listed:
+sources in the following order:
 
-1. Connection string
+1. ``Credential`` struct or connection string
 #. Environment variables
 #. Web identity token file
 #. AWS ECS endpoint specified in the ``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI``
    environment variable
 #. AWS EC2 endpoint. For more information, see `IAM Roles for Tasks
-   <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html>`_.
+   <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html>`__
+   in the AWS documentation.
 
-  
-For example, if you specify your AWS credentials in the connection string, the
-driver ignores any credentials that you have specified in environment variables.
+For example, if you specify your AWS credentials in your connection string, the
+driver uses those credentials and ignores any that you might have
+specified in environment variables.
 
+Select from the :guilabel:`Credential Struct`, :guilabel:`Async` tabs below for
+corresponding connection code samples.
+This example specifies the
+authentication mechanism using the following placeholders:
 
+- ``username``: Your username
+- ``password``: Your password
+- ``auth_db``: The authentication database associated with the user
 
 .. tabs::
 
-   .. tab:: Connection String
-      :tabid: connection string
+   .. tab:: Credential Struct
+      :tabid: credential struct
 
       .. tip::
 
@@ -331,6 +292,21 @@ following:
    }
 
    clientOpts := options.Client().ApplyURI(uri).SetAuth(credential)
+
+
+Example Conventions
+~~~~~~~~~~~~~~~~~~~
+
+Each authentication mechanism contains the following placeholders:
+
+* ``username`` - Your MongoDB username
+* ``password`` - Your MongoDB user's password
+* ``hostname`` - Your MongoDB servers network address, accessible by
+  your client
+* ``port`` - Your MongoDB servers port number
+* ``authenticationDb`` - Your MongoDB database that contains the user's
+  authentication data. If you omit this option, the driver uses the
+  default value ``admin``.
 
 ..
   To learn more about configuring your application to use
