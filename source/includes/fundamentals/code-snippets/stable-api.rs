@@ -5,11 +5,11 @@ use mongodb::{
 };
 
 fn main() -> mongodb::error::Result<()> {
-    // start-stable-api
     // Replace the placeholder with your Atlas connection string
     let uri = "<connection string>";
     let mut client_options = ClientOptions::parse(uri)?;
 
+    // start-stable-api
     // Set the server_api field of the client_options object to Stable API version 1
     let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
     client_options.server_api = Some(server_api);
@@ -21,6 +21,7 @@ fn main() -> mongodb::error::Result<()> {
     client
         .database("admin")
         .run_command(doc! { "ping": 1 }, None)?;
+    // end-stable-api
     println!("Pinged your deployment. You successfully connected to MongoDB!");
     // end-stable-api
 
