@@ -39,9 +39,10 @@ To learn more about the commands that the server covers, see
 Specify an API Version
 ----------------------
 
-To specify an API version, set the ``server_api`` field of ``mongodb::options::ClientOptions``
-with a ``mongodb::options::ServerApi`` struct.
-The ``ServerApi`` struct contains your :ref:`server API version and options <rust-stable-api-options>`.
+To specify an API version, define a ``ServerApi`` struct and set the ``server_api`` field
+of your ``ClientOptions`` instance to this struct.
+The ``ServerApi`` struct contains your server API version and options.
+To learn more about the options, see the :ref:`Modify Behavior <rust-stable-api-options>` section of this guide.
 
 https://docs.rs/mongodb/latest/mongodb/options/struct.ClientOptions.html#structfield.server_api
 
