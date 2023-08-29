@@ -45,9 +45,9 @@ Call one of the following methods on a `Client
 .. TODO when client options page is completed. To learn how to specify
 .. the default database for your client, see :ref:`clientoptions`.
 
-If you pass a name of a nonexistent database to the ``database()`` or
+If you pass the name of a nonexistent database to the ``database()`` or
 ``database_with_options()`` methods, the driver still returns a
-``Database`` instance. WHne you insert any data into collection in this
+``Database`` instance. When you insert any data into collection in this
 database, the server creates it.
 
 The following example uses the ``database()`` method to access a
@@ -116,9 +116,11 @@ how to drop a database referenced by the ``db`` variable:
 Access a Collection
 -------------------
 
-You can access a collection by retrieving a `Collection <{+api+}/struct.Collection.html>`__ instance from your
-database. Call one of the following methods on a ``Database`` instance
-to create a ``Collection``:
+You can access a collection by retrieving a `Collection
+<{+api+}/struct.Collection.html>`__ instance from your database. You
+can use a ``Collection`` instance to perform data operations, 
+create aggregations, and manage indexes. Call one of the following
+methods on a ``Database`` instance to retrieve a ``Collection``:
 
 - `collection() <{+api+}/struct.Database.html#method.collection>`__: retrieve a collection by its name
 - `collection_with_options() <{+api+}/struct.Database.html#method.collection_with_options>`__: set
@@ -153,9 +155,9 @@ Collection Parameterization
    
 You must parameterize your ``Collection`` instance by specifying what
 data type, such as ``Document``, you want to serialize the collection's
-data into. When you call a method
-on a ``Collection`` instance that is parameterized with a specific
-type, the method accepts or returns instances of this type.
+data into. When you call a method on a ``Collection`` instance that is
+parameterized with a specific type, the method accepts or returns
+instances of this type.
 
 The following example shows equivalent ways of parameterizing a
 collection with the ``Document`` type:
@@ -179,13 +181,16 @@ Create a Collection
 -------------------
 
 You can explicitly create a collection by calling the
-`create_collection() <{+api+}/struct.Database.html#method.create_collection>`__ method on a ``Database`` instance. This method
-takes the collection name and an optional `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
-type as parameters. You can use a collection to perform data operations,
-create aggregations, and manage indexes.
+`create_collection()
+<{+api+}/struct.Database.html#method.create_collection>`__ method on a
+``Database`` instance. This method takes the collection name and an
+optional `CreateCollectionOptions
+<{+api+}/options/struct.CreateCollectionOptions.html>`__ type as
+parameters. You can use a ``Collection`` instance to perform data
+operations, create aggregations, and manage indexes.
 
 The following code shows how to create a collection called ``coll_abc``
-in a database referenced by the ``db`` variable:
+within a database referenced by the ``db`` variable:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
    :language: rust
@@ -236,7 +241,7 @@ Dropping a collection permanently deletes all of the data in that
 collection. To drop a collection, call the `drop()
 <{+api+}/struct.Collection.html#method.drop>`__ method
 on your ``Collection`` instance. The following code shows
-how to drop a collection:
+how to drop a collection referenced by the ``my_coll`` variable:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/db-coll.rs
    :language: rust
@@ -253,8 +258,10 @@ how to drop a collection:
 Additional Information
 ----------------------
 
-For more information about the concepts in this guide, see the following documentation:
+For more information about the concepts in this guide, see the following pages:
 
-- :ref:`Insert Documents <rust-insert-guide>` {+driver-short+} guide
-- :manual:`Databases and Collections </core/databases-and-collections/>` Server documentation
-- :manual:`Documents </core/document/>` Server documentation
+- :ref:`Insert Documents <rust-insert-guide>` guide in the
+  {+driver-short+} documentation
+- :manual:`Databases and Collections </core/databases-and-collections/>`
+  in the Server manual
+- :manual:`Documents </core/document/>` in the Server manual
