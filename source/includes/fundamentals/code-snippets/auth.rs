@@ -9,7 +9,7 @@ async fn main() -> mongodb::error::Result<()> {
     let default_cred = Credential::builder()
         .username("<username>".to_string())
         .password("<password>".to_string())
-        .source("<auth_db>".to_string())
+        .source("<db>".to_string())
         .build();
 
     client_options.credential = Some(default_cred);
@@ -21,7 +21,7 @@ async fn main() -> mongodb::error::Result<()> {
         .username("<username>".to_string())
         .password("<password>".to_string())
         .mechanism(AuthMechanism::ScramSha256)
-        .source("<auth_db>".to_string())
+        .source("<db>".to_string())
         .build();
 
     client_options.credential = Some(scram_sha_256_cred);
@@ -33,7 +33,7 @@ async fn main() -> mongodb::error::Result<()> {
         .username("<username>".to_string())
         .password("<password>".to_string())
         .mechanism(AuthMechanism::ScramSha1)
-        .source("<auth_db>".to_string())
+        .source("<db>".to_string())
         .build();
 
     client_options.credential = Some(scram_sha_1_cred);
@@ -44,7 +44,7 @@ async fn main() -> mongodb::error::Result<()> {
     let aws_cred = Credential::builder()
         .username("<access key ID>".to_string())
         .password("<secret access key>".to_string())
-        .source("<auth_db>".to_string())
+        .source("<db>".to_string())
         .mechanism(AuthMechanism::MongoDbAws)
         .mechanism_properties(doc!("AWS_SESSION_TOKEN": "<session token>"))
         .build();

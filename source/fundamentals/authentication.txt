@@ -29,7 +29,7 @@ trust between the driver and the server while connecting.
 This guide describes the following authentication mechanisms:
 
 - :ref:`SCRAM-Based Mechanisms <rust-auth-scram-mechanisms>`
-- :ref:`Amazon Web Services Authentication <rust-auth-aws>`
+- :ref:`MongoDB-AWS Mechanism <rust-auth-aws>`
 - :ref:`X.509 Mechanism <rust-auth-x509>`
 
 You can specify an authentication mechanism, your credentials, and other
@@ -86,7 +86,7 @@ MongoDB supports the following SCRAM-based authentication mechanisms:
 
    - ``username``: Your username
    - ``password``: Your password
-   - ``auth_db``: The authentication database associated with the user
+   - ``db``: The authentication database associated with the user
    
    .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
       :language: rust
@@ -106,7 +106,7 @@ authentication mechanism using the following placeholders:
 
 - ``username``: Your username
 - ``password``: Your password
-- ``auth_db``: The authentication database associated with the user
+- ``db``: The authentication database associated with the user
 
 .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
    :language: rust
@@ -126,7 +126,7 @@ authentication mechanism using the following placeholders:
 
 - ``username``: Your username
 - ``password``: Your password
-- ``auth_db``: The authentication database associated with the user
+- ``db``: The authentication database associated with the user
 
 .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
    :language: rust
@@ -136,8 +136,8 @@ authentication mechanism using the following placeholders:
 
 .. _rust-auth-aws:
 
-Amazon Web Services Authentication
-----------------------------------
+MongoDB-AWS Mechanism
+---------------------
 
 The ``MongoDB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
@@ -224,7 +224,7 @@ the corresponding ways.
 
       The following code shows how to define a ``Credential`` struct
       with placeholder AWS IAM credentials and connect to MongoDB. If
-      you are not using temporary credentials, omit lines... 
+      you are not using temporary credentials, omit line 6 of the code example.
 
       .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
          :language: rust
@@ -346,4 +346,8 @@ API Documentation
 To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
 
-- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
+- `Credential <{+api+}/options/struct.Credential.html>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
+- `Client <{+api+}/options/struct.Client.html>`__
+- `with_options() <{+api+}/struct.Client.html#method.with_options>`__
+- `parse() <{+api+}/options/struct.ClientOptions.html#method.parse>`__
