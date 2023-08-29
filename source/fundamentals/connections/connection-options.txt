@@ -1,7 +1,7 @@
-.. _rust-connection-guide:
+.. _rust-connection-options:
 
 ================
-Connection Guide
+Connection Options
 ================
 
 .. default-domain:: mongodb
@@ -11,12 +11,6 @@ Connection Guide
    :backlinks: none
    :depth: 2
    :class: singlecol
-
-.. _rust-connection-options:
-
-------------------
-Connection Options
-------------------
 
 This section explains several common MongoDB connection and authentication
 options. You can pass the connection options as parameters of the connection
@@ -44,30 +38,30 @@ URI to specify the behavior of the client.
      - Specifies the number of milliseconds to wait before timeout on a TCP
        connection.
 
-   * - **maxPoolSize**
-     - integer
-     - ``100``
+   * - **max_pool_size**
+     - Option<u32>
+     - ``10`` TODO Check me
      - Specifies the maximum number of connections that a connection pool may
        have at a given time.
 
-   * - **replicaSet**
-     - string
-     - ``null``
+   * - **repl_set_name**
+     - Option<string>
+     - None TODO check me
      - Specifies the replica set name for the cluster. All nodes in the
        replica set must have the same replica set name, or the Client will not
        consider them as part of the set.
 
-   * - **maxIdleTimeMS**
-     - integer
+   * - **max_idle_time**
+     - Option<Duration>
      - ``0``
      - Specifies the maximum amount of time a connection can remain idle
        in the connection pool before being removed and closed. The
        default is ``0``, meaning a connection can remain unused
        indefinitely.
 
-   * - **minPoolSize**
-     - integer
-     - ``0``
+   * - **min_pool_size**
+     - Option<u32>
+     - ``0`` TODO checkme
      - Specifies the minimum number of connections that the driver maintains
        in a single connection pool.
 
@@ -91,22 +85,22 @@ URI to specify the behavior of the client.
        background server checks.
 
    * - **tls**
-     - boolean
-     - ``false``
+     - Option<tls>
+     - None
      - Specifies whether to establish a Transport Layer Security (TLS)
        connection with the instance. This is automatically set to ``true``
        when using a DNS seedlist (SRV) in the connection string. You can
-       override this behavior by setting the value to ``false``.
+       override this behavior by setting the value to None.
 
-   * - **w**
-     - string or integer
-     - ``null``
+   * - **write_concern**
+     - Option<WriteConcern>
+     - ``None``
      - Specifies the write concern. To learn more about values, see the
        server documentation on
        :manual:`Write Concern options </reference/write-concern>`.
 
    * - **directConnection**
-     - boolean
+     - Option<bool>
      - ``false``
      - Specifies whether to force dispatch **all** operations to the host
        specified in the connection URI.
