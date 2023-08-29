@@ -10,9 +10,9 @@
    :depth: 2
    :class: singlecol
 
-.. note::
+.. important::
 
-   To use {+stable-api+} feature, you must connect to a deployment running MongoDB Server version 5.0 or later.
+   To use the {+stable-api+} feature, you must connect to a deployment running MongoDB Server version 5.0 or later.
 
    You should only use the {+stable-api+} feature if all the MongoDB
    servers you are connecting to support this feature.
