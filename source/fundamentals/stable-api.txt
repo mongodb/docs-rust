@@ -129,5 +129,5 @@ guide, see the following API Documentation:
 
 - `Client <{+api+}/struct.Client.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
-- `ServerAPI() <{+api+}/options/struct.ServerApi.html>`__
+- `ServerAPI <{+api+}/options/struct.ServerApi.html>`__
 - `ServerApiVersion <{+api+}/options/enum.ServerApiVersion.html>`__
