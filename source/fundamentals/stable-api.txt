@@ -53,7 +53,7 @@ After you specify an API version, the client runs operations that are compatible
 API Version Specification Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following example sets the {+stable-api+} version when instantiating a ``Client`` 
+The following example sets the {+stable-api+} version when instantiating a ``Client``
 and connects to a server.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/stable-api.rs
@@ -82,7 +82,7 @@ While you can set the fields in a ``ServerApi`` struct manually, you can use the
    * - ``version``
      - | The {+stable-api+} version to use.
        | Specified with the ``ServerAPIVersion`` enum.
-       
+
        | Type: ``ServerAPIVersion``
        | Default: ``ServerAPIVersion1``
 
@@ -131,3 +131,5 @@ guide, see the following API Documentation:
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `ServerAPI <{+api+}/options/struct.ServerApi.html>`__
 - `ServerApiVersion <{+api+}/options/enum.ServerApiVersion.html>`__
+- `with_options() <{+api+}/options/struct.Client.html#method.with_options>`__
+
