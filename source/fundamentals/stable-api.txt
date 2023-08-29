@@ -48,7 +48,7 @@ After you specify an API version, the client runs operations that are compatible
 
 .. note::
 
-   The {+driver-long+} currently only supports {+stable-api+} version 1.
+   The {+driver-long+} currently supports only {+stable-api+} version 1.
 
 API Version Specification Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
