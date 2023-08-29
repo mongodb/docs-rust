@@ -40,5 +40,38 @@ async fn main() -> mongodb::error::Result<()> {
     let client = Client::with_options(client_options)?;
     // end-scramsha1
 
+    // start-aws
+    let aws_cred = Credential::builder()
+        .username("<access key ID>".to_string())
+        .password("<secret access key>".to_string())
+        .source("<auth_db>".to_string())
+        .mechanism(AuthMechanism::MongoDbAws)
+        .mechanism_properties(doc!("AWS_SESSION_TOKEN": "<session token>"))
+        .build();
+
+    client_options.credential = Some(aws_cred);
+    let client = Client::with_options(client_options)?;
+    // end-aws
+
+    // start-aws-env-var
+    let aws_cred = Credential::builder().mechanism(AuthMechanism::MongoDbAws).build();
+
+    client_options.credential = Some(aws_cred);
+    let client = Client::with_options(client_options)?;
+    // end-aws-env-var
+
+    // start-x509
+    let uri = format!(
+        "mongodb://<hostname>:<port>/?tlsCAFile={tlsCAFile}&tlsCertificateKeyFile={tlsCertificateKeyFile}",
+        tlsCAFile = "<path to CA certificate>",
+        tlsCertificateKeyFile = "<path to private client key>"
+    );
+    let mut client_options = ClientOptions::parse(uri).await?;
+    let x509_cred = Credential::builder().mechanism(AuthMechanism::MongoDbAws).build();
+
+    client_options.credential = Some(x509_cred);
+    let client = Client::with_options(client_options)?;
+    // end-x509
+
     Ok(())
 }

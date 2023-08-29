@@ -20,8 +20,8 @@ trust between the driver and the server while connecting.
 
 .. tip::
    
-   To learn how to authenticate to MongoDB by using ``GSSAPI/Kerberos`` or
-   ``LDAP``, see the guide on :ref:`rust-enterprise-auth`.
+   .. TODO To learn how to authenticate to MongoDB by using ``GSSAPI/Kerberos`` or
+   .. ``LDAP``, see the guide on :ref:`rust-enterprise-auth`.
    
    To learn more about connecting to a MongoDB deployment, see the
    :ref:`rust-connect-to-mongodb`.
@@ -30,7 +30,7 @@ This guide describes the following authentication mechanisms:
 
 - :ref:`SCRAM-Based Mechanisms <rust-auth-scram-mechanisms>`
 - :ref:`Amazon Web Services Authentication <rust-auth-aws>`
-- :ref:`X.509 <>`
+- :ref:`X.509 Mechanism <rust-auth-x509>`
 
 You can specify an authentication mechanism, your credentials, and other
 necessary information in the options in your connection string or in a
@@ -77,7 +77,8 @@ MongoDB supports the following SCRAM-based authentication mechanisms:
         - 3.0, 3.2, 3.4, and 3.6
 
    All earlier versions of MongoDB use the ``MONGODB-CR`` authentication
-   mechanism as the default mechanism.
+   mechanism as the default mechanism. This mechanism is currently
+   deprecated and is not supported by the driver.
 
    To use the default authentication mechanism, omit only the
    ``mechanism`` field when you instantiate your ``Credential`` struct.
@@ -95,8 +96,8 @@ MongoDB supports the following SCRAM-based authentication mechanisms:
 
 .. _rust-auth-scramsha256:
 
-``SCRAM-SHA-256``
-~~~~~~~~~~~~~~~~~
+SCRAM-SHA-256
+~~~~~~~~~~~~~
 
 To specify the ``SCRAM-SHA-256`` authentication mechanism, set the
 ``mechanism`` field of your ``Credential`` struct to
@@ -115,8 +116,8 @@ authentication mechanism using the following placeholders:
 
 .. _rust-auth-scramsha1:
 
-``SCRAM-SHA-1``
-~~~~~~~~~~~~~~~
+SCRAM-SHA-1
+~~~~~~~~~~~
 
 To specify the ``SCRAM-SHA-1`` authentication mechanism, set the
 ``mechanism`` field of your ``Credential`` struct to
@@ -141,6 +142,19 @@ Amazon Web Services Authentication
 The ``MongoDB-AWS`` authentication mechanism uses your Amazon Web Services
 Identity and Access Management (AWS IAM) credentials to authenticate your
 user.
+
+To use this authentication mechanism, you must add the ``aws-auth``
+feature flag to your ``mongodb`` dependency in your project's
+``Cargo.toml`` file. The following shows an example of what your
+``mongodb`` dependency feature list should include to enable the
+``MongoDB-AWS`` authentication mechanism:
+
+.. code-block:: none
+   :emphasize-lines: 3
+   
+   [dependencies.mongodb]
+   version = "{+version+}"
+   features = [ "aws-auth", ... ]
 
 .. important::
 
@@ -169,14 +183,10 @@ For example, if you specify your AWS credentials in your connection string, the
 driver uses those credentials and ignores any that you might have
 specified in environment variables.
 
-Select from the :guilabel:`Credential Struct`, :guilabel:`Async` tabs below for
-corresponding connection code samples.
-This example specifies the
-authentication mechanism using the following placeholders:
-
-- ``username``: Your username
-- ``password``: Your password
-- ``auth_db``: The authentication database associated with the user
+Select from the :guilabel:`Credential Struct`, :guilabel:`Environment
+Variables`, and :guilabel:`Web Identity Token File` tabs below for
+code samples that demonstrate how to set your AWS IAM credentials in
+the corresponding ways.
 
 .. tabs::
 
@@ -185,130 +195,155 @@ authentication mechanism using the following placeholders:
 
       .. tip::
 
-         The following examples set the appropriate credentials by using the ``SetAuth()`` 
-         method. You can also specify these credentials by using the ``ApplyURI()`` 
-         method. If you use the ``ApplyURI()`` method you must URL encode the username 
-         and password to ensure they are correctly parsed.
-   
+         If you specify your AWS IAM credentials in your connection
+         string, you must URL encode the username and password to ensure
+         that the driver correctly parses the values. To learn more
+         about URL encoding, see the Wikipedia entry on
+         :wikipedia:`Percent-encoding
+         <w/index.php?title=Percent-encoding&oldid=1171395281>`.
+
       To connect to your MongoDB instance using your AWS IAM credentials, perform the
       following steps:
 
-      - Assign the ``AuthMechanism`` option the value ``MONGODB-AWS``
-      - Assign the ``Username`` option the value of your ``accessKeyID``
-      - Assign the ``Password`` option the value of your ``secretAccessKey``
-      - Assign the ``AuthMechanismProperties`` option to the value of
-        your ``sessionToken``. If you are not using temporary
-        credentials, you can omit this option.
+      - Set the ``mechanism`` option to ``AuthMechanism::MongoDbAws``.
+      - Set the ``username`` option to the value of your AWS access key ID.
+      - Set the ``password`` option to the value of your AWS secret
+        access key.
+      - Set the ``source`` option to the name of the authentication
+        database associated with the user.
+      - Create a document that contains the value of your AWS session
+        token, and then set the ``mechanism_properties`` option to this
+        document. If you are not using temporary credentials, you can
+        omit this option.
 
-      The following code shows... If you are not using temporary
-      credentials, omit lines... 
+      .. tip::
 
-      .. literalinclude:: /includes/fundamentals/code-snippets/authentication/aws-connection-string.go
-         :language: go
+         You can obtain temporary AWS IAM credentials from a Security
+         Token Service (STS) Assume Role request. Learn more about
+         this process in the `AssumeRole AWS documentation <https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html>`__.
 
-      If you need to specify an AWS session token, use the temporary
-      credentials returned from an `assume role request <https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html>`__.
-      
-      To use temporary credentials, assign the value of your ``sessionToken`` to 
-      the ``AuthMechanismProperties`` option:
+      The following code shows how to define a ``Credential`` struct
+      with placeholder AWS IAM credentials and connect to MongoDB. If
+      you are not using temporary credentials, omit lines... 
 
-      .. literalinclude:: /includes/fundamentals/code-snippets/authentication/aws-connection-string-session-token.go
-         :language: go
+      .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+         :language: rust
+         :dedent:
+         :start-after: start-aws
+         :end-before: end-aws
+         :linenos:
 
    .. tab:: Environment Variables
       :tabid: environment variables
 
-      To authenticate to your MongoDB instance using AWS credentials stored in
-      environment variables, use a shell to set the variables as follows:
+      To store your AWS credentials in environment variables, run the
+      following commands in your shell:
 
       .. code-block:: bash
 
-         export AWS_ACCESS_KEY_ID=<awsKeyId>
-         export AWS_SECRET_ACCESS_KEY=<awsSecretKey>
-         export AWS_SESSION_TOKEN=<awsSessionToken>
+         export AWS_ACCESS_KEY_ID=<access key ID>
+         export AWS_SECRET_ACCESS_KEY=<secret access key>
+         export AWS_SESSION_TOKEN=<session token>
 
       .. note::
 
-         If you don't need an AWS session token for the role you're
-         authenticating with, omit the line containing ``AWS_SESSION_TOKEN`` .
+         If you are not using an AWS session token, omit the line
+         that sets the ``AWS_SESSION_TOKEN`` environment variable.
 
-      After you've set the preceding environment variables, specify the ``MONGODB-AWS``
-      authentication mechanism as shown in the following example:
+      You can then authenticate by setting the ``mechanism`` option in your
+      ``Credential`` struct to ``AuthMechanism::MongoDbAws``. The driver
+      reads the rest of the credentials from your environment variables.
+      The following code shows how to define a ``Credential`` struct
+      with AWS authentication specified and connect to MongoDB:
 
-      .. literalinclude:: /includes/fundamentals/code-snippets/authentication/aws-environment-variables.go
-         :language: go
+      .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+         :language: rust
+         :dedent:
+         :start-after: start-aws-env-var
+         :end-before: end-aws-env-var
 
    .. tab:: Web Identity Token File
       :tabid: web-identity-token-file
 
-      You can use the OpenID Connect (OIDC) token obtained from a web identity provider to authenticate
-      to Amazon Elastic Kubernetes Service (EKS) or other services.
-      To use an OIDC token, create a file that contains your token, then 
-      set the absolute path to this file in an environment variable by using
-      a shell as shown in the following example:
+      You can use the OpenID Connect (OIDC) token obtained from a web
+      identity provider to authenticate to Amazon Elastic Kubernetes
+      Service (EKS) or other services. To use an OIDC token, create a
+      file that contains your token, then define an environment variable
+      whose value is the absolute path to the token file as shown in the
+      following shell command:
 
       .. code-block:: bash
 
-         export AWS_WEB_IDENTITY_TOKEN_FILE=<absolute path to file containing your OIDC token>
+         export AWS_WEB_IDENTITY_TOKEN_FILE=<absolute path to OIDC token file>
+      
+      You can then authenticate by setting the ``mechanism`` option in your
+      ``Credential`` struct to ``AuthMechanism::MongoDbAws``. The driver
+      reads the rest of the credentials from the token file.
+      The following code shows how to define a ``Credential`` struct
+      with AWS authentication specified and connect to MongoDB:
 
-      After you've set the preceding environment variable, specify the ``MONGODB-AWS``
-      authentication mechanism as shown in the following example:
+      .. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+         :language: rust
+         :dedent:
+         :start-after: start-aws-env-var
+         :end-before: end-aws-env-var
 
-      .. literalinclude:: /includes/fundamentals/code-snippets/authentication/aws-environment-variables.go
-         :language: go
+.. _rust-auth-x509:
 
-.. _golang-x509:
+X.509 Mechanism
+---------------
 
-``X.509``
-~~~~~~~~~
+The X.509 authentication mechanism uses Transport Level Security (TLS)
+with X.509 certificates to authenticate your user, which is identified
+by the relative distinguished names (RDNs) of your client certificate.
 
-The ``X.509`` authentication mechanism uses
-:wikipedia:`TLS <Transport_Layer_Security>` with X.509 certificates to
-authenticate your user, identified by the relative distinguished names
-(RDNs) of your client certificate. When you specify the ``X.509``
-authentication mechanism, the server authenticates the connection using
-the paths of the following files:
+.. tip::
+   
+   To learn more about TLS, see the Wikipedia entry on
+   :wikipedia:`Transport Layer Security <w/index.php?title=Transport_Layer_Security&oldid=1172659512>`.
 
-- ``tlsCAFile`` which contains either a single or a bundle of certificate authorities to trust when making a TLS connection
-- ``tlsCertificateKeyFile`` which references the path to the client certificate file or the client private key file
+When you specify this authentication mechanism, the server authenticates
+the connection by reading the following files:
 
-To specify the ``X.509`` authentication mechanism, perform the
-following:
+- A certificate authority (CA) file, which contains one or more
+  certificate authorities to trust when making a TLS connection
+- A certificate key file, which references the client certificate private key
 
-- Assign the ``tlsCAFile`` the path to its file in the connection string
-- Assign the ``tlsCertificateKeyFile`` the path to its file in the connection string
-- Assign the ``AuthMechanism`` option the value ``"MONGODB-X509"``
+To specify the X.509 authentication mechanism, perform the following
+steps:
 
-.. code-block:: go
-   :emphasize-lines: 4-5, 7
+- Set the ``tlsCAFile`` connection string option to the filepath for
+  your CA file.
+- Set the ``tlsCertificateKeyFile`` connection string option to the filepath for
+  your certificate key file.
+- Set the ``mechanism`` option in your ``Credential`` struct to
+  ``AuthMechanism::MongoDbX509``.
 
-   caFilePath := "<cafile_path>"
-   certificateKeyFilePath := "<client_certificate_path>"
+The following code shows how to reference your certificates in your
+connection string, specify the X.509 authentication mechanism, and
+connect to MongoDB:
 
-   uri := "mongodb://<hostname>:<port>/?tlsCAFile=%s&tlsCertificateKeyFile=%s"
-   uri = fmt.Sprintf(uri, caFilePath, certificateKeyFilePath)
-   credential := options.Credential{
-      AuthMechanism: "MONGODB-X509",
-   }
+.. literalinclude:: /includes/fundamentals/code-snippets/auth.rs
+   :language: rust
+   :dedent:
+   :start-after: start-x509
+   :end-before: end-x509
 
-   clientOpts := options.Client().ApplyURI(uri).SetAuth(credential)
+.. TODO To learn more about enabling TLS on a connection, see :ref:`rust-tls`.
 
+Additional Information
+----------------------
 
-Example Conventions
-~~~~~~~~~~~~~~~~~~~
+To learn more about authenticating to MongoDB, see
+:manual:`Authentication </core/authentication/>` in the Server manual.
 
-Each authentication mechanism contains the following placeholders:
+To learn more about managing users of your MongoDB deployment, see
+:manual:`Users </core/security-users/>` in the Server manual.
 
-* ``username`` - Your MongoDB username
-* ``password`` - Your MongoDB user's password
-* ``hostname`` - Your MongoDB servers network address, accessible by
-  your client
-* ``port`` - Your MongoDB servers port number
-* ``authenticationDb`` - Your MongoDB database that contains the user's
-  authentication data. If you omit this option, the driver uses the
-  default value ``admin``.
+API Documentation
+~~~~~~~~~~~~~~~~~
 
-..
-  To learn more about configuring your application to use
-  certificates as well as TLS/SSL options, see
-  :ref:`golang-tls-ssl-guide`.
+To learn more about the methods and types discussed in this
+guide, see the following API Documentation:
+
+- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
