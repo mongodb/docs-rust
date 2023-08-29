@@ -8,9 +8,9 @@ Connections
 
    /fundamentals/connections/connection-guide
    /fundamentals/connections/network-compression
+   /fundamentals/connections/connection-options
 
 ..
-   /fundamentals/connections/connection-options
    /fundamentals/connections/tls
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
 
