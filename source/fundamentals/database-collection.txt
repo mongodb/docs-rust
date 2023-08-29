@@ -168,10 +168,12 @@ collection with the ``Document`` type:
    let my_coll: Collection<Document> = client.database("test_db").collection("coll_xyz");
    let my_coll = client.database("test_db").collection::<Document>("coll_xyz");
 
-We recommend that you parameterize your ``Collection`` instance with a
-custom type that models your data instead of the ``Document`` type.
-You can avoid repetitive serialization and validation by defining a
-type that models your specific data.
+.. tip::
+
+   We recommend that you parameterize your ``Collection`` instance with a
+   custom type that models your data instead of the ``Document`` type.
+   You can avoid repetitive serialization and validation by defining a
+   type that models your specific data.
 
 .. TODO link to serialization guide
 
