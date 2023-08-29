@@ -53,8 +53,8 @@ After you specify an API version, the client runs operations that are compatible
 API Version Specification Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following example instantiates a ``Client`` that sets the
-{+stable-api+} version and connects to a server.
+The following example sets the {+stable-api+} version when instantiating a ``Client`` 
+and connects to a server.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/stable-api.rs
    :language: rust
