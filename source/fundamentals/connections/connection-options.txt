@@ -25,140 +25,138 @@ URI to specify the behavior of the client.
      - Default Value
      - Description
 
-   * - **timeoutMS**
-     - integer
-     - ``null``
-     - Specifies the number of milliseconds that a single operation run on the
-       ``Client`` can take before returning a timeout error. Operations honor
-       this setting only if there is no deadline on the operation Context.
+- connect_timeout
+- Option<Duration>
+- The default value is 10 seconds.
+- The connect timeout passed to each underlying TcpStream when attemtping to connect to the server.
 
-   * - **connectTimeoutMS**
-     - integer
-     - ``30000``
-     - Specifies the number of milliseconds to wait before timeout on a TCP
-       connection.
+- credential
+- Option<Credential>
+- The credential to use for authenticating connections made by this client.
 
-   * - **max_pool_size**
-     - Option<u32>
-     - ``10`` TODO Check me
-     - Specifies the maximum number of connections that a connection pool may
-       have at a given time.
+- direct_connection
+- Option<bool>
+- The default value is false.
+- Specifies whether the Client should directly connect to a single host rather than autodiscover all servers in the cluster.
 
-   * - **repl_set_name**
-     - Option<string>
-     - None TODO check me
-     - Specifies the replica set name for the cluster. All nodes in the
-       replica set must have the same replica set name, or the Client will not
-       consider them as part of the set.
+- heartbeat_freq
+- Option<Duration>
+- The default value is 10 seconds.
+- The amount of time each monitoring thread should wait between performing server checks.
 
-   * - **max_idle_time**
-     - Option<Duration>
-     - ``0``
-     - Specifies the maximum amount of time a connection can remain idle
-       in the connection pool before being removed and closed. The
-       default is ``0``, meaning a connection can remain unused
-       indefinitely.
+- load_balanced
+- Option<bool>
+- 
+- Whether or not the client is connecting to a MongoDB cluster through a load balancer.
 
-   * - **min_pool_size**
-     - Option<u32>
-     - ``0`` TODO checkme
-     - Specifies the minimum number of connections that the driver maintains
-       in a single connection pool.
+- local_threshold
+- Option<Duration>
+- The default value is 15 ms.
+- When running a read operation with a ReadPreference that allows selecting secondaries, local_threshold is used to determine how much longer the average round trip time between the driver and server is allowed compared to the least round trip time of all the suitable servers. For example, if the average round trip times of the suitable servers are 5 ms, 10 ms, and 15 ms, and the local threshold is 8 ms, then the first two servers are within the latency window and could be chosen for the operation, but the last one is not.
+  A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
-   * - **socketTimeoutMS**
-     - integer
-     - ``0``
-     - Specifies the number of milliseconds to wait for a socket read or
-       write to return before returning a network error. The ``0``
-       default value indicates that there is no timeout.
+- max_idle_time
+- Option<Duration>
+- 
+- The amount of time that a connection can remain idle in a connection pool before being closed. A value of zero indicates that connections should not be closed due to being idle.
+  By default, connections will not be closed due to being idle.
 
-   * - **serverSelectionTimeoutMS**
-     - integer
-     - ``30000``
-     - Specifies the number of milliseconds to wait to find an available,
-       suitable server to execute an operation.
+- max_pool_size
+- Option<u32>
+- The default value is 10.
+- The maximum amount of connections that the Client should allow to be created in a connection pool for a given server. If an operation is attempted on a server while max_pool_size connections are checked out, the operation will block until an in-progress operation finishes and its connection is checked back into the pool.
 
-   * - **heartbeatFrequencyMS**
-     - integer
-     - ``10000``
-     - Specifies the number of milliseconds to wait between periodic
-       background server checks.
+- min_pool_size
+- Option<u32>
+- The default value is 0.
+- The minimum number of connections that should be available in a server’s connection pool at a given time. If fewer than min_pool_size connections are in the pool, connections will be added to the pool in the background until min_pool_size is reached.
 
-   * - **tls**
-     - Option<tls>
-     - None
-     - Specifies whether to establish a Transport Layer Security (TLS)
-       connection with the instance. This is automatically set to ``true``
-       when using a DNS seedlist (SRV) in the connection string. You can
-       override this behavior by setting the value to None.
+- read_concern
+- Option<ReadConcern>
+- 
+- Specifies the default read concern for operations performed on the Client. See the ReadConcern type documentation for more details.
 
-   * - **write_concern**
-     - Option<WriteConcern>
-     - ``None``
-     - Specifies the write concern. To learn more about values, see the
-       server documentation on
-       :manual:`Write Concern options </reference/write-concern>`.
+- repl_set_name
+- Option<String>
+- 
+-  The name of the replica set that the Client should connect to.
 
-   * - **directConnection**
-     - Option<bool>
-     - ``false``
-     - Specifies whether to force dispatch **all** operations to the host
-       specified in the connection URI.
+- retry_reads
+- Option<bool>
+- The default value is true.
+- Whether or not the client should retry a read operation if the operation fails.
 
-For a full list of connection options, see the `ClientOptions API
+- retry_writes
+- Option<bool>
+- The default value is true.
+- Whether or not the client should retry a write operation if the operation fails.
+
+- server_selection_timeout
+- Option<Duration>
+- The default value is 30 seconds.
+- The amount of time the Client should attempt to select a server for an operation before timing outs
+
+- tls
+- Option<Tls>
+- By default, TLS is disabled.
+- The TLS configuration for the Client to use in its connections with the server.
+
+
+For a full list of options, see the `ClientOptions API
 documentation
 <{+api+}/mongo/options#ClientOptions>`__.
 
 .. _rust-timeout-setting:
 
-Single Timeout Setting
-~~~~~~~~~~~~~~~~~~~~~~
+..
+   Single Timeout Setting
+   ~~~~~~~~~~~~~~~~~~~~~~
 
-You can set a single ``Timeout`` option on your ``Client`` to govern the
-amount of time that a single operation can take to execute using the
-``SetTimeout()`` method or specifying the ``timeoutMS`` option in your
-connection URI string. ``Database``, ``Collection``,
-``Session``, ``ChangeStream``, and ``Bucket`` instances elsewhere in
-your code inherit the ``Timeout`` option from ``Client`` if you do not set a
-Context for operations against the same entity. 
+   You can set a single ``Timeout`` option on your ``Client`` to govern the
+   amount of time that a single operation can take to execute using the
+   ``SetTimeout()`` method or specifying the ``timeoutMS`` option in your
+   connection URI string. ``Database``, ``Collection``,
+   ``Session``, ``ChangeStream``, and ``Bucket`` instances elsewhere in
+   your code inherit the ``Timeout`` option from ``Client`` if you do not set a
+   Context for operations against the same entity. 
 
-If you pass a Context into an operation with a deadline, the driver uses
-that Context deadline for the operation. If the context does not have a
-deadline, the driver derives a new Context from the given Context using
-the ``Timeout`` option set on the ``Client``.
+   If you pass a Context into an operation with a deadline, the driver uses
+   that Context deadline for the operation. If the context does not have a
+   deadline, the driver derives a new Context from the given Context using
+   the ``Timeout`` option set on the ``Client``.
 
-.. note:: Retries under Timeout Specification
+   .. note:: Retries under Timeout Specification
 
-   With default settings, if you set a ``Timeout`` option on your ``Client``
-   and your operation requires a retry, the driver retries the operation
-   as many times as possible before the timeout expires. Once the timeout
-   expires, the driver returns a timeout error. Versions 1.1 and later
-   of the {+driver-short+} enable retryable reads and writes by default.
-   See the Server manual for more information about :ref:`retryable
-   reads <retryable-reads>` and :manual:`retryable writes </core/retryable-writes/>`.
+      With default settings, if you set a ``Timeout`` option on your ``Client``
+      and your operation requires a retry, the driver retries the operation
+      as many times as possible before the timeout expires. Once the timeout
+      expires, the driver returns a timeout error. Versions 1.1 and later
+      of the {+driver-short+} enable retryable reads and writes by default.
+      See the Server manual for more information about :ref:`retryable
+      reads <retryable-reads>` and :manual:`retryable writes </core/retryable-writes/>`.
 
-The following code shows how to set the ``Timeout`` option on a ``Client``
-with the ``SetTimeout`` option:
+   The following code shows how to set the ``Timeout`` option on a ``Client``
+   with the ``SetTimeout`` option:
 
-.. code-block:: go
+   .. code-block:: go
 
-   opts := options.Client().SetTimeout(5 * time.Second)
+      opts := options.Client().SetTimeout(5 * time.Second)
 
-The following example shows how you can set a single timeout with the
-URI option and execute an operation that inherits this setting:
+   The following example shows how you can set a single timeout with the
+   URI option and execute an operation that inherits this setting:
 
-.. code-block:: go
+   .. code-block:: go
 
-   uri := "mongodb://user:pass@sample.host:27017/?timeoutMS=5000"
-   client := mongo.Connect(uri)
-   coll := client.Database("<db>").Collection("<collection>")
-   ...
-   coll.InsertOne(context.Background(), doc)
+      uri := "mongodb://user:pass@sample.host:27017/?timeoutMS=5000"
+      client := mongo.Connect(uri)
+      coll := client.Database("<db>").Collection("<collection>")
+      ...
+      coll.InsertOne(context.Background(), doc)
 
-.. important:: Legacy Timeout Options
+   .. important:: Legacy Timeout Options
 
-   ``SocketTimeout``, ``wTimeout``, ``MaxTime``, and ``MaxCommitTime``
-   will be deprecated in an upcoming release. The driver ignores ``MaxTime`` and
-   ``MaxCommitTime`` if you set ``Timeout``. The driver still honors
-   ``SocketTimeout`` and ``wTimeout``, but these settings may result in
-   undefined behavior. Consider using only the single timeout option instead.
+      ``SocketTimeout``, ``wTimeout``, ``MaxTime``, and ``MaxCommitTime``
+      will be deprecated in an upcoming release. The driver ignores ``MaxTime`` and
+      ``MaxCommitTime`` if you set ``Timeout``. The driver still honors
+      ``SocketTimeout`` and ``wTimeout``, but these settings may result in
+      undefined behavior. Consider using only the single timeout option instead.
