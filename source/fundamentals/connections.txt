@@ -28,8 +28,8 @@ deployment using the {+driver-short+} in the following sections:
 
 - :ref:`Connection Guide <rust-connect-to-mongodb>`
 - :ref:`Enable Network Compression <rust-network-compression>`
+- :ref:`Connection Options <rust-connection-options>`
 
-.. - :ref:`Connection Options <rust-connection-options>`
 .. - :ref:`Enable TLS on a Connection <rust-connect-tls>`
 .. - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
 
