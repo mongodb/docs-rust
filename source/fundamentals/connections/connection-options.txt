@@ -33,7 +33,7 @@ URI to specify the behavior of the client.
    * - **direct_connection**
      - ``Option<bool>``
      - ``false``
-     - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discover all servers in the cluster.
+     - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discovering all servers in the cluster.
 
    * - **heartbeat_freq**
      - ``Option<Duration>``
@@ -48,10 +48,11 @@ URI to specify the behavior of the client.
    * - **local_threshold**
      - ``Option<Duration>``
      - 15 milliseconds
-     - When running a read operation with a ReadPreference that allows selecting secondaries,
+     - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
        ``local_threshold`` is used to determine how much longer the average round trip time between the driver and server is allowed
        compared to the least round trip time of all the suitable servers.
-       For example, if the average round trip times of the suitable servers are 5 ms, 10 ms, and 15 ms, and the local threshold is 8 ms,
+       For example, if the average round trip times of the suitable servers are 5 milliseconds, 10 milliseconds, and 15 milliseconds,
+       and the local threshold is 8 ms,
        then the first two servers are within the latency window and could be chosen for the operation, but the last one is not.
        A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
@@ -60,14 +61,13 @@ URI to specify the behavior of the client.
      - 0
      - The amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
-       By default, connections will not be closed due to being idle.
 
    * - **max_pool_size**
      - ``Option<u32>``
      - 10
      - The maximum amount of connections that the ``Client`` should allow to be created in a connection pool for a given server.
        If an operation is attempted on a server while ``max_pool_size`` connections are checked out,
-       the operation will block until an in-progress operation finishes and its connection is checked back into the pool.
+       the operation will block until an in-progress operation finishes and its connection returns to the pool the pool.
 
    * - **min_pool_size**
      - ``Option<u32>``
@@ -80,7 +80,7 @@ URI to specify the behavior of the client.
      - ``Option<ReadConcern>``
      - 
      - Specifies the default read concern for operations performed on the ``Client``.
-       See the ReadConcern type documentation for more details.
+       See the `ReadConcern <{+api+}/options/struct.ReadConcern.html>`__ API documentation for more details.
 
    * - **repl_set_name**
      - ``Option<String>``
@@ -109,5 +109,4 @@ URI to specify the behavior of the client.
        By default, TLS is disabled.
 
 For a full list of options, see the `ClientOptions API
-documentation
-<{+api+}/mongo/options#ClientOptions>`__.
+documentation <{+api+}/options/struct.ClientOptions.html>`__.
