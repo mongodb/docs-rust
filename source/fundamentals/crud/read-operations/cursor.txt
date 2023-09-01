@@ -94,12 +94,12 @@ iterate through the results of a find operation on the ``fruits``
 collection:
 
 .. io-code-block::
-   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/cursor.rs
-      :start-after: 
-      :end-before: 
+      :start-after: start-indiv-builtin
+      :end-before: end-indiv-builtin
       :language: rust
+      :copyable: true
       :dedent:
 
    .. output::
@@ -138,12 +138,12 @@ iterate through the results of find operations on the ``fruits``
 collection:
 
 .. io-code-block::
-   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/cursor.rs
       :start-after: start-indiv-stream
       :end-before: end-indiv-stream
       :language: rust
+      :copyable: true
       :dedent:
 
    .. output::
@@ -181,12 +181,12 @@ You can use the following methods to retrieve documents as an array:
    ``TryStreamExt`` trait.
 
 .. io-code-block::
-   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/cursor.rs
       :start-after: start-array
       :end-before: end-array
       :language: rust
+      :copyable: true
       :dedent:
 
    .. output::
@@ -253,8 +253,8 @@ an options instance:
           Because the ``Cursor`` type implements the ``Drop`` trait, the
           server will by default close a cursor when it goes out of
           scope. The server executes an asynchronous ``killCursors``
-          command to close the cursor. See the `killCursors </reference/command/killCursors/>`
-          documentation in the Server manual to learn more.
+          command to close the cursor. See :manual:`killCursors
+          </reference/command/killCursors/>` in the Server manual to learn more.
 
        | Type: ``bool``
        | Default: ``false``
