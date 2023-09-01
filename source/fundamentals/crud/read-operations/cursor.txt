@@ -23,7 +23,7 @@ documents, the driver returns a ``Cursor`` type that references the
 matched documents.
 
 When the driver returns a ``Cursor`` instance, it contains the first batch
-of results from the operation, and then the Server returns more
+of results from the operation, and then the server returns more
 individual results as you iterate through the cursor. If there are more
 results after you exhaust the batch of results, the ``Cursor`` instance
 will fetch the next batch of documents until all of the results are returned.
@@ -289,4 +289,16 @@ API Documentation
 To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
 
+- `Cursor <{+api+}/struct.Cursor.html>`__
+- `advance() <{+api+}/struct.Cursor.html#method.advance>`__
+- `deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__
+- `next() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.next>`__ in the
+  ``StreamExt`` API documentation
+- `try_next() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_next>`__ in the
+  ``TryStreamExt`` API documentation
+- `collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__ in the
+  ``StreamExt`` API documentation
+- `try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__ in the
+  ``TryStreamExt`` API documentation
 - `find() <{+api+}/struct.Collection.html#method.find>`__
+- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
