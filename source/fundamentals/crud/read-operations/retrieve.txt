@@ -188,6 +188,7 @@ following parameters:
   ``unit_price`` in descending order
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-find-many
@@ -225,6 +226,7 @@ following parameters:
 - A ``FindOneOptions`` instance that skips the first two matched documents
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-find-one
@@ -339,6 +341,7 @@ pipeline that contains the following stages:
 - A ``$sort`` stage to by ``avg_price`` in ascending order
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-agg
