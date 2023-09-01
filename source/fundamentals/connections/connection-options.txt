@@ -108,5 +108,38 @@ URI to specify the behavior of the client.
      - The TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
+.. * `appName`: maps to the `app_name` field
+.. * `authMechanism`: maps to the `mechanism` field of the `credential` field
+.. * `authSource`: maps to the `source` field of the `credential` field
+.. * `authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` field
+.. * `compressors`: maps to the `compressors` field
+.. * `connectTimeoutMS`: maps to the `connect_timeout` field
+.. * `direct`: maps to the `direct` field
+.. * `heartbeatFrequencyMS`: maps to the `heartbeat_frequency` field
+.. * `journal`: maps to the `journal` field of the `write_concern` field
+.. * `localThresholdMS`: maps to the `local_threshold` field
+.. * `maxIdleTimeMS`: maps to the `max_idle_time` field
+.. * `maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   field
+.. * `maxPoolSize`: maps to the `max_pool_size` field
+.. * `minPoolSize`: maps to the `min_pool_size` field
+.. * `readConcernLevel`: maps to the `read_concern` field
+.. * `readPreferenceField`: maps to the ReadPreference enum variant of the   `selection_criteria` field
+.. * `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag set
+.. * `replicaSet`: maps to the `repl_set_name` field
+.. * `retryWrites`: not yet implemented
+.. * `retryReads`: maps to the `retry_reads` field
+.. * `serverSelectionTimeoutMS`: maps to the `server_selection_timeout` field
+.. * `socketTimeoutMS`: unsupported, does not map to any field
+.. * `ssl`: an alias of the `tls` option
+.. * `tls`: maps to the TLS variant of the `tls` field`.
+.. * `tlsInsecure`: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the future
+.. * `tlsAllowInvalidCertificates`: maps to the `allow_invalidCertificates` field of the `tls` field
+.. * `tlsCAFile`: maps to the `ca_file_path` field of the `tls` field
+.. * `tlsCertificateKeyFile`: maps to the `cert_key_file_path` field of the `tls` field
+.. * `w`: maps to the `w` field of the `write_concern` field
+.. * `waitQueueTimeoutMS`: unsupported, does not map to any field
+.. * `wTimeoutMS`: maps to the `w_timeout` field of the `write_concern` field
+.. * `zlibCompressionLevel`: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+
 For a full list of options, see the `ClientOptions API
 documentation <{+api+}/options/struct.ClientOptions.html>`__.
