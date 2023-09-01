@@ -10,8 +10,8 @@ Performance
    :depth: 2
    :class: singlecol
 
-Client Best Practices
----------------------
+Overview
+--------
 
 The ``Client`` handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
@@ -128,3 +128,21 @@ as the driver is designed to work well in such situations.
            // Do something with the collection
        });
    }
+
+..
+   Additional Information
+   ----------------------
+
+   For more information about the concepts in this guide, see the following documentation:
+
+   - :manual:`db.runCommand() </reference/method/db.runCommand/>`
+   - :manual:`Database Commands </reference/command/>`
+   - :manual:`hello Command </reference/command/hello/>`
+   - :manual:`explain Command </reference/command/explain/>`
+
+   API Documentation
+   ~~~~~~~~~~~~~~~~~
+
+   - `run_command() <{+api+}/struct.Database.html#method.run_command>`__
+   - `SelectionCriteria <{+api+}/options/enum.SelectionCriteria.html>`__
+   - `ReadPreference <{+api+}/options/enum.ReadPreference.html>`__
