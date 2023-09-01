@@ -4,13 +4,11 @@
 Performance
 ===========
 
-
 .. contents:: On this page
    :local:
    :backlinks: none
    :depth: 2
    :class: singlecol
-
 
 Client Best Practices
 
@@ -26,7 +24,8 @@ so ideally that should only be done once at application startup.
 Because Client is implemented using an internal Arc,
 it can safely be shared across threads or tasks, and cloning it to pass to new contexts is extremely cheap.
 
-..
+.. code-block:: rust
+
    // This will be very slow because it's constructing and tearing down a `Client`
    // with every request.
    async fn handle_request_bad() -> Result<(), Box<dyn Error>> {
@@ -50,7 +49,8 @@ A Client is implicitly bound to the instance of the tokio or async-std runtime i
 Attempting to execute operations on a different runtime instance will cause incorrect behavior and unpredictable failures.
 This is easy to accidentally invoke when testing, as the tokio::test or async_std::test helper macros create a new runtime for each test.
 
-..
+.. code-block:: rust
+
    use tokio::runtime::Runtime;
    use once_cell::sync::Lazy;
 
@@ -68,11 +68,11 @@ This is easy to accidentally invoke when testing, as the tokio::test or async_st
        Ok(())
    }
 
-
 To work around this issue, either create a new Client for every async test,
 or bundle the Runtime along with the client and don't use the test helper macros.
 
-..
+.. code-block:: rust
+
    use tokio::runtime::Runtime;
    use once_cell::sync::Lazy;
 
@@ -95,7 +95,8 @@ or bundle the Runtime along with the client and don't use the test helper macros
 
 or
 
-..
+.. code-block:: rust
+
    #[tokio::test]
    async fn test_list_dbs() -> Result<(), Box<dyn Error>> {
        let client = Client::with_uri_str("mongodb://example.com").await?;
@@ -109,8 +110,8 @@ Where data operations are naturally parallelizable,
 spawning many asynchronous tasks that use the driver concurrently is often the best way to achieve maximum performance,
 as the driver is designed to work well in such situations.
 
+.. code-block:: rust
 
-..
    let client = Client::with_uri_str("mongodb://example.com").await?;
 
    for i in 0..5 {
