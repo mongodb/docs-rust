@@ -11,17 +11,19 @@ Performance
    :class: singlecol
 
 Client Best Practices
+---------------------
 
-The Client handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
+The ``Client`` handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
 This has implications for how a Client should be used for best performance.
 
 Lifetime
+--------
 
-A Client should be as long-lived as possible.
-Establishing a new Client is relatively slow and resource-intensive,
-so ideally that should only be done once at application startup.
-Because Client is implemented using an internal Arc,
+A ``Client`` should be as long-lived as possible.
+Establishing a new ``Client`` is relatively slow and resource-intensive.
+Ideally a ``Client`` should only be created once at application startup.
+Because ``Client`` is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks, and cloning it to pass to new contexts is extremely cheap.
 
 .. code-block:: rust
@@ -40,14 +42,16 @@ it can safely be shared across threads or tasks, and cloning it to pass to new c
        Ok(())
    }
 
-This is especially noticeable when using a framework that provides connection pooling;
-because Client does its own pooling internally,
-attempting to maintain a pool of Clients will (somewhat counter-intuitively) result in worse performance than using a single one.
+This is evident when using a framework that provides connection pooling.
+Because ``Client`` does its own pooling internally,
+attempting to maintain a pool of ``Clients`` will result in worse performance than using a single one.
 
 Runtime
-A Client is implicitly bound to the instance of the tokio or async-std runtime in which it was created.
+-------
+
+A ``Client`` is implicitly bound to the instance of the tokio or async-std runtime in which it was created.
 Attempting to execute operations on a different runtime instance will cause incorrect behavior and unpredictable failures.
-This is easy to accidentally invoke when testing, as the tokio::test or async_std::test helper macros create a new runtime for each test.
+This is easy to accidentally invoke when testing, as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
 
 .. code-block:: rust
 
@@ -68,8 +72,8 @@ This is easy to accidentally invoke when testing, as the tokio::test or async_st
        Ok(())
    }
 
-To work around this issue, either create a new Client for every async test,
-or bundle the Runtime along with the client and don't use the test helper macros.
+To work around this issue, either create a new ``Client`` for every async test,
+or bundle the runtime along with the client and don't use the test helper macros.
 
 .. code-block:: rust
 
@@ -105,6 +109,7 @@ or
    }
 
 Parallelism
+-----------
 
 Where data operations are naturally parallelizable,
 spawning many asynchronous tasks that use the driver concurrently is often the best way to achieve maximum performance,
