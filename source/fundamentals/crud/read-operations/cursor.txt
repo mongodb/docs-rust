@@ -260,8 +260,7 @@ an options instance:
        | Default: ``false``
 
 The following code shows how to construct a ``FindOptions``
-instance, specify cursor settings, and pass the options to the
-``find()`` method:
+instance and specify cursor-related settings:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :start-after: start-options
