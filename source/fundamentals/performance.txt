@@ -27,13 +27,11 @@ Ideally a ``Client`` should only be created once at application startup.
 Because ``Client`` is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks, and cloning it to pass to new contexts is extremely cheap.
 
-
-This will be very slow because it's constructing and tearing down a `Client`
-with every request.
+This will be very slow because it's constructing and tearing down a `Client` with every request.
 
 .. code-block:: rust
 
-   async fn handle_request_bad() -> Result<(), Box<dyn Error>> {
+   async fn handle_request() -> Result<(), Box<dyn Error>> {
        let client = Client::with_uri_str("mongodb://example.com").await?;
        // Do something with the client
        Ok(())
@@ -42,7 +40,7 @@ with every request.
 This will be much faster.
 
 .. code-block:: rust
-   async fn handle_request_good(client: &Client) -> Result<(), Box<dyn Error>> {
+   async fn handle_request(client: &Client) -> Result<(), Box<dyn Error>> {
        // Do something with the client
        Ok(())
    }
