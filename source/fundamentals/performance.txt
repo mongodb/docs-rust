@@ -13,12 +13,13 @@ Performance
 Overview
 --------
 
+This guide contains best practices for optimizing performance of the MongoDB Rust client.
 The ``Client`` handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
-This has implications for how a Client should be used for best performance.
+This has implications for how a ``Client`` should be used for best performance.
 
-Lifetime
---------
+Client Lifecycle
+----------------
 
 A ``Client`` should be as long-lived as possible.
 Establishing a new ``Client`` is relatively slow and resource-intensive.
@@ -26,17 +27,21 @@ Ideally a ``Client`` should only be created once at application startup.
 Because ``Client`` is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks, and cloning it to pass to new contexts is extremely cheap.
 
+
+This will be very slow because it's constructing and tearing down a `Client`
+with every request.
+
 .. code-block:: rust
 
-   // This will be very slow because it's constructing and tearing down a `Client`
-   // with every request.
    async fn handle_request_bad() -> Result<(), Box<dyn Error>> {
        let client = Client::with_uri_str("mongodb://example.com").await?;
        // Do something with the client
        Ok(())
    }
 
-   // This will be much faster.
+This will be much faster.
+
+.. code-block:: rust
    async fn handle_request_good(client: &Client) -> Result<(), Box<dyn Error>> {
        // Do something with the client
        Ok(())
