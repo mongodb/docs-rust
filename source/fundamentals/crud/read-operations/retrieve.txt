@@ -188,12 +188,12 @@ following parameters:
   ``unit_price`` in descending order
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-find-many
       :end-before: end-find-many
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output::
@@ -226,12 +226,12 @@ following parameters:
 - A ``FindOneOptions`` instance that skips the first two matched documents
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-find-one
       :end-before: end-find-one
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output::
@@ -341,12 +341,12 @@ pipeline that contains the following stages:
 - A ``$sort`` stage to by ``avg_price`` in ascending order
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/retrieve.rs
       :start-after: begin-agg
       :end-before: end-agg
       :language: rust
-      :copyable: true
       :dedent:
 
    .. output::
