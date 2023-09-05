@@ -21,12 +21,10 @@ URI to specify the behavior of the client.
    :widths: 34 10 12 44
 
    * - Option Name
-     - Type
      - Default Value
      - Description
 
    * - **appName**
-     -
      -
      - The application name that the Client will send to the server as part of the handshake.
        This can be used in combination with the server logs to determine which Client is connected to a server.
@@ -34,44 +32,35 @@ URI to specify the behavior of the client.
    * - **authMechanism**
      -
      -
-     -
 
    * - **authSource**
-     -
      -
      -
 
    * - **authMechanismProperties**
      -
      -
-     -
    * - **compressors**
-     -
      -
      -
 
    * - ***connectTimeoutMS***
-     - ``Option<Duration>``
      - 10 seconds
      - The connection timeout passed to each underlying TCP stream when attempting to connect to the server.
 
    * - **direct**
-     - ``Option<bool>``
      - ``false``
      - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discovering all servers in the cluster.
 
    * - **heartbeatFrequencyMS**
-     - ``Option<Duration>``
      - 10 seconds
      - The amount of time each monitoring thread should wait between performing server checks.
 
    * - **journal**
      -
      -
-     -
 
    * - **localThresholdMS**
-     - ``Option<Duration>``
      - 15 milliseconds
      - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
        ``local_threshold`` is used to determine how much longer the average round trip time between the driver and server is allowed
@@ -82,7 +71,6 @@ URI to specify the behavior of the client.
        A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
    * - **maxIdleTimeMS**
-       - ``Option<Duration>``
      - 0
      - The amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
@@ -90,17 +78,14 @@ URI to specify the behavior of the client.
    * - **maxStalenessSeconds**
      -
      -
-     -
 
    * - **maxPoolSize**
-     - ``Option<u32>``
      - 10
      - The maximum amount of connections that the ``Client`` should allow to be created in a connection pool for a given server.
        If an operation is attempted on a server while ``max_pool_size`` connections are checked out,
        the operation will block until an in-progress operation finishes and its connection returns to the pool the pool.
 
    * - **minPoolSize**
-     - ``Option<u32>``
      - 0
      - The minimum number of connections that should be available in a server’s connection pool at a given time.
        If fewer than ``min_pool_size`` connections are in the pool, connections will be added to the pool in the background
@@ -109,46 +94,37 @@ URI to specify the behavior of the client.
    * - **readConcernLevel**
      -
      -
-     -
 
    * - **readPreferenceField**
-     -
      -
      -
 
    * - **readPreferenceTags**
      -
      -
-     -
 
    * - **replicaSet**
-     -
      -
      - The name of the replica set that the ``Client`` should connect to.
 
    * - **retryReads**
      -
-     -
      - Whether or not the client should retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
-     - ``Option<Duration>``
      - 30 seconds
      - The amount of time the ``Client`` should attempt to select a server for an operation before timing outs
 
    * - **ssl**: an alias of the `tls` optio**
      -
      -
-     -
 
    * - **tls**
-     - ``Option<Tls>``
      - ``None``
      - The TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
    * - **tlsInsecure**
-     -
      -
      - : relaxes the TLS constraints on connections being made;
        currently is just an alias of tlsAllowInvalidCertificates`,
@@ -157,30 +133,24 @@ URI to specify the behavior of the client.
    * - **tlsAllowInvalidCertificates**
      -
      -
-     -
 
    * - **tlsCAFile**
-     -
      -
      -
 
    * - **tlsCertificateKeyFile**
      -
      -
-     -
 
    * - **w**
-     -
      -
      -
 
    * - **wTimeoutMS**
      -
      -
-     -
 
    * - **zlibCompressionLevel**
-     -
      -
      -
 
