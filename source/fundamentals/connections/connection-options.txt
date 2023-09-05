@@ -18,7 +18,7 @@ URI to specify the behavior of the client.
 
 .. list-table::
    :header-rows: 1
-   :widths: 34 10 12 44
+   :widths: 34 12 44
 
    * - Option Name
      - Default Value
