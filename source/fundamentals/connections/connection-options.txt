@@ -28,19 +28,20 @@ URI to specify the behavior of the client.
    * - **appName**
      -
      -
-     -
+     - The application name that the Client will send to the server as part of the handshake.
+       This can be used in combination with the server logs to determine which Client is connected to a server.
 
-   * - **authMechanism`: maps to the `mechanism` field of the `credential` fiel**
-     -
-     -
-     -
-
-   * - **authSource`: maps to the `source` field of the `credential` fiel**
+   * - **authMechanism**
      -
      -
      -
 
-   * - **authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` fiel**
+   * - **authSource**
+     -
+     -
+     -
+
+   * - **authMechanismProperties**
      -
      -
      -
@@ -64,7 +65,7 @@ URI to specify the behavior of the client.
      - 10 seconds
      - The amount of time each monitoring thread should wait between performing server checks.
 
-   * - **journal`: maps to the `journal` field of the `write_concern` fiel**
+   * - **journal**
      -
      -
      -
@@ -86,7 +87,7 @@ URI to specify the behavior of the client.
      - The amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
 
-   * - **maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   fiel**
+   * - **maxStalenessSeconds**
      -
      -
      -
@@ -110,17 +111,17 @@ URI to specify the behavior of the client.
      -
      -
 
-   * - **readPreferenceField**: maps to the ReadPreference enum variant of the   `selection_criteria` fiel**
+   * - **readPreferenceField**
      -
      -
      -
 
-   * - **readPreferenceTags**: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag se**
+   * - **readPreferenceTags**
      -
      -
      -
 
-   * - **replicaSet**: maps to the `repl_set_name` fiel**
+   * - **replicaSet**
      -
      -
      - The name of the replica set that the ``Client`` should connect to.
@@ -146,37 +147,39 @@ URI to specify the behavior of the client.
      - The TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
-   * - **tlsInsecure**: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the futur**
+   * - **tlsInsecure**
+     -
+     -
+     - : relaxes the TLS constraints on connections being made;
+       currently is just an alias of tlsAllowInvalidCertificates`,
+       but more behavior may be added to this option in the futur**
+
+   * - **tlsAllowInvalidCertificates**
      -
      -
      -
 
-   * - **tlsAllowInvalidCertificates**: maps to the `allow_invalidCertificates` field of the `tls` fiel**
+   * - **tlsCAFile**
      -
      -
      -
 
-   * - **tlsCAFile**: maps to the `ca_file_path` field of the `tls` fiel**
+   * - **tlsCertificateKeyFile**
      -
      -
      -
 
-   * - **tlsCertificateKeyFile** to the `cert_key_file_path` field of the `tls` fiel**
+   * - **w**
      -
      -
      -
 
-   * - **w** : maps to the `w` field of the `write_concern` fiel**
+   * - **wTimeoutMS**
      -
      -
      -
 
-   * - **wTimeoutMS**: maps to the `w_timeout` field of the `write_concern` field
-     -
-     -
-     -
-
-   * - **zlibCompressionLevel**: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+   * - **zlibCompressionLevel**
      -
      -
      -
