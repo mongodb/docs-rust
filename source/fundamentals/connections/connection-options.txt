@@ -25,52 +25,51 @@ URI to specify the behavior of the client.
      - Default Value
      - Description
 
-   * - `appName`
+   * - **appName**
      -
      -
      -
 
-   * - `authMechanism`: maps to the `mechanism` field of the `credential` field
+   * - **authMechanism`: maps to the `mechanism` field of the `credential` fiel**
      -
      -
      -
 
-   * - `authSource`: maps to the `source` field of the `credential` field
+   * - **authSource`: maps to the `source` field of the `credential` fiel**
      -
      -
      -
 
-   * - `authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` field
+   * - **authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` fiel**
+     -
+     -
+     -
+   * - **compressors**
      -
      -
      -
 
-   * - `compressors`
-     -
-     -
-     -
-
-   * - **connectTimeoutMS**
+   * - ***connectTimeoutMS***
      - ``Option<Duration>``
      - 10 seconds
      - The connection timeout passed to each underlying TCP stream when attempting to connect to the server.
 
-   * - `direct`
+   * - **direct**
      - ``Option<bool>``
      - ``false``
      - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discovering all servers in the cluster.
 
-   * - `heartbeatFrequencyMS`
+   * - **heartbeatFrequencyMS**
      - ``Option<Duration>``
      - 10 seconds
      - The amount of time each monitoring thread should wait between performing server checks.
 
-   * - `journal`: maps to the `journal` field of the `write_concern` field
+   * - **journal`: maps to the `journal` field of the `write_concern` fiel**
      -
      -
      -
 
-   * - `localThresholdMS`
+   * - **localThresholdMS**
      - ``Option<Duration>``
      - 15 milliseconds
      - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
@@ -81,103 +80,103 @@ URI to specify the behavior of the client.
        then the first two servers are within the latency window and could be chosen for the operation, but the last one is not.
        A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
-   * - `maxIdleTimeMS`
+   * - **maxIdleTimeMS**
        - ``Option<Duration>``
      - 0
      - The amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
 
-   * - `maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   field
+   * - **maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   fiel**
      -
      -
      -
 
-   * - `maxPoolSize`
+   * - **maxPoolSize**
      - ``Option<u32>``
      - 10
      - The maximum amount of connections that the ``Client`` should allow to be created in a connection pool for a given server.
        If an operation is attempted on a server while ``max_pool_size`` connections are checked out,
        the operation will block until an in-progress operation finishes and its connection returns to the pool the pool.
 
-   * - `minPoolSize`
+   * - **minPoolSize**
      - ``Option<u32>``
      - 0
      - The minimum number of connections that should be available in a server’s connection pool at a given time.
        If fewer than ``min_pool_size`` connections are in the pool, connections will be added to the pool in the background
        until ``min_pool_size`` is reached.
 
-   * - `readConcernLevel`
+   * - **readConcernLevel**
      -
      -
      -
 
-   * - `readPreferenceField`: maps to the ReadPreference enum variant of the   `selection_criteria` field
+   * - **readPreferenceField**: maps to the ReadPreference enum variant of the   `selection_criteria` fiel**
      -
      -
      -
 
-   * - `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag set
+   * - **readPreferenceTags**: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag se**
      -
      -
      -
 
-   * - `replicaSet`: maps to the `repl_set_name` field
+   * - **replicaSet**: maps to the `repl_set_name` fiel**
      -
      -
      - The name of the replica set that the ``Client`` should connect to.
 
-   * - `retryReads`
+   * - **retryReads**
      -
      -
      - Whether or not the client should retry a read operation if the operation fails.
 
-   * - `serverSelectionTimeoutMS`
+   * - **serverSelectionTimeoutMS**
      - ``Option<Duration>``
      - 30 seconds
      - The amount of time the ``Client`` should attempt to select a server for an operation before timing outs
 
-   * - `ssl`: an alias of the `tls` option
+   * - **ssl**: an alias of the `tls` optio**
      -
      -
      -
 
-   * - `tls`
+   * - **tls**
      - ``Option<Tls>``
      - ``None``
      - The TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
-   * - `tlsInsecure`: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the future
+   * - **tlsInsecure**: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the futur**
      -
      -
      -
 
-   * - `tlsAllowInvalidCertificates`: maps to the `allow_invalidCertificates` field of the `tls` field
+   * - **tlsAllowInvalidCertificates**: maps to the `allow_invalidCertificates` field of the `tls` fiel**
      -
      -
      -
 
-   * - `tlsCAFile`: maps to the `ca_file_path` field of the `tls` field
+   * - **tlsCAFile**: maps to the `ca_file_path` field of the `tls` fiel**
      -
      -
      -
 
-   * - `tlsCertificateKeyFile`: maps to the `cert_key_file_path` field of the `tls` field
+   * - **tlsCertificateKeyFile** to the `cert_key_file_path` field of the `tls` fiel**
      -
      -
      -
 
-   * - `w`: maps to the `w` field of the `write_concern` field
+   * - **w** : maps to the `w` field of the `write_concern` fiel**
      -
      -
      -
 
-   * - `wTimeoutMS`: maps to the `w_timeout` field of the `write_concern` field
+   * - **wTimeoutMS**: maps to the `w_timeout` field of the `write_concern` field
      -
      -
      -
 
-   * - `zlibCompressionLevel`: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+   * - **zlibCompressionLevel**: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
      -
      -
      -
