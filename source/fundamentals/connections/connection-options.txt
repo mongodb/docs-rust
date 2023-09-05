@@ -136,7 +136,7 @@ URI to specify the behavior of the client.
        but more behavior may be added to this option in the futur**
 
    * - **tlsAllowInvalidCertificates**
-     - `true`
+     - ``true``
      - Whether or not the Client should return an error if the server presents an invalid certificate.
        This setting should *not* be set to true in production.
        It should only be used for testing.
