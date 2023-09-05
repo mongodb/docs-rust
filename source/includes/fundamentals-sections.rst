@@ -8,11 +8,11 @@ Fundamentals section:
 - :ref:`Perform Aggregations <rust-aggregation>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
 - :ref:`Run A Database Command <rust-run-command>`
+- :ref:`Connect by using Enterprise Authentication Mechanisms <rust-enterprise-auth>`
 
 ..
   - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
   - :ref:`Authenticate to MongoDB <rust-authentication-mechanisms>`
-  - :ref:`Connect with Enterprise Authentication Mechanisms <rust-enterprise-authentication-mechanisms>`
   - :ref:`Convert Data to and from BSON <rust-bson>`
   - :ref:`Construct Indexes <rust-indexes>`
   - :ref:`Specify Collations to Order Results <rust-collations>`

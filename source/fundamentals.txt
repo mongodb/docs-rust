@@ -15,12 +15,12 @@ Fundamentals
    /fundamentals/aggregation
    /fundamentals/tracing-logging
    /fundamentals/run-command
+   /fundamentals/enterprise-auth
 
 ..
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
    /fundamentals/context
    /fundamentals/auth
-   /fundamentals/enterprise-auth
    /fundamentals/bson
    /fundamentals/indexes
    /fundamentals/transactions
