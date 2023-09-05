@@ -26,12 +26,12 @@ URI to specify the behavior of the client.
 
    * - **appName**
      -
-     - The application name that the Client will send to the server as part of the handshake.
+     - Specifies application name that the Client will send to the server as part of the handshake.
        This can be used in combination with the server logs to determine which Client is connected to a server.
 
    * - **authMechanism**
      -
-     -
+     - Specifies which authentication mechanism to use. If not provided, one will be negotiated with the server.
 
    * - **authSource**
      -
@@ -39,14 +39,15 @@ URI to specify the behavior of the client.
 
    * - **authMechanismProperties**
      -
-     -
+     - Specifies additional properties for the given mechanism.
+
    * - **compressors**
      -
-     -
+     - Specifies compressors that the Client is willing to use in the order they are specified in the configuration. The Client sends this list of compressors to the server. The server responds with the intersection of its supported list of compressors. The order of compressors indicates preference of compressors.
 
    * - ***connectTimeoutMS***
      - 10 seconds
-     - The connection timeout passed to each underlying TCP stream when attempting to connect to the server.
+     - Specifies the connection timeout passed to each underlying TCP stream when attempting to connect to the server.
 
    * - **direct**
      - ``false``
@@ -54,16 +55,17 @@ URI to specify the behavior of the client.
 
    * - **heartbeatFrequencyMS**
      - 10 seconds
-     - The amount of time each monitoring thread should wait between performing server checks.
+     - Specifies amount of time each monitoring thread should wait between performing server checks.
 
    * - **journal**
      -
-     -
-
+     - Requests acknowledgement that the operation has propagated to the on-disk journal.
+       .. bool
+       
    * - **localThresholdMS**
      - 15 milliseconds
      - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
-       ``local_threshold`` is used to determine how much longer the average round trip time between the driver and server is allowed
+       Specifies how much longer the average round trip time between the driver and server is allowed to be
        compared to the least round trip time of all the suitable servers.
        For example, if the average round trip times of the suitable servers are 5 milliseconds, 10 milliseconds, and 15 milliseconds,
        and the local threshold is 8 ms,
@@ -72,7 +74,7 @@ URI to specify the behavior of the client.
 
    * - **maxIdleTimeMS**
      - 0
-     - The amount of time that a connection can remain idle in a connection pool before being closed.
+     - Specifies the amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
 
    * - **maxStalenessSeconds**
@@ -131,28 +133,34 @@ URI to specify the behavior of the client.
        but more behavior may be added to this option in the futur**
 
    * - **tlsAllowInvalidCertificates**
-     -
-     -
+     - `true`
+     - Whether or not the Client should return an error if the server presents an invalid certificate.
+       This setting should *not* be set to true in production.
+       It should only be used for testing.
 
    * - **tlsCAFile**
-     -
-     -
+     - 
+     - The path to the CA file that the Client should use for TLS.
+       If none is specified, then the driver will use the Mozilla root certificates from the ``webpki-roots`` crate.
 
    * - **tlsCertificateKeyFile**
      -
-     -
+     - The path to the certificate file that the Client should present to the server to verify its identify.
+       If none is specified, then the Client will not attempt to verify its identity to the server.
 
    * - **w**
      -
-     -
+     - Requests acknowledgement that the operation has propagated to a specific number or variety of servers.
 
    * - **wTimeoutMS**
      -
-     -
+     - Specifies a time limit for the write concern. If an operation has not propagated to the requested level within the time limit, an error will return.
 
-   * - **zlibCompressionLevel**
-     -
-     -
+       Note that an error being returned due to a write concern error does not imply that the write would not have finished propagating if allowed more time to finish, and the server will not roll back the writes that occurred before the timeout was reached.
+
+..    * - **zlibCompressionLevel**
+..      -
+..      - maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
 
 For a full list of options, see the `ClientOptions API
 documentation <{+api+}/options/struct.ClientOptions.html>`__.
