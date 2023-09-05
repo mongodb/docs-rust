@@ -34,8 +34,10 @@ URI to specify the behavior of the client.
      - Specifies which authentication mechanism to use. If not provided, one will be negotiated with the server.
 
    * - **authSource**
-     -
-     -
+     - See description.
+     - The database used to authenticate.
+       This applies to all mechanisms and defaults to ``admin`` in SCRAM authentication mechanisms,
+       ``$external`` for GSSAPI and MONGODB-X509, and the database name or ``$external`` for PLAIN.
 
    * - **authMechanismProperties**
      -
@@ -79,7 +81,9 @@ URI to specify the behavior of the client.
 
    * - **maxStalenessSeconds**
      -
-     -
+     - Specifies the maximum amount of lag behind the primary that a secondary can be to be considered for the given operation. Any secondaries lagging behind more than max_staleness will not be considered for the operation.
+
+       max_staleness must be at least 90 seconds. If a max_staleness less than 90 seconds is specified for an operation, the operation will return an error.
 
    * - **maxPoolSize**
      - 10
@@ -95,7 +99,7 @@ URI to specify the behavior of the client.
 
    * - **readConcernLevel**
      -
-     -
+     - Specifies the default read concern for operations performed on the Client. See the ReadConcern type documentation for more details.
 
    * - **readPreferenceField**
      -
@@ -103,7 +107,10 @@ URI to specify the behavior of the client.
 
    * - **readPreferenceTags**
      -
-     -
+     - Specifies which replica set members should be considered for operations. Each tag set will be checked in order until one or more servers is found with each tag in the set.
+        .. * `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field. Note
+        .. that this option can appear more than once; each instance will be mapped to a separate
+        .. tag set
 
    * - **replicaSet**
      -
@@ -117,10 +124,6 @@ URI to specify the behavior of the client.
      - 30 seconds
      - The amount of time the ``Client`` should attempt to select a server for an operation before timing outs
 
-   * - **ssl**: an alias of the `tls` optio**
-     -
-     -
-
    * - **tls**
      - ``None``
      - The TLS configuration for the ``Client`` to use in its connections with the server.
@@ -128,7 +131,7 @@ URI to specify the behavior of the client.
 
    * - **tlsInsecure**
      -
-     - : relaxes the TLS constraints on connections being made;
+     - Relaxes the TLS constraints on connections being made;
        currently is just an alias of tlsAllowInvalidCertificates`,
        but more behavior may be added to this option in the futur**
 
