@@ -108,7 +108,7 @@ URI to specify the behavior of the client.
    * - **readPreferenceTags**
      -
      - Specifies which replica set members should be considered for operations. Each tag set will be checked in order until one or more servers is found with each tag in the set.
-        .. * `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field. Note
+        .. * **readPreferenceTags**: maps to the `tags` field of the `selection_criteria` field. Note
         .. that this option can appear more than once; each instance will be mapped to a separate
         .. tag set
 
@@ -163,7 +163,7 @@ URI to specify the behavior of the client.
 
 ..    * - **zlibCompressionLevel**
 ..      -
-..      - maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+..      - maps to the **level** field of the ``Compressor::Zlib`` variant (which requires the ``zlib-compression`` feature flag) of the [``Compressor``] enum
 
 For a full list of options, see the `ClientOptions API
 documentation <{+api+}/options/struct.ClientOptions.html>`__.
