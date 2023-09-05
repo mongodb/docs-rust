@@ -25,27 +25,52 @@ URI to specify the behavior of the client.
      - Default Value
      - Description
 
-   * - **connect_timeout**
+   * - `appName`
+     -
+     -
+     -
+
+   * - `authMechanism`: maps to the `mechanism` field of the `credential` field
+     -
+     -
+     -
+
+   * - `authSource`: maps to the `source` field of the `credential` field
+     -
+     -
+     -
+
+   * - `authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` field
+     -
+     -
+     -
+
+   * - `compressors`
+     -
+     -
+     -
+
+   * - **connectTimeoutMS**
      - ``Option<Duration>``
      - 10 seconds
      - The connection timeout passed to each underlying TCP stream when attempting to connect to the server.
 
-   * - **direct_connection**
+   * - `direct`
      - ``Option<bool>``
      - ``false``
      - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discovering all servers in the cluster.
 
-   * - **heartbeat_freq**
+   * - `heartbeatFrequencyMS`
      - ``Option<Duration>``
      - 10 seconds
      - The amount of time each monitoring thread should wait between performing server checks.
 
-   * - **load_balanced**
-     - ``Option<bool>``
-     - 
-     - Whether or not the client is connecting to a MongoDB cluster through a load balancer.
+   * - `journal`: maps to the `journal` field of the `write_concern` field
+     -
+     -
+     -
 
-   * - **local_threshold**
+   * - `localThresholdMS`
      - ``Option<Duration>``
      - 15 milliseconds
      - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
@@ -56,90 +81,106 @@ URI to specify the behavior of the client.
        then the first two servers are within the latency window and could be chosen for the operation, but the last one is not.
        A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
-   * - **max_idle_time**
-     - ``Option<Duration>``
+   * - `maxIdleTimeMS`
+       - ``Option<Duration>``
      - 0
      - The amount of time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections should not be closed due to being idle.
 
-   * - **max_pool_size**
+   * - `maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   field
+     -
+     -
+     -
+
+   * - `maxPoolSize`
      - ``Option<u32>``
      - 10
      - The maximum amount of connections that the ``Client`` should allow to be created in a connection pool for a given server.
        If an operation is attempted on a server while ``max_pool_size`` connections are checked out,
        the operation will block until an in-progress operation finishes and its connection returns to the pool the pool.
 
-   * - **min_pool_size**
+   * - `minPoolSize`
      - ``Option<u32>``
      - 0
      - The minimum number of connections that should be available in a server’s connection pool at a given time.
        If fewer than ``min_pool_size`` connections are in the pool, connections will be added to the pool in the background
        until ``min_pool_size`` is reached.
 
-   * - **read_concern**
-     - ``Option<ReadConcern>``
-     - 
-     - Specifies the default read concern for operations performed on the ``Client``.
-       See the `ReadConcern <{+api+}/options/struct.ReadConcern.html>`__ API documentation for more details.
+   * - `readConcernLevel`
+     -
+     -
+     -
 
-   * - **repl_set_name**
-     - ``Option<String>``
-     - 
-     -  The name of the replica set that the ``Client`` should connect to.
+   * - `readPreferenceField`: maps to the ReadPreference enum variant of the   `selection_criteria` field
+     -
+     -
+     -
 
-   * - **retry_reads**
-     - ``Option<bool>``
-     - ``true``
+   * - `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag set
+     -
+     -
+     -
+
+   * - `replicaSet`: maps to the `repl_set_name` field
+     -
+     -
+     - The name of the replica set that the ``Client`` should connect to.
+
+   * - `retryReads`
+     -
+     -
      - Whether or not the client should retry a read operation if the operation fails.
 
-   * - **retry_writes**
-     - ``Option<bool>``
-     - ``true``
-     - Whether or not the client should retry a write operation if the operation fails.
-
-   * - **server_selection_timeout**
+   * - `serverSelectionTimeoutMS`
      - ``Option<Duration>``
      - 30 seconds
      - The amount of time the ``Client`` should attempt to select a server for an operation before timing outs
 
-   * - **tls**
+   * - `ssl`: an alias of the `tls` option
+     -
+     -
+     -
+
+   * - `tls`
      - ``Option<Tls>``
      - ``None``
      - The TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
-.. * `appName`: maps to the `app_name` field
-.. * `authMechanism`: maps to the `mechanism` field of the `credential` field
-.. * `authSource`: maps to the `source` field of the `credential` field
-.. * `authMechanismProperties`: maps to the `mechanism_properties` field of the `credential` field
-.. * `compressors`: maps to the `compressors` field
-.. * `connectTimeoutMS`: maps to the `connect_timeout` field
-.. * `direct`: maps to the `direct` field
-.. * `heartbeatFrequencyMS`: maps to the `heartbeat_frequency` field
-.. * `journal`: maps to the `journal` field of the `write_concern` field
-.. * `localThresholdMS`: maps to the `local_threshold` field
-.. * `maxIdleTimeMS`: maps to the `max_idle_time` field
-.. * `maxStalenessSeconds`: maps to the `max_staleness` field of the `selection_criteria`   field
-.. * `maxPoolSize`: maps to the `max_pool_size` field
-.. * `minPoolSize`: maps to the `min_pool_size` field
-.. * `readConcernLevel`: maps to the `read_concern` field
-.. * `readPreferenceField`: maps to the ReadPreference enum variant of the   `selection_criteria` field
-.. * `readPreferenceTags`: maps to the `tags` field of the `selection_criteria` field.   Note that this option can appear more than once; each instance will be mapped to a separate tag set
-.. * `replicaSet`: maps to the `repl_set_name` field
-.. * `retryWrites`: not yet implemented
-.. * `retryReads`: maps to the `retry_reads` field
-.. * `serverSelectionTimeoutMS`: maps to the `server_selection_timeout` field
-.. * `socketTimeoutMS`: unsupported, does not map to any field
-.. * `ssl`: an alias of the `tls` option
-.. * `tls`: maps to the TLS variant of the `tls` field`.
-.. * `tlsInsecure`: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the future
-.. * `tlsAllowInvalidCertificates`: maps to the `allow_invalidCertificates` field of the `tls` field
-.. * `tlsCAFile`: maps to the `ca_file_path` field of the `tls` field
-.. * `tlsCertificateKeyFile`: maps to the `cert_key_file_path` field of the `tls` field
-.. * `w`: maps to the `w` field of the `write_concern` field
-.. * `waitQueueTimeoutMS`: unsupported, does not map to any field
-.. * `wTimeoutMS`: maps to the `w_timeout` field of the `write_concern` field
-.. * `zlibCompressionLevel`: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+   * - `tlsInsecure`: relaxes the TLS constraints on connections being made; currently is just an alias of `tlsAllowInvalidCertificates`, but more behavior may be added to this option   in the future
+     -
+     -
+     -
+
+   * - `tlsAllowInvalidCertificates`: maps to the `allow_invalidCertificates` field of the `tls` field
+     -
+     -
+     -
+
+   * - `tlsCAFile`: maps to the `ca_file_path` field of the `tls` field
+     -
+     -
+     -
+
+   * - `tlsCertificateKeyFile`: maps to the `cert_key_file_path` field of the `tls` field
+     -
+     -
+     -
+
+   * - `w`: maps to the `w` field of the `write_concern` field
+     -
+     -
+     -
+
+   * - `wTimeoutMS`: maps to the `w_timeout` field of the `write_concern` field
+     -
+     -
+     -
+
+   * - `zlibCompressionLevel`: maps to the `level` field of the `Compressor::Zlib` variant (which requires the `zlib-compression` feature flag) of the [`Compressor`] enum
+     -
+     -
+     -
 
 For a full list of options, see the `ClientOptions API
 documentation <{+api+}/options/struct.ClientOptions.html>`__.
