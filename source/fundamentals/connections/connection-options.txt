@@ -24,19 +24,20 @@ URI to specify the behavior of the client.
      - Default Value
      - Description
 
-   * - **appName**
+   * - `**appName** <{+api+}/options/struct.ClientOptions.html>`
      -
-     - Specifies application name that the Client will send to the server as part of the handshake.
-       This can be used in combination with the server logs to determine which Client is connected to a server.
+     - Specifies application name that the ``Client`` will send to the server as part of the handshake.
+       This can be used in combination with the server logs to determine which ``Client`` is connected to a server.
 
    * - **authMechanism**
      -
-     - Specifies which authentication mechanism to use. If not provided, one will be negotiated with the server.
+     - Specifies which authentication mechanism to use.
+       If empty, one will be negotiated with the server.
 
    * - **authSource**
      - See description.
      - The database used to authenticate.
-       This applies to all mechanisms and defaults to ``admin`` in SCRAM authentication mechanisms,
+       This applies to all authentication mechanisms and defaults to ``admin`` in SCRAM authentication mechanisms,
        ``$external`` for GSSAPI and MONGODB-X509, and the database name or ``$external`` for PLAIN.
 
    * - **authMechanismProperties**
@@ -45,7 +46,10 @@ URI to specify the behavior of the client.
 
    * - **compressors**
      -
-     - Specifies compressors that the Client is willing to use in the order they are specified in the configuration. The Client sends this list of compressors to the server. The server responds with the intersection of its supported list of compressors. The order of compressors indicates preference of compressors.
+     - Specifies compressors that the ``Client`` is willing to use in the order they are specified in the configuration.
+       The ``Client`` sends this list of compressors to the server.
+       The server responds with the intersection of its supported list of compressors.
+       The order of compressors indicates preference of compressors.
 
    * - ***connectTimeoutMS***
      - 10 seconds
@@ -62,16 +66,11 @@ URI to specify the behavior of the client.
    * - **journal**
      -
      - Requests acknowledgement that the operation has propagated to the on-disk journal.
-       .. bool
        
    * - **localThresholdMS**
      - 15 milliseconds
-     - When running a read operation with a ``ReadPreference`` that allows selecting secondaries,
-       Specifies how much longer the average round trip time between the driver and server is allowed to be
+     - Specifies how much longer the average round trip time between the driver and server is allowed to be
        compared to the least round trip time of all the suitable servers.
-       For example, if the average round trip times of the suitable servers are 5 milliseconds, 10 milliseconds, and 15 milliseconds,
-       and the local threshold is 8 ms,
-       then the first two servers are within the latency window and could be chosen for the operation, but the last one is not.
        A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
    * - **maxIdleTimeMS**
@@ -81,25 +80,30 @@ URI to specify the behavior of the client.
 
    * - **maxStalenessSeconds**
      -
-     - Specifies the maximum amount of lag behind the primary that a secondary can be to be considered for the given operation. Any secondaries lagging behind more than max_staleness will not be considered for the operation.
+     - Specifies the maximum amount of lag behind the primary that a secondary can be to be considered for the given operation.
+       Any secondaries lagging behind more than max_staleness will not be considered for the operation.
 
-       max_staleness must be at least 90 seconds. If a max_staleness less than 90 seconds is specified for an operation, the operation will return an error.
+       Must be at least 90 seconds.
+       If a max_staleness less than 90 seconds is specified for an operation, the operation will return an error.
+       .. TODO what's the default?
 
    * - **maxPoolSize**
      - 10
-     - The maximum amount of connections that the ``Client`` should allow to be created in a connection pool for a given server.
-       If an operation is attempted on a server while ``max_pool_size`` connections are checked out,
-       the operation will block until an in-progress operation finishes and its connection returns to the pool the pool.
+     - Specifies the maximum number of connections that the ``Client`` is allowed to create in connection pool for a given server.
+       If an operation is attempted on a server while **maxPoolSize** connections are checked out,
+       the operation will block until an in-progress operation finishes and its connection returns to the pool.
 
    * - **minPoolSize**
      - 0
-     - The minimum number of connections that should be available in a server’s connection pool at a given time.
-       If fewer than ``min_pool_size`` connections are in the pool, connections will be added to the pool in the background
-       until ``min_pool_size`` is reached.
+     - Specifies the minimum number of connections that should be available in a server’s connection pool at a given time.
+       If fewer than **minPoolSize** connections are in the pool, connections will be added to the pool in the background
+       until **minPoolSize** is reached.
 
    * - **readConcernLevel**
      -
-     - Specifies the default read concern for operations performed on the Client. See the ReadConcern type documentation for more details.
+     - Specifies the default read concern for operations performed on the ``Client``.
+       See the `ReadConcern <https://docs.rs/mongodb/latest/mongodb/options/struct.ReadConcern.html>`__
+       type documentation for more details.
 
    * - **readPreferenceField**
      -
@@ -107,49 +111,43 @@ URI to specify the behavior of the client.
 
    * - **readPreferenceTags**
      -
-     - Specifies which replica set members should be considered for operations. Each tag set will be checked in order until one or more servers is found with each tag in the set.
-        .. : maps to the ``tags`` field of the ``selection_criteria`` field. Note
-        .. that this option can appear more than once; each instance will be mapped to a separate
-        .. tag set
+     - Specifies which replica set members should be considered for operations.
+       Each tag set will be checked in order until one or more servers is found with each tag in the set.
+       .. : maps to the ``tags`` field of the ``selection_criteria`` field.
+       .. Note that this option can appear more than once; each instance will be mapped to a separate tag set
 
    * - **replicaSet**
      -
-     - The name of the replica set that the ``Client`` should connect to.
+     - Specfies the name of the replica set that the ``Client`` should connect to.
 
    * - **retryReads**
      -
-     - Whether or not the client should retry a read operation if the operation fails.
+     - Specfies whether the client should retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
      - 30 seconds
-     - The amount of time the ``Client`` should attempt to select a server for an operation before timing outs
+     - Specfies the amount of time the ``Client`` should wait when attempt to select a server for an operation before timing out.
 
    * - **tls**
-     - ``None``
-     - The TLS configuration for the ``Client`` to use in its connections with the server.
+     - 
+     - Specfies the TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
-   * - **tlsInsecure**
-     -
-     - Relaxes the TLS constraints on connections being made;
-       currently is just an alias of tlsAllowInvalidCertificates`,
-       but more behavior may be added to this option in the futur**
-
-   * - **tlsAllowInvalidCertificates**
+   * - **tlsAllowInvalidCertificates** (also **tlsInsecure**)
      - ``true``
-     - Whether or not the Client should return an error if the server presents an invalid certificate.
+     - Specfies whether or not the ``Client`` should return an error if the server presents an invalid certificate.
        This setting should *not* be set to true in production.
        It should only be used for testing.
 
    * - **tlsCAFile**
      - 
-     - The path to the CA file that the Client should use for TLS.
+     - Specfies the path to the CA file that the ``Client`` should use for TLS.
        If none is specified, then the driver will use the Mozilla root certificates from the ``webpki-roots`` crate.
 
    * - **tlsCertificateKeyFile**
      -
-     - The path to the certificate file that the Client should present to the server to verify its identify.
-       If none is specified, then the Client will not attempt to verify its identity to the server.
+     - Specfies the path to the certificate file that the ``Client`` should present to the server to verify its identify.
+       If none is specified, then the ``Client`` will not attempt to verify its identity to the server.
 
    * - **w**
      -
@@ -157,13 +155,16 @@ URI to specify the behavior of the client.
 
    * - **wTimeoutMS**
      -
-     - Specifies a time limit for the write concern. If an operation has not propagated to the requested level within the time limit, an error will return.
+     - Specifies a time limit for the write concern.
+       If an operation has not propagated to the requested level within the time limit, an error will return.
 
-       Note that an error being returned due to a write concern error does not imply that the write would not have finished propagating if allowed more time to finish, and the server will not roll back the writes that occurred before the timeout was reached.
+       Note that an error being returned due to a write concern error
+       does not imply that the write would not have finished propagating if allowed more time to finish,
+       and the server will not roll back the writes that occurred before the timeout was reached.
 
-..    * - **zlibCompressionLevel**
-..      -
-..      - maps to the **level** field of the ``Compressor::Zlib`` variant (which requires the ``zlib-compression`` feature flag) of the [``Compressor``] enum
+    * - **zlibCompressionLevel**
+      -
+      - Specifies the **level** field of the ``Compressor::Zlib`` variant.
+        (Requires enabling the ``zlib-compression`` feature.)
 
-For a full list of options, see the `ClientOptions API
-documentation <{+api+}/options/struct.ClientOptions.html>`__.
+For a full list of options, see the `ClientOptions API documentation <{+api+}/options/struct.ClientOptions.html>`__.
