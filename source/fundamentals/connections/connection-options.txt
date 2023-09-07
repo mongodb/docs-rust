@@ -105,9 +105,9 @@ URI to specify the behavior of the client.
        type documentation for more details.
 
    * - **readPreferenceField**
+     - 
      - Specifies how the driver should route a read operation to members of a replica set.
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
-     -
 
    * - **readPreferenceTags**
      -
