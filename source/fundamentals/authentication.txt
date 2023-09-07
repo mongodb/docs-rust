@@ -66,26 +66,10 @@ MongoDB supports the following SCRAM-based authentication mechanisms:
    If you do not specify an authentication mechanism, the server
    attempts to validate credentials by using the default authentication
    mechanism, a SCRAM-based mechanism that varies depending on the
-   version of the server that you are connecting to. The following
-   table describes the default mechanism for recent server versions:
-
-   .. list-table::
-      :header-rows: 1
-      :stub-columns: 1
-      :class: compatibility-large
+   version of the server that you are connecting to. 
    
-      * - Mechanism
-        - MongoDB Server Versions
-   
-      * - ``SCRAM-SHA-256``
-        - 4.0 and later
-   
-      * - ``SCRAM-SHA-1``
-        - 3.0, 3.2, 3.4, and 3.6
-
-   All earlier versions of MongoDB use the ``MONGODB-CR`` authentication
-   mechanism as the default mechanism. This mechanism is deprecated and
-   is not supported by the driver.
+   The ``SCRAM-SHA-256`` mechanism is the default authentication
+   mechanism for MongoDB Server versions 4.0 and later.
 
    To use the default authentication mechanism, omit only the
    ``mechanism`` field when you instantiate your ``Credential`` struct.
