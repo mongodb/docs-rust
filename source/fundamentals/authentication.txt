@@ -199,15 +199,6 @@ the corresponding ways.
    .. tab:: Credential Struct
       :tabid: credential struct
 
-      .. tip::
-
-         If you specify your AWS IAM credentials in your connection
-         string, you must URL encode the username and password to ensure
-         that the driver correctly parses the values. To learn more
-         about URL encoding, see the Wikipedia entry on
-         :wikipedia:`Percent-encoding
-         <w/index.php?title=Percent-encoding&oldid=1171395281>`.
-
       To specify the ``MONGODB-AWS`` authentication mechanism, set the
       ``mechanism`` field of your ``Credential`` struct to
       ``AuthMechanism::MongoDbAws``. This example specifies the
