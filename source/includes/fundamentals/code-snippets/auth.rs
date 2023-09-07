@@ -2,10 +2,10 @@ use mongodb::{ bson::doc, options::{ ClientOptions, Credential, AuthMechanism },
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
+    // start-default
     let uri = "<connection string>";
     let mut client_options = ClientOptions::parse(uri).await?;
 
-    // start-default
     let default_cred = Credential::builder()
         .username("<username>".to_string())
         .password("<password>".to_string())
@@ -17,6 +17,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-default
 
     // start-scramsha256
+    let uri = "<connection string>";
+    let mut client_options = ClientOptions::parse(uri).await?;
+
     let scram_sha_256_cred = Credential::builder()
         .username("<username>".to_string())
         .password("<password>".to_string())
@@ -29,6 +32,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-scramsha256
 
     // start-scramsha1
+    let uri = "<connection string>";
+    let mut client_options = ClientOptions::parse(uri).await?;
+
     let scram_sha_1_cred = Credential::builder()
         .username("<username>".to_string())
         .password("<password>".to_string())
@@ -41,6 +47,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-scramsha1
 
     // start-aws
+    let uri = "<connection string>";
+    let mut client_options = ClientOptions::parse(uri).await?;
+
     let aws_cred = Credential::builder()
         .username("<access key ID>".to_string())
         .password("<secret access key>".to_string())
@@ -54,6 +63,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-aws
 
     // start-aws-env-var
+    let uri = "<connection string>";
+    let mut client_options = ClientOptions::parse(uri).await?;
+
     let aws_cred = Credential::builder().mechanism(AuthMechanism::MongoDbAws).build();
 
     client_options.credential = Some(aws_cred);
