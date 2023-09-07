@@ -113,6 +113,7 @@ URI to specify the behavior of the client.
      -
      - Specifies which replica set members should be considered for operations.
        Each tag set will be checked in order until one or more servers is found with each tag in the set.
+
        .. : maps to the ``tags`` field of the ``selection_criteria`` field.
        .. Note that this option can appear more than once; each instance will be mapped to a separate tag set
 
@@ -162,10 +163,10 @@ URI to specify the behavior of the client.
        does not imply that the write would not have finished propagating if allowed more time to finish,
        and the server will not roll back the writes that occurred before the timeout was reached.
 
-    * - **zlibCompressionLevel**
-      -
-      - Specifies the level field of the ``zlib`` compression when in use.
-        See the `compressor API documentation {+api+}/options/enum.Compressor.html#variant.Zlib`__ for more information.
-        (Requires enabling the ``zlib-compression`` feature.)
+   * - **zlibCompressionLevel**
+     -
+     - Specifies the level field of the ``zlib`` compression when in use.
+       See the `compressor API documentation {+api+}/options/enum.Compressor.html#variant.Zlib`__ for more information.
+       (Requires enabling the ``zlib-compression`` feature.)
 
 For a full list of options, see the `ClientOptions API documentation <{+api+}/options/struct.ClientOptions.html>`__.
