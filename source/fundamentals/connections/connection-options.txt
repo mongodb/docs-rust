@@ -65,7 +65,7 @@ URI to specify the behavior of the client.
 
    * - **journal**
      -
-     - Requests acknowledgement that the operation has propagated to the on-disk journal.
+     - Requests acknowledgment that the operation has propagated to the on-disk journal.
        
    * - **localThresholdMS**
      - 15 milliseconds
@@ -80,22 +80,21 @@ URI to specify the behavior of the client.
 
    * - **maxStalenessSeconds**
      -
-     - Specifies the maximum amount of lag behind the primary that a secondary can be to be considered for the given operation.
-       Any secondaries lagging behind more than max_staleness will not be considered for the operation.
+     - Specifies the maximum amount of lag behind the primary that a secondary can have to be considered for the given operation.
+       Any secondaries lagging behind more than this will not be considered for the operation.
 
-       Must be at least 90 seconds.
-       If a max_staleness less than 90 seconds is specified for an operation, the operation will return an error.
+       Must be at least 90 seconds; if less, the operation will return an error.
        .. TODO what's the default?
 
    * - **maxPoolSize**
      - 10
-     - Specifies the maximum number of connections that the ``Client`` is allowed to create in connection pool for a given server.
+     - Specifies the maximum number of connections that the ``Client`` is allowed to create in a connection pool for a given server.
        If an operation is attempted on a server while **maxPoolSize** connections are checked out,
        the operation will block until an in-progress operation finishes and its connection returns to the pool.
 
    * - **minPoolSize**
      - 0
-     - Specifies the minimum number of connections that should be available in a server’s connection pool at a given time.
+     - Specifies the minimum number of connections that should be available in a server's connection pool at a given time.
        If fewer than **minPoolSize** connections are in the pool, connections will be added to the pool in the background
        until **minPoolSize** is reached.
 
@@ -106,7 +105,8 @@ URI to specify the behavior of the client.
        type documentation for more details.
 
    * - **readPreferenceField**
-     -
+     - Specifies how the driver should route a read operation to members of a replica set.
+       For more information see the :manual:`Read Preference documention </core/read-preference>`.
      -
 
    * - **readPreferenceTags**
@@ -118,40 +118,40 @@ URI to specify the behavior of the client.
 
    * - **replicaSet**
      -
-     - Specfies the name of the replica set that the ``Client`` should connect to.
+     - Specifies the name of the replica set that the ``Client`` should connect to.
 
    * - **retryReads**
      -
-     - Specfies whether the client should retry a read operation if the operation fails.
+     - Specifies whether the client should retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
      - 30 seconds
-     - Specfies the amount of time the ``Client`` should wait when attempt to select a server for an operation before timing out.
+     - Specifies the amount of time the ``Client`` should wait when attempt to select a server for an operation before timing out.
 
    * - **tls**
      - 
-     - Specfies the TLS configuration for the ``Client`` to use in its connections with the server.
+     - Specifies the TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
-   * - **tlsAllowInvalidCertificates** (also **tlsInsecure**)
+   * - **tlsAllowInvalidCertificates** (or **tlsInsecure**)
      - ``true``
-     - Specfies whether or not the ``Client`` should return an error if the server presents an invalid certificate.
-       This setting should *not* be set to true in production.
+     - Specifies whether or not the ``Client`` should return an error if the server presents an invalid certificate.
+       This setting should *not* be set to ``true`` in production.
        It should only be used for testing.
 
    * - **tlsCAFile**
      - 
-     - Specfies the path to the CA file that the ``Client`` should use for TLS.
+     - Specifies the path to the CA file that the ``Client`` should use for TLS.
        If none is specified, then the driver will use the Mozilla root certificates from the ``webpki-roots`` crate.
 
    * - **tlsCertificateKeyFile**
      -
-     - Specfies the path to the certificate file that the ``Client`` should present to the server to verify its identify.
+     - Specifies the path to the certificate file that the ``Client`` should present to the server to verify its identify.
        If none is specified, then the ``Client`` will not attempt to verify its identity to the server.
 
    * - **w**
      -
-     - Requests acknowledgement that the operation has propagated to a specific number or variety of servers.
+     - Requests acknowledgment that the operation has propagated to a specific number or variety of servers.
 
    * - **wTimeoutMS**
      -
@@ -164,7 +164,8 @@ URI to specify the behavior of the client.
 
     * - **zlibCompressionLevel**
       -
-      - Specifies the **level** field of the ``Compressor::Zlib`` variant.
+      - Specifies the level field of the ``zlib`` compression when in use.
+        See the `compressor API documentation {+api+}/options/enum.Compressor.html#variant.Zlib`__ for more information.
         (Requires enabling the ``zlib-compression`` feature.)
 
 For a full list of options, see the `ClientOptions API documentation <{+api+}/options/struct.ClientOptions.html>`__.
