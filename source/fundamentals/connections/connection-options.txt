@@ -66,7 +66,7 @@ URI to specify the behavior of the client.
    * - **journal**
      -
      - Requests acknowledgment that the operation has propagated to the on-disk journal.
-       
+
    * - **localThresholdMS**
      - 15 milliseconds
      - Specifies how much longer the average round trip time between the driver and server is allowed to be
@@ -105,7 +105,7 @@ URI to specify the behavior of the client.
        type documentation for more details.
 
    * - **readPreferenceField**
-     - 
+     -
      - Specifies how the driver should route a read operation to members of a replica set.
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
 
@@ -129,7 +129,7 @@ URI to specify the behavior of the client.
      - Specifies the amount of time the ``Client`` should wait when attempt to select a server for an operation before timing out.
 
    * - **tls**
-     - 
+     -
      - Specifies the TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
@@ -140,7 +140,7 @@ URI to specify the behavior of the client.
        It should only be used for testing.
 
    * - **tlsCAFile**
-     - 
+     -
      - Specifies the path to the CA file that the ``Client`` should use for TLS.
        If none is specified, then the driver will use the Mozilla root certificates from the ``webpki-roots`` crate.
 
