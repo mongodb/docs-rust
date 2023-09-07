@@ -52,8 +52,7 @@ by using your directory server username and password.
 Example
 ~~~~~~~
 
-
-To specify the ``SCRAM-SHA-1`` authentication mechanism, set the
+To specify the ``PLAIN`` authentication mechanism, set the
 ``mechanism`` field of your ``Credential`` struct to
 ``AuthMechanism::Plain``. This example specifies the
 authentication mechanism using the following placeholders:
@@ -72,9 +71,9 @@ authentication mechanism using the following placeholders:
    Since the credentials are stored outside of MongoDB, you must use the
    ``$external`` database for authentication. The ``source`` field of
    the ``Credential`` struct defaults to this database name, so you do
-   not have to set this field.
+   not need to set this field.
 
-You can alternatively authenticate using a connection string URI,
+You can alternatively authenticate by using a connection string URI,
 specifying your LDAP username, password, and ``hostname``, the network
 address of your MongoDB server:
 
@@ -84,7 +83,7 @@ address of your MongoDB server:
 
 .. note::
 
-   The method refers to PLAIN instead of LDAP since it
+   The authentication mechanism refers to PLAIN instead of LDAP since it
    authenticates using the PLAIN Simple Authentication and Security Layer
    (SASL) defined in `RFC-4616 <https://tools.ietf.org/html/rfc4616>`__.
 
