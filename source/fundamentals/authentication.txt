@@ -32,8 +32,8 @@ This guide describes the following authentication mechanisms:
 - :ref:`MONGODB-AWS Mechanism <rust-auth-aws>`
 - :ref:`MONGODB-X509 Mechanism <rust-auth-x509>`
 
-To select a specific authentication mechanism, you can specify an
-authentication mechanism, credentials, and other necessary information
+To select a specific authentication mechanism, you can specify the
+mechanism, your credentials, and other necessary information
 in the options of your connection string or in a ``Credential`` struct.
 
 In this guide, the examples demonstrate how to configure
