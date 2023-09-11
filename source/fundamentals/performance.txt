@@ -23,11 +23,13 @@ Client Lifecycle
 
 A ``Client`` should be as long-lived as possible.
 Establishing a new ``Client`` is relatively slow and resource-intensive.
-Ideally a ``Client`` should only be created once at application startup.
+Ideally, a ``Client`` is created once at application startup.
 Because ``Client`` is implemented using an internal ``Arc``,
-it can safely be shared across threads or tasks, and cloning it to pass to new contexts is extremely cheap.
+it can safely be shared across threads or tasks.
+Cloning it to pass to new contexts is extremely cheap.
 
-This will be very slow because it's constructing and tearing down a `Client` with every request.
+Consider the following code.
+It constructs and tears down a `Client` with every request.
 
 .. code-block:: rust
 
