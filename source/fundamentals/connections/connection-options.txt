@@ -93,11 +93,12 @@ URI to specify the behavior of the client. For more information, see
 
    * - **maxStalenessSeconds**
      - -1, or an integer greater than or equal 90
-     -
+     - ``-1``
      - Specifies the maximum amount of lag behind the primary that a secondary can have to be considered for the given operation.
        Any secondaries lagging behind more than this will not be considered for the operation.
 
        Must be at least 90 seconds; if less, the operation will return an error.
+       ``-1`` means there is no maximum.
 
    * - **maxPoolSize**
      - non-negative integer
