@@ -19,7 +19,7 @@ URI to specify the behavior of the client. For more information, see
 
 .. list-table::
    :header-rows: 1
-   :widths: 34 12 44
+   :widths: 40 12 12 44
 
    * - Option Name
      - Accepted Values
