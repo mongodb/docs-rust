@@ -150,6 +150,7 @@ URI to specify the behavior of the client. For more information, see
 
    * - **tls**
      - boolean
+     - ``false``
      - Specifies the TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is disabled.
 
