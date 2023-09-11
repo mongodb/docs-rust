@@ -30,7 +30,7 @@ URI to specify the behavior of the client. For more information, see
      - string
      - None
      - Specifies application name that the ``Client`` will send to the server as part of the handshake.
-       This can be used in combination with the server logs to determine which ``Client`` is connected to a server.
+       This can be used with the server logs to determine which ``Client`` is connected to a server.
 
    * - **authMechanism**
      - string
@@ -41,7 +41,7 @@ URI to specify the behavior of the client. For more information, see
    * - **authMechanismProperties**
      - string
      - None
-     - Specifies additional properties for the given mechanism.
+     - Specifies more properties for the given mechanism.
 
    * - **authSource**
      - string
@@ -66,12 +66,12 @@ URI to specify the behavior of the client. For more information, see
    * - **direct**
      - boolean
      - ``false``
-     - Specifies whether the ``Client`` should directly connect to a single host rather than automatically discovering all servers in the cluster.
+     - Specifies whether the ``Client`` will directly connect to a single host rather than automatically discovering all servers in the cluster.
 
    * - **heartbeatFrequencyMS**
      - integer greater than or equal to 500
      - 10 seconds
-     - Specifies amount of time each monitoring thread should wait between performing server checks.
+     - Specifies amount of time each monitoring thread waits between performing server checks.
 
    * - **journal**
      - boolean
@@ -89,7 +89,7 @@ URI to specify the behavior of the client. For more information, see
      - non-negative integer
      - 0
      - Specifies the amount of time that a connection can remain idle in a connection pool before being closed.
-       A value of zero indicates that connections should not be closed due to being idle.
+       A value of zero indicates that connections are not closed due to being idle.
 
    * - **maxStalenessSeconds**
      - -1, or an integer greater than or equal 90
@@ -110,7 +110,7 @@ URI to specify the behavior of the client. For more information, see
    * - **minPoolSize**
      - non-negative integer
      - 0
-     - Specifies the minimum number of connections that should be available in a server's connection pool at a given time.
+     - Specifies the minimum number of connections that will be available in a server's connection pool at a given time.
        If fewer than **minPoolSize** connections are in the pool, connections will be added to the pool in the background
        until **minPoolSize** is reached.
 
@@ -124,29 +124,29 @@ URI to specify the behavior of the client. For more information, see
    * - **readPreferenceField**
      - string
      - ``primary``
-     - Specifies how the driver should route a read operation to members of a replica set.
+     - Specifies how the driver routes a read operation to members of a replica set.
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
 
    * - **readPreferenceTags**
      - comma-separated key:value pairs, for example, "dc:ny,rack:1" and "dc:ny can be specified multiple times, each instance of this key is a separate tag set
      - None
-     - Specifies which replica set members should be considered for operations.
+     - Specifies which replica set members are considered for operations.
        Each tag set will be checked in order until one or more servers is found with each tag in the set.
 
    * - **replicaSet**
      - string
      - None
-     - Specifies the name of the replica set that the ``Client`` should connect to.
+     - Specifies the name of the replica set that the ``Client`` connects to.
 
    * - **retryReads**
      - boolean
      - ``true``
-     - Specifies whether the client should retry a read operation if the operation fails.
+     - Specifies whether the client will retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
      - non-negative integer
      - 30 seconds
-     - Specifies the amount of time the ``Client`` should wait when attempt to select a server for an operation before timing out.
+     - Specifies the amount of time the ``Client`` waits when attempting to select a server for an operation before timing out.
 
    * - **tls**
      - boolean
@@ -157,20 +157,20 @@ URI to specify the behavior of the client. For more information, see
    * - **tlsAllowInvalidCertificates** (or **tlsInsecure**)
      - boolean
      - ``true``
-     - Specifies whether or not the ``Client`` should return an error if the server presents an invalid certificate.
+     - Specifies whether or not the ``Client`` returns an error if the server presents an invalid certificate.
        This setting should *not* be set to ``true`` in production.
        It should only be used for testing.
 
    * - **tlsCAFile**
      - string
      - See description.
-     - Specifies the path to the CA file that the ``Client`` should use for TLS.
+     - Specifies the path to the CA file that the ``Client`` uses for TLS.
        If none is specified, then the driver will use the Mozilla root certificates from the ``webpki-roots`` crate.
 
    * - **tlsCertificateKeyFile**
      - string
      - None
-     - Specifies the path to the certificate file that the ``Client`` should present to the server to verify its identify.
+     - Specifies the path to the certificate file that the ``Client`` presents to the server to verify its identify.
        If none is specified, then the ``Client`` will not attempt to verify its identity to the server.
 
    * - **w**
