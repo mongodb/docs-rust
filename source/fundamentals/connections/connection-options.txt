@@ -14,7 +14,8 @@ Connection Options
 
 This section explains several common MongoDB connection and authentication
 options. You can pass the connection options as parameters of the connection
-URI to specify the behavior of the client.
+URI to specify the behavior of the client. For more information, see
+:manual:`Connection String URI Format </reference/connection-string>`.
 
 .. list-table::
    :header-rows: 1
@@ -27,18 +28,19 @@ URI to specify the behavior of the client.
 
    * - **appName**
      - string
-     -
+     - None
      - Specifies application name that the ``Client`` will send to the server as part of the handshake.
        This can be used in combination with the server logs to determine which ``Client`` is connected to a server.
 
    * - **authMechanism**
      - string
-     -
+     - None
      - Specifies which authentication mechanism to use.
        If empty, one will be negotiated with the server.
 
    * - **authMechanismProperties**
-     -
+     - string
+     - None
      - Specifies additional properties for the given mechanism.
 
    * - **authSource**
@@ -50,7 +52,7 @@ URI to specify the behavior of the client.
 
    * - **compressors**
      - comma separated list of strings, for example, "snappy,zlib,zstd"
-     -
+     - None
      - Specifies compressors that the ``Client`` is willing to use in the order they are specified in the configuration.
        The ``Client`` sends this list of compressors to the server.
        The server responds with the intersection of its supported list of compressors.
@@ -120,7 +122,6 @@ URI to specify the behavior of the client.
 
    * - **readPreferenceField**
      - string
-     - 
      -
      - Specifies how the driver should route a read operation to members of a replica set.
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
@@ -138,7 +139,7 @@ URI to specify the behavior of the client.
 
    * - **retryReads**
      - boolean
-     -
+     - true
      - Specifies whether the client should retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
@@ -193,3 +194,5 @@ URI to specify the behavior of the client.
        (Requires enabling the ``zlib-compression`` feature.)
 
 For a full list of options, see the `ClientOptions API documentation <{+api+}/options/struct.ClientOptions.html>`__.
+
+The format of a MongoDB connection string is described [here]().
