@@ -158,8 +158,8 @@ URI to specify the behavior of the client. For more information, see
      - boolean
      - ``true``
      - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
-       This setting should *not* be set to ``true`` in production.
-       It should only be used for testing.
+       (Do not set to ``true`` in production.
+       It is only to be used for testing.)
 
    * - **tlsCAFile**
      - string
