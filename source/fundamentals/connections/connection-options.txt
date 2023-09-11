@@ -75,7 +75,7 @@ URI to specify the behavior of the client. For more information, see
 
    * - **journal**
      - boolean
-     -
+     - ``false``
      - Requests acknowledgment that the operation has propagated to the on-disk journal.
 
    * - **localThresholdMS**
