@@ -123,7 +123,7 @@ URI to specify the behavior of the client. For more information, see
 
    * - **readPreferenceField**
      - string
-     - "primary"
+     - ``primary``
      - Specifies how the driver should route a read operation to members of a replica set.
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
 
@@ -140,7 +140,7 @@ URI to specify the behavior of the client. For more information, see
 
    * - **retryReads**
      - boolean
-     - true
+     - ``true``
      - Specifies whether the client should retry a read operation if the operation fails.
 
    * - **serverSelectionTimeoutMS**
