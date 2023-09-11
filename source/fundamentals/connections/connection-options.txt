@@ -94,7 +94,7 @@ URI to specify the behavior of the client. For more information, see
    * - **maxStalenessSeconds**
      - -1, or an integer greater than or equal 90
      - ``-1``
-     - Specifies the maximum amount of lag behind the primary that a secondary can have to be considered for the given operation.
+     - Specifies the maximum amount of lag behind the primary that a secondary can have in order to be considered for the given operation.
        Any secondaries lagging behind more than this will not be considered for the operation.
 
        Must be at least 90 seconds; if less, the operation will return an error.
@@ -157,7 +157,7 @@ URI to specify the behavior of the client. For more information, see
    * - **tlsAllowInvalidCertificates** (or **tlsInsecure**)
      - boolean
      - ``true``
-     - Specifies whether or not the ``Client`` returns an error if the server presents an invalid certificate.
+     - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
        This setting should *not* be set to ``true`` in production.
        It should only be used for testing.
 
@@ -183,10 +183,6 @@ URI to specify the behavior of the client. For more information, see
      - No timeout
      - Specifies a time limit for the write concern.
        If an operation has not propagated to the requested level within the time limit, an error will return.
-
-       Note that an error being returned due to a write concern error
-       does not imply that the write would not have finished propagating if allowed more time to finish,
-       and the server will not roll back the writes that occurred before the timeout was reached.
 
    * - **zlibCompressionLevel**
      - integer between -1 and 9 (inclusive)
