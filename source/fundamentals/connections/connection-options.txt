@@ -88,13 +88,13 @@ URI to specify the behavior of the client. For more information, see
    * - **maxIdleTimeMS**
      - non-negative integer
      - 0
-     - Specifies the amount of time that a connection can remain idle in a connection pool before being closed.
+     - Specifies the time that a connection can remain idle in a connection pool before being closed.
        A value of zero indicates that connections are not closed due to being idle.
 
    * - **maxStalenessSeconds**
      - -1, or an integer greater than or equal 90
      - ``-1``
-     - Specifies the maximum amount of lag behind the primary that a secondary can have in order to be considered for the given operation.
+     - Specifies the maximum lag behind the primary that a secondary can have in order to be considered for the given operation.
        Any secondaries lagging behind more than this will not be considered for the operation.
 
        Must be at least 90 seconds; if less, the operation will return an error.
@@ -128,9 +128,10 @@ URI to specify the behavior of the client. For more information, see
        For more information see the :manual:`Read Preference documention </core/read-preference>`.
 
    * - **readPreferenceTags**
-     - comma-separated key:value pairs, for example, "dc:ny,rack:1" and "dc:ny can be specified multiple times, each instance of this key is a separate tag set
+     - comma-separated key:value pairs, for example, "dc:ny,rack:1"
      - None
      - Specifies which replica set members are considered for operations.
+       Each instance of this key is a separate tag set.
        Each tag set will be checked in order until one or more servers is found with each tag in the set.
 
    * - **replicaSet**
@@ -146,7 +147,7 @@ URI to specify the behavior of the client. For more information, see
    * - **serverSelectionTimeoutMS**
      - non-negative integer
      - 30 seconds
-     - Specifies the amount of time the ``Client`` waits when attempting to select a server for an operation before timing out.
+     - Specifies the time the ``Client`` waits when attempting to select a server for an operation before timing out.
 
    * - **tls**
      - boolean
@@ -159,7 +160,7 @@ URI to specify the behavior of the client. For more information, see
      - ``true``
      - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
        (Do not set to ``true`` in production.
-       It is only to be used for testing.)
+       This is only for testing.)
 
    * - **tlsCAFile**
      - string
