@@ -47,13 +47,14 @@ string URI to specify the behavior of the client. To learn more about connection
 
    * - **authSource**
      - string
-     - See description.
-     - The database used to authenticate.
-       This applies to all authentication mechanisms and defaults to ``admin`` in SCRAM authentication mechanisms,
-       ``$external`` for GSSAPI and MONGODB-X509, and the database name or ``$external`` for PLAIN.
+     - See description
+     - Specifies the database used to authenticate.
+       This option defaults to ``admin`` for SCRAM-based authentication mechanisms,
+       ``$external`` for the ``MONGODB-X509`` mechanism, and the database name or
+       ``$external`` for the ``PLAIN`` mechanism.
 
    * - **compressors**
-     - comma separated list of strings, for example, "snappy,zlib,zstd"
+     - A comma-separated list of strings
      - None
      - Specifies compressors that the ``Client`` is willing to use in the order they are specified in the configuration.
        The ``Client`` sends this list of compressors to the server.
@@ -63,7 +64,7 @@ string URI to specify the behavior of the client. To learn more about connection
    * - ***connectTimeoutMS***
      - non-negative integer
      - 10 seconds
-     - Specifies the connection timeout passed to each underlying TCP stream when attempting to connect to the server.
+     - Specifies the connection timeout, in milliseconds, passed to each underlying TCP stream when attempting to connect to the server.
 
    * - **direct**
      - boolean
