@@ -31,21 +31,19 @@ Cloning it to pass to new contexts is extremely cheap.
 Consider the following code.
 It constructs and tears down a `Client` with every request.
 
-.. code-block:: rust
-
-   async fn handle_request() -> Result<(), Box<dyn Error>> {
-       let client = Client::with_uri_str("mongodb://example.com").await?;
-       // Do something with the client
-       Ok(())
-   }
+.. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
+   :language: rust
+   :dedent:
+   :start-after: start-perf-client-slow
+   :end-before: end-perf-client-slow
 
 This will be much faster.
 
-.. code-block:: rust
-   async fn handle_request(client: &Client) -> Result<(), Box<dyn Error>> {
-       // Do something with the client
-       Ok(())
-   }
+.. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
+   :language: rust
+   :dedent:
+   :start-after: start-perf-client-faster
+   :end-before: end-perf-client-faster
 
 This is evident when using a framework that provides connection pooling.
 Because ``Client`` does its own pooling internally,
