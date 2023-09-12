@@ -101,7 +101,9 @@ Additional Information
 To learn more about the concepts in this guide, see the following documentation:
 
 - :manual:`MongoDB Server Support for LDAP Proxy Authentication </core/security-ldap/>`
-.. TODO - :ref:`rust-connection-options`
+
+..
+  - :ref:`rust-connection-options`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
