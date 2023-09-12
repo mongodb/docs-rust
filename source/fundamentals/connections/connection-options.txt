@@ -15,7 +15,9 @@ Connection Options
 In this guide, you can learn about MongoDB connection and authentication
 options. You can pass connection options as parameters of the connection
 string URI to specify the behavior of the client. To learn more about connection strings, see
-:manual:`Connection String URI Format </reference/connection-string>` in the Server manual.
+:manual:`Connection String URI Format </reference/connection-string>` in the Server
+
+.. TODO link to the authentication mechanisms guide in authMechanism below
 
 .. list-table::
    :header-rows: 1
@@ -38,7 +40,6 @@ string URI to specify the behavior of the client. To learn more about connection
      - None
      - Specifies which authentication mechanism to use.
        If empty, one will be negotiated with the server.
-       .. TODO here to link to the authentication mechanisms guide
 
    * - **authMechanismProperties**
      - Any string
