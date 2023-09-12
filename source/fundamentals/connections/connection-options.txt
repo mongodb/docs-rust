@@ -30,7 +30,7 @@ string URI to specify the behavior of the client. To learn more about connection
      - Any string
      - None
      - Specifies the application name that the ``Client`` instance sends to the server as part of the handshake.
-       Specifying an ``appName`` can help you use the server logs to determine which ``Client`` is connected
+       Specifying an ``appName`` can help you use the server logs to determine which ``Client`` instance is connected
        to the server.
 
    * - **authMechanism**
@@ -106,7 +106,7 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **maxPoolSize**
      - Non-negative integer
      - 10
-     - Specifies the maximum number of connections that the ``Client`` can create in a connection pool for a given server.
+     - Specifies the maximum number of connections that the ``Client`` instance can create in a connection pool for a given server.
        If you attempt an operation while the value of ``maxPoolSize`` connections are checked out,
        the operation waits until an in-progress operation finishes and the connection returns to the pool.
 
@@ -120,7 +120,7 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **readConcernLevel**
      - Any string
      - None
-     - Specifies the default read concern for operations performed on the ``Client``.
+     - Specifies the default read concern for operations performed on the ``Client`` instance.
        To learn more, see the `ReadConcern <https://docs.rs/mongodb/latest/mongodb/options/struct.ReadConcern.html>`__
        type API documentation.
 
@@ -140,7 +140,7 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **replicaSet**
      - Any string
      - None
-     - Specifies the name of the replica set that the ``Client`` connects to.
+     - Specifies the name of the replica set that the ``Client`` instance connects to.
 
    * - **retryReads**
      - Boolean
@@ -155,32 +155,32 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **tls**
      - Boolean
      - ``false``
-     - Specifies the TLS configuration for the ``Client`` to use in its connections with the server.
+     - Specifies the TLS configuration for the ``Client`` instance to use in its connections with the server.
        By default, TLS is off.
 
    * - **tlsAllowInvalidCertificates**
      - Boolean
      - ``true``
-     - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
+     - Specifies whether the ``Client`` instance returns an error if the server presents an invalid certificate.
        (Do not set to ``true`` in production.
        This is only for testing.)
 
    * - **tlsCAFile**
      - Any string
      - See description.
-     - Specifies the path to the CA file that the ``Client`` uses for TLS.
+     - Specifies the path to the CA file that the ``Client`` instance uses for TLS.
        If you do not specify this option, the driver uses the Mozilla root certificates from the ``webpki-roots`` crate.
 
    * - **tlsCertificateKeyFile**
      - Any string
      - None
-     - Specifies the path to the certificate file that the ``Client`` presents to the server to verify its identify.
+     - Specifies the path to the certificate file that the ``Client`` instance presents to the server to verify its identify.
        If you do not set this option, the ``Client`` instance does not attempt to verify its identity to the server.
 
    * - **tlsInsecure**
      - Boolean
      - ``true``
-     - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
+     - Specifies whether the ``Client`` instance returns an error if the server presents an invalid certificate.
        (Do not set to ``true`` in production.
        This is only for testing.)
 
