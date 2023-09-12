@@ -158,7 +158,7 @@ string URI to specify the behavior of the client. To learn more about connection
      - Specifies the TLS configuration for the ``Client`` to use in its connections with the server.
        By default, TLS is off.
 
-   * - **tlsAllowInvalidCertificates** (or **tlsInsecure**)
+   * - **tlsAllowInvalidCertificates**
      - boolean
      - ``true``
      - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
@@ -176,6 +176,13 @@ string URI to specify the behavior of the client. To learn more about connection
      - None
      - Specifies the path to the certificate file that the ``Client`` presents to the server to verify its identify.
        If you do not set this option, the ``Client`` instance does not attempt to verify its identity to the server.
+
+   * - **tlsInsecure**
+     - boolean
+     - ``true``
+     - Specifies whether the ``Client`` returns an error if the server presents an invalid certificate.
+       (Do not set to ``true`` in production.
+       This is only for testing.)
 
    * - **w**
      - non-negative integer or string
