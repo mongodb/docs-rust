@@ -19,21 +19,21 @@ Edition. When you connect to MongoDB, you can use an authentication
 mechanism to establish trust between the driver and the server.
 
 The driver supports only the :ref:`LDAP (Plain) <rust-LDAP>`
-authentication mechanism. To learn about authenticating by using the
-GSSAPI/Kerberos authentication mechanism, see :manual:`Kerberos Authentication
-</core/kerberos/>` in the Server manual.
+authentication mechanism. To learn how to use other methods to
+authenticate by using the GSSAPI/Kerberos authentication mechanism, see
+:manual:`Kerberos Authentication </core/kerberos/>` in the Server manual.
 
 .. tip::
 
-   .. TODO To authenticate using another mechanism, see the
-   .. :ref:`<rust-authentication>` fundamentals page.
+   To authenticate to MongoDB by using mechanisms available in
+   the MongoDB Community Edition, see the guide on :ref:`<rust-authentication>`.
 
    To learn more about connecting to a MongoDB deployment, see the
    :ref:`rust-connect-to-mongodb`.
 
-You can specify an authentication mechanism, your credentials, and other
-necessary information in the options in your connection string or in a
-``Credential`` struct that you pass as an option when creating a client.
+To select a specific authentication mechanism, you can specify the
+mechanism, your credentials, and other necessary information
+in the options of your connection string or in a ``Credential`` struct.
 
 .. _rust-LDAP:
 
@@ -48,6 +48,9 @@ by using your directory server username and password.
    This authentication mechanism sends the password to the server in
    plaintext, so you should use this mechanism only after enabling TLS
    on your connection.
+   
+   To learn more, see :manual:`TLS/SSL (Transport Encryption)
+   </core/security-transport-encryption/>` in the Server manual.
 
 Example
 ~~~~~~~
@@ -55,7 +58,7 @@ Example
 To specify the ``PLAIN`` authentication mechanism, set the
 ``mechanism`` field of your ``Credential`` struct to
 ``AuthMechanism::Plain``. This example specifies the
-authentication mechanism using the following placeholders:
+authentication mechanism by using the following placeholders:
 
 - ``username``: Your LDAP username
 - ``password``: Your LDAP password
@@ -68,14 +71,19 @@ authentication mechanism using the following placeholders:
 
 .. note:
 
-   Since the credentials are stored outside of MongoDB, you must use the
+   Since your credentials are stored outside of MongoDB, you must use the
    ``$external`` database for authentication. The ``source`` field of
    the ``Credential`` struct defaults to this database name, so you do
-   not need to set this field.
+   not need to explicitly set this field.
 
-You can alternatively authenticate by using a connection string URI,
-specifying your LDAP username, password, and ``hostname``, the network
-address of your MongoDB server:
+You can alternatively authenticate by using a connection string URI by
+setting the value of the ``authMechanism`` connection string option to ``PLAIN``.
+This example shows how to specify this authentication mechanism in
+a connection string URI by using the following placeholders:
+
+- ``username``: Your LDAP username
+- ``password``: Your LDAP password
+- ``hostname``: The network address of your MongoDB server
 
 .. code-block:: rust
    
@@ -93,6 +101,7 @@ Additional Information
 To learn more about the concepts in this guide, see the following documentation:
 
 - :manual:`MongoDB Server Support for LDAP Proxy Authentication </core/security-ldap/>`
+.. TODO - :ref:`rust-connection-options`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
