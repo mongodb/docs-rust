@@ -38,6 +38,7 @@ string URI to specify the behavior of the client. To learn more about connection
      - None
      - Specifies which authentication mechanism to use.
        If empty, one will be negotiated with the server.
+       .. TODO here to link to the authentication mechanisms guide
 
    * - **authMechanismProperties**
      - string
@@ -56,25 +57,24 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **compressors**
      - A comma-separated list of strings
      - None
-     - Specifies compressors that the ``Client`` is willing to use in the order they are specified in the configuration.
-       The ``Client`` sends this list of compressors to the server.
-       The server responds with the intersection of its supported list of compressors.
-       The order of compressors indicates preference of compressors.
+     - Specifies compressors that the ``Client`` instance uses in the specified order.
+     .. TODO Link to network compression guide instead
 
    * - ***connectTimeoutMS***
      - non-negative integer
-     - 10 seconds
+     - 10000
      - Specifies the connection timeout, in milliseconds, passed to each underlying TCP stream when attempting to connect to the server.
 
    * - **direct**
      - boolean
      - ``false``
-     - Specifies whether the ``Client`` will directly connect to a single host rather than automatically discovering all servers in the cluster.
+     - Specifies whether the ``Client`` instance directly connects to a single host
+       instead of discovering and connecting to all of the servers in the cluster.
 
    * - **heartbeatFrequencyMS**
      - integer greater than or equal to 500
      - 10 seconds
-     - Specifies the each monitoring thread waits between performing server checks.
+     - Specifies the amount of time, in milliseconds, that each monitoring thread waits between performing server checks.
 
    * - **journal**
      - boolean
