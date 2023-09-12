@@ -56,27 +56,18 @@ A ``Client`` is implicitly bound to the instance of the tokio or async-std runti
 Attempting to execute operations on a different runtime instance will cause incorrect behavior and unpredictable failures.
 This is easy to accidentally invoke when testing, as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
 
-.. code-block:: rust
-
-   use tokio::runtime::Runtime;
-   use once_cell::sync::Lazy;
-
-   static CLIENT: Lazy<Client> = Lazy::new(|| {
-       let rt = Runtime::new().unwrap();
-       rt.block_on(async {
-           Client::with_uri_str("mongodb://example.com").await.unwrap()
-       })
-   });
-
-   // This will inconsistently fail.
-   #[tokio::test]
-   async fn test_list_dbs() -> Result<(), Box<dyn Error>> {
-       CLIENT.list_database_names(None, None).await?;
-       Ok(())
-   }
+.. literalinclude:: /includes/fundamentals/code-snippets/performance-new-runtime.rs
+   :language: rust
+   :dedent:
 
 To work around this issue, either create a new ``Client`` for every async test,
 or bundle the runtime along with the client and don't use the test helper macros.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
+   :language: rust
+   :dedent:
+   :start-after: start-perf-client-faster
+   :end-before: end-perf-client-faster
 
 .. code-block:: rust
 
