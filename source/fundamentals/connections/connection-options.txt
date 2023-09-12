@@ -79,36 +79,36 @@ string URI to specify the behavior of the client. To learn more about connection
    * - **journal**
      - boolean
      - ``false``
-     - Requests acknowledgment that the operation has propagated to the on-disk journal.
+     - Requests acknowledgment that the operation propagated to the on-disk journal.
 
    * - **localThresholdMS**
      - non-negative integer
      - 15 milliseconds
-     - Specifies how much longer the average round trip time between the driver and server is allowed to be
+     - Specifies how much longer, in milliseconds, that the average round trip time between the driver and server can be
        compared to the least round trip time of all the suitable servers.
-       A value of zero indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
+       A value of ``0`` indicates that there is no latency window, so only the server with the lowest average round trip time is eligible.
 
    * - **maxIdleTimeMS**
      - non-negative integer
      - 0
-     - Specifies the time that a connection can remain idle in a connection pool before being closed.
-       A value of zero indicates that connections are not closed due to being idle.
+     - Specifies the amount of time, in milliseconds, that a connection can remain idle in a connection pool before being closed.
+       A value of ``0`` indicates that connections are not closed due to being idle.
 
    * - **maxStalenessSeconds**
-     - -1, or an integer greater than or equal 90
+     - -1, or any integer greater than or equal to ``90``
      - ``-1``
-     - Specifies the maximum lag behind the primary that a secondary can have in order to be considered for the given operation.
-       Any secondaries lagging behind more than this will not be considered for the operation.
+     - Specifies the maximum lag, in seconds, behind the primary node that a secondary node can be to be 
+       considered for the given operation.
 
-       Must be at least 90 seconds; if less, the operation will return an error.
-       ``-1`` means there is no maximum.
+       The value of this option must be at least ``90``, or the operation raises an error.
+       A value of ``-1`` means there is no maximum lag.
 
    * - **maxPoolSize**
      - non-negative integer
      - 10
-     - Specifies the maximum number of connections that the ``Client`` is allowed to create in a connection pool for a given server.
-       If an operation is attempted on a server while **maxPoolSize** connections are checked out,
-       the operation will block until an in-progress operation finishes and its connection returns to the pool.
+     - Specifies the maximum number of connections that the ``Client`` can create in a connection pool for a given server.
+       If you attempt an operation while the value of ``maxPoolSize`` connections are checked out,
+       the operation waits until an in-progress operation finishes and the connection returns to the pool.
 
    * - **minPoolSize**
      - non-negative integer
