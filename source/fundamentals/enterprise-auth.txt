@@ -1,8 +1,8 @@
 .. _rust-enterprise-auth:
 
-=========================
-Enterprise Authentication
-=========================
+====================================
+Enterprise Authentication Mechanisms
+====================================
 
 .. contents:: On this page
    :local:
