@@ -71,7 +71,7 @@ URI to specify the behavior of the client. For more information, see
    * - **heartbeatFrequencyMS**
      - integer greater than or equal to 500
      - 10 seconds
-     - Specifies amount of time each monitoring thread waits between performing server checks.
+     - Specifies the each monitoring thread waits between performing server checks.
 
    * - **journal**
      - boolean
