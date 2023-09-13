@@ -13,7 +13,7 @@ Performance
 Overview
 --------
 
-This guide contains best practices for optimizing performance of the MongoDB Rust client.
+This guide contains best practices for optimizing performance of the {+driver-short+}.
 The ``Client`` handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
 This has implications for how a ``Client`` should be used for best performance.
