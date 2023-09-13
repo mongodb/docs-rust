@@ -23,15 +23,15 @@ This has implications for how a ``Client`` should be used for best performance.
 Client Lifecycle
 ----------------
 
-A ``Client`` should be as long-lived as possible.
-Establishing a new ``Client`` is relatively slow and resource-intensive.
-Ideally, a ``Client`` is created once at application startup.
-Because ``Client`` is implemented using an internal ``Arc``,
+A ``Client`` instance should be as long-lived as possible.
+Establishing a new ``Client`` instance is relatively slow and resource-intensive.
+Ideally, a ``Client`` instance is created once at application startup.
+Because the ``Client`` type is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks.
 Cloning it to pass to new contexts is extremely cheap.
 
 Consider the following code.
-It constructs and tears down a `Client` with every request.
+It constructs and tears down a ``Client`` instnace with every request.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
@@ -48,15 +48,15 @@ This will be much faster.
    :end-before: end-perf-client-faster
 
 This is evident when using a framework that provides connection pooling.
-Because ``Client`` does its own pooling internally,
-attempting to maintain a pool of ``Clients`` will result in worse performance than using a single one.
+Because the ``Client`` type does its own pooling internally,
+attempting to maintain a pool of ``Client`` instances will result in worse performance than using a single one.
 
 .. _rust-performance-runtime:
 
 Runtime
 -------
 
-A ``Client`` is implicitly bound to the instance of the tokio or async-std runtime in which it was created.
+A ``Client`` instance is implicitly bound to the instance of the tokio or async-std runtime in which it was created.
 Attempting to execute operations on a different runtime instance will cause incorrect behavior and unpredictable failures.
 This is easy to accidentally invoke when testing, as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
 
@@ -64,8 +64,8 @@ This is easy to accidentally invoke when testing, as the ``tokio::test`` or ``as
    :language: rust
    :dedent:
 
-To work around this issue, either create a new ``Client`` for every async test,
-or bundle the runtime along with the client and don't use the test helper macros.
+To work around this issue, either create a new ``Client`` instance for every ``async`` test,
+or bundle the runtime along with the ``Client`` instance and don't use the test helper macros.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-bundle-runtime.rs
    :language: rust
