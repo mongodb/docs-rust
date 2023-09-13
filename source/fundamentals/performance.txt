@@ -39,7 +39,7 @@ It constructs and tears down a ``Client`` instnace with every request.
    :start-after: start-perf-client-slow
    :end-before: end-perf-client-slow
 
-This will be much faster.
+Instead, pass a longer-lived ``Client`` instance to the handler function:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
@@ -56,9 +56,10 @@ attempting to maintain a pool of ``Client`` instances will result in worse perfo
 Runtime
 -------
 
-A ``Client`` instance is implicitly bound to the instance of the tokio or async-std runtime in which it was created.
-Attempting to execute operations on a different runtime instance will cause incorrect behavior and unpredictable failures.
-This is easy to accidentally invoke when testing, as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
+A ``Client`` instance is implicitly bound to the instance of the ``tokio`` or ``async-std`` runtime in which it was created.
+Attempting to execute operations on a different runtime instance can cause incorrect behavior and unpredictable failures.
+This is easy to accidentally invoke when testing,
+as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-new-runtime.rs
    :language: rust
@@ -89,8 +90,6 @@ as the driver is designed to work well in such situations.
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
    :language: rust
    :dedent:
-
-.. code-block:: rust
 
 ..
    Additional Information
