@@ -1,8 +1,8 @@
 .. _rust-performance:
 
-===========
-Performance
-===========
+==========================
+Performance Considerations
+==========================
 
 .. contents:: On this page
    :local:
@@ -20,8 +20,11 @@ This has implications for how a ``Client`` should be used for best performance.
 
 .. _rust-performance-client-lifecycle:
 
+Best Practices
+--------------
+
 Client Lifecycle
-----------------
+~~~~~~~~~~~~~~~~
 
 A ``Client`` instance should be as long-lived as possible.
 Establishing a new ``Client`` instance is relatively slow and resource-intensive.
@@ -54,7 +57,7 @@ attempting to maintain a pool of ``Client`` instances will result in worse perfo
 .. _rust-performance-runtime:
 
 Runtime
--------
+~~~~~~~
 
 A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which it was created.
 Attempting to execute operations on a different runtime instance can cause incorrect behavior and unpredictable failures.
@@ -81,7 +84,7 @@ or
 .. _rust-performance-parallelism:
 
 Parallelism
------------
+~~~~~~~~~~~
 
 Where data operations are naturally parallelizable,
 spawning many asynchronous tasks that use the driver concurrently is often the best way to achieve maximum performance,
@@ -91,20 +94,12 @@ as the driver is designed to work well in such situations.
    :language: rust
    :dedent:
 
-..
-   Additional Information
-   ----------------------
+Additional Information
+----------------------
 
-   For more information about the concepts in this guide, see the following documentation:
+For more information about the concepts in this guide, see the following documentation:
 
-   - :manual:`db.runCommand() </reference/method/db.runCommand/>`
-   - :manual:`Database Commands </reference/command/>`
-   - :manual:`hello Command </reference/command/hello/>`
-   - :manual:`explain Command </reference/command/explain/>`
+- `Client() <{+api+}/struct.Client.html>`__
+- `sync <{+api+}/sync/index.html>`__
 
-   API Documentation
-   ~~~~~~~~~~~~~~~~~
-
-   - `run_command() <{+api+}/struct.Database.html#method.run_command>`__
-   - `SelectionCriteria <{+api+}/options/enum.SelectionCriteria.html>`__
-   - `ReadPreference <{+api+}/options/enum.ReadPreference.html>`__
+.. TODO link to Async page when done
