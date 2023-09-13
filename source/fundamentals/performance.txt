@@ -79,7 +79,7 @@ or
    :dedent:
 
 .. _rust-performance-parallelism:
-      
+
 Parallelism
 -----------
 
