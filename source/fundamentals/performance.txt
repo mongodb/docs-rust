@@ -18,6 +18,8 @@ The ``Client`` handles many aspects of database connection behind the scenes tha
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
 This has implications for how a ``Client`` should be used for best performance.
 
+.. _rust-performance-client-lifecycle:
+
 Client Lifecycle
 ----------------
 
@@ -49,6 +51,8 @@ This is evident when using a framework that provides connection pooling.
 Because ``Client`` does its own pooling internally,
 attempting to maintain a pool of ``Clients`` will result in worse performance than using a single one.
 
+.. _rust-performance-runtime:
+
 Runtime
 -------
 
@@ -73,6 +77,8 @@ or
    :language: rust
    :dedent:
 
+.. _rust-performance-parallelism:
+      
 Parallelism
 -----------
 
@@ -80,19 +86,11 @@ Where data operations are naturally parallelizable,
 spawning many asynchronous tasks that use the driver concurrently is often the best way to achieve maximum performance,
 as the driver is designed to work well in such situations.
 
+.. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
+   :language: rust
+   :dedent:
+
 .. code-block:: rust
-
-   let client = Client::with_uri_str("mongodb://example.com").await?;
-
-   for i in 0..5 {
-       let client_ref = client.clone();
-
-       task::spawn(async move {
-           let collection = client_ref.database("items").collection::<Document>(&format!("coll{}", i));
-
-           // Do something with the collection
-       });
-   }
 
 ..
    Additional Information
