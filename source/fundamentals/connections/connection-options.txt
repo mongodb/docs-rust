@@ -198,6 +198,7 @@ string URI to specify the behavior of the client. To learn more about connection
      - Specifies the level field of the ``zlib`` compression when in use.
        See the `compressor API documentation <{+api+}/options/enum.Compressor.html#variant.Zlib>`__ for more information.
        (Requires enabling the ``zlib-compression`` feature.)
-       ``-1`` means no timeout.
+       ``-1`` sets the default compression level (usually 6).
+       ``0`` means no compression.
 
 For a full list of options, see the `ClientOptions API documentation <{+api+}/options/struct.ClientOptions.html>`__.
