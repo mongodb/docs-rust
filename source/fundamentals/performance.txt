@@ -26,15 +26,18 @@ Best Practices
 Client Lifecycle
 ~~~~~~~~~~~~~~~~
 
-Establishing a new ``Client`` instance is relatively slow and resource-intensive.
+Creating a new ``Client`` instance is relatively slow and resource-intensive.
 Therefore a ``Client`` instance should be as long-lived as possible.
-Because the ``Client`` type is implemented using an internal ``Arc``,
+The ``Client`` type does its own pooling internally.
+Attempting to maintain a pool of ``Client`` instances will result in worse performance than using a single instance.
+
+The ``Client`` type is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks.
 Cloning it to pass to new contexts is extremely cheap.
-This means you can create a ``Client`` instance once at application startup and reuse it many times.
+This means you can create a ``Client`` instance once at application startup and continually reuse it.
 
 Consider the following code.
-It constructs and tears down a ``Client`` instnace with every request.
+It constructs and tears down a ``Client`` instance with every request.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
@@ -43,16 +46,14 @@ It constructs and tears down a ``Client`` instnace with every request.
    :end-before: end-perf-client-slow
 
 Instead, pass a longer-lived ``Client`` instance to the handler function.
-The following code accepts a pointer to an existing ``Client`` instance:
+The following code accepts a pointer to an existing ``Client`` instance,
+allowing many requests to share the same client:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
    :dedent:
    :start-after: start-perf-client-faster
    :end-before: end-perf-client-faster
-
-Because the ``Client`` type does its own pooling internally,
-attempting to maintain a pool of ``Client`` instances will result in worse performance than using a single one.
 
 .. _rust-performance-runtime:
 
@@ -101,5 +102,6 @@ For more information about the concepts in this guide, see the following documen
 
 - `Client() <{+api+}/struct.Client.html>`__
 - `sync <{+api+}/sync/index.html>`__
+- `Arc <https://doc.rust-lang.org/std/sync/struct.Arc.html>`__
 
 .. TODO link to Async page when done
