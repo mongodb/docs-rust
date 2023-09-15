@@ -1,0 +1,70 @@
+.. _rust-async-sync:
+
+=====================================
+Asynchronous and Synchronous Runtimes
+=====================================
+
+.. contents:: On this page
+   :local:
+   :backlinks: nones
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+{+driver-short+} supports both ``tokio`` and ``async-std``, the two most popular asynchronous runtime crates.
+By default, the driver will use ``tokio``, but you can explicitly choose a runtime
+by specifying one of ``tokio-runtime`` or ``async-std-runtime`` feature flags in your ``Cargo.toml``.
+
+Configuring the async runtime
+-----------------------------
+
+To use ``async-std``, add the following to your ``Cargo.toml``:
+
+.. code-block:: toml
+
+   [dependencies.mongodb]
+   version = "2.6.0"
+   default-features = false
+   features = ["async-std-runtime"]
+
+Enabling the sync API
+---------------------
+
+The driver also provides a blocking sync API. To enable this, add the ``sync`` or ``tokio-sync`` feature to your Cargo.toml:
+
+.. code-block:: toml
+
+   [dependencies.mongodb]
+   version = "2.6.0"
+   features = ["tokio-sync"]
+
+Using the ``sync`` feature also requires using ``default-features = false``.
+
+The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
+
+Warning about timeouts / cancellation
+-------------------------------------
+
+In async Rust, it is common to implement cancellation and timeouts by dropping
+a future after a certain period of time instead of polling it to completion.
+This is how tokio::time::timeout works, for example. However, doing this
+with futures returned by the driver can leave the driver’s internals in
+an inconsistent state, which may lead to unpredictable or incorrect behavior
+(see RUST-937 for more details). As such, it is highly recommended to poll
+all futures returned from the driver to completion. In order to still use
+timeout mechanisms like tokio::time::timeout with the driver, one option
+is to spawn tasks and time out on their JoinHandle futures instead of on
+the driver’s futures directly. This will ensure the driver’s futures will
+always be completely polled while also allowing the application to continue
+in the event of a timeout.
+
+e.g.
+
+let collection = client.database("foo").collection("bar");
+let handle = tokio::task::spawn(async move {
+    collection.insert_one(doc! { "x": 1 }, None).await
+});
+
+tokio::time::timeout(Duration::from_secs(5), handle).await???;
