@@ -66,8 +66,8 @@ This is because these helper macros create a new runtime for each test.
    :language: rust
    :dedent:
 
-To work around this issue, either create a new ``Client`` instance for every ``async`` test,
-or bundle the runtime along with the ``Client`` instance and don't use the test helper macros.
+To avoid this issue, either create a new ``Client`` instance for every ``async`` test,
+or attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-bundle-runtime.rs
    :language: rust
