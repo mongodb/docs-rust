@@ -20,11 +20,8 @@ your connection, and maintaining an internal connection pool. This guide describ
 
 .. _rust-performance-client-lifecycle:
 
-Best Practices
---------------
-
 Client Lifecycle
-~~~~~~~~~~~~~~~~
+----------------
 
 Creating a new ``Client`` instance is relatively slow and resource-intensive.
 Therefore a ``Client`` instance should be as long-lived as possible.
@@ -58,7 +55,7 @@ allowing many requests to share the same client:
 .. _rust-performance-runtime:
 
 Runtime
-~~~~~~~
+-------
 
 A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which you created it.
 If you use a ``Client`` instance to execute operations on a different runtime, you might experience unexpected behavior or failures.
@@ -85,7 +82,7 @@ or
 .. _rust-performance-parallelism:
 
 Parallelism
-~~~~~~~~~~~
+-----------
 
 If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
 
