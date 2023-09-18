@@ -13,7 +13,7 @@ Performance Considerations
 Overview
 --------
 
-In this guide, you can learn about best practices for optimizing performance of the {+driver-short+}.
+In this guide, you can learn how to optimize performance of the {+driver-short+}.
 The ``Client`` handles many aspects of database connection behind the scenes that can require manual management for other database drivers;
 it discovers server topology, monitors it for any changes, and maintains an internal connection pool.
 This has implications for how a ``Client`` should be used for best performance.
@@ -28,8 +28,8 @@ Client Lifecycle
 
 Creating a new ``Client`` instance is relatively slow and resource-intensive.
 Therefore a ``Client`` instance should be as long-lived as possible.
-The ``Client`` type does its own pooling internally.
-Attempting to maintain a pool of ``Client`` instances will result in worse performance than using a single instance.
+The ``Client`` automatically manages connection pooling.
+When you create a single ``Client`` instance for multiple operations, you optimize its performance.
 
 The ``Client`` type is implemented using an internal ``Arc``,
 it can safely be shared across threads or tasks.
@@ -60,8 +60,8 @@ allowing many requests to share the same client:
 Runtime
 ~~~~~~~
 
-A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which it was created.
-Attempting to execute operations on a different runtime instance can cause incorrect behavior and unpredictable failures.
+A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which you created it.
+If you use a ``Client`` instance to execute operations on a different runtime, you might experience unexpected behavior or failures.
 This is easy to accidentally invoke when testing,
 as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
 
@@ -87,9 +87,7 @@ or
 Parallelism
 ~~~~~~~~~~~
 
-Where data operations are naturally parallelizable,
-spawning many asynchronous tasks that use the driver concurrently is often the best way to achieve maximum performance,
-as the driver is designed to work well in such situations.
+If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
    :language: rust
