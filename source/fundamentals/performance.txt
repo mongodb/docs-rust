@@ -28,8 +28,6 @@ Therefore a ``Client`` instance should be as long-lived as possible.
 The ``Client`` automatically manages connection pooling.
 When you create a single ``Client`` instance for multiple operations, you optimize its performance.
 
-The ``Client`` type is implemented using an internal ``Arc``,
-it can safely be shared across threads or tasks.
 Cloning it to pass to new contexts is extremely cheap.
 This means you can create a ``Client`` instance once at application startup and continually reuse it.
 
@@ -59,8 +57,10 @@ Runtime
 
 A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which you created it.
 If you use a ``Client`` instance to execute operations on a different runtime, you might experience unexpected behavior or failures.
-This is easy to accidentally invoke when testing,
-as the ``tokio::test`` or ``async_std::test`` helper macros create a new runtime for each test.
+
+If you are using the ``test`` helper macro from the ``tokio`` or ``async_std`` crate to test your application,
+you might accidentally run operations on a different runtime than you intended.
+This is because these helper macros create a new runtime for each test.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-new-runtime.rs
    :language: rust
@@ -90,13 +90,10 @@ If you can run parallel data operations, creating asynchronous, concurrent tasks
    :language: rust
    :dedent:
 
-Additional Information
-----------------------
-
-For more information about the concepts in this guide, see the following documentation:
+API Documentation
+-----------------
 
 - `Client() <{+api+}/struct.Client.html>`__
 - `sync <{+api+}/sync/index.html>`__
-- `Arc <https://doc.rust-lang.org/std/sync/struct.Arc.html>`__
 
 .. TODO link to Async page when done
