@@ -4,8 +4,19 @@
 Quick Reference
 ===============
 
-This page shows the driver syntax for several MongoDB commands and links to
-their related reference and API documentation. 
+On this page, you can see examples for how to perform several common
+tasks by using the {+driver-short+}. Each row of the following table
+describes the task, shows the driver syntax to execute the task, and
+includes links to the related reference and API documentation.
+
+The {+driver-short+} contains an async runtime that supports either ``tokio``
+or ``async-std``, depending on the feature flags set. The driver also has a
+sync runtime enabled with the ``"sync"`` or ``"tokio-sync"`` feature flag.
+For each task listed in the following table, you can find an example of both
+the async and sync runtime syntax.
+
+.. 
+    TODO: For more information about runtimes, see <link to the runtime fundamentals guide>
 
 .. list-table::
    :header-rows: 1
@@ -18,9 +29,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.find_one>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-retrieve-guide>`
+       | :ref:`Fundamentals Guide <rust-retrieve-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -30,7 +41,7 @@ their related reference and API documentation.
               None
           ).await?;
     
-       *Sync Driver*
+       *Sync Runtime*
         
        .. code-block:: rust
           :copyable: true
@@ -44,9 +55,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.find>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-retrieve-guide>`
+       | :ref:`Fundamentals Guide <rust-retrieve-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
     
        .. code-block:: rust
           :copyable: true
@@ -54,7 +65,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 1925 };
           let mut cursor = collection.find(filter, None).await?;
     
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -66,9 +77,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.insert_one>`__ 
        | Usage Example
-       | :ref:`Fundamentals <rust-insert-guide>`
+       | :ref:`Fundamentals Guide <rust-insert-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
      
        .. code-block:: rust
           :copyable: true
@@ -79,7 +90,7 @@ their related reference and API documentation.
 
           let result = collection.insert_one(doc, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -94,29 +105,29 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.insert_many>`__ 
        | Usage Example
-       | :ref:`Fundamentals <rust-insert-guide>`
+       | :ref:`Fundamentals Guide <rust-insert-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
  
        .. code-block:: rust
           :copyable: true
 
           let docs = vec![
               doc! { "title": "Friends With Money", "runtime": 88 },
-              doc! { "title": "The Land of Steady Habits", "runtime": 98 },
+              doc! { "title": "Please Give", "runtime": 90 },
               doc! { "title": "You Hurt My Feelings", "runtime": 93 },
           ];
 
           let result = collection.insert_many(docs, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
 
           let docs = vec![
               doc! { "title": "Friends With Money", "runtime": 88 },
-              doc! { "title": "The Land of Steady Habits", "runtime": 98 },
+              doc! { "title": "Please Give", "runtime": 90 },
               doc! { "title": "You Hurt My Feelings", "runtime": 93 },
           ];
 
@@ -126,9 +137,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.update_one>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-change-guide>`
+       | :ref:`Fundamentals Guide <rust-change-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -139,9 +150,11 @@ their related reference and API documentation.
                   "$set": doc!{ "num_mflix_comments": 1 }
           };
 
-          let result = collection.update_one(filter_doc, update_doc, None).await?;
+          let result = collection.update_one(
+                filter_doc, update_doc, None
+            ).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -152,15 +165,17 @@ their related reference and API documentation.
                   "$set": doc!{ "num_mflix_comments": 1 }
           };
 
-          let result = collection.update_one(filter_doc, update_doc, None)?;
+          let result = collection.update_one(
+                filter_doc, update_doc, None
+            )?;
 
    * - | **Update Multiple Documents**
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.update_many>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-change-guide>`
+       | :ref:`Fundamentals Guide <rust-change-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -173,7 +188,7 @@ their related reference and API documentation.
 
           let result = collection.update_many(filter_doc, update_doc, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -190,9 +205,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.replace_one>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-change-guide>`  
+       | :ref:`Fundamentals Guide <rust-change-guide>`  
 
-     - *Async Driver*
+     - *Async Runtime*
     
        .. code-block:: rust
           :copyable: true
@@ -207,7 +222,7 @@ their related reference and API documentation.
 
           let result = collection.replace_one(filter, replace_doc, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -226,9 +241,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_one>`__
        | Usage Example
-       | :ref:`Fundamentals <rust-delete-guide>`
+       | :ref:`Fundamentals Guide <rust-delete-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
        
        .. code-block:: rust
           :copyable: true
@@ -236,7 +251,7 @@ their related reference and API documentation.
           let filter = doc! { "title": "Search and Destroy" };
           let result = collection.delete_one(filter, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
         :copyable: true
@@ -248,9 +263,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_many>`__ 
        | Usage Example
-       | :ref:`Fundamentals <rust-delete-guide>`
+       | :ref:`Fundamentals Guide <rust-delete-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
        
        .. code-block:: rust
           :copyable: true
@@ -261,7 +276,7 @@ their related reference and API documentation.
 
           let result = collection.delete_many(filter, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -276,9 +291,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Cursor.html>`__ 
        | Usage Example
-       | :ref:`Fundamentals <rust-cursor-guide>`
+       | :ref:`Fundamentals Guide <rust-cursor-guide>`
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -297,7 +312,7 @@ their related reference and API documentation.
               println!("{}", serde_json::to_string_pretty(&doc).unwrap());
           };
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -316,13 +331,41 @@ their related reference and API documentation.
               println!("{}", serde_json::to_string_pretty(&doc).unwrap());
           }
 
+   * - | **Access Data from a Cursor as an Array**
+       |
+       | `API Documentation <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__ 
+       | Usage Example
+       | :ref:`Fundamentals Guide <rust-cursor-guide>`
+
+     - *Async Runtime*
+      
+       .. code-block:: rust
+          :copyable: true
+            
+          let cursor = collection.find(
+                doc! { "title": "Secrets & Lies" }, None
+            ).await?;
+
+          let result: Vec<Document> = cursor.try_collect().await?;
+
+       *Sync Runtime*
+
+       .. code-block:: rust
+          :copyable: true
+            
+          let cursor = collection.find(
+                doc! { "title": "Secrets & Lies" }, None
+            )?;
+
+          let result: Vec<Document> = cursor.try_collect()?;
+
    * - | **Count Documents**
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.count_documents>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
        
        .. code-block:: rust
           :copyable: true
@@ -333,7 +376,7 @@ their related reference and API documentation.
 
           let result = collection.count_documents(filter, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -344,13 +387,13 @@ their related reference and API documentation.
 
           let result = collection.count_documents(filter, None)?;
 
-   * - | **List the Distinct Documents or Field Values**
+   * - | **List Distinct Values of a Field**
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.distinct>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
        
        .. code-block:: rust
           :copyable: true
@@ -362,7 +405,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.distinct(field_name, filter, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -378,9 +421,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.limit>`__
        | Usage Example 
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
        
        .. code-block:: rust
           :copyable: true
@@ -392,7 +435,7 @@ their related reference and API documentation.
           let filter = doc! { "awards.wins": 25};
           let mut cursor = collection.find(filter, opts).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -408,9 +451,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.skip>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -422,7 +465,7 @@ their related reference and API documentation.
           let filter = doc! { "runtime": 100 };
           let mut cursor = collection.find(filter, opts).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -438,9 +481,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.sort>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -455,7 +498,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.find(filter, opts).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -474,9 +517,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.projection>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -488,7 +531,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 2015 };
           let mut cursor = collection.find(filter, opts).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
@@ -504,9 +547,9 @@ their related reference and API documentation.
        |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.create_index>`__
        | Usage Example
-       | Fundamentals
+       | Fundamentals Guide
 
-     - *Async Driver*
+     - *Async Runtime*
       
        .. code-block:: rust
           :copyable: true
@@ -517,7 +560,7 @@ their related reference and API documentation.
 
           let result = collection.create_index(index, None).await?;
 
-       *Sync Driver*
+       *Sync Runtime*
 
        .. code-block:: rust
           :copyable: true
