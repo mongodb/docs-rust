@@ -1,0 +1,426 @@
+.. _rust-quick-reference:
+
+===============
+Quick Reference
+===============
+
+This page shows the driver syntax for several MongoDB commands and links to
+their related reference and API documentation. 
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75 75
+
+   * - Command
+     - Syntax (Sync)
+     - Syntax (Async)
+
+   * - | **Find a Document**
+
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.find_one>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-retrieve-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let result = collection.find_one(doc! { "title": "Peter Pan" }, None)?;
+    
+     - .. code-block:: rust
+          :copyable: true
+
+          let result = collection.find_one(doc! { "title": "Peter Pan" }, None).await?;
+
+   * - | **Find Multiple Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.find>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-retrieve-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter = doc! { "year": 1925 };
+          let mut cursor = collection.find(filter, None)?;
+    
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter = doc! { "year": 1925 };
+          let mut cursor = collection.find(filter, None).await?;
+
+   * - | **Insert a Document**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.insert_one>`__ 
+       | Usage Example
+       | :ref:`Fundamentals <rust-insert-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let doc = doc! { "title": "Mistress America", "type": "movie" };
+          let result = collection.insert_one(doc, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let doc = doc! { "title": "Mistress America", "type": "movie" };
+          let result = collection.insert_one(doc, None).await?;
+
+   * - | **Insert Multiple Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.insert_many>`__ 
+       | Usage Example
+       | :ref:`Fundamentals <rust-insert-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let docs = vec![
+              doc! { "title": "Friends With Money", "runtime": 88 },
+              doc! { "title": "The Land of Steady Habits", "runtime": 98 },
+              doc! { "title": "You Hurt My Feelings", "runtime": 93 },
+          ];
+
+          let result = collection.insert_many(docs, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let docs = vec![
+              doc! { "title": "Friends With Money", "runtime": 88 },
+              doc! { "title": "The Land of Steady Habits", "runtime": 98 },
+              doc! { "title": "You Hurt My Feelings", "runtime": 93 },
+          ];
+
+          let result = collection.insert_many(docs, None).await?;
+
+   * - | **Update a Document**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.update_one>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-change-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter_doc = doc! { "title": "Burn After Reading"};
+          let update_doc =
+              doc! {
+                  "$set": doc!{ "num_mflix_comments": 1 }
+          };
+
+          let result = collection.update_one(filter_doc, update_doc, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter_doc = doc! { "title": "Burn After Reading"};
+          let update_doc =
+              doc! {
+                  "$set": doc!{ "num_mflix_comments": 1 }
+          };
+
+          let result = collection.update_one(filter_doc, update_doc, None).await?;
+
+   * - | **Update Multiple Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.update_many>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-change-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter_doc = doc! { "rated": "PASSED"};
+          let update_doc =
+              doc! {
+                  "$set": doc!{ "rated": "Not Rated" }
+          };
+
+          let result = collection.update_many(filter_doc, update_doc, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter_doc = doc! { "rated": "PASSED"};
+          let update_doc =
+              doc! {
+                  "$set": doc!{ "rated": "Not Rated" }
+          };
+
+          let result = collection.update_many(filter_doc, update_doc, None).await?;
+             
+   * - | **Replace a Document**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.replace_one>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-change-guide>`  
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter = doc! { "title": "è Nous la Libertè" };
+          let replace_doc =
+              doc! {
+              "title": "À nous la liberté",
+              "type": "movie",
+              "directors": vec! [ "René Clair" ]
+          };
+
+          let result = collection.replace_one(filter, replace_doc, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter = doc! { "title": "è Nous la Libertè" };
+          let replace_doc =
+              doc! {
+              "title": "À nous la liberté",
+              "type": "movie",
+              "directors": vec! [ "René Clair" ]
+          };
+
+          let result = collection.replace_one(filter, replace_doc, None).await?;
+
+   * - | **Delete a Document**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_one>`__
+       | Usage Example
+       | :ref:`Fundamentals <rust-delete-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let filter = doc! { "title": "Search and Destroy" };
+          let result = collection.delete_one(filter, None)?;
+
+     - .. code-block:: rust
+        :copyable: true
+
+        let filter = doc! { "title": "Search and Destroy" };
+        let result = collection.delete_one(filter, None).await?;
+          
+   * - | **Delete Multiple Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_many>`__ 
+       | Usage Example
+       | :ref:`Fundamentals <rust-delete-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let filter = doc! { "year": doc! { "$lt": 1920 } };
+          let result = collection.delete_many(filter, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let filter = doc! { "year": doc! { "$lt": 1920 } };
+          let result = collection.delete_many(filter, None).await?;
+
+   * - | **Access Data from a Cursor Iteratively**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_many>`__ 
+       | Usage Example
+       | :ref:`Fundamentals <rust-cursor-guide>`
+
+     - .. code-block:: rust
+          :copyable: true
+            
+          let mut cursor = collection.find(
+              doc! { "$and": vec!
+                  [
+                      doc! { "metacritic": doc! { "$gt": 90 } },
+                      doc! { "directors": vec! [ "Martin Scorsese" ] }
+                  ] },
+              None
+          )?;
+
+          while let Some(result) = cursor.try_next()? {
+              let doc = bson::from_document(result)?;
+              println!("{}", serde_json::to_string_pretty(&doc).unwrap());
+          };
+
+     - .. code-block:: rust
+          :copyable: true
+            
+          let mut cursor = collection.find(
+              doc! { "$and": vec!
+                  [
+                      doc! { "metacritic": doc! { "$gt": 90 } },
+                      doc! { "directors": vec! [ "Martin Scorsese" ] }
+                  ] },
+              None
+          ).await?;
+
+          while let Some(result) = cursor.try_next().await? {
+              let doc: Document = bson::from_document(result)?;
+              println!("{}", serde_json::to_string_pretty(&doc).unwrap());
+          }
+
+   * - | **Count Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.count_documents>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let filter = doc! { "languages": vec! [ "Mandarin" ] };
+          let result = collection.count_documents(filter, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let filter = doc! { "languages": vec! [ "Mandarin" ] };
+          let result = collection.count_documents(filter, None).await?;
+
+   * - | **List the Distinct Documents or Field Values**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.distinct>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let field_name = "title";
+          let filter = doc! { "directors": vec! [ "Sean Baker" ] };
+          let mut cursor = collection.distinct(field_name, filter, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+ 
+          let field_name = "title";
+          let filter = doc! { "directors": vec! [ "Sean Baker" ] };
+          let mut cursor = collection.distinct(field_name, filter, None).await?;
+
+   * - | **Limit the Number of Documents Retrieved**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.limit>`__
+       | Usage Example 
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .limit(5)
+              .build();
+
+          let filter = doc! { "awards.wins": 25};
+          let mut cursor = collection.find(filter, opts)?;
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .limit(5)
+              .build();
+
+          let filter = doc! { "awards.wins": 25};
+          let mut cursor = collection.find(filter, opts).await?;
+
+   * - | **Skip Retrieved Documents**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.skip>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .skip(1)
+              .build();
+
+          let filter = doc! { "runtime": 100 };
+          let mut cursor = collection.find(filter, opts)?;
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .skip(1)
+              .build();
+
+          let filter = doc! { "runtime": 100 };
+          let mut cursor = collection.find(filter, opts).await?;
+
+   * - | **Sort the Documents When Retrieving Them**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.sort>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .sort(doc! { "imdb.rating": 1 })
+              .build();
+
+          let filter = doc! { "directors": vec! [ "Nicole Holofcener" ] };
+          let mut cursor = collection.find(filter, opts)?;
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .sort(doc! { "imdb.rating": 1 })
+              .build();
+
+          let filter = doc! { "directors": vec! [ "Nicole Holofcener" ] };
+          let mut cursor = collection.find(filter, opts).await?;
+
+   * - | **Project Document Fields When Retrieving Them**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/options/struct.FindOptions.html#structfield.projection>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .projection(doc! { "title": 1, "metacritic": 1, "_id": 0 })
+              .build();
+
+          let filter = doc! { "year": 2015 };
+          let mut cursor = collection.find(filter, opts)?;
+
+     - .. code-block:: rust
+          :copyable: true
+          
+          let opts: FindOptions = FindOptions::builder()
+              .projection(doc! { "title": 1, "metacritic": 1, "_id": 0 })
+              .build();
+
+          let filter = doc! { "year": 2015 };
+          let mut cursor = collection.find(filter, opts).await?;
+
+   * - | **Create an Index**
+       |
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.create_index>`__
+       | Usage Example
+       | Fundamentals
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let index: IndexModel = IndexModel::builder()
+              .keys(doc! { "title": 1 })
+              .build();
+
+          let result = collection.create_index(index, None)?;
+
+     - .. code-block:: rust
+          :copyable: true
+
+          let index: IndexModel = IndexModel::builder()
+              .keys(doc! { "title": 1 })
+              .build();
+
+          let result = collection.create_index(index, None).await?;
