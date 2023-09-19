@@ -53,19 +53,21 @@ If you use a ``Client`` instance to execute operations on a different runtime, y
 If you are using the ``test`` helper macro from the ``tokio`` or ``async_std`` crate to test your application,
 you might accidentally run operations on a different runtime than you intended.
 This is because these helper macros create a new runtime for each test.
+To avoid this issue, do one of the following:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/performance-new-runtime.rs
-   :language: rust
-   :dedent:
+- Attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
+- Create a new ``Client`` instance for every ``async`` test
 
-To avoid this issue, either create a new ``Client`` instance for every ``async`` test,
-or attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
+As an example of the former, the following code lazily creates a global runtime used just for testing.
+The client in the ``test_list_dbs`` then manually connects to this runtime.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-bundle-runtime.rs
    :language: rust
    :dedent:
 
-or
+As an example of the latter,
+the following code creates a new ``Client`` instance for each test run with ``tokio::test``.
+This ensures there is no unintended interaction between runtimes.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-new-client.rs
    :language: rust
@@ -77,6 +79,8 @@ Parallelism
 -----------
 
 If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
+
+.. TODO The following code
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
    :language: rust
