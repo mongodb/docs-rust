@@ -9,14 +9,13 @@ their related reference and API documentation.
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 40 40
+   :widths: 25 75
 
    * - Command
-     - Syntax (Sync)
-     - Syntax (Async)
+     - Syntax 
 
    * - | **Find a Document**
-
+       |
        | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.find_one>`__
        | Usage Example
        | :ref:`Fundamentals <rust-retrieve-guide>`
@@ -29,7 +28,7 @@ their related reference and API documentation.
               None
           )?;
     
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let result = collection.find_one(
@@ -49,7 +48,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 1925 };
           let mut cursor = collection.find(filter, None)?;
     
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let filter = doc! { "year": 1925 };
@@ -70,7 +69,7 @@ their related reference and API documentation.
 
           let result = collection.insert_one(doc, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let doc = doc! { 
@@ -96,7 +95,7 @@ their related reference and API documentation.
 
           let result = collection.insert_many(docs, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let docs = vec![
@@ -124,7 +123,7 @@ their related reference and API documentation.
 
           let result = collection.update_one(filter_doc, update_doc, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let filter_doc = doc! { "title": "Burn After Reading"};
@@ -152,7 +151,7 @@ their related reference and API documentation.
 
           let result = collection.update_many(filter_doc, update_doc, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let filter_doc = doc! { "rated": "PASSED"};
@@ -182,7 +181,7 @@ their related reference and API documentation.
 
           let result = collection.replace_one(filter, replace_doc, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let filter = doc! { "title": "è Nous la Libertè" };
@@ -207,7 +206,7 @@ their related reference and API documentation.
           let filter = doc! { "title": "Search and Destroy" };
           let result = collection.delete_one(filter, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
         :copyable: true
 
         let filter = doc! { "title": "Search and Destroy" };
@@ -228,7 +227,7 @@ their related reference and API documentation.
 
           let result = collection.delete_many(filter, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
  
           let filter = doc! { 
@@ -260,7 +259,7 @@ their related reference and API documentation.
               println!("{}", serde_json::to_string_pretty(&doc).unwrap());
           };
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
             
           let mut cursor = collection.find(
@@ -292,7 +291,7 @@ their related reference and API documentation.
 
           let result = collection.count_documents(filter, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
  
           let filter = doc! {
@@ -317,7 +316,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.distinct(field_name, filter, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
  
           let field_name = "title";
@@ -343,7 +342,7 @@ their related reference and API documentation.
           let filter = doc! { "awards.wins": 25};
           let mut cursor = collection.find(filter, opts)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
           
           let opts: FindOptions = FindOptions::builder()
@@ -369,7 +368,7 @@ their related reference and API documentation.
           let filter = doc! { "runtime": 100 };
           let mut cursor = collection.find(filter, opts)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
           
           let opts: FindOptions = FindOptions::builder()
@@ -398,7 +397,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.find(filter, opts)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
           
           let opts: FindOptions = FindOptions::builder()
@@ -427,7 +426,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 2015 };
           let mut cursor = collection.find(filter, opts)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
           
           let opts: FindOptions = FindOptions::builder()
@@ -452,7 +451,7 @@ their related reference and API documentation.
 
           let result = collection.create_index(index, None)?;
 
-     - .. code-block:: rust
+       .. code-block:: rust
           :copyable: true
 
           let index: IndexModel = IndexModel::builder()
