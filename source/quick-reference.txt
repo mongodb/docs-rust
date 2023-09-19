@@ -186,7 +186,9 @@ the async and sync runtime syntax.
                   "$set": doc!{ "rated": "Not Rated" }
           };
 
-          let result = collection.update_many(filter_doc, update_doc, None).await?;
+          let result = collection.update_many(
+                filter_doc, update_doc, None
+            ).await?;
 
        *Sync Runtime*
 
@@ -199,7 +201,9 @@ the async and sync runtime syntax.
                   "$set": doc!{ "rated": "Not Rated" }
           };
 
-          let result = collection.update_many(filter_doc, update_doc, None)?;
+          let result = collection.update_many(
+                filter_doc, update_doc, None
+            )?;
              
    * - | **Replace a Document**
        |
@@ -220,7 +224,9 @@ the async and sync runtime syntax.
               "directors": vec! [ "René Clair" ]
           };
 
-          let result = collection.replace_one(filter, replace_doc, None).await?;
+          let result = collection.replace_one(
+                filter, replace_doc, None
+            ).await?;
 
        *Sync Runtime*
 
@@ -235,7 +241,9 @@ the async and sync runtime syntax.
               "directors": vec! [ "René Clair" ]
           };
 
-          let result = collection.replace_one(filter, replace_doc, None)?;
+          let result = collection.replace_one(
+                filter, replace_doc, None
+            )?;
 
    * - | **Delete a Document**
        |
@@ -403,7 +411,9 @@ the async and sync runtime syntax.
               "directors": vec! [ "Sean Baker" ]
           };
 
-          let mut cursor = collection.distinct(field_name, filter, None).await?;
+          let mut cursor = collection.distinct(
+                field_name, filter, None
+            ).await?;
 
        *Sync Runtime*
 
@@ -415,7 +425,9 @@ the async and sync runtime syntax.
               "directors": vec! [ "Sean Baker" ]
           };
 
-          let mut cursor = collection.distinct(field_name, filter, None)?;
+          let mut cursor = collection.distinct(
+                field_name, filter, None
+            )?;
 
    * - | **Limit the Number of Documents Retrieved**
        |
