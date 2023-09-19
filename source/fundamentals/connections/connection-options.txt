@@ -48,7 +48,7 @@ string URI to specify the behavior of the client. To learn more about connection
 
    * - **authSource**
      - String
-     - See description.
+     - See description
      - Specifies the database used to authenticate.
        This option defaults to ``admin`` for SCRAM-based authentication mechanisms,
        ``$external`` for the ``MONGODB-X509`` mechanism, and the database name or
@@ -165,7 +165,7 @@ string URI to specify the behavior of the client. To learn more about connection
 
    * - **tlsCAFile**
      - String
-     - See description.
+     - See description
      - Specifies the path to the certificate authority (CA) file that the ``Client`` instance uses for TLS.
        If you do not specify this option, the driver uses the Mozilla root certificates from the ``webpki-roots`` crate.
 
