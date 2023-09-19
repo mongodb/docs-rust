@@ -23,11 +23,12 @@ your connection, and maintaining an internal connection pool. This guide describ
 Client Lifecycle
 ----------------
 
-Creating a new ``Client`` instance is relatively slow and resource-intensive.
-Therefore a ``Client`` instance should be as long-lived as possible.
+We recommend that you reuse your client across sessions and operations.
+You can use the same Client instance to perform multiple tasks, instead of creating a new one each time.
+The ``Client`` type is safe for concurrent use by multiple threads.
+
 The ``Client`` automatically manages connection pooling.
 When you create a single ``Client`` instance for multiple operations, you optimize its performance.
-
 Cloning it to pass to new contexts is extremely cheap.
 This means you can create a ``Client`` instance once at application startup and continually reuse it.
 
