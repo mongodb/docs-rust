@@ -20,7 +20,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-retrieve-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -30,7 +30,7 @@ their related reference and API documentation.
               None
           ).await?;
     
-       **Sync Driver**
+       *Sync Driver*
         
        .. code-block:: rust
           :copyable: true
@@ -46,7 +46,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-retrieve-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
     
        .. code-block:: rust
           :copyable: true
@@ -54,7 +54,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 1925 };
           let mut cursor = collection.find(filter, None).await?;
     
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -68,7 +68,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-insert-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
      
        .. code-block:: rust
           :copyable: true
@@ -79,7 +79,7 @@ their related reference and API documentation.
 
           let result = collection.insert_one(doc, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -96,7 +96,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-insert-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
  
        .. code-block:: rust
           :copyable: true
@@ -109,7 +109,7 @@ their related reference and API documentation.
 
           let result = collection.insert_many(docs, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -128,7 +128,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-change-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -141,7 +141,7 @@ their related reference and API documentation.
 
           let result = collection.update_one(filter_doc, update_doc, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -160,7 +160,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-change-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -173,7 +173,7 @@ their related reference and API documentation.
 
           let result = collection.update_many(filter_doc, update_doc, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -192,7 +192,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-change-guide>`  
 
-     - **Async Driver**
+     - *Async Driver*
     
        .. code-block:: rust
           :copyable: true
@@ -207,7 +207,7 @@ their related reference and API documentation.
 
           let result = collection.replace_one(filter, replace_doc, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -228,7 +228,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-delete-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
        
        .. code-block:: rust
           :copyable: true
@@ -236,7 +236,7 @@ their related reference and API documentation.
           let filter = doc! { "title": "Search and Destroy" };
           let result = collection.delete_one(filter, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
         :copyable: true
@@ -250,7 +250,7 @@ their related reference and API documentation.
        | Usage Example
        | :ref:`Fundamentals <rust-delete-guide>`
 
-     - **Async Driver**
+     - *Async Driver*
        
        .. code-block:: rust
           :copyable: true
@@ -261,7 +261,7 @@ their related reference and API documentation.
 
           let result = collection.delete_many(filter, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -274,11 +274,11 @@ their related reference and API documentation.
 
    * - | **Access Data from a Cursor Iteratively**
        |
-       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Collection.html#method.delete_many>`__ 
+       | `API Documentation <https://docs.rs/mongodb/latest/mongodb/struct.Cursor.html>`__ 
        | Usage Example
        | :ref:`Fundamentals <rust-cursor-guide>`
 
-     - **Async Driver** 
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -297,7 +297,7 @@ their related reference and API documentation.
               println!("{}", serde_json::to_string_pretty(&doc).unwrap());
           };
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -322,7 +322,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
        
        .. code-block:: rust
           :copyable: true
@@ -333,7 +333,7 @@ their related reference and API documentation.
 
           let result = collection.count_documents(filter, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -350,7 +350,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
        
        .. code-block:: rust
           :copyable: true
@@ -362,7 +362,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.distinct(field_name, filter, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -380,7 +380,7 @@ their related reference and API documentation.
        | Usage Example 
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
        
        .. code-block:: rust
           :copyable: true
@@ -392,7 +392,7 @@ their related reference and API documentation.
           let filter = doc! { "awards.wins": 25};
           let mut cursor = collection.find(filter, opts).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -410,7 +410,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -422,7 +422,7 @@ their related reference and API documentation.
           let filter = doc! { "runtime": 100 };
           let mut cursor = collection.find(filter, opts).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -440,7 +440,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -455,7 +455,7 @@ their related reference and API documentation.
 
           let mut cursor = collection.find(filter, opts).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -476,7 +476,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -488,7 +488,7 @@ their related reference and API documentation.
           let filter = doc! { "year": 2015 };
           let mut cursor = collection.find(filter, opts).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
@@ -506,7 +506,7 @@ their related reference and API documentation.
        | Usage Example
        | Fundamentals
 
-     - **Async Driver**
+     - *Async Driver*
       
        .. code-block:: rust
           :copyable: true
@@ -517,7 +517,7 @@ their related reference and API documentation.
 
           let result = collection.create_index(index, None).await?;
 
-       **Sync Driver**
+       *Sync Driver*
 
        .. code-block:: rust
           :copyable: true
