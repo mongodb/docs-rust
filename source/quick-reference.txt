@@ -9,7 +9,7 @@ their related reference and API documentation.
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75 75
+   :widths: 20 40 40
 
    * - Command
      - Syntax (Sync)
@@ -24,12 +24,18 @@ their related reference and API documentation.
      - .. code-block:: rust
           :copyable: true
 
-          let result = collection.find_one(doc! { "title": "Peter Pan" }, None)?;
+          let result = collection.find_one(
+              doc! { "title": "Peter Pan" },
+              None
+          )?;
     
      - .. code-block:: rust
           :copyable: true
 
-          let result = collection.find_one(doc! { "title": "Peter Pan" }, None).await?;
+          let result = collection.find_one(
+              doc! { "title": "Peter Pan" },
+              None
+          ).await?;
 
    * - | **Find Multiple Documents**
        |
@@ -58,13 +64,19 @@ their related reference and API documentation.
      - .. code-block:: rust
           :copyable: true
 
-          let doc = doc! { "title": "Mistress America", "type": "movie" };
+          let doc = doc! {
+              "title": "Mistress America", "type": "movie"
+          };
+
           let result = collection.insert_one(doc, None)?;
 
      - .. code-block:: rust
           :copyable: true
 
-          let doc = doc! { "title": "Mistress America", "type": "movie" };
+          let doc = doc! { 
+              "title": "Mistress America", "type": "movie" 
+          };
+
           let result = collection.insert_one(doc, None).await?;
 
    * - | **Insert Multiple Documents**
@@ -210,13 +222,19 @@ their related reference and API documentation.
      - .. code-block:: rust
           :copyable: true
  
-          let filter = doc! { "year": doc! { "$lt": 1920 } };
+          let filter = doc! {
+              "year": doc! { "$lt": 1920 } 
+          };
+
           let result = collection.delete_many(filter, None)?;
 
      - .. code-block:: rust
           :copyable: true
  
-          let filter = doc! { "year": doc! { "$lt": 1920 } };
+          let filter = doc! { 
+              "year": doc! { "$lt": 1920 } 
+          };
+
           let result = collection.delete_many(filter, None).await?;
 
    * - | **Access Data from a Cursor Iteratively**
@@ -268,13 +286,19 @@ their related reference and API documentation.
      - .. code-block:: rust
           :copyable: true
  
-          let filter = doc! { "languages": vec! [ "Mandarin" ] };
+          let filter = doc! {
+              "languages": vec! [ "Mandarin" ] 
+          };
+
           let result = collection.count_documents(filter, None)?;
 
      - .. code-block:: rust
           :copyable: true
  
-          let filter = doc! { "languages": vec! [ "Mandarin" ] };
+          let filter = doc! {
+              "languages": vec! [ "Mandarin" ]
+          };
+
           let result = collection.count_documents(filter, None).await?;
 
    * - | **List the Distinct Documents or Field Values**
@@ -287,14 +311,20 @@ their related reference and API documentation.
           :copyable: true
  
           let field_name = "title";
-          let filter = doc! { "directors": vec! [ "Sean Baker" ] };
+          let filter = doc! {
+              "directors": vec! [ "Sean Baker" ]
+          };
+
           let mut cursor = collection.distinct(field_name, filter, None)?;
 
      - .. code-block:: rust
           :copyable: true
  
           let field_name = "title";
-          let filter = doc! { "directors": vec! [ "Sean Baker" ] };
+          let filter = doc! {
+              "directors": vec! [ "Sean Baker" ]
+          };
+
           let mut cursor = collection.distinct(field_name, filter, None).await?;
 
    * - | **Limit the Number of Documents Retrieved**
@@ -362,7 +392,10 @@ their related reference and API documentation.
               .sort(doc! { "imdb.rating": 1 })
               .build();
 
-          let filter = doc! { "directors": vec! [ "Nicole Holofcener" ] };
+          let filter = doc! {
+              "directors": vec! [ "Nicole Holofcener" ]
+          };
+
           let mut cursor = collection.find(filter, opts)?;
 
      - .. code-block:: rust
@@ -372,7 +405,10 @@ their related reference and API documentation.
               .sort(doc! { "imdb.rating": 1 })
               .build();
 
-          let filter = doc! { "directors": vec! [ "Nicole Holofcener" ] };
+          let filter = doc! {
+              "directors": vec! [ "Nicole Holofcener" ]
+          };
+          
           let mut cursor = collection.find(filter, opts).await?;
 
    * - | **Project Document Fields When Retrieving Them**
