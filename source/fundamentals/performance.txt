@@ -32,16 +32,7 @@ When you create a single ``Client`` instance for multiple operations, you optimi
 Cloning it to pass to new contexts is extremely cheap.
 This means you can create a ``Client`` instance once at application startup and continually reuse it.
 
-Consider the following code.
-It constructs and tears down a ``Client`` instance with every request.
-
-.. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
-   :language: rust
-   :dedent:
-   :start-after: start-perf-client-slow
-   :end-before: end-perf-client-slow
-
-Instead, pass a longer-lived ``Client`` instance to the handler function.
+Creating a new ``Client`` instance for each request results in slower performance.
 The following code accepts a pointer to an existing ``Client`` instance,
 allowing many requests to share the same client:
 
