@@ -29,7 +29,7 @@ running the ``collMod`` MongoDB Shell command on an existing collection.
    This guide only describes how to enable schema validation while creating
    a collection with methods available in the {+driver-short+}. To learn 
    more about enabling schema validation on existing collections, see 
-   :manual:`</reference/command/collMod/>` in the Server manual.
+   :manual:`collMod </reference/command/collMod/>` in the Server manual.
 
 Implement Schema Validation
 ---------------------------
@@ -52,6 +52,9 @@ to specify the validation rules and scope for your collection:
    * - ``validator()``
      - Specify validation rules for a collection by passing a JSON schema.
        
+       For more information, see the :ref:`<rust-json-validation>`
+       section on this page.
+       
    * - ``validation_level()``
      - Specify which insert and update operations are subject to the validation
        rules. 
@@ -64,7 +67,28 @@ to specify the validation rules and scope for your collection:
        that don't follow the validation rules.
 
        Possible values: ``ValidationAction::Error``, ``ValidationAction::Warn``.
-      
+
+.. _rust-json-validation:
+
+JSON Schema Validation
+~~~~~~~~~~~~~~~~~~~~~~
+
+To set validation rules with the ``validator()`` method, you can pass a JSON
+schema to ``validator()``. 
+
+To pass a JSON schema, or a model that specifies field validation rules, use
+the ``$jsonSchema`` operator and a JSON Schema object. The JSON Schema object
+contains a series of ``<field>: <value>`` pairs that establish guidelines for
+your collection's document fields. Some JSON object fields include the following: 
+
+- ``title``, which sets a descriptive title for the schema
+- ``required``, which specifies a list of required fields for each document in
+  your collection
+- ``properties``, which sets property requirements for individual document fields
+
+For a full list of JSON Schema object fields, see :manual:`JSON Schema
+</reference/operator/query/jsonSchema/#json-schema>` in the Server manual.
+
 Example
 ~~~~~~~
 
@@ -156,6 +180,8 @@ see the following Server manual documentation:
 - :manual:`validator </reference/command/collMod/#mongodb-collflag-validator>`
 - :manual:`validationLevel </reference/command/collMod/#mongodb-collflag-validationLevel>`
 - :manual:`validationAction </reference/command/collMod/#mongodb-collflag-validationAction>`
+- :manual:`JSON Schema Validation </core/schema-validation/specify-json-schema/#std-label-schema-validation-json>`
+- :manual:`Query Operator Validation </core/schema-validation/specify-query-expression-rules/#std-label-schema-validation-query-expression>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -166,9 +192,10 @@ guide, see the following API Documentation:
 - `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
 - `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 - `validator <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validator>`__
-- validation_level:
+- Validation level:
    - For the ``builder()`` method, see `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__
    - For possible values, see `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__
-- validation_action:
+- Validation action:
    - For the ``builder()`` method, see `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
    - For possible values, see `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__
+ 
