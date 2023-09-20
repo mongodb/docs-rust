@@ -79,8 +79,7 @@ Parallelism
 -----------
 
 If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
-
-.. TODO The following code
+The following code uses ``tokio`` to create separate tasks for multiple database operations.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
    :language: rust
