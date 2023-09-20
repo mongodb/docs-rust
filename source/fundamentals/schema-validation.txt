@@ -1,0 +1,174 @@
+.. _rust-schema-validation:
+
+==================
+Schema Validation
+==================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to use the {+driver-short+} to implement
+**schema validation** for your MongoDB collections.
+
+Use schema validation to restrict data types and value ranges for document
+fields in a specified collection. If you implement schema validation, the
+server only allows you to execute write operations that follow the validation
+rules.
+
+You can implement schema validation when creating a collection or by
+running the ``collMod`` MongoDB Shell command on an existing collection. 
+
+.. note::
+
+   This guide only describes how to enable schema validation while creating
+   a collection with methods available in the {+driver-short+}. To learn 
+   more about enabling schema validation on existing collections, see 
+   :manual:`</reference/command/collMod/>` in the Server manual.
+
+Implement Schema Validation
+---------------------------
+
+You can implement schema validation by building a ``CreateCollectionOptions``
+instance with ``CreateCollectionOptions::builder()`` and calling the required 
+validation methods on the builder. Then, pass your ``CreateCollectionOptions``
+instance to the ``create_collection()`` method.
+
+Call the following validation methods on ``CreateCollectionOptions::builder()``
+to specify the validation rules and scope for your collection:
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Method
+     - Description
+
+   * - ``validator()``
+     - Specify validation rules for a collection by passing a JSON schema.
+       
+   * - ``validation_level()``
+     - Specify which insert and update operations are subject to the validation
+       rules. 
+
+       Possible values: ``ValidationLevel::Off``,
+       ``ValidationLevel::Strict``, ``ValidationLevel::Moderate``.
+
+   * - ``validation_action()``
+     - Specify whether the driver should throw an error or a warning if you insert documents
+       that don't follow the validation rules.
+
+       Possible values: ``ValidationAction::Error``, ``ValidationAction::Warn``.
+      
+Example
+~~~~~~~
+
+This example creates a collection called ``survey_answers`` with the
+following validation specifications:
+
+- The ``validator()`` method recieves a JSON schema specifying that the
+  ``answer`` field in each document must have a value of ``"inaccurate"``
+  or ``"accurate"``.
+- The ``validation_action()`` method specifies that the driver should
+  raise an ``Error`` if a write operation violates the validation rule.
+- The ``validation_level()`` method specifies that the validation is
+  ``Moderate``, so the validation rules apply only to inserts and
+  updates on existing valid documents.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/schema-validation.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-schema-validation
+   :end-before: end-schema-validation
+   :emphasize-lines: 6-10
+
+The following documents follow the validation rules and can be successfully
+inserted:
+
+.. code-block:: json
+   :copyable: false
+   :emphasize-lines: 4, 9
+
+   {
+     "_id": { ... },
+     "question": "Do you like to exercise?",
+     "answer": "yes"
+   },
+   {
+     "_id": { ... },
+     "question": "Do you like to play computer games?",
+     "answer": "no"
+   }
+
+However, if you attempt to insert the following document, the driver
+raises an error because the value of ``answer`` does not match any of
+the valid options:
+
+.. io-code-block::
+   :copyable: false
+
+   .. input::
+      :language: json
+      :emphasize-lines: 4
+
+      {
+        "_id": { ... },
+        "question": "Do you like to exercise?",
+        "answer": "depends on my mood"
+      }
+
+   .. output::
+      :language: none
+      :visible: false
+
+      Error: Error { kind: Write(WriteError(WriteError { code: 121, code_name:
+      None, message: "Document failed validation", details:
+      Some(Document({"failingDocumentId":
+      ObjectId("..."), "details":
+      Document({"operatorName": String("$jsonSchema"), "title": String("Answer
+      Value Validation"), ... })})) })), ... }
+
+.. tip:: Bypass Schema Validation
+   
+   You may need to perform write operations that violate a collection's
+   validation rules and are not exempt from validation through your ``validation_level``.
+   To perform this type of write operation, set the ``bypass_document_validation``
+   field to ``true`` in the write method's options parameter.
+   
+   To see an example of how to specify this setting in the options for the
+   ``insert_one()`` method, see the :ref:`Modify insert_one Behavior
+   <rust-insertone-bypass-validation-ex>` section of the Insert Documents guide.
+
+To learn more about schema validation, see :manual:`Schema Validation
+</core/schema-validation/>` in the Server manual.
+
+Additional Information
+----------------------
+
+To learn more about the MongoDB Server operations mentioned on this page,
+see the following Server manual documentation:
+
+- :manual:`validator </reference/command/collMod/#mongodb-collflag-validator>`
+- :manual:`validationLevel </reference/command/collMod/#mongodb-collflag-validationLevel>`
+- :manual:`validationAction </reference/command/collMod/#mongodb-collflag-validationAction>`
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types discussed in this
+guide, see the following API Documentation:
+
+- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `validator <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validator>`__
+- validation_level:
+   - For the ``builder()`` method, see `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__
+   - For possible values, see `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__
+- validation_action:
+   - For the ``builder()`` method, see `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
+   - For possible values, see `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__

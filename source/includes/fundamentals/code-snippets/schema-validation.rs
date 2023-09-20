@@ -9,7 +9,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let db: mongodb::Database = client.database("test_db");
 
-    // begin-document-validation
+    // begin-schema-validation
     let validator =
         doc! {
             "$jsonSchema": doc! {
@@ -17,7 +17,7 @@ async fn main() -> mongodb::error::Result<()> {
                "title": "Answer Value Validation",
                "properties": doc! {
                   "answer": doc! {
-                     "enum": vec! [ "inaccurate", "accurate" ],
+                     "enum": vec! [ "yes", "no" ],
                   }
                }
             }
@@ -29,7 +29,7 @@ async fn main() -> mongodb::error::Result<()> {
         .build();
 
     db.create_collection("survey_answers", validation_opts).await?;
-    // end-document-validation
+    // end-schema-validation
 
     Ok(())
 }

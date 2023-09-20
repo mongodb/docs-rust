@@ -10,7 +10,7 @@ Fundamentals
 
    /fundamentals/connections
    /fundamentals/crud
-   /fundamentals/document-validation
+   /fundamentals/schema-validation
    /fundamentals/aggregation
    /fundamentals/run-command
 
