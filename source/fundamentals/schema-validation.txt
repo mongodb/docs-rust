@@ -36,7 +36,7 @@ Implement Schema Validation
 
 You can implement schema validation by building a ``CreateCollectionOptions``
 instance with ``CreateCollectionOptions::builder()`` and calling the required 
-validation methods on the builder. Then, pass your ``CreateCollectionOptions``
+validation methods on the ``builder()`` method. Then, pass your ``CreateCollectionOptions``
 instance to the ``create_collection()`` method.
 
 Call the following validation methods on ``CreateCollectionOptions::builder()``
@@ -73,10 +73,10 @@ to specify the validation rules and scope for your collection:
 JSON Schema Validation
 ~~~~~~~~~~~~~~~~~~~~~~
 
-To set validation rules with the ``validator()`` method, you can pass a JSON
-schema to ``validator()``. 
+To set validation rules with the ``validator()`` method, pass a JSON schema
+as an argument.
 
-To pass a JSON schema, or a model that specifies field validation rules, use
+To define a JSON schema, or a model that specifies field validation rules, use
 the ``$jsonSchema`` operator and a JSON Schema object. The JSON Schema object
 contains a series of ``<field>: <value>`` pairs that establish guidelines for
 your collection's document fields. Some JSON object fields include the following: 
@@ -84,7 +84,7 @@ your collection's document fields. Some JSON object fields include the following
 - ``title``, which sets a descriptive title for the schema
 - ``required``, which specifies a list of required fields for each document in
   your collection
-- ``properties``, which sets property requirements for individual document fields
+- ``properties``, which sets property requirements for individual fields
 
 For a full list of JSON Schema object fields, see :manual:`JSON Schema
 </reference/operator/query/jsonSchema/#json-schema>` in the Server manual.
@@ -96,8 +96,8 @@ This example creates a collection called ``survey_answers`` with the
 following validation specifications:
 
 - The ``validator()`` method recieves a JSON schema specifying that the
-  ``answer`` field in each document must have a value of ``"inaccurate"``
-  or ``"accurate"``.
+  ``answer`` field in each document must have a value of ``"yes"`` or
+  ``"no"``.
 - The ``validation_action()`` method specifies that the driver should
   raise an ``Error`` if a write operation violates the validation rule.
 - The ``validation_level()`` method specifies that the validation is
@@ -168,9 +168,6 @@ the valid options:
    ``insert_one()`` method, see the :ref:`Modify insert_one Behavior
    <rust-insertone-bypass-validation-ex>` section of the Insert Documents guide.
 
-To learn more about schema validation, see :manual:`Schema Validation
-</core/schema-validation/>` in the Server manual.
-
 Additional Information
 ----------------------
 
@@ -180,22 +177,26 @@ see the following Server manual documentation:
 - :manual:`validator </reference/command/collMod/#mongodb-collflag-validator>`
 - :manual:`validationLevel </reference/command/collMod/#mongodb-collflag-validationLevel>`
 - :manual:`validationAction </reference/command/collMod/#mongodb-collflag-validationAction>`
-- :manual:`JSON Schema Validation </core/schema-validation/specify-json-schema/#std-label-schema-validation-json>`
-- :manual:`Query Operator Validation </core/schema-validation/specify-query-expression-rules/#std-label-schema-validation-query-expression>`
+- :manual:`Schema Validation </core/schema-validation/>`
+- :manual:`Specify JSON Schema </core/schema-validation/specify-json-schema/#std-label-schema-validation-json>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
-guide, see the following API Documentation:
+To learn more about setting validation levels and actions, see the
+following API Documentation:
+
+- `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__ 
+  for the ``validation_level()`` builder method
+- `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__ for possible ``validation_level`` values
+- `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
+  for the ``validation_action()`` builder method
+- `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__ for possible ``validation_action`` values
+
+To learn more about any other methods or types discussed in this
+guide, see the following documentation:
 
 - `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
 - `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 - `validator <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validator>`__
-- Validation level:
-   - For the ``builder()`` method, see `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__
-   - For possible values, see `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__
-- Validation action:
-   - For the ``builder()`` method, see `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
-   - For possible values, see `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__
- 
+  
