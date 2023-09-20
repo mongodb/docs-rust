@@ -14,7 +14,7 @@ Overview
 --------
 
 In this guide, you can learn how to optimize performance of the {+driver-short+}.
-In the {+driver-short+}, you must create a ``Client`` instance to connect to MongoDB. Your ``Client``
+To connect to MongoDB, you must create a ``Client`` instance. Your ``Client``
 instance automatically handles most aspects of connection, such as discovering server topology, monitoring
 your connection, and maintaining an internal connection pool. This guide describes best practices to configure and use your ``Client`` instance.
 
@@ -24,7 +24,7 @@ Client Lifecycle
 ----------------
 
 We recommend that you reuse your client across sessions and operations.
-You can use the same Client instance to perform multiple tasks, instead of creating a new one each time.
+You can use the same ``Client`` instance to perform multiple tasks, instead of creating a new one each time.
 The ``Client`` type is safe for concurrent use by multiple threads.
 
 The ``Client`` automatically manages connection pooling.
@@ -33,8 +33,8 @@ Cloning it to pass to new contexts is extremely cheap.
 This means you can create a ``Client`` instance once at application startup and continually reuse it.
 
 Creating a new ``Client`` instance for each request results in slower performance.
-The following code accepts a pointer to an existing ``Client`` instance,
-allowing many requests to share the same client:
+The following code creates a method that accepts a pointer to an existing ``Client`` instance,
+which allows you to execute many requests by using same client:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
@@ -53,7 +53,7 @@ If you use a ``Client`` instance to execute operations on a different runtime, y
 If you are using the ``test`` helper macro from the ``tokio`` or ``async_std`` crate to test your application,
 you might accidentally run operations on a different runtime than you intended.
 This is because these helper macros create a new runtime for each test.
-To avoid this issue, do one of the following:
+You can use one of the following strategies to avoid this issue:
 
 - Attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
 - Create a new ``Client`` instance for every ``async`` test
@@ -79,7 +79,8 @@ Parallelism
 -----------
 
 If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
-The following code uses ``tokio`` to create separate tasks for multiple database operations.
+The following code uses the ``task`` module from the ``tokio`` crate to create separate, concurrent
+tasks for multiple data operations:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-parallel.rs
    :language: rust

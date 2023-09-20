@@ -1,5 +1,5 @@
 async fn handle_request() -> Result<(), Box<dyn Error>> {
-    let client = Client::with_uri_str("mongodb://example.com").await?;
+    let client = Client::with_uri_str("<connection string>").await?;
     // Do something with the client
     Ok(())
 }
