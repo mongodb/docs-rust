@@ -15,7 +15,9 @@ async fn main() -> Result<()> {
         println!("{:?}", cursor.deserialize_current()?);
     }
     // end-indiv-builtin
+
     println!();
+
     // start-indiv-stream
     let mut cursor = my_coll.find(doc! { "color": "red" }, None).await?;
     println!("Output from next() iteration:");
@@ -30,9 +32,11 @@ async fn main() -> Result<()> {
     }
     // end-indiv-stream
 
+    println!();
+    
     // start-array
     let cursor = my_coll.find(doc! { "color": "red" }, None).await?;
-    println!("\nOutput from collect():");
+    println!("Output from collect():");
     let v: Vec<Result<Document>> = cursor.collect().await;
     println!("{:?}", v);
 

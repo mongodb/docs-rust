@@ -27,8 +27,7 @@ After you run a read operation or aggregation, the returned ``Cursor`` instance
 contains the first batch of results from the operation. As you iterate through
 the cursor, the server returns more individual results. If there are more
 matching documents after you reach the end of a batch of results, the ``Cursor``
-instance fetches the next batch of documents until all of the results are
-returned.
+instance fetches the next batch of documents until all the results are returned.
 
 This guide includes the following sections:
 
@@ -54,11 +53,11 @@ Retrieve Documents Individually
 The driver provides the following access patterns to iterate through
 documents returned by a ``Cursor`` instance:
 
-- :ref:`Built-in Pattern <rust-cursor-indiv-builtin>`: use the ``advance()`` method to
-  move the cursor forward, and then retrieve and deserialize the
-  current document by using the ``deserialize_current()`` method
-- :ref:`Stream Implementation Pattern <rust-cursor-indiv-stream>`: iterate over the cursor by
-  using the ``next()`` or ``try_next()`` methods.
+- :ref:`Built-in Pattern <rust-cursor-indiv-builtin>`: advance the cursor,
+  then retrieve and deserialize the current document
+- :ref:`Stream Implementation Pattern <rust-cursor-indiv-stream>`: iterate over
+  the cursor and call methods provided by ``Stream`` to process single
+  or multiple documents
 
 The following sections describe these access patterns and corresponding
 methods in more detail.
@@ -68,9 +67,12 @@ methods in more detail.
 Built-in Pattern
 ~~~~~~~~~~~~~~~~
 
+You can use the driver's built-in access pattern to retrieve and process
+documents one by one.
+
 The ``Cursor`` type includes the ``advance()`` and
 ``deserialize_current()`` methods to iterate through a cursor and
-retrieve documents individually.
+access documents individually.
 
 The ``advance()`` method moves the cursor forward and sends a request to the
 database for more results when the local buffer is exhausted. This
@@ -116,15 +118,13 @@ collection:
 Stream Implementation Pattern
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can access cursor results as a stream <explain the benefits, perhaps
-incorporating the content of the second sentence>. The ``Cursor`` type
-implements the ``Stream`` trait, which allows you to call any functions
-available on Streams to access the data.
+You can access cursor results as a stream to retrieve individual documents
+or collect multiple documents at once.
 
 The ``Cursor`` type implements the ``Stream`` trait, so you can iterate
-through the cursor as a stream. You might find this access pattern to be
-more ergonomic for many use cases than the pattern that uses the built-in
-``Cursor`` methods.
+through the cursor as a stream. This pattern may help you write more concise
+code than the built-in pattern, since you can call a variety of useful
+combinator functions on the cursor provided by the ``Stream`` trait.
 
 You can use the following methods to use the stream pattern:
 
@@ -236,12 +236,13 @@ an options instance:
 
    * - ``batch_size`` 
      - | Specifies the number of documents the server should return per
-         cursor batch. This option specifies the number of documents the server
-         keeps in memory rather than the number of documents returned by a cursor.
+         cursor batch. This option sets the number of documents the cursor
+         keeps in memory rather than the number of documents the cursor
+         returns.
 
        | Type: ``u32``
-       | Default: ``101`` documents initially, ``16`` megabyte maximum for subsequent
-         batches
+       | Default: ``101`` documents initially, ``16 megabyte`` maximum for
+         subsequent batches
 
    * - ``cursor_type`` 
      - | Specifies the type of cursor to return. You can set this option
