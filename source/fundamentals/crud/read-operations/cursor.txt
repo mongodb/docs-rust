@@ -14,34 +14,36 @@ Overview
 --------
 
 In this guide, you can learn how to use the {+driver-short+} to access
-data from a collection by using a **cursor**. A cursor is a mechanism
-that allows you to iterate through multiple documents while
-holding only a subset of them in memory at a given time. The driver
-implements the ``Cursor`` type to provide cursor functionality.
-For example, when you execute a find operation that returns multiple
-documents, the driver returns a ``Cursor`` type that references the
-matched documents.
+data from a read operation or aggregation by using a **cursor**. A cursor
+is a mechanism that enables you to iterate through multiple documents while
+holding only a subset of them in memory at a given time. 
 
-When the driver returns a ``Cursor`` instance, it contains the first batch
-of results from the operation, and then the server returns more
-individual results as you iterate through the cursor. If there are more
-results after you exhaust the batch of results, the ``Cursor`` instance
-will fetch the next batch of documents until all of the results are returned.
+The driver offers the ``Cursor`` type to retrieve documents from a cursor.
+For example, when you run a find operation that can return multiple
+documents, the driver returns a ``Cursor`` instance from which you can access
+the matched documents.
+
+After you run a read operation or aggregation, the returned ``Cursor`` instance
+contains the first batch of results from the operation. As you iterate through
+the cursor, the server returns more individual results. If there are more
+matching documents after you reach the end of a batch of results, the ``Cursor``
+instance fetches the next batch of documents until all of the results are
+returned.
 
 This guide includes the following sections:
 
 - :ref:`Retrieve Documents Individually <rust-cursor-individual>`:
-  describes how to access results one at a time by using a cursor
+  describes how to use iteration or a stream to access results one at a time
 
 - :ref:`Retrieve Documents as an Array <rust-cursor-array>`:
-  describes how to access results all at once by converting the cursor
-  to an array
+  describes how to access all results as a single array by collecting the
+  returned cursor results
 
-- :ref:`Modify Cursor Attributes <rust-cursor-options>`: describes how
+- :ref:`Specify Cursor Behavior <rust-cursor-options>`: describes how
   to configure the cursor that a method returns
 
 - :ref:`Additional Information <rust-cursor-addtl-info>`:
-  provides links to additional resources and API documentation for types
+  provides links to related topics and API documentation for types
   and methods mentioned in this guide
 
 .. _rust-cursor-individual:
@@ -49,7 +51,7 @@ This guide includes the following sections:
 Retrieve Documents Individually
 -------------------------------
 
-The driver provides the following code patterns to iterate through
+The driver provides the following access patterns to iterate through
 documents returned by a ``Cursor`` instance:
 
 - :ref:`Built-in Pattern <rust-cursor-indiv-builtin>`: use the ``advance()`` method to
@@ -58,7 +60,7 @@ documents returned by a ``Cursor`` instance:
 - :ref:`Stream Implementation Pattern <rust-cursor-indiv-stream>`: iterate over the cursor by
   using the ``next()`` or ``try_next()`` methods.
 
-The following sections describe these code patterns and corresponding
+The following sections describe these access patterns and corresponding
 methods in more detail.
 
 .. _rust-cursor-indiv-builtin:
@@ -89,7 +91,7 @@ type that your collection is parameterized with.
    ``deserialize_current()`` on the cursor without a ``true`` result or
    without calling previously calling ``advance()``.
 
-The following example shows how to implement this code pattern to
+The following example shows how to implement this access pattern to
 iterate through the results of a find operation on the ``fruits``
 collection:
 
@@ -114,20 +116,25 @@ collection:
 Stream Implementation Pattern
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+You can access cursor results as a stream <explain the benefits, perhaps
+incorporating the content of the second sentence>. The ``Cursor`` type
+implements the ``Stream`` trait, which allows you to call any functions
+available on Streams to access the data.
+
 The ``Cursor`` type implements the ``Stream`` trait, so you can iterate
-through the cursor as a stream. You might find this code pattern to be
+through the cursor as a stream. You might find this access pattern to be
 more ergonomic for many use cases than the pattern that uses the built-in
 ``Cursor`` methods.
 
 You can use the following methods to use the stream pattern:
 
-- ``next()``: moves to the next item in the cursor and returns
-  an ``Option<Result<T>>`` type
-- ``try_next``: moves to the next item in the cursor and returns
-  a ``Result<Option<T>>`` type, which makes it easier to use with the
-  ``?`` operator
+- ``next()``: advances the cursor to the next result and returns an
+  ``Option<Result<T>>`` type
+- ``try_next()``: advances the cursor to the next result and returns
+  a ``Result<Option<T>>`` type, which is easier to use with the ``?``
+  operator
 
-.. note::
+.. important:: Required Imports for Stream Pattern Methods
 
    To use the ``next()`` method, you must import the ``StreamExt``
    trait. To use the ``try_next()`` method, you must import the
@@ -199,18 +206,18 @@ You can use the following methods to retrieve documents as an array:
       Output from try_collect():
       [Document({"_id": ObjectId("..."), "name": String("banana"), "color": String("yellow")}), Document({"_id": ObjectId("..."), "name": String("pineapple"), "color": String("yellow")})]
 
-.. important:: Large Query Results
+.. warning:: Avoid Exceeding Application Memory Limits
 
-   Your application might crash if the number and size of documents
-   returned by your query exceeds available application memory. If you expect
-   a large result set, you should retrieve documents from the cursor
-   individually, instead of collecting them into a cursor. To learn how
-   to iterate through the cursor, see the :ref:`Retrieve Documents Individually <rust-cursor-individual>` section of this guide.
+   Avoid converting large sets of results to arrays. If the array exceeds
+   the size of available application memory, your application might crash.
+   If you expect a large result set, retrieve documents from the cursor individually.
+   To learn how to iterate through the cursor, see the :ref:`Retrieve Documents Individually 
+   <rust-cursor-individual>` section of this guide.
 
 .. _rust-cursor-options:
 
-Modify Cursor Attributes
-------------------------
+Specify Cursor Behavior
+-----------------------
 
 To modify the cursor that an operation returns, pass options to
 the method that returns the ``Cursor`` instance. For example, you can
@@ -229,11 +236,12 @@ an options instance:
 
    * - ``batch_size`` 
      - | Specifies the number of documents the server should return per
-         cursor batch. This option affects only the number of documents
-         kept in memory at a given time, not the number of documents
-         returned by a cursor.
+         cursor batch. This option specifies the number of documents the server
+         keeps in memory rather than the number of documents returned by a cursor.
 
        | Type: ``u32``
+       | Default: ``101`` documents initially, ``16`` megabyte maximum for subsequent
+         batches
 
    * - ``cursor_type`` 
      - | Specifies the type of cursor to return. You can set this option
@@ -251,10 +259,10 @@ an options instance:
        .. important::
           
           Because the ``Cursor`` type implements the ``Drop`` trait, the
-          server will by default close a cursor when it goes out of
-          scope. The server executes an asynchronous ``killCursors``
-          command to close the cursor. See :manual:`killCursors
-          </reference/command/killCursors/>` in the Server manual to learn more.
+          server closes a cursor when it goes out of scope. The server
+          executes an asynchronous ``killCursors`` command to close the
+          cursor. See :manual:`killCursors </reference/command/killCursors/>`
+          in the Server manual to learn more.
 
        | Type: ``bool``
        | Default: ``false``
@@ -274,8 +282,8 @@ instance and specify cursor-related settings:
 Additional Information
 ----------------------
 
-To learn more about the operations discussed in this guide, see the
-following guides:
+To learn more about the operations in this guide, see the
+following Rust driver reference documentation:
 
 - :ref:`rust-retrieve-guide`
 - :ref:`rust-query-guide`
@@ -286,18 +294,18 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 To learn more about the methods and types discussed in this
-guide, see the following API Documentation:
+guide, see the following API documentation:
 
 - `Cursor <{+api+}/struct.Cursor.html>`__
 - `advance() <{+api+}/struct.Cursor.html#method.advance>`__
 - `deserialize_current() <{+api+}/struct.Cursor.html#method.deserialize_current>`__
 - `next() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.next>`__ in the
-  ``StreamExt`` API documentation
+  ``StreamExt`` trait
 - `try_next() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_next>`__ in the
-  ``TryStreamExt`` API documentation
+  ``TryStreamExt`` trait
 - `collect() <https://docs.rs/futures/latest/futures/stream/trait.StreamExt.html#method.collect>`__ in the
-  ``StreamExt`` API documentation
+  ``StreamExt`` trait
 - `try_collect() <https://docs.rs/futures/latest/futures/stream/trait.TryStreamExt.html#method.try_collect>`__ in the
-  ``TryStreamExt`` API documentation
+  ``TryStreamExt`` trait
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__

@@ -15,10 +15,10 @@ async fn main() -> Result<()> {
         println!("{:?}", cursor.deserialize_current()?);
     }
     // end-indiv-builtin
-
+    println!();
     // start-indiv-stream
     let mut cursor = my_coll.find(doc! { "color": "red" }, None).await?;
-    println!("\nOutput from next() iteration:");
+    println!("Output from next() iteration:");
     while let Some(doc) = cursor.next().await {
         println!("{}", doc?);
     }
