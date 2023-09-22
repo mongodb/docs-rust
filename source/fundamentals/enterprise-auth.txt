@@ -21,14 +21,14 @@ mechanism to establish trust between the driver and the server.
 The {+driver-short+} supports only the :ref:`LDAP (PLAIN) <rust-LDAP>`
 authentication mechanism.
 
-.. tip:: GSSAPI/Kerberos Authentication
+.. note:: GSSAPI/Kerberos Authentication
    
-   Though the driver does not support the GSSAPI/Kerberos authentication
-   mechanism, you can use other methods to authenticate this way. To
+   The driver does not support the GSSAPI/Kerberos authentication
+   mechanism, but you can use other methods to authenticate this way. To
    learn more about these methods, see :manual:`Kerberos Authentication
    </core/kerberos/>` in the Server manual.
 
-.. tip::
+.. seealso::
 
    To authenticate to MongoDB by using mechanisms available in
    the MongoDB Community Edition, see the guide on :ref:`<rust-authentication>`.
