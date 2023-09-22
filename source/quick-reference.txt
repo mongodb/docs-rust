@@ -32,23 +32,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let result = collection.find_one(
-              doc! { "title": "Peter Pan" },
-              None
-          ).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-find-one
+          :end-before: end-find-one
     
        *Sync Runtime*
         
-       .. code-block:: rust
-          :copyable: true
-
-          let result = collection.find_one(
-              doc! { "title": "Peter Pan" },
-              None
-          )?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-find-one
+          :end-before: end-find-one
 
    * - | **Find Multiple Documents**
        |
@@ -58,19 +54,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
     
-       .. code-block:: rust
-          :copyable: true
-
-          let filter = doc! { "year": 1925 };
-          let mut cursor = collection.find(filter, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-find-multiple
+          :end-before: end-find-multiple
     
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let filter = doc! { "year": 1925 };
-          let mut cursor = collection.find(filter, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-find-multiple
+          :end-before: end-find-multiple
 
    * - | **Insert a Document**
        |
@@ -80,25 +76,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
      
-       .. code-block:: rust
-          :copyable: true
-
-          let doc = doc! {
-              "title": "Mistress America", "type": "movie"
-          };
-
-          let result = collection.insert_one(doc, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-insert-one
+          :end-before: end-insert-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let doc = doc! { 
-              "title": "Mistress America", "type": "movie" 
-          };
-
-          let result = collection.insert_one(doc, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-insert-one
+          :end-before: end-insert-one
 
    * - | **Insert Multiple Documents**
        |
@@ -108,29 +98,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
  
-       .. code-block:: rust
-          :copyable: true
-
-          let docs = vec![
-              doc! { "title": "Friends With Money", "runtime": 88 },
-              doc! { "title": "Please Give", "runtime": 90 },
-              doc! { "title": "You Hurt My Feelings", "runtime": 93 },
-          ];
-
-          let result = collection.insert_many(docs, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-insert-one
+          :end-before: end-insert-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let docs = vec![
-              doc! { "title": "Friends With Money", "runtime": 88 },
-              doc! { "title": "Please Give", "runtime": 90 },
-              doc! { "title": "You Hurt My Feelings", "runtime": 93 },
-          ];
-
-          let result = collection.insert_many(docs, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-insert-many
+          :end-before: end-insert-many
 
    * - | **Update a Document**
        |
@@ -140,33 +120,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-
-          let filter_doc = doc! { "title": "Burn After Reading"};
-          let update_doc =
-              doc! {
-                  "$set": doc!{ "num_mflix_comments": 1 }
-          };
-
-          let result = collection.update_one(
-                filter_doc, update_doc, None
-            ).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let filter_doc = doc! { "title": "Burn After Reading"};
-          let update_doc =
-              doc! {
-                  "$set": doc!{ "num_mflix_comments": 1 }
-          };
-
-          let result = collection.update_one(
-                filter_doc, update_doc, None
-            )?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
    * - | **Update Multiple Documents**
        |
@@ -176,33 +142,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-
-          let filter_doc = doc! { "rated": "PASSED"};
-          let update_doc =
-              doc! {
-                  "$set": doc!{ "rated": "Not Rated" }
-          };
-
-          let result = collection.update_many(
-                filter_doc, update_doc, None
-            ).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let filter_doc = doc! { "rated": "PASSED"};
-          let update_doc =
-              doc! {
-                  "$set": doc!{ "rated": "Not Rated" }
-          };
-
-          let result = collection.update_many(
-                filter_doc, update_doc, None
-            )?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-many
+          :end-before: end-update-many
              
    * - | **Replace a Document**
        |
@@ -212,37 +164,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
     
-       .. code-block:: rust
-          :copyable: true
-
-          let filter = doc! { "title": "è Nous la Libertè" };
-          let replace_doc =
-              doc! {
-              "title": "À nous la liberté",
-              "type": "movie",
-              "directors": vec! [ "René Clair" ]
-          };
-
-          let result = collection.replace_one(
-                filter, replace_doc, None
-            ).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let filter = doc! { "title": "è Nous la Libertè" };
-          let replace_doc =
-              doc! {
-              "title": "À nous la liberté",
-              "type": "movie",
-              "directors": vec! [ "René Clair" ]
-          };
-
-          let result = collection.replace_one(
-                filter, replace_doc, None
-            )?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-replace
+          :end-before: end-replace
 
    * - | **Delete a Document**
        |
@@ -252,19 +186,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
        
-       .. code-block:: rust
-          :copyable: true
-
-          let filter = doc! { "title": "Search and Destroy" };
-          let result = collection.delete_one(filter, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-        :copyable: true
-
-        let filter = doc! { "title": "Search and Destroy" };
-        let result = collection.delete_one(filter, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-delete-one
+          :end-before: end-delete-one
           
    * - | **Delete Multiple Documents**
        |
@@ -275,24 +209,19 @@ a corresponding async and sync runtime example.
      - *Async Runtime*
        
        .. code-block:: rust
-          :copyable: true
- 
-          let filter = doc! {
-              "year": doc! { "$lt": 1920 } 
-          };
-
-          let result = collection.delete_many(filter, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
- 
-          let filter = doc! { 
-              "year": doc! { "$lt": 1920 } 
-          };
-
-          let result = collection.delete_many(filter, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-delete-many
+          :end-before: end-delete-many
 
    * - | **Access Data from a Cursor Iteratively**
        |
@@ -302,41 +231,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-            
-          let mut cursor = collection.find(
-              doc! { "$and": vec!
-                  [
-                      doc! { "metacritic": doc! { "$gt": 90 } },
-                      doc! { "directors": vec! [ "Martin Scorsese" ] }
-                  ] },
-              None
-          ).await?;
-
-          while let Some(result) = cursor.try_next().await? {
-              let doc: Document = bson::from_document(result)?;
-              println!("{}", serde_json::to_string_pretty(&doc).unwrap());
-          };
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-            
-          let mut cursor = collection.find(
-              doc! { "$and": vec!
-                  [
-                      doc! { "metacritic": doc! { "$gt": 90 } },
-                      doc! { "directors": vec! [ "Martin Scorsese" ] }
-                  ] },
-              None
-          )?;
-
-          while let Some(result) = cursor.try_next()? {
-              let doc: Document = bson::from_document(result)?;
-              println!("{}", serde_json::to_string_pretty(&doc).unwrap());
-          }
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-cursor-iterative
+          :end-before: end-cursor-iterative
 
    * - | **Access Data from a Cursor as an Array**
        |
@@ -346,25 +253,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-            
-          let cursor = collection.find(
-                doc! { "title": "Secrets & Lies" }, None
-            ).await?;
-
-          let result: Vec<Document> = cursor.try_collect().await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-            
-          let cursor = collection.find(
-                doc! { "title": "Secrets & Lies" }, None
-            )?;
-
-          let result: Vec<Document> = cursor.try_collect()?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-cursor-array
+          :end-before: end-cursor-array
 
    * - | **Count Documents**
        |
@@ -374,25 +275,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
        
-       .. code-block:: rust
-          :copyable: true
- 
-          let filter = doc! {
-              "languages": vec! [ "Mandarin" ] 
-          };
-
-          let result = collection.count_documents(filter, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
- 
-          let filter = doc! {
-              "languages": vec! [ "Mandarin" ]
-          };
-
-          let result = collection.count_documents(filter, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-count
+          :end-before: end-count
 
    * - | **List Distinct Values of a Field**
        |
@@ -402,31 +297,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
        
-       .. code-block:: rust
-          :copyable: true
- 
-          let field_name = "title";
-          let filter = doc! {
-              "directors": vec! [ "Sean Baker" ]
-          };
-
-          let mut cursor = collection.distinct(
-                field_name, filter, None
-            ).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
- 
-          let field_name = "title";
-          let filter = doc! {
-              "directors": vec! [ "Sean Baker" ]
-          };
-
-          let mut cursor = collection.distinct(
-                field_name, filter, None
-            )?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-distinct
+          :end-before: end-distinct
 
    * - | **Limit the Number of Documents Retrieved**
        |
@@ -436,27 +319,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
        
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .limit(5)
-              .build();
-
-          let filter = doc! { "awards.wins": 25};
-          let mut cursor = collection.find(filter, opts).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .limit(5)
-              .build();
-
-          let filter = doc! { "awards.wins": 25};
-          let mut cursor = collection.find(filter, opts)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-limit
+          :end-before: end-limit
 
    * - | **Skip Retrieved Documents**
        |
@@ -466,27 +341,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .skip(1)
-              .build();
-
-          let filter = doc! { "runtime": 100 };
-          let mut cursor = collection.find(filter, opts).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .skip(1)
-              .build();
-
-          let filter = doc! { "runtime": 100 };
-          let mut cursor = collection.find(filter, opts)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-skip
+          :end-before: end-skip
 
    * - | **Sort the Documents When Retrieving Them**
        |
@@ -496,33 +363,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .sort(doc! { "imdb.rating": 1 })
-              .build();
-
-          let filter = doc! {
-              "directors": vec! [ "Nicole Holofcener" ]
-          };
-
-          let mut cursor = collection.find(filter, opts).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .sort(doc! { "imdb.rating": 1 })
-              .build();
-
-          let filter = doc! {
-              "directors": vec! [ "Nicole Holofcener" ]
-          };
-          
-          let mut cursor = collection.find(filter, opts)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-sort
+          :end-before: end-sort
 
    * - | **Project Document Fields When Retrieving Them**
        |
@@ -532,27 +385,19 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .projection(doc! { "title": 1, "metacritic": 1, "_id": 0 })
-              .build();
-
-          let filter = doc! { "year": 2015 };
-          let mut cursor = collection.find(filter, opts).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-          
-          let opts: FindOptions = FindOptions::builder()
-              .projection(doc! { "title": 1, "metacritic": 1, "_id": 0 })
-              .build();
-
-          let filter = doc! { "year": 2015 };
-          let mut cursor = collection.find(filter, opts)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-project
+          :end-before: end-project
 
    * - | **Create an Index**
        |
@@ -562,22 +407,16 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
       
-       .. code-block:: rust
-          :copyable: true
-
-          let index: IndexModel = IndexModel::builder()
-              .keys(doc! { "title": 1 })
-              .build();
-
-          let result = collection.create_index(index, None).await?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
+          :language: rust
+          :dedent:
+          :start-after: start-update-one
+          :end-before: end-update-one
 
        *Sync Runtime*
 
-       .. code-block:: rust
-          :copyable: true
-
-          let index: IndexModel = IndexModel::builder()
-              .keys(doc! { "title": 1 })
-              .build();
-
-          let result = collection.create_index(index, None)?;
+       .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-sync.rs
+          :language: rust
+          :dedent:
+          :start-after: start-index
+          :end-before: end-index
