@@ -208,7 +208,6 @@ a corresponding async and sync runtime example.
 
      - *Async Runtime*
        
-       .. code-block:: rust
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
