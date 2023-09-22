@@ -1,11 +1,16 @@
+use std::env;
 use mongodb::{
     bson::{doc, Document},
     error::Result,
     sync::{Client, Collection},
+    options::FindOptions,
+    IndexModel
 };
 
 fn main() -> Result<()> {
-    let client = Client::with_uri_str("mongodb://localhost:27017")?;
+    let uri = "<connection string>";
+
+    let client = Client::with_uri_str(uri)?;
 
     let collection: Collection<Document> = client.database("sample_mflix").collection("movies");
 
@@ -40,32 +45,32 @@ fn main() -> Result<()> {
     // end-insert-many
 
     // start-update-one
-    let filter_doc = doc! { "title": "Burn After Reading"};
-    let update_doc =
+    let filter = doc! { "title": "Burn After Reading"};
+    let update =
         doc! {
             "$set": doc!{ "num_mflix_comments": 1 }
     };
 
     let result = collection.update_one(
-          filter_doc, update_doc, None
+          filter, update, None
     )?;
     // end-update-one
     
     // start-update-many
-    let filter_doc = doc! { "rated": "PASSED"};
-    let update_doc =
+    let filter = doc! { "rated": "PASSED"};
+    let update =
         doc! {
             "$set": doc!{ "rated": "Not Rated" }
     };
 
     let result = collection.update_many(
-          filter_doc, update_doc, None
+          filter, update, None
     )?;
     // end-update-many
 
     // start-replace
     let filter = doc! { "title": "è Nous la Libertè" };
-    let replace_doc =
+    let replacement =
         doc! {
         "title": "À nous la liberté",
         "type": "movie",
@@ -73,7 +78,7 @@ fn main() -> Result<()> {
     };
 
     let result = collection.replace_one(
-          filter, replace_doc, None
+          filter, replacement, None
     )?;
     // end-replace
 

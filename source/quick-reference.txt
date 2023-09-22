@@ -101,8 +101,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-insert-one
-          :end-before: end-insert-one
+          :start-after: start-insert-many
+          :end-before: end-insert-many
 
        *Sync Runtime*
 
@@ -145,8 +145,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-update-many
+          :end-before: end-update-many
 
        *Sync Runtime*
 
@@ -167,8 +167,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-replace
+          :end-before: end-replace
 
        *Sync Runtime*
 
@@ -189,8 +189,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-delete-one
+          :end-before: end-delete-one
 
        *Sync Runtime*
 
@@ -212,8 +212,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-delete-many
+          :end-before: end-delete-many
 
        *Sync Runtime*
 
@@ -234,8 +234,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-cursor-iterative
+          :end-before: end-cursor-iterative
 
        *Sync Runtime*
 
@@ -256,8 +256,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-cursor-array
+          :end-before: end-cursor-array
 
        *Sync Runtime*
 
@@ -278,8 +278,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-count
+          :end-before: end-count
 
        *Sync Runtime*
 
@@ -300,8 +300,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-distinct
+          :end-before: end-distinct
 
        *Sync Runtime*
 
@@ -322,8 +322,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-limit
+          :end-before: end-limit
 
        *Sync Runtime*
 
@@ -344,8 +344,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-skip
+          :end-before: end-skip
 
        *Sync Runtime*
 
@@ -366,8 +366,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-sort
+          :end-before: end-sort
 
        *Sync Runtime*
 
@@ -388,8 +388,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-project
+          :end-before: end-project
 
        *Sync Runtime*
 
@@ -410,8 +410,8 @@ a corresponding async and sync runtime example.
        .. literalinclude:: /includes/fundamentals/code-snippets/quick-reference-async.rs
           :language: rust
           :dedent:
-          :start-after: start-update-one
-          :end-before: end-update-one
+          :start-after: start-index
+          :end-before: end-index
 
        *Sync Runtime*
 

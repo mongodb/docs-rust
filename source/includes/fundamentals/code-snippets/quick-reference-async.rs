@@ -1,15 +1,19 @@
+use std::env;
 use bson::Document;
 use mongodb::{ 
     bson::doc, 
     Client, 
     Collection, 
-    options::UpdateOptions 
+    options::FindOptions,
+    IndexModel
 };
-use std::env;
+use futures::TryStreamExt;
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let client = Client::with_uri_str("mongodb://localhost:27017")?;
+    let uri = "<connection string>";
+
+    let client = Client::with_uri_str(uri).await?;
 
     let collection: Collection<Document> = client.database("sample_mflix").collection("movies");
 
