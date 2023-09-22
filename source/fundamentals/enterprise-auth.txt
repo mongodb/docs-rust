@@ -18,10 +18,15 @@ In this guide, you can learn how to authenticate to MongoDB using the
 Edition. When you connect to MongoDB, you can use an authentication
 mechanism to establish trust between the driver and the server.
 
-The driver supports only the :ref:`LDAP (Plain) <rust-LDAP>`
-authentication mechanism. To learn how to use other methods to
-authenticate by using the GSSAPI/Kerberos authentication mechanism, see
-:manual:`Kerberos Authentication </core/kerberos/>` in the Server manual.
+The {+driver-short+} supports only the :ref:`LDAP (PLAIN) <rust-LDAP>`
+authentication mechanism.
+
+.. tip:: GSSAPI/Kerberos Authentication
+   
+   Though the driver does not support the GSSAPI/Kerberos authentication
+   mechanism, you can use other methods to authenticate this way. To
+   learn more about these methods, see :manual:`Kerberos Authentication
+   </core/kerberos/>` in the Server manual.
 
 .. tip::
 
@@ -31,7 +36,7 @@ authenticate by using the GSSAPI/Kerberos authentication mechanism, see
    To learn more about connecting to a MongoDB deployment, see the
    :ref:`rust-connect-to-mongodb`.
 
-To select a specific authentication mechanism, you can specify the
+To select a specific authentication mechanism, specify the
 mechanism, your credentials, and other necessary information
 in the options of your connection string or in a ``Credential`` struct.
 
@@ -43,11 +48,16 @@ Authenticate to LDAP (PLAIN)
 You can authenticate to a Lightweight Directory Access Protocol (LDAP) server 
 by using your directory server username and password.
 
+The name of the authentication mechanism is ``PLAIN`` instead of LDAP
+because the mechanism authenticates by using the PLAIN Simple Authentication and
+Security Layer (SASL) defined in `RFC-4616 <https://tools.ietf.org/html/rfc4616>`__.
+
 .. warning::
 
-   This authentication mechanism sends the password to the server in
-   plaintext, so you should use this mechanism only after enabling TLS
-   on your connection.
+   This authentication mechanism sends your password to the server in
+   plaintext. Use this mechanism only after enabling TLS
+   on your connection to improve security and reduce vulnerabilities in
+   your application.
    
    To learn more, see :manual:`TLS/SSL (Transport Encryption)
    </core/security-transport-encryption/>` in the Server manual.
@@ -73,12 +83,12 @@ authentication mechanism by using the following placeholders:
 
    Since your credentials are stored outside of MongoDB, you must use the
    ``$external`` database for authentication. The ``source`` field of
-   the ``Credential`` struct defaults to this database name, so you do
+   the ``Credential`` struct defaults to ``$external``, so you do
    not need to explicitly set this field.
 
-You can alternatively authenticate by using a connection string URI by
+Alternatively, you can authenticate by using a connection string URI by
 setting the value of the ``authMechanism`` connection string option to ``PLAIN``.
-This example shows how to specify this authentication mechanism in
+This example shows how to specify the ``PLAIN`` authentication mechanism in
 a connection string URI by using the following placeholders:
 
 - ``username``: Your LDAP username
@@ -89,27 +99,19 @@ a connection string URI by using the following placeholders:
    
    let uri = "mongodb://<username>:<password>@<hostname>/?authMechanism=PLAIN";
 
-.. note::
-
-   The authentication mechanism refers to PLAIN instead of LDAP since it
-   authenticates using the PLAIN Simple Authentication and Security Layer
-   (SASL) defined in `RFC-4616 <https://tools.ietf.org/html/rfc4616>`__.
-
 Additional Information
 ----------------------
 
 To learn more about the concepts in this guide, see the following documentation:
 
 - :manual:`MongoDB Server Support for LDAP Proxy Authentication </core/security-ldap/>`
-
-..
-  - :ref:`rust-connection-options`
+- :ref:`rust-connection-options`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
 To learn more about the methods and types discussed in this
-guide, see the following API Documentation:
+guide, see the following API documentation:
 
 - `Credential <{+api+}/options/struct.Credential.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
