@@ -4,18 +4,19 @@
 Connection Options
 ==================
 
-.. contents:: On this page
-   :local:
-   :backlinks: none
-   :depth: 2
-   :class: singlecol
+Overview
+--------
 
 In this guide, you can learn about MongoDB connection and authentication
-options. You can pass connection options as parameters of the connection
-string URI to specify the behavior of the client.
+options. You can set connection options as parameters of your
+connection string to specify how your ``Client`` instance behaves while
+connected to the server.
 
 .. TODO link to the authentication mechanisms guide in authMechanism below
 .. (https://github.com/mongodb/docs-rust/pull/29)
+
+Options
+-------
 
 .. list-table::
    :header-rows: 1
