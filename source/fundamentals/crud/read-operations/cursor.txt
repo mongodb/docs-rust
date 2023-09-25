@@ -123,16 +123,16 @@ or collect multiple documents at once.
 
 The ``Cursor`` type implements the ``Stream`` trait, so you can iterate
 through the cursor as a stream. This pattern may help you write more
-concise code than the built-in pattern, since the ``Stream`` trait provides
-a variety of combinator functions that consolidate code.
+concise code than the built-in pattern, since the ``Stream`` extension trait
+``StreamExt`` provides numerous functions that combine operations and
+consolidate code.
 
 You can use the following methods to use the stream pattern:
 
 - ``next()``: advances the cursor to the next result and returns an
   ``Option<Result<T>>`` type
 - ``try_next()``: advances the cursor to the next result and returns
-  a ``Result<Option<T>>`` type, which is easier to use with the ``?``
-  operator
+  a ``Result<Option<T>>`` type
 
 .. important:: Required Imports for Stream Pattern Methods
 
