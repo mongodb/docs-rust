@@ -24,7 +24,7 @@ using the {+driver-long+} to perform MongoDB operations.
 
    - The :ref:`Issues & Help <rust-issues-and-help>` page, which has
      information about reporting bugs, contributing to the driver, and 
-     finding additional resources
+     finding more resources
    - The `MongoDB Community Forums <https://community.mongodb.com>`__ for
      questions, discussions, or general technical support
 
