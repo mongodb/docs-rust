@@ -107,7 +107,6 @@ following validation specifications:
    :dedent:
    :start-after: begin-schema-validation
    :end-before: end-schema-validation
-   :emphasize-lines: 6-10
 
 The following documents follow the validation rules and can be successfully
 inserted:
