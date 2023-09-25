@@ -15,9 +15,6 @@ connected to the server.
 .. TODO link to the authentication mechanisms guide in authMechanism below
 .. (https://github.com/mongodb/docs-rust/pull/29)
 
-Options
--------
-
 .. list-table::
    :header-rows: 1
    :widths: 30 12 12 46
