@@ -16,31 +16,50 @@ Overview
 In this guide, you can learn how to use the {+driver-short+} to implement
 **schema validation** for your MongoDB collections.
 
-Use schema validation to restrict data types and value ranges for document
-fields in a specified collection. If you implement schema validation, the
-server only allows you to execute write operations that follow the validation
-rules.
+To implement schema validation, you must provide a JSON schema that consists
+of a set of a validation rules. If you implement schema validation, the
+server only allows you to run write operations that follow the validation
+rules. Use schema validation to restrict data types and value ranges of
+document fields in a specified collection. 
 
-You can implement schema validation when creating a collection or by
-running the ``collMod`` MongoDB Shell command on an existing collection. 
+You can define schema validation rules when creating a collection by using
+driver methods, or you can add them to an existing collection by using the
+``collMod`` MongoDB Shell command. This guide only describes how to enable
+schema validation when creating a collection. To learn more about enabling
+schema validation on existing collections, see :manual:`collMod 
+</reference/command/collMod/>` in the Server manual.
 
-.. note::
+.. _rust-json-validation:
 
-   This guide only describes how to enable schema validation while creating
-   a collection with methods available in the {+driver-short+}. To learn 
-   more about enabling schema validation on existing collections, see 
-   :manual:`collMod </reference/command/collMod/>` in the Server manual.
+JSON Schema Validation
+----------------------
+
+Before creating a collection with schema validation rules, you must define a
+JSON schema.
+
+The JSON schema is a JSON object that contains key-value pairs specifying
+the validation rules for your collection. At the top level, this object must
+include a ``$jsonSchema`` object. The ``$jsonSchema`` object includes the
+following fields:
+
+- **title**: sets an optional description for the schema.
+- **required**: specifies a list of required fields for each document in
+  your collection.
+- **properties**: sets property requirements for individual fields.
+
+For a full list of JSON schema object fields, see :manual:`JSON Schema
+</reference/operator/query/jsonSchema/#json-schema>` in the Server manual.
 
 Implement Schema Validation
 ---------------------------
 
-You can implement schema validation by building a ``CreateCollectionOptions``
-instance with ``CreateCollectionOptions::builder()`` and calling the required 
-validation methods on the ``builder()`` method. Then, pass your ``CreateCollectionOptions``
-instance to the ``create_collection()`` method.
+You can implement schema validation by passing your schema and related options
+in an instance of ``CreateCollectionOptions`` to the ``create_collection()``
+method. You can build a ``CreateCollectionOptions`` instance by using the
+``CreateCollectionOptions::builder()`` method.
 
-Call the following validation methods on ``CreateCollectionOptions::builder()``
-to specify the validation rules and scope for your collection:
+Call the following ``CreateCollectionOptions::builder()`` functions to specify
+the validation options for the new collection:
 
 .. list-table::
    :widths: 30 70
@@ -63,31 +82,10 @@ to specify the validation rules and scope for your collection:
        ``ValidationLevel::Strict``, ``ValidationLevel::Moderate``.
 
    * - ``validation_action()``
-     - Specify whether the driver should throw an error or a warning if you insert documents
+     - Specify whether the driver throws an error or a warning if you insert documents
        that don't follow the validation rules.
 
        Possible values: ``ValidationAction::Error``, ``ValidationAction::Warn``.
-
-.. _rust-json-validation:
-
-JSON Schema Validation
-~~~~~~~~~~~~~~~~~~~~~~
-
-To set validation rules with the ``validator()`` method, pass a JSON schema
-as an argument.
-
-To define a JSON schema, or a model that specifies field validation rules, use
-the ``$jsonSchema`` operator and a JSON Schema object. The JSON Schema object
-contains a series of ``<field>: <value>`` pairs that establish guidelines for
-your collection's document fields. Some JSON object fields include the following: 
-
-- ``title``, which sets a descriptive title for the schema
-- ``required``, which specifies a list of required fields for each document in
-  your collection
-- ``properties``, which sets property requirements for individual fields
-
-For a full list of JSON Schema object fields, see :manual:`JSON Schema
-</reference/operator/query/jsonSchema/#json-schema>` in the Server manual.
 
 Example
 ~~~~~~~
@@ -98,8 +96,8 @@ following validation specifications:
 - The ``validator()`` method recieves a JSON schema specifying that the
   ``answer`` field in each document must have a value of ``"yes"`` or
   ``"no"``.
-- The ``validation_action()`` method specifies that the driver should
-  raise an ``Error`` if a write operation violates the validation rule.
+- The ``validation_action()`` method specifies whether the driver raises an
+  ``Error`` when a write operation violates a validation rule.
 - The ``validation_level()`` method specifies that the validation is
   ``Moderate``, so the validation rules apply only to inserts and
   updates on existing valid documents.
@@ -159,10 +157,9 @@ the valid options:
 
 .. tip:: Bypass Schema Validation
    
-   You may need to perform write operations that violate a collection's
-   validation rules and are not exempt from validation through your ``validation_level``.
-   To perform this type of write operation, set the ``bypass_document_validation``
-   field to ``true`` in the write method's options parameter.
+   To bypass a collection's validation rules, set the ``bypass_document_validation``
+   field to ``true`` in the write method's options parameter. This ignores any validation
+   rules on the collection and any exemptions of them defined by the ``validation_level``.
    
    To see an example of how to specify this setting in the options for the
    ``insert_one()`` method, see the :ref:`Modify insert_one Behavior
@@ -174,11 +171,9 @@ Additional Information
 To learn more about the MongoDB Server operations mentioned on this page,
 see the following Server manual documentation:
 
-- :manual:`validator </reference/command/collMod/#mongodb-collflag-validator>`
-- :manual:`validationLevel </reference/command/collMod/#mongodb-collflag-validationLevel>`
-- :manual:`validationAction </reference/command/collMod/#mongodb-collflag-validationAction>`
+- :manual:`Validation operations for the collMod command </reference/command/collMod/#validate-documents>`
 - :manual:`Schema Validation </core/schema-validation/>`
-- :manual:`Specify JSON Schema </core/schema-validation/specify-json-schema/#std-label-schema-validation-json>`
+- :manual:`Specify JSON Schema Validation </core/schema-validation/specify-json-schema/#std-label-schema-validation-json>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -187,13 +182,13 @@ To learn more about setting validation levels and actions, see the
 following API Documentation:
 
 - `validation_level <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_level>`__ 
-  for the ``validation_level()`` builder method
+  for the ``validation_level()`` helper method
 - `ValidationLevel <{+api+}/options/enum.ValidationLevel.html>`__ for possible ``validation_level`` values
 - `validation_action <{+api+}/options/struct.CreateCollectionOptions.html#structfield.validation_action>`__
-  for the ``validation_action()`` builder method
+  for the ``validation_action()`` helper method
 - `ValidationAction <{+api+}/options/enum.ValidationAction.html>`__ for possible ``validation_action`` values
 
-To learn more about any other methods or types discussed in this
+To learn more about any other methods or types referenced in this
 guide, see the following documentation:
 
 - `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
