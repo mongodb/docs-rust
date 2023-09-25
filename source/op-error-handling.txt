@@ -50,6 +50,7 @@ the driver returns an ``Error`` instance and prints the following error
 message:
 
 .. code-block:: none
+   :copyable: false
 
    Error: Error { kind: Write(WriteError(WriteError { code: 11000,
    code_name: None, message: "E11000 duplicate key error collection:
@@ -74,6 +75,7 @@ add a ``RetryableWriteError`` label to the error, as shown in the
 following error message:
 
 .. code-block:: none
+   :copyable: false
 
    Error { kind: ConnectionPoolCleared { message: "Connection pool for
    localhost:27017 cleared because another operation failed with: Kind:
@@ -118,6 +120,7 @@ attempt to insert a document where the value of ``quantity`` is
 ``"three"``, the driver prints the following error message:
 
 .. code-block:: none
+   :copyable: false
 
    Error: Error { kind: Write(WriteError(WriteError { code: 121, code_name:
    None, message: "Document failed validation", details:
