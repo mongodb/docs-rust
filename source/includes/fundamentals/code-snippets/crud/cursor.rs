@@ -25,8 +25,9 @@ async fn main() -> Result<()> {
         println!("{}", doc?);
     }
 
+    println!();
     let mut cursor = my_coll.find(doc! { "color": "yellow" }, None).await?;
-    println!("\nOutput from try_next() iteration:");
+    println!("Output from try_next() iteration:");
     while let Some(doc) = cursor.try_next().await? {
         println!("{}", doc);
     }
@@ -40,8 +41,9 @@ async fn main() -> Result<()> {
     let v: Vec<Result<Document>> = cursor.collect().await;
     println!("{:?}", v);
 
+    println!();
     let cursor = my_coll.find(doc! { "color": "yellow" }, None).await?;
-    println!("\nOutput from try_collect():");
+    println!("Output from try_collect():");
     let v: Vec<Document> = cursor.try_collect().await?;
     println!("{:?}", v);
     // end-array
