@@ -106,7 +106,7 @@ fn main() -> Result<()> {
     )?;
 
     for result in cursor {
-      println!("{}", result);
+      println!("{}", result?);
     }
     // end-cursor-iterative
 
@@ -115,7 +115,7 @@ fn main() -> Result<()> {
         doc! { "title": "Secrets & Lies" }, None
     )?;
 
-    let result: Vec<Document> = cursor.try_collect()?;
+    let results: Vec<Result<Document>> = cursor.collect();
     // end-cursor-array
 
     //start-count

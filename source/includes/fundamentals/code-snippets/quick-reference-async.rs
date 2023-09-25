@@ -118,7 +118,7 @@ async fn main() -> mongodb::error::Result<()> {
         doc! { "title": "Secrets & Lies" }, None
     ).await?;
 
-    let result: Vec<Document> = cursor.try_collect().await?;
+    let results: Vec<Document> = cursor.try_collect().await?;
     // end-cursor-array
 
     //start-count
