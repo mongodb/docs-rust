@@ -14,9 +14,9 @@ Overview
 --------
 
 In this guide, you can learn how to use the {+driver-short+} to access
-data from a read operation or aggregation by using a **cursor**. A cursor
-is a mechanism that enables you to iterate through multiple documents while
-holding only a subset of them in memory at a given time. 
+data returned from a read operation or aggregation by using a **cursor**. A
+cursor is a mechanism that enables you to iterate through multiple documents
+while holding only a subset of them in memory at a given time. 
 
 The driver offers the ``Cursor`` type to retrieve documents from a cursor.
 For example, when you run a find operation that can return multiple
@@ -75,21 +75,21 @@ The ``Cursor`` type includes the ``advance()`` and
 access documents individually.
 
 The ``advance()`` method moves the cursor forward and sends a request to the
-database for more results when the local buffer is exhausted. This
-occurs until either the cursor is exhausted or the cursor receives the
-next batch. The ``advance()`` method returns a ``true`` result if new
-results are successfully returned and a ``false`` result if the cursor
-is closed.
+database for more results when the local buffer is exhausted, which occurs
+when the cursor reaches the end of a batch of results. This continues until
+either the cursor is exhausted or the cursor receives the next batch.
+The ``advance()`` method returns a ``true`` result if new results are
+successfully returned and a ``false`` result if the cursor is closed.
 
 The ``deserialize_current()`` method returns a reference to the current
 result in the cursor and deserializes the result into the type
-associated with the cursor. Unless you change this type, it is the same
-type that your collection is parameterized with.
+associated with the cursor. Unless you specify a type, the method uses the
+same type that your collection is parameterized with.
 
 .. important::
    
-   You can only invoke the ``deserialize_current()`` method if the ``advance()`` method
-   returns a ``true`` result. The driver throws an error if you call
+   You can only call the ``deserialize_current()`` method if the ``advance()``
+   method returns a ``true`` result. The driver generates an error if you call
    ``deserialize_current()`` on the cursor without a ``true`` result or
    without calling previously calling ``advance()``.
 
@@ -122,9 +122,9 @@ You can access cursor results as a stream to retrieve individual documents
 or collect multiple documents at once.
 
 The ``Cursor`` type implements the ``Stream`` trait, so you can iterate
-through the cursor as a stream. This pattern may help you write more concise
-code than the built-in pattern, since you can call a variety of useful
-combinator functions on the cursor provided by the ``Stream`` trait.
+through the cursor as a stream. This pattern may help you write more
+concise code than the built-in pattern, since the ``Stream`` trait provides
+a variety of combinator functions that consolidate code.
 
 You can use the following methods to use the stream pattern:
 
@@ -235,13 +235,13 @@ an options instance:
      - Description
 
    * - ``batch_size`` 
-     - | Specifies the number of documents the server should return per
+     - | Specifies the maximum number of documents the server returns per
          cursor batch. This option sets the number of documents the cursor
          keeps in memory rather than the number of documents the cursor
          returns.
 
        | Type: ``u32``
-       | Default: ``101`` documents initially, ``16 megabyte`` maximum for
+       | Default: ``101`` documents initially, ``16 MB`` maximum for
          subsequent batches
 
    * - ``cursor_type`` 
@@ -254,14 +254,14 @@ an options instance:
        | Default: ``CursorType::NonTailable``
 
    * - ``no_cursor_timeout`` 
-     - | Specifies whether the server should close the cursor after a
-         period of inactivity.
+     - | Specifies whether the server closes the cursor after a period
+         of inactivity.
 
        .. important::
           
           Because the ``Cursor`` type implements the ``Drop`` trait, the
           server closes a cursor when it goes out of scope. The server
-          executes an asynchronous ``killCursors`` command to close the
+          runs an asynchronous ``killCursors`` command to close the
           cursor. See :manual:`killCursors </reference/command/killCursors/>`
           in the Server manual to learn more.
 
@@ -294,7 +294,7 @@ following Rust driver reference documentation:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types discussed in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `Cursor <{+api+}/struct.Cursor.html>`__
