@@ -237,8 +237,6 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
 Serialize a u32 as an f64
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-serialize_u32_as_f64
-
 You might want to represent a ``u32`` field value in a document as
 an ``f64``, or ``Double``, type in BSON. To specify this conversion, use the
 ``serialize_u32_as_f64`` helper function as the value of
@@ -311,4 +309,10 @@ API Documentation
 To learn more about the methods and types discussed in this
 guide, see the following API documentation:
 
-- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
+- `collection() <{+api+}/struct.Database.html#method.collection>`__
+- `clone_with_type() <{+api+}/struct.Collection.html#method.clone_with_type>`__
+- `serialize_with <https://serde.rs/field-attrs.html#serialize_with>`__
+  Serde attribute
+- `deserialize_with <https://serde.rs/field-attrs.html#deserialize_with>`__
+  Serde attribute
+- `with <https://serde.rs/field-attrs.html#with>`__ Serde attribute
