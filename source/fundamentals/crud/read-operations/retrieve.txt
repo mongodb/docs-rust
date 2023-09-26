@@ -97,9 +97,9 @@ query filter consists of the fields and values that form criteria for
 documents to match.
 
 If a document matches the filter criteria, the method returns a
-``Result<Option<T>>`` type with a value of ``Some``. If the filter criteria
-does not match any documents, it returns a ``Result<Option<T>>`` type with
-a value of ``None``.
+``Result<Option<T>>`` type with a value of ``Some``. If no documents
+match the filter criteria, ``find_one()`` returns a ``Result<Option<T>>``
+type with a value of ``None``.
 
 To see an example that uses this method to retrieve data, see
 the :ref:`find_one() example <rust-find-one-example>`.
