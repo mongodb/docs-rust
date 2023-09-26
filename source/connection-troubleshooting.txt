@@ -28,16 +28,19 @@ using the {+driver-long+} to connect to a MongoDB deployment.
      - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
        {+driver-short+}
 
-Connection Error
-~~~~~~~~~~~~~~~~
+Server Connection Error
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The following error message is a general message indicating that the driver
-cannot connect to a server on the specified hostname or port:
+When you attempt to connect to a server, the {+driver-short+} might generate an
+error message. This message might look similar to the following message indicating
+that the driver cannot connect to a server on the specified hostname or port:
 
 .. code-block:: none
    :copyable: false
 
-   Error: couldn't connect to server 127.0.0.1:27017
+   Error: Error { kind: ServerSelection { message: "Server selection timeout: No available servers.
+   Topology: { Type: Unknown, Servers: [ { Address: 127.0.0.1:27017, Type: Unknown, Error: Kind: 
+   I/O error: Connection refused (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source: None }
 
 The following sections describe methods that may help resolve the issue.
 
@@ -142,16 +145,17 @@ database:
    let uri = "mongodb://<username>:<password>@<hostname>:<port>/?authSource=users";
    let client = Client::with_uri_str(uri).await?;
 
-Error Sending Message
-~~~~~~~~~~~~~~~~~~~~~
+Error Sending a Command
+~~~~~~~~~~~~~~~~~~~~~~~
 
 When the driver fails to send a command after you make a request,
-it often displays the following general error message:
+it raises an error message similar to the following message:
 
 .. code-block:: none
    :copyable: false
 
-   com.mongodb.MongoSocketWriteException: Exception sending message
+   Error { kind: Command(CommandError { code: 17312, code_name: "Location17312",
+   message: "sample message" }), labels: {} }', src\main.rs:00:00
 
 The following sections describe methods that may help resolve the issue.
 
@@ -196,43 +200,39 @@ number of open connections equal to ``maxPoolSize``, the server waits until
 a connection becomes available. If this wait time exceeds the ``maxIdleTimeMS``
 value, the driver responds with an error. 
 
-.. TODO To learn more about how connection pools work in the driver, see
-.. the :ref:`FAQ page <rust-faq-connection-pool>`.
+.. 
+   TODO To learn more about how connection pools work in the driver, see
+   the :ref:`FAQ page <rust-faq-connection-pool>`.
 
-Timeout Error
-~~~~~~~~~~~~~
+DNS Resolution Error
+~~~~~~~~~~~~~~~~~~~~
 
-Sometimes when you send a request through the driver to the server, the request
-times out. When this happens, you might receive an error message
-similar to the following message:
+The {+driver-short+} may be unable to resolve your DNS connection. When this
+happens, you might receive an error message similar to the following message:
 
 .. code-block:: none
    :copyable: false
 
-   timed out while checking out a connection from connection pool: context canceled
+   Error: Error { kind: DnsResolve { message: "sample message. type: SRV class: IN" },
+   labels: {}, wire_version: None, source: None }
 
-If you receive this error, try the following methods to resolve the
-issue.
+If you receive this error, try the following methods to resolve the issue.
 
-Set Timeout Option
-------------------
+Check Database Deployment Availability
+--------------------------------------
 
-The ``Client`` supports a single ``Timeout`` option that controls the amount of
-time a single operation can take to execute. You can set this value by using
-the ``SetTimeout()`` method or by specifying the ``timeoutMS`` option in your
-connection string. 
+If you are using an Atlas connection string and your driver cannot find the DNS host
+of the Atlas database deployment, the database deployment might be paused or deleted.
+Check that the database deployment exists. If the cluster is paused, you can resume
+the cluster on the Atlas UI or the Atlas command line interface.
 
-The following example sets the single timeout value to 5 seconds using the
-connection string option:
+To learn how to resume a cluster, see :atlas:`Resume One Cluster 
+<pause-terminate-cluster/#resume-one-cluster/>` in the Atlas documentation.
 
-.. code-block:: go
+Check Connection String
+-----------------------
 
-   uri := "mongodb://<username>:<password>@<hostname>:27017/?timeoutMS=5000"
-   client := mongo.Connect(uri)
-
-Check the Number of Connections
--------------------------------
-
-The number of connections to the server may exceed ``maxPoolSize``. For more
-information about checking the number of connections, see
-:ref:`Error Sending Message <rust-troubleshooting-connection-number-connections>`.
+Verify that the connection string in your app is accurate. For more information
+about verifying your connection string, see
+:ref:`Connection Error <rust-troubleshooting-connection-string-port>`
+and :ref:`Authentication Error <rust-troubleshooting-connection-string-auth>`.
