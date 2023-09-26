@@ -15,7 +15,7 @@ Overview
 
 This page describes errors you might encounter when
 using the {+driver-long+} to perform MongoDB operations. Once you
-understand the types of errors that the driver raises, you can take
+understand the types of operation errors that the driver raises, you can take
 appropriate actions to either handle them or correct the error-causing code.
 
 .. note::
@@ -83,13 +83,15 @@ following error message:
 
 .. code-block:: none
    :copyable: false
+   :emphasize-lines: 1
 
    Error { kind: ConnectionPoolCleared { message: "Connection pool for
    localhost:27017 cleared because another operation failed with: Kind:
    I/O error: timed out, labels: {}" }, labels: {"RetryableWriteError"},
    wire_version: None, source: None }
 
-This label indicates that the error is write-retryable.
+This label indicates that the error is write-retryable, which means that
+the driver makes one retry attempt.
 
 .. _rust-error-write-errors:
 
@@ -111,6 +113,9 @@ operation and the driver cannot satisfy the specified write concern. For
 example, if you specify a write concern of ``majority`` for
 operations on a replica set with three nodes, the driver returns
 this error if the write operation propagates only to one node.
+
+To learn more about write concerns, see :manual:`Write Concern
+</reference/write-concern/>` in the Server manual.
 
 Write Error
 ~~~~~~~~~~~
@@ -141,12 +146,8 @@ attempt to insert a document where the value of ``quantity`` is
 
 In the preceding error message, the ``message`` field describes the
 reason for the error, and the ``details`` field provides specific
-details about the failing operation.
-
-Additional Information
-----------------------
-
-To learn more about write concerns, see :manual:`Write Concern
-</reference/write-concern/>` in the Server manual.
-     
+details about the failing operation. To address this error, you must
+either revise the document to adhere to the schema validation rules or
+bypass validation.
+  
 .. TODO To learn more about schema validation, see <link>.
