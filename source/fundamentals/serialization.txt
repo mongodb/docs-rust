@@ -1,0 +1,102 @@
+.. _rust-serialization:
+
+===============================
+Data Modeling and Serialization
+===============================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn about how the {+driver-short+} handles conversions
+between BSON and Rust types. The process of converting a Rust type to
+BSON is called **serialization**, while the reverse process is called
+**deserialization**.
+
+The Rust language uses a static type system, but BSON has a dynamic
+schema. To handle conversions between Rust types and BSON, the driver and the
+``bson`` library integrate functionality from the ``serde`` crate. By
+implementing ``serde`` traits in your application, you can use
+custom Rust types, such as structs and enums, to model your data.
+
+Generic Type Parameter
+----------------------
+
+When you create a ``Collection`` instance, you must specify a generic
+type parameter to represent the type of data that models the documents
+in your collection. To learn more about specifying a generic parameter,
+see the :ref:`Collection Parameterization section
+<rust-coll-parameterization>` of the guide on Databases and Collections.
+
+We recommend that you define and use a custom type to model your
+collection's data, instead of the ``Document`` type.
+
+Custom Data Model
+-----------------
+
+You can use any Rust data type that implements the ``Serialize`` and
+``Deserialize`` traits from the ``serde`` crate as the generic parameter for a
+``Collection`` instance. To implement these traits, you must use the
+following ``derive`` statement before defining a Rust type:
+
+.. code-block:: rust
+   
+   #[derive(Serialize, Deserialize)]
+
+Custom Struct Example
+~~~~~~~~~~~~~~~~~~~~~
+
+The following code defines a sample ``Vegetable`` struct that derives the
+serialization traits:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-veg-struct
+   :end-before: end-veg-struct
+
+The following code accesses the ``vegetables`` collection with
+``Vegetable`` as its generic parameter:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-access-coll
+   :end-before: end-access-coll
+
+Because the ``Collection`` instance is parameterized with the
+``Vegetable`` struct, you can perform CRUD operations with this type.
+The following code inserts a ``Vegetable`` into the collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-insert-veg
+   :end-before: end-insert-veg
+
+Multiple Parameterizations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your collection contains multiple schemas, you can define a custom
+type to model each data type and create clones of a ``Collection``
+instance that are parameterized each type. You can create clones of a
+``Collection`` instance by using the ``clone_with_type()`` method.
+
+Suppose you originally parameterized a collection with a sample struct
+called ``Square``, but you later realize that you want to insert a different
+type of data, modeled by the ``Circle`` struct, into the collection.
+The following code parameterizes a collection with the ``Square`` type,
+then creates a clone of the collection that is parameterized with the
+``Circle`` type:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-multiple-types
+   :end-before: end-multiple-types
+

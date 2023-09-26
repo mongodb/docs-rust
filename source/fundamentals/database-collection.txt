@@ -150,6 +150,8 @@ perform the following actions:
 To learn more about write concerns, see :manual:`Write Concern </reference/write-concern/>` in
 the Server manual.
 
+.. _rust-coll-parameterization:
+
 Collection Parameterization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
    

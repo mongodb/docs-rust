@@ -6,6 +6,7 @@ Fundamentals section:
 - :ref:`Authenticate to MongoDB <rust-authentication>`
 - :ref:`Read from and Write to MongoDB <rust-crud>`
 - :ref:`Manage Databases and Collections <rust-db-coll>`
+- :ref:`Convert Data to and from BSON <rust-serialization>`
 - :ref:`Perform Aggregations <rust-aggregation>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
 - :ref:`Run A Database Command <rust-run-command>`
@@ -15,7 +16,6 @@ Fundamentals section:
   - :ref:`Specify the Stable API Version <rust-stable-api>`
   - :ref:`Authenticate to MongoDB <rust-authentication-mechanisms>`
   - :ref:`Connect with Enterprise Authentication Mechanisms <rust-enterprise-authentication-mechanisms>`
-  - :ref:`Convert Data to and from BSON <rust-bson>`
   - :ref:`Construct Indexes <rust-indexes>`
   - :ref:`Specify Collations to Order Results <rust-collations>`
   - :ref:`Monitor Driver Events <rust-monitoring>`
