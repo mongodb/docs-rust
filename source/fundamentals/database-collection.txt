@@ -183,7 +183,8 @@ collection with the ``MyStruct`` type:
    You can avoid repetitive serialization and validation by defining a
    type that models your specific data.
 
-.. TODO link to serialization guide
+   To learn more about serialization in the {+driver-short+}, see the
+   guide on :ref:`rust-serialization`.
 
 .. _rust-create-collection:
 

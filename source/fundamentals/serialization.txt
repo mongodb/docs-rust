@@ -20,9 +20,30 @@ BSON is called **serialization**, while the reverse process is called
 
 The Rust language uses a static type system, but BSON has a dynamic
 schema. To handle conversions between Rust types and BSON, the driver and the
-``bson`` library integrate functionality from the ``serde`` crate. By
-implementing ``serde`` traits in your application, you can use
-custom Rust types, such as structs and enums, to model your data.
+``bson`` library integrate functionality from the Serde framework. To
+learn how to install the ``serde`` crate, see the `serde crate description
+<https://crates.io/crates/serde>`__.
+
+By implementing functionality from the ``serde`` crate into your
+application, you can use custom Rust types such as structs and enums
+to model your data.
+
+This guide includes the following sections:
+
+- :ref:`Generic Type Parameter <rust-generic-param>`: explains
+  collection parameterization and data modeling
+
+- :ref:`Custom Data Model <rust-custom-data-model>`: describes how to
+  define custom Rust types to model data in your collections
+
+- :ref:`Custom Serialization <rust-custom-serialization>`: describes how
+  to modify default serialization and deserialization behavior by using attributes
+
+- :ref:`Additional Information <rust-serialization-addtl-info>`:
+  provides links to additional resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-generic-param:
 
 Generic Type Parameter
 ----------------------
@@ -35,6 +56,8 @@ see the :ref:`Collection Parameterization section
 
 We recommend that you define and use a custom type to model your
 collection's data, instead of the ``Document`` type.
+
+.. _rust-custom-data-model:
 
 Custom Data Model
 -----------------
@@ -100,6 +123,8 @@ then creates a clone of the collection that is parameterized with the
    :start-after: begin-multiple-types
    :end-before: end-multiple-types
 
+.. _rust-custom-serialization:
+
 Custom Serialization
 --------------------
 
@@ -126,7 +151,7 @@ before the definition:
 In the following sections, you can find examples that use helper
 functions from the ``bson`` library to achieve common serialization tasks. To
 see a full list of these helper functions, see the `serde_helpers API
-documentation <https://docs.rs/bson/latest/bson/serde_helpers/index.html>`__.
+documentation <https://docs.rs/bson/latest/bson/serde_helpers/index.html#functions>`__.
 
 Serialize a String as an ObjectId
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,8 +193,8 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
            "item": "jasmine rice"
          }
 
-Serialize a DateTime as an ISO-Formatted String
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Serialize a DateTime as a String
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You might want to represent a ``DateTime`` field value in a document as
 an ISO-formatted string in BSON. To specify this conversion, use the
@@ -228,5 +253,62 @@ example, the ``quantity`` field has a value of type ``u32``:
 
 .. note::
    
-   The BSON ``Double`` representation of a ``u32`` Rust value appears
+   The BSON ``Double`` representation of a ``u32`` value appears
    the same as the original value.
+
+Other Attributes and Modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In addition to helper functions, the ``bson`` library provides modules
+that handle both serialization and deserialization. To select a module
+to use on a specific field or variant, set the value of the ``with``
+attribute to the name of the module:
+
+.. code-block:: rust
+   
+   #[derive(Serialize, Deserialize)]
+   struct MyStruct {
+       #[serde(with = "<module>")]
+       field1: u32,
+       // ... other fields
+   }
+
+To see a full list of these modules, see the `serde_helpers API
+documentation <https://docs.rs/bson/latest/bson/serde_helpers/index.html#modules>`__.
+
+The ``serde`` crate provides many other attributes to customize
+serialization. The following list describes some common attributes and
+their functionality:
+
+- ``rename``: serialize and deserialize a field with a specified name instead of the
+  Rust struct or variant name
+- ``skip``: do not serialize or deserialize the specified field
+- ``default``: if no value is present during deserialization, use the
+  default value from ``Default::default()``
+
+To see a full list of ``serde`` attributes, see the `serde Attributes
+API documentation <https://serde.rs/attributes.html>`__
+
+.. _rust-serialization-addtl-info:
+
+Additional Information
+----------------------
+
+To learn more about BSON types, see :manual:`BSON Types
+</reference/bson-types/>` in the Server manual.
+
+To see more examples that demonstrate ``serde`` functionality, see the
+:website:`Structuring Data with Serde in Rust
+</developer/languages/rust/serde-improvements/>` Developer Center
+article.
+
+To learn more about the Serde framework, see the `Serde documentation
+<https://serde.rs/>`__.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about the methods and types discussed in this
+guide, see the following API documentation:
+
+- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
