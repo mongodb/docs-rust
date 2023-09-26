@@ -76,9 +76,10 @@ access documents individually.
 
 The ``advance()`` method moves the cursor forward and sends a request to the
 database for more results when the local buffer is exhausted, which occurs
-when the cursor reaches the end of a batch of results. This continues until
-either the cursor is exhausted or the cursor receives the next batch.
-The ``advance()`` method returns a ``true`` result if new results are
+when the cursor reaches the end of a batch of results. Each time the cursor
+reaches the end of a batch of results, it requests the next batch. The cursor
+is exhausted when it has no more matching documents to return and is no longer
+usable. The ``advance()`` method returns a ``true`` result if new results are
 successfully returned and a ``false`` result if the cursor is closed.
 
 The ``deserialize_current()`` method returns a reference to the current
@@ -124,7 +125,7 @@ or collect multiple documents at once.
 The ``Cursor`` type implements the ``Stream`` trait, so you can iterate
 through the cursor as a stream. This pattern may help you write more
 concise code than the built-in pattern, since the ``Stream`` extension trait
-``StreamExt`` provides numerous functions that combine operations and
+``StreamExt`` provides numerous functions to combine operations and
 consolidate code.
 
 You can use the following methods to use the stream pattern:
@@ -178,8 +179,7 @@ You can use the following methods to retrieve documents as an array:
 - ``collect()``: collects results from a cursor into a
   ``Vec<Result<T>>`` type
 - ``try_collect()``: collects results from a cursor into a
-  ``Result<Vec<T>>`` type, which makes it easier to use with the
-  ``?`` operator
+  ``Result<Vec<T>>`` type
 
 .. note::
 
