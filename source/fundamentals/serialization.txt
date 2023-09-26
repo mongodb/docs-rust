@@ -100,3 +100,133 @@ then creates a clone of the collection that is parameterized with the
    :start-after: begin-multiple-types
    :end-before: end-multiple-types
 
+Custom Serialization
+--------------------
+
+You can modify the default serialization and deserialization behavior of
+the {+driver-short+} by using **attributes** from the ``serde`` crate.
+Attributes are an optional pieces of metadata attached to fields of
+structs or variants of enums.
+
+The ``serde`` crate provides the ``serialize_with`` and
+``deserialize_with`` attributes to select helper functions to customize
+serialization and deserialization on specific fields and variants. To
+specify an attribute on a struct field or enum variant, include it
+before the definition:
+
+.. code-block:: rust
+   
+   #[derive(Serialize, Deserialize)]
+   struct MyStruct {
+       #[serde(serialize_with = "<helper function>")]
+       field1: String,
+       // ... other fields
+   }
+
+In the following sections, you can find examples that use helper
+functions from the ``bson`` library to achieve common serialization tasks. To
+see a full list of these helper functions, see the `serde_helpers API
+documentation <https://docs.rs/bson/latest/bson/serde_helpers/index.html>`__.
+
+Serialize a String as an ObjectId
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You might want to represent the ``_id`` field in a document as a
+hexadecimal string in your struct. To convert the hexadecimal string to
+the ``ObjectId`` BSON type, use the
+``serialize_hex_string_as_object_id`` helper function as the value of
+the ``serialize_with`` attribute attached to the ``_id`` field:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-hex-to-objectid
+   :end-before: end-hex-to-objectid
+
+Select from the :guilabel:`Struct` and :guilabel:`BSON` tabs below
+to see how the driver serializes a sample ``Order`` struct to BSON:
+
+.. tabs::
+
+   .. tab:: Struct
+      :tabid: order struct
+
+      .. code-block:: rust
+         
+         let order = Order {
+             _id: "6348acd2e1a47ca32e79f46f".to_string(),
+             item: "jasmine rice".to_string(),
+         };
+
+   .. tab:: BSON
+      :tabid: serialized bson
+
+      .. code-block:: json
+
+         {
+           "_id": { "$oid": "6348acd2e1a47ca32e79f46f" },
+           "item": "jasmine rice"
+         }
+
+Serialize a DateTime as an ISO-Formatted String
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You might want to represent a ``DateTime`` field value in a document as
+an ISO-formatted string in BSON. To specify this conversion, use the
+``serialize_bson_datetime_as_rfc3339_string`` helper function as the value of
+the ``serialize_with`` attribute attached to the field. In the following
+example, the ``delivery_date`` field has a value of type ``DateTime``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-dt-to-string
+   :end-before: end-dt-to-string
+
+Select from the :guilabel:`Struct` and :guilabel:`BSON` tabs below
+to see how the driver serializes a sample ``Order`` struct to BSON:
+
+.. tabs::
+
+   .. tab:: Struct
+      :tabid: order struct
+
+      .. code-block:: rust
+         
+         let order = Order {
+             item: "jasmine rice".to_string(),
+             delivery_date: DateTime::now(),
+         };
+
+   .. tab:: BSON
+      :tabid: serialized bson
+
+      .. code-block:: json
+
+         {
+           "_id": { ... },
+           "item": "jasmine rice",
+           "delivery_date": "2023-09-26T17:30:18.181Z"
+         }
+
+Serialize a u32 as an f64
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+serialize_u32_as_f64
+
+You might want to represent a ``u32`` field value in a document as
+an ``f64``, or ``Double``, type in BSON. To specify this conversion, use the
+``serialize_u32_as_f64`` helper function as the value of
+the ``serialize_with`` attribute attached to the field. In the following
+example, the ``quantity`` field has a value of type ``u32``:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-u32-f64
+   :end-before: end-u32-f64
+
+.. note::
+   
+   The BSON ``Double`` representation of a ``u32`` Rust value appears
+   the same as the original value.
