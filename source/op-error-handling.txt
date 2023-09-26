@@ -58,6 +58,7 @@ message:
 
 .. code-block:: none
    :copyable: false
+   :emphasize-lines: 1
 
    Error: Error { kind: Write(WriteError(WriteError { code: 11000,
    code_name: None, message: "E11000 duplicate key error collection:
@@ -76,6 +77,10 @@ interrupting your connection to the server. In this
 situation, the driver raises an ``Error`` type where the value of the
 ``kind`` field is ``ConnectionPoolCleared``. The error message describes
 the reason that the concurrent operation failed.
+
+To learn how to adjust your connection pool to address this error, see
+:manual:`Tuning Your Connection Pool Settings
+</tutorial/connection-pool-performance-tuning/>` in the Server manual.
 
 Depending on the circumstances that produce the error, the driver may
 add a ``RetryableWriteError`` label to the error, as shown in the
@@ -135,6 +140,7 @@ attempt to insert a document where the value of ``quantity`` is
 
 .. code-block:: none
    :copyable: false
+   :emphasize-lines: 2-3
 
    Error: Error { kind: Write(WriteError(WriteError { code: 121, code_name:
    None, message: "Document failed validation", details:
