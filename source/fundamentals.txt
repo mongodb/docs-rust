@@ -14,6 +14,7 @@ Fundamentals
    /fundamentals/crud
    /fundamentals/database-collection
    /fundamentals/aggregation
+   /fundamentals/serialization
    /fundamentals/tracing-logging
    /fundamentals/run-command
 
@@ -21,7 +22,6 @@ Fundamentals
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
    /fundamentals/context
    /fundamentals/enterprise-auth
-   /fundamentals/bson
    /fundamentals/indexes
    /fundamentals/transactions
    /fundamentals/collations

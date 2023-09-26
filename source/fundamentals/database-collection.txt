@@ -154,21 +154,27 @@ the Server manual.
 
 Collection Parameterization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   
-You must parameterize your ``Collection`` instance by specifying what
-data type, such as ``Document``, you want to serialize the collection's
+
+You can parameterize your ``Collection`` instance by specifying what
+data type you want to serialize the collection's
 data into. When you call a method on a ``Collection`` instance that is
 parameterized with a specific type, the method accepts or returns
 instances of this type.
 
+.. note::
+   
+   If you do not parameterize your ``Collection``
+   instance, the collection defaults to using the ``Document`` type for
+   data operations.
+
 The following example shows equivalent ways of parameterizing a
-collection with the ``Document`` type:
+collection with the ``MyStruct`` type:
 
 .. code-block:: rust
    :copyable: false
    
-   let my_coll: Collection<Document> = client.database("test_db").collection("coll_xyz");
-   let my_coll = client.database("test_db").collection::<Document>("coll_xyz");
+   let my_coll: Collection<MyStruct> = client.database("test_db").collection("coll_xyz");
+   let my_coll = client.database("test_db").collection::<MyStruct>("coll_xyz");
 
 .. tip::
 
