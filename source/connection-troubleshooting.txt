@@ -68,9 +68,9 @@ verify the correct port is open in your firewall.
 Authentication Error
 ~~~~~~~~~~~~~~~~~~~~
 
-The {+driver-short+} can fail to connect to a MongoDB instance if
-the authorization is not configured correctly. In these cases, the driver raises
-an error message similar to the following message:
+The {+driver-short+} may be unable connect to a MongoDB instance if
+the authorization is not configured correctly. In these cases, the driver
+raises an error message similar to the following message:
 
 .. code-block:: none
    :copyable: false
@@ -107,10 +107,10 @@ are in the correct format.
 
       : / ? # [ ] @
 
-When connecting to a replica set, you should include all of the hosts
-in the replica set in your connection string. Separate each of the hosts
-in the connection string with a comma. This enables the driver to establish a
-connection if one of the hosts is unreachable.
+When connecting to a replica set, include all the replica set hosts in
+your connection string. Separate each of the hosts in the connection
+string with a comma. This enables the driver to establish a connection if
+one of the hosts is unreachable.
 
 .. _rust-troubleshooting-connection-auth-mechanism:
 
