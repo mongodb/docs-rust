@@ -14,7 +14,9 @@ Overview
 --------
 
 This page describes errors you might encounter when
-using the {+driver-long+} to perform MongoDB operations.
+using the {+driver-long+} to perform MongoDB operations. Once you
+understand the types of errors that the driver raises, you can take
+appropriate actions to either handle them or correct the error-causing code.
 
 .. note::
 
@@ -36,13 +38,18 @@ using the {+driver-long+} to perform MongoDB operations.
 Error Type
 ----------
 
-Most of the exceptions that the driver throws when executing operations
+Most of the exceptions that the driver generates when performing operations
 are of the `Error <{+api+}/error/struct.Error.html>`__ type. The
-``Error`` instance that an operation
-returns contains the ``kind`` field, which describes the type of error
-that occurred. The ``kind`` field has a value of type `ErrorKind
-<{+api+}/error/enum.ErrorKind.html>`__, which has many variants for
-different kinds of errors.
+``Error`` type contains the ``kind`` field, which describes the type of
+error that occurred. The ``kind`` field has a value of enum `ErrorKind
+<{+api+}/error/enum.ErrorKind.html>`__. The ``ErrorKind`` enum has
+variants for different kinds of errors, including the following:
+
+- ``InvalidArgument``: you provided an invalid argument to a method
+- ``Authentication``: the driver encountered an error during authentication
+- ``ServerSelection``: the client couldn't select a server for the operation
+- ``Write``: an error occurred during a write operation
+- ``Transaction``: an error occurred during a transaction
 
 For example, if you attempt to perform an insert operation that
 duplicates an ``_id`` field value that is already in the collection,
@@ -58,14 +65,14 @@ message:
    {}, wire_version: None, source: None }
 
 In the preceding error message, the value of the ``kind`` field is
-``Write``, which applies when an error occurs when
-you try to execute a write operation.
+``Write``. To learn more about this type of error, see the :ref:`Write
+Error Types <rust-error-write-errors>` section of this guide.
 
 Connection Errors
 -----------------
 
-You might successfully connect to a MongoDB server, but the connection
-pool might be cleared due to a concurrent operation error. In this
+A concurrent operation error might clear the connection pool,
+interrupting your connection to the server. In this
 situation, the driver raises an ``Error`` type where the value of the
 ``kind`` field is ``ConnectionPoolCleared``. The error message describes
 the reason that the concurrent operation failed.
@@ -82,13 +89,15 @@ following error message:
    I/O error: timed out, labels: {}" }, labels: {"RetryableWriteError"},
    wire_version: None, source: None }
 
-This label indicates that the error is the error is write-retryable.
+This label indicates that the error is write-retryable.
+
+.. _rust-error-write-errors:
 
 Write Error Types
 -----------------
 
 When the driver experiences an error while performing a write operation,
-it raises an error where the ``kind`` field value is ``Write``.
+it raises an ``Error`` instance with a ``kind`` field value of ``Write``.
 The body of the ``Write`` variant is the enum `WriteFailure
 <{+api+}/error/enum.WriteFailure.html>`__, which
 takes a value of type `WriteError <{+api+}/error/struct.WriteError.html>`__ or
@@ -97,18 +106,18 @@ takes a value of type `WriteError <{+api+}/error/struct.WriteError.html>`__ or
 Write Concern Error
 ~~~~~~~~~~~~~~~~~~~
 
-The driver raises a ``WriteConcernError`` error when you execute a write
+The driver raises a ``WriteConcernError`` error when you perform a write
 operation and the driver cannot satisfy the specified write concern. For
 example, if you specify a write concern of ``majority`` for
-operations on a replica set with three nodes, the driver would return
-this error if the write operation propagated only to one node.
+operations on a replica set with three nodes, the driver returns
+this error if the write operation propagates only to one node.
 
 Write Error
 ~~~~~~~~~~~
 
 The driver raises a ``WriteError`` error for any errors that it
 encounters when performing a write operation that are not related to
-satisfying the write concern. Because are numerous causes for this
+satisfying the write concern. Because there are many causes for this
 error, the ``WriteError`` type contains fields that describe the type of
 write error and reason for the error.
 
