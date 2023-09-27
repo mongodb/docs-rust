@@ -38,9 +38,10 @@ appropriate actions to either handle them or correct the error-causing code.
 Error Type
 ----------
 
-Most of the exceptions that the driver generates when performing operations
-are of the `Error <{+api+}/error/struct.Error.html>`__ type. The
-``Error`` type contains the ``kind`` field, which describes the type of
+If the driver encounters an error while performing an operation, it
+returns an error of the `Error <{+api+}/error/struct.Error.html>`__ type.
+
+The ``Error`` type contains the ``kind`` field, which describes the type of
 error that occurred. The ``kind`` field has a value of enum `ErrorKind
 <{+api+}/error/enum.ErrorKind.html>`__. The ``ErrorKind`` enum has
 variants for different kinds of errors, including the following:
