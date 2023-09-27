@@ -53,8 +53,9 @@ You can use one of the following strategies to avoid this issue:
 - Attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
 - Create a new ``Client`` instance for every ``async`` test.
 
-As an example of the former, the following code lazily creates a global runtime used just for testing.
-The client in the ``test_list_dbs`` then manually connects to this runtime.
+This example follows the first strategy and creates a global runtime used only for testing.
+In the following code, the ``test_list_dbs()`` method uses a client that manually connects to this runtime
+to list databases in the deployment.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-bundle-runtime.rs
    :language: rust
