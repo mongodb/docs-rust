@@ -12,7 +12,7 @@ async fn main() -> Result<()> {
     // start-indiv-builtin
     let mut cursor = my_coll.find(doc! { "color": "red" }, None).await?;
     while cursor.advance().await? {
-        println!("{:?}", cursor.deserialize_current()?);
+        println!("{}", cursor.deserialize_current()?);
     }
     // end-indiv-builtin
 
@@ -49,7 +49,7 @@ async fn main() -> Result<()> {
     // end-array
 
     // start-options
-    let _opts: FindOptions = FindOptions::builder()
+    let opts: FindOptions = FindOptions::builder()
         .batch_size(5)
         .cursor_type(CursorType::Tailable)
         .no_cursor_timeout(true)
