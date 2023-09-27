@@ -88,8 +88,8 @@ following error message:
 
 .. code-block:: none
    :copyable: false
-   :emphasize-lines: 1
-
+   :emphasize-lines: 3
+   
    Error { kind: ConnectionPoolCleared { message: "Connection pool for
    localhost:27017 cleared because another operation failed with: Kind:
    I/O error: timed out, labels: {}" }, labels: {"RetryableWriteError"},
