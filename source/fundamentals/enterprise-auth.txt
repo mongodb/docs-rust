@@ -49,8 +49,9 @@ You can authenticate to a Lightweight Directory Access Protocol (LDAP) server
 by using your directory server username and password.
 
 The name of the authentication mechanism is ``PLAIN`` instead of LDAP
-because the mechanism authenticates by using the PLAIN Simple Authentication and
-Security Layer (SASL) defined in `RFC-4616 <https://tools.ietf.org/html/rfc4616>`__.
+because the mechanism uses the PLAIN Simple Authentication and
+Security Layer (SASL) defined in `RFC-4616
+<https://tools.ietf.org/html/rfc4616>`__.
 
 .. warning::
 
@@ -104,7 +105,9 @@ Additional Information
 
 To learn more about the concepts in this guide, see the following documentation:
 
-- :manual:`MongoDB Server Support for LDAP Proxy Authentication </core/security-ldap/>`
+- :manual:`MongoDB Server Support for LDAP Proxy Authentication
+  </core/security-ldap/>` 
+- :manual:`Connection Strings </reference/connection-string>`
 - :ref:`rust-connection-options`
 
 API Documentation
