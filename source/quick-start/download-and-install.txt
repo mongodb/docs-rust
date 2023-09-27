@@ -84,28 +84,28 @@ Download and Install
                version = "{+version+}"
                features = ["tokio-sync"]
 
-   .. note::
-      
-      The ``tokio`` asynchronous runtime is the driver's default runtime crate,
-      so the ``"tokio-runtime"`` feature flag included in the preceding asynchronous
-      dependencies list example is optional. To specify a synchronous runtime crate
-      or a non-default asynchronous runtime crate such as ``"async-std-runtime"``,
-      the corresponding feature flag is required.
+      .. note::
+         
+         The ``tokio`` asynchronous runtime is the driver's default runtime crate,
+         so the ``"tokio-runtime"`` feature flag included in the preceding asynchronous
+         dependencies list example is optional. To specify a synchronous runtime crate
+         or a non-default asynchronous runtime crate such as ``"async-std-runtime"``,
+         the corresponding feature flag is required.
 
-   Alternatively, you can configure the dependencies in your ``Cargo.toml`` file to
-   enable both the asynchronous and synchronous runtimes. The following code shows an
-   example dependencies list that supports async and sync code:
+      Alternatively, you can configure the dependencies in your ``Cargo.toml`` file to
+      enable both the asynchronous and synchronous runtimes. The following code shows an
+      example dependencies list that supports async and sync code:
 
-   .. code-block:: bash
-      
-      [dependencies]
-      serde_json = "1.0.107"
-      futures = "0.3.28"
-      tokio = {version = "1.32.0", features = ["full"]}
+      .. code-block:: bash
+         
+         [dependencies]
+         serde_json = "1.0.107"
+         futures = "0.3.28"
+         tokio = {version = "1.32.0", features = ["full"]}
 
-      [dependencies.mongodb]
-      version = "2.6.1"
-      features = ["tokio-sync"]
+         [dependencies.mongodb]
+         version = "2.6.1"
+         features = ["tokio-sync"]
 
 After you complete these steps, you should have Rust and Cargo installed 
 and a new Rust project with the necessary driver dependencies.
