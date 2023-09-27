@@ -26,13 +26,8 @@ Client Lifecycle
 We recommend that you reuse your client across sessions and operations.
 You can use the same ``Client`` instance to perform multiple tasks, instead of creating a new one each time.
 The ``Client`` type is safe for concurrent use by multiple threads.
-
-The ``Client`` automatically manages connection pooling.
-When you create a single ``Client`` instance for multiple operations, you optimize its performance.
-Cloning it to pass to new contexts is extremely cheap.
-This means you can create a ``Client`` instance once at application startup and continually reuse it.
-
 Creating a new ``Client`` instance for each request results in slower performance.
+
 The following code creates a method that accepts a pointer to an existing ``Client`` instance,
 which allows you to execute many requests by using same client:
 
@@ -56,7 +51,7 @@ This is because these helper macros create a new runtime for each test.
 You can use one of the following strategies to avoid this issue:
 
 - Attach the runtime to the ``Client`` instance without using the ``test`` helper macros.
-- Create a new ``Client`` instance for every ``async`` test
+- Create a new ``Client`` instance for every ``async`` test.
 
 As an example of the former, the following code lazily creates a global runtime used just for testing.
 The client in the ``test_list_dbs`` then manually connects to this runtime.
