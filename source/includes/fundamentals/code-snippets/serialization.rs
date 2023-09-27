@@ -7,7 +7,7 @@ use std::env;
 struct Vegetable {
     name: String,
     category: String,
-    protein_content: f32,
+    tropical: bool,
     other_names: Vec<String>,
 }
 // end-veg-struct
@@ -35,7 +35,7 @@ async fn main() -> mongodb::error::Result<()> {
     let calabash = Vegetable {
         name: "calabash".to_string(),
         category: "gourd".to_string(),
-        protein_content: 0.6,
+        tropical: true,
         other_names: vec!["bottle gourd".to_string(), "lauki".to_string()],
     };
 

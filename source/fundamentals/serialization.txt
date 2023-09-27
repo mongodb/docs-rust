@@ -30,7 +30,7 @@ to model your data.
 
 This guide includes the following sections:
 
-- :ref:`Generic Type Parameter <rust-generic-param>`: explains
+- :ref:`Generic Type Parameter <rust-generic-param>`: describes
   collection parameterization and data modeling
 
 - :ref:`Custom Data Model <rust-custom-data-model>`: describes how to
@@ -106,11 +106,11 @@ Multiple Parameterizations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If your collection contains multiple schemas, you can define a custom
-type to model each data type and create clones of a ``Collection``
-instance that are parameterized each type. You can create clones of a
+type to model each data type and create clones of the original
+``Collection`` instance for each type. You can create clones of a
 ``Collection`` instance by using the ``clone_with_type()`` method.
 
-Suppose you originally parameterized a collection with a sample struct
+Suppose you originally parameterized a collection with a struct
 called ``Square``, but you later realize that you want to insert a different
 type of data, modeled by the ``Circle`` struct, into the collection.
 The following code parameterizes a collection with the ``Square`` type,
@@ -130,7 +130,7 @@ Custom Serialization
 
 You can modify the default serialization and deserialization behavior of
 the {+driver-short+} by using **attributes** from the ``serde`` crate.
-Attributes are an optional pieces of metadata attached to fields of
+Attributes are optional pieces of metadata attached to fields of
 structs or variants of enums.
 
 The ``serde`` crate provides the ``serialize_with`` and
@@ -180,7 +180,7 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
          
          let order = Order {
              _id: "6348acd2e1a47ca32e79f46f".to_string(),
-             item: "jasmine rice".to_string(),
+             item: "lima beans".to_string(),
          };
 
    .. tab:: BSON
@@ -190,7 +190,7 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
 
          {
            "_id": { "$oid": "6348acd2e1a47ca32e79f46f" },
-           "item": "jasmine rice"
+           "item": "lima beans"
          }
 
 Serialize a DateTime as a String
@@ -219,7 +219,7 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
       .. code-block:: rust
          
          let order = Order {
-             item: "jasmine rice".to_string(),
+             item: "lima beans".to_string(),
              delivery_date: DateTime::now(),
          };
 
@@ -230,7 +230,7 @@ to see how the driver serializes a sample ``Order`` struct to BSON:
 
          {
            "_id": { ... },
-           "item": "jasmine rice",
+           "item": "lima beans",
            "delivery_date": "2023-09-26T17:30:18.181Z"
          }
 
