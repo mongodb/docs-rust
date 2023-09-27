@@ -38,9 +38,11 @@ that the driver cannot connect to a server on the specified hostname or port:
 .. code-block:: none
    :copyable: false
 
-   Error: Error { kind: ServerSelection { message: "Server selection timeout: No available servers.
-   Topology: { Type: Unknown, Servers: [ { Address: 127.0.0.1:27017, Type: Unknown, Error: Kind: 
-   I/O error: Connection refused (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source: None }
+   Error: Error { kind: ServerSelection { message: "Server selection timeout: 
+   No available servers. Topology: { Type: Unknown, Servers: [ { Address: 
+   127.0.0.1:27017, Type: Unknown, Error: Kind: I/O error: Connection refused 
+   (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source: 
+   None }
 
 The following sections describe methods that may help resolve the issue.
 
@@ -78,9 +80,10 @@ raises an error message similar to the following message:
 .. code-block:: none
    :copyable: false
 
-    Error: Error { kind: Authentication { message: "SCRAM failure: bad auth : authentication failed" }, 
-    labels: {}, wire_version: None, source: Some(Error { kind: Command(CommandError { code: 8000,
-    code_name: "AtlasError", message: "bad auth : authentication failed", topology_version: None }),
+    Error: Error { kind: Authentication { message: "SCRAM failure: bad auth : 
+    authentication failed" }, labels: {}, wire_version: None, source: Some(Error 
+    { kind: Command(CommandError { code: 8000, code_name: "AtlasError", message:
+    "bad auth : authentication failed", topology_version: None }),
     labels: {}, wire_version: None, source: None }) }
 
 The following sections describe methods that may help resolve the issue.
@@ -213,8 +216,8 @@ happens, you might receive an error message similar to the following message:
 .. code-block:: none
    :copyable: false
 
-   Error: Error { kind: DnsResolve { message: "sample message. type: SRV class: IN" },
-   labels: {}, wire_version: None, source: None }
+   Error: Error { kind: DnsResolve { message: "sample message. type: 
+   SRV class: IN" }, labels: {}, wire_version: None, source: None }
 
 If you receive this error, try the following methods to resolve the issue.
 
@@ -227,7 +230,7 @@ Check that the database deployment exists. If the cluster is paused, you can res
 the cluster on the Atlas UI or the Atlas command line interface.
 
 To learn how to resume a cluster, see :atlas:`Resume One Cluster 
-<pause-terminate-cluster/#resume-one-cluster/>` in the Atlas documentation.
+</pause-terminate-cluster/#resume-one-cluster/>` in the Atlas documentation.
 
 Check Connection String
 -----------------------
