@@ -1,4 +1,4 @@
-.. rust-connection-troubleshooting:
+.. _rust-connection-troubleshooting:
 
 ==========================
 Connection Troubleshooting
@@ -25,8 +25,12 @@ using the {+driver-long+} to connect to a MongoDB deployment.
      questions, discussions, or general technical support
 
    ..
+       TODO:
      - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
        {+driver-short+}
+     - The :ref:`Operation Error Handling <rust-operation-errors>` page
+       for the {+driver-short+}
+      
 
 Server Connection Error
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,6 +74,22 @@ verify the correct port is open in your firewall.
    Do not open a port in your firewall unless you are sure that it is the port
    used by your MongoDB instance.
 
+.. _rust-troubleshooting-connection-number-connections:
+
+Check the Number of Connections
+-------------------------------
+
+Each ``MongoClient`` instance supports a maximum number of concurrent open
+connections in its connection pool. The configuration parameter ``maxPoolSize``
+defines this value and is set to ``100`` by default. If there are already a
+number of open connections equal to ``maxPoolSize``, the server waits until
+a connection becomes available. If this wait time exceeds the ``maxIdleTimeMS``
+value, the driver responds with an error. 
+
+.. 
+   TODO To learn more about how connection pools work in the driver, see
+   the :ref:`FAQ page <rust-faq-connection-pool>`.
+
 Authentication Error
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -106,8 +126,8 @@ are in the correct format.
 
 .. note::
 
-   If the username or password includes any of the following characters, they
-   must be `percent encoded <https://tools.ietf.org/html/rfc3986#section-2.1>`__:
+   If your username or password includes any of the following characters, you
+   must `percent encode <https://tools.ietf.org/html/rfc3986#section-2.1>`__ them:
 
    .. code-block:: none
 
@@ -116,7 +136,9 @@ are in the correct format.
 When connecting to a replica set, include all the replica set hosts in
 your connection string. Separate each of the hosts in the connection
 string with a comma. This enables the driver to establish a connection if
-one of the hosts is unreachable.
+one of the hosts is unreachable. For an example of a connection string
+that specifies multiple replica set hosts, see :ref:`Connect to a Replica Set 
+<rust-connect-replica-set>` in the Connection Guide.
 
 .. _rust-troubleshooting-connection-auth-mechanism:
 
@@ -138,8 +160,8 @@ Verify User Is in Authentication Database
 To successfully authenticate a connection by using a username and password,
 the username must be defined in the authentication database. The default
 authentication database is the ``admin`` database. To use a different database
-for authentication, specify the ``authSource`` in the connection string. The
-following example instructs the driver to use ``users`` as the authentication
+for authentication, specify the ``authSource`` optoin in the connection string.
+The following example instructs the driver to use ``users`` as the authentication
 database:
 
 .. code-block:: rust
@@ -147,65 +169,6 @@ database:
 
    let uri = "mongodb://<username>:<password>@<hostname>:<port>/?authSource=users";
    let client = Client::with_uri_str(uri).await?;
-
-Error Sending a Command
-~~~~~~~~~~~~~~~~~~~~~~~
-
-When the driver fails to send a command after you make a request,
-it raises an error message similar to the following message:
-
-.. code-block:: none
-   :copyable: false
-
-   Error { kind: Command(CommandError { code: 17312, code_name: "Location17312",
-   message: "sample message" }), labels: {} }', src\main.rs:00:00
-
-The following sections describe methods that may help resolve the issue.
-
-Check Connection String
------------------------
-
-Verify that the connection string in your app is accurate. For more information
-about verifying your connection string, see
-:ref:`Connection Error <rust-troubleshooting-connection-string-port>`
-and :ref:`Authentication Error <rust-troubleshooting-connection-string-auth>`.
-
-Verify the Authentication Mechanism
------------------------------------
-
-Make sure you are using the correct authentication mechanism and credentials.
-For more information about authentication errors, see
-:ref:`Authentication Error <rust-troubleshooting-connection-auth-mechanism>`.
-
-Verify User Is in Authentication Database
------------------------------------------
-
-Verify the user is in the correct authentication database. For more
-information about the authentication database, see
-:ref:`Authentication Error <rust-troubleshooting-connection-admin>`.
-
-Configure Firewall
-------------------
-
-The firewall needs to have an open port for communicating with the MongoDB
-instance. For more information about configuring the firewall, see
-:ref:`Connection Error <rust-troubleshooting-connection-firewall>`.
-
-.. _rust-troubleshooting-connection-number-connections:
-
-Check the Number of Connections
--------------------------------
-
-Each ``MongoClient`` instance supports a maximum number of concurrent open
-connections in its connection pool. The configuration parameter ``maxPoolSize``
-defines this value and is set to ``100`` by default. If there are already a
-number of open connections equal to ``maxPoolSize``, the server waits until
-a connection becomes available. If this wait time exceeds the ``maxIdleTimeMS``
-value, the driver responds with an error. 
-
-.. 
-   TODO To learn more about how connection pools work in the driver, see
-   the :ref:`FAQ page <rust-faq-connection-pool>`.
 
 DNS Resolution Error
 ~~~~~~~~~~~~~~~~~~~~
