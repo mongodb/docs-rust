@@ -48,7 +48,7 @@ that the driver cannot connect to a server on the specified hostname or port:
    (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source: 
    None }
 
-The following sections describe methods that may help resolve the issue.
+The following sections describe methods that might help resolve the issue.
 
 .. _rust-troubleshooting-connection-string-port:
 
@@ -127,11 +127,14 @@ are in the correct format.
 .. note::
 
    If your username or password includes any of the following characters, you
-   must `percent encode <https://tools.ietf.org/html/rfc3986#section-2.1>`__ them:
+   must `percent encode <https://tools.ietf.org/html/rfc3986#section-2.1>`__ it:
 
    .. code-block:: none
 
       : / ? # [ ] @
+   
+   After percent encoding your username and password, you can use them as
+   credentials in your connection string.
 
 When connecting to a replica set, include all the replica set hosts in
 your connection string. Separate each of the hosts in the connection
@@ -160,7 +163,7 @@ Verify User Is in Authentication Database
 To successfully authenticate a connection by using a username and password,
 the username must be defined in the authentication database. The default
 authentication database is the ``admin`` database. To use a different database
-for authentication, specify the ``authSource`` optoin in the connection string.
+for authentication, specify the ``authSource`` option in the connection string.
 The following example instructs the driver to use ``users`` as the authentication
 database:
 
