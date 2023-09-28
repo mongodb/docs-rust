@@ -46,7 +46,7 @@ Download and Install
 
       .. tip::
    
-         The ``mongodb`` crate resolves the ``bson`` crate, or the primary
+         The ``mongodb`` crate resolves the ``bson`` crate, which is the primary
          MongoDB data representation crate. You do not need to add the ``bson``
          crate to your dependencies list.
 
@@ -92,11 +92,17 @@ Download and Install
       replace the feature flag with your runtime crate's corresponding flag.
       The driver supports the following alternative runtime crates:
 
-      - the ``async-std`` crate with the ``"async-std-runtime"`` feature flag
-      - the ``sync`` crate with the ``"sync"`` feature flag
+      - The ``async-std`` crate with the ``"async-std-runtime"`` feature flag. For 
+        more information about this crate, see the `crates.io documentation
+        <https://crates.io/crates/async-std>`__.
+      - The ``sync`` crate with the ``"sync"`` feature flag. For more information
+        about this crate, see the `crates.io documentation
+        <https://crates.io/crates/sync>`__.
 
-      If you need to use both the asynchronous and synchronous runtimes, add the
-      following dependencies list to your ``Cargo.toml`` file:
+      If you need to use both the asynchronous and synchronous runtimes, specify
+      the ``tokio`` runtime dependency and include the ``"tokio-sync"`` flag in
+      ``dependencies.mongodb``. The following code shows an example dependencies
+      list that supports sync and async code:
 
       .. code-block:: bash
          
