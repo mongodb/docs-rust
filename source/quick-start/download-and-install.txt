@@ -88,7 +88,7 @@ Download and Install
          the ``"tokio-runtime"`` feature flag to specify the ``tokio`` runtime, but
          this flag is optional.
       
-      If you need to use a different synchronous or asynchronous runtime crate,
+      If you want to use a different synchronous or asynchronous runtime crate,
       replace the feature flag with your runtime crate's corresponding flag.
       The driver supports the following alternative runtime crates:
 
@@ -99,7 +99,7 @@ Download and Install
         about this crate, see the `crates.io documentation
         <https://crates.io/crates/sync>`__.
 
-      If you need to use both the asynchronous and synchronous runtimes, specify
+      If you want to use both the asynchronous and synchronous runtimes, specify
       the ``tokio`` runtime dependency and include the ``"tokio-sync"`` flag in
       ``dependencies.mongodb``. The following code shows an example dependencies
       list that supports sync and async code:
