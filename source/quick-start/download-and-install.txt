@@ -46,8 +46,8 @@ Download and Install
 
       .. tip::
    
-         The ``mongodb`` crate automatically resolves the ``bson`` crate, or the
-         main MongoDB data representation crate. You can omit the ``bson`` crate from
+         The ``mongodb`` crate resolves the ``bson`` crate, or the primary
+         MongoDB data representation crate. You can omit the ``bson`` crate from
          your dependencies list and add the ``use mongodb::bson`` import statement to
          your project files.
 
@@ -82,6 +82,12 @@ Download and Install
                version = "{+version+}"
                features = ["tokio-sync"]
 
+      .. tip::
+
+         The ``tokio`` asynchronous runtime is the driver's default runtime crate
+         and does not require a feature flag. The preceding code example includes
+         the ``"tokio-runtime"`` feature flag to specify the ``tokio`` runtime, but
+         this flag is optional.
       
       If you need to use a different synchronous or asynchronous runtime crate,
       replace the feature flag with your runtime crate's corresponding flag.
@@ -89,12 +95,6 @@ Download and Install
 
       - the ``async-std`` crate with the ``"async-std-runtime"`` feature flag
       - the ``sync`` crate with the ``"sync"`` feature flag
-
-      .. tip::
-
-         The ``tokio`` asynchronous runtime is the driver's default runtime crate.
-         You do not need to include the ``"tokio-runtime"`` feature flag in your
-         dependencies list to use this crate.
 
       If you need to use both the asynchronous and synchronous runtimes, add the
       following dependencies list to your ``Cargo.toml`` file:
