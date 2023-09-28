@@ -21,8 +21,8 @@ BSON is called **serialization**, while the reverse process is called
 The Rust language uses a static type system, but BSON has a dynamic
 schema. To handle conversions between Rust types and BSON, the driver and the
 ``bson`` library integrate functionality from the Serde framework. To
-learn how to install the ``serde`` crate, see the `serde crate description
-<https://crates.io/crates/serde>`__.
+learn how to install the ``serde`` crate, see the `serde crate entry
+<https://crates.io/crates/serde>`__ at the ``crates.io`` crate registry.
 
 By implementing functionality from the ``serde`` crate into your
 application, you can use custom Rust types such as structs and enums
@@ -50,12 +50,12 @@ Generic Type Parameter
 
 When you create a ``Collection`` instance, you must specify a generic
 type parameter to represent the type of data that models the documents
-in your collection. To learn more about specifying a generic parameter,
+in your collection. To learn more about specifying a generic type parameter,
 see the :ref:`Collection Parameterization section
 <rust-coll-parameterization>` of the guide on Databases and Collections.
 
 We recommend that you define and use a custom type to model your
-collection's data, instead of the ``Document`` type.
+collection's data instead of using the ``Document`` type.
 
 .. _rust-custom-data-model:
 
@@ -63,9 +63,10 @@ Custom Data Model
 -----------------
 
 You can use any Rust data type that implements the ``Serialize`` and
-``Deserialize`` traits from the ``serde`` crate as the generic parameter for a
-``Collection`` instance. To implement these traits, you must use the
-following ``derive`` statement before defining a Rust type:
+``Deserialize`` traits from the ``serde`` crate as the generic type
+parameter for a ``Collection`` instance. To implement the ``Serialize``
+and ``Deserialize`` traits, you must use the following ``derive``
+statement before defining a Rust type:
 
 .. code-block:: rust
    
@@ -74,8 +75,8 @@ following ``derive`` statement before defining a Rust type:
 Custom Struct Example
 ~~~~~~~~~~~~~~~~~~~~~
 
-The following code defines a sample ``Vegetable`` struct that derives the
-serialization traits:
+The following code defines a sample ``Vegetable`` struct that implements
+the ``serde`` serialization traits:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -84,7 +85,7 @@ serialization traits:
    :end-before: end-veg-struct
 
 The following code accesses the ``vegetables`` collection with
-``Vegetable`` as its generic parameter:
+``Vegetable`` as its generic type parameter:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -94,7 +95,7 @@ The following code accesses the ``vegetables`` collection with
 
 Because the ``Collection`` instance is parameterized with the
 ``Vegetable`` struct, you can perform CRUD operations with this type.
-The following code inserts a ``Vegetable`` into the collection:
+The following code inserts a ``Vegetable`` instance into the collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -160,7 +161,9 @@ You might want to represent the ``_id`` field in a document as a
 hexadecimal string in your struct. To convert the hexadecimal string to
 the ``ObjectId`` BSON type, use the
 ``serialize_hex_string_as_object_id`` helper function as the value of
-the ``serialize_with`` attribute attached to the ``_id`` field:
+the ``serialize_with`` attribute. The following example attaches the
+``serialize_with`` attribute to the ``_id`` field so that the driver
+serializes the hexadecimal string as an ``ObjectId`` type:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -168,8 +171,8 @@ the ``serialize_with`` attribute attached to the ``_id`` field:
    :start-after: begin-hex-to-objectid
    :end-before: end-hex-to-objectid
 
-Select from the :guilabel:`Struct` and :guilabel:`BSON` tabs below
-to see how the driver serializes a sample ``Order`` struct to BSON:
+To see how the driver serializes a sample ``Order`` struct to BSON,
+select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
 
 .. tabs::
 
@@ -199,8 +202,10 @@ Serialize a DateTime as a String
 You might want to represent a ``DateTime`` field value in a document as
 an ISO-formatted string in BSON. To specify this conversion, use the
 ``serialize_bson_datetime_as_rfc3339_string`` helper function as the value of
-the ``serialize_with`` attribute attached to the field. In the following
-example, the ``delivery_date`` field has a value of type ``DateTime``:
+the ``serialize_with`` attribute attached to the field with a
+``DateTime`` value. The following example attaches the
+``serialize_with`` attribute to the ``delivery_date`` field so that the
+driver serializes the ``DateTime`` value to a string:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -208,8 +213,8 @@ example, the ``delivery_date`` field has a value of type ``DateTime``:
    :start-after: begin-dt-to-string
    :end-before: end-dt-to-string
 
-Select from the :guilabel:`Struct` and :guilabel:`BSON` tabs below
-to see how the driver serializes a sample ``Order`` struct to BSON:
+To see how the driver serializes a sample ``Order`` struct to BSON,
+select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
 
 .. tabs::
 
@@ -240,8 +245,10 @@ Serialize a u32 as an f64
 You might want to represent a ``u32`` field value in a document as
 an ``f64``, or ``Double``, type in BSON. To specify this conversion, use the
 ``serialize_u32_as_f64`` helper function as the value of
-the ``serialize_with`` attribute attached to the field. In the following
-example, the ``quantity`` field has a value of type ``u32``:
+the ``serialize_with`` attribute attached to the field with a ``u32``
+value. The following example attaches the
+``serialize_with`` attribute to the ``quantity`` field so that the
+driver serializes the ``u32`` value to a ``Double`` type:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/serialization.rs
    :language: rust
@@ -285,7 +292,7 @@ their functionality:
   default value from ``Default::default()``
 
 To see a full list of ``serde`` attributes, see the `serde Attributes
-API documentation <https://serde.rs/attributes.html>`__
+API documentation <https://serde.rs/attributes.html>`__.
 
 .. _rust-serialization-addtl-info:
 

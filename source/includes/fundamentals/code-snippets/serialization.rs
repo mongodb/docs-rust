@@ -28,7 +28,9 @@ async fn main() -> mongodb::error::Result<()> {
     let client = Client::with_uri_str(uri).await?;
 
     // begin-access-coll
-    let my_coll: Collection<Vegetable> = client.database("db").collection("vegetables");
+    let my_coll: Collection<Vegetable> = client
+        .database("db")
+        .collection("vegetables");
     // end-access-coll
 
     // begin-insert-veg
@@ -43,7 +45,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-insert-veg
 
     // begin-multiple-types
-    let shapes_coll: Collection<Square> = client.database("db").collection("shapes");
+    let shapes_coll: Collection<Square> = client
+        .database("db")
+        .collection("shapes");
     // ... perform some operations with Square
 
     let shapes_coll: Collection<Circle> = shapes_coll.clone_with_type();

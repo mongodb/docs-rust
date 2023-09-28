@@ -164,7 +164,7 @@ instances of this type.
 .. note::
    
    If you do not parameterize your ``Collection`` instance, the compiler
-   can infer the generic type if you perform a CRUD operation with a
+   infers the generic type when you perform a CRUD operation with a
    specified data type in the same scope.
 
 The following example shows equivalent ways of parameterizing a
