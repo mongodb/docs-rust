@@ -180,6 +180,8 @@ select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
       :tabid: order struct
 
       .. code-block:: rust
+         :copyable: false
+         :emphasize-lines: 2
          
          let order = Order {
              _id: "6348acd2e1a47ca32e79f46f".to_string(),
@@ -190,6 +192,8 @@ select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
       :tabid: serialized bson
 
       .. code-block:: json
+         :copyable: false
+         :emphasize-lines: 2
 
          {
            "_id": { "$oid": "6348acd2e1a47ca32e79f46f" },
@@ -222,6 +226,8 @@ select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
       :tabid: order struct
 
       .. code-block:: rust
+         :copyable: false
+         :emphasize-lines: 3
          
          let order = Order {
              item: "lima beans".to_string(),
@@ -232,6 +238,8 @@ select from the following :guilabel:`Struct` and :guilabel:`BSON` tabs:
       :tabid: serialized bson
 
       .. code-block:: json
+         :copyable: false
+         :emphasize-lines: 4
 
          {
            "_id": { ... },
