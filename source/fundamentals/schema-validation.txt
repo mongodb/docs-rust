@@ -24,10 +24,10 @@ document fields in a specified collection.
 
 You can define schema validation rules when creating a collection by using
 driver methods, or you can add them to an existing collection by using the
-``collMod`` MongoDB Shell command. This guide only describes how to enable
-schema validation when creating a collection. To learn more about enabling
-schema validation on existing collections, see :manual:`collMod 
-</reference/command/collMod/>` in the Server manual.
+``collMod`` MongoDB command. This guide only describes how to enable schema
+validation when creating a collection. To learn more about enabling schema
+validation on existing collections, see :manual:`collMod </reference/command/collMod/>`
+in the Server manual.
 
 .. _rust-json-validation:
 
@@ -126,7 +126,7 @@ inserted:
      "answer": "no"
    }
 
-However, if you attempt to insert the following document, the driver
+However, if you attempt to insert the following document, the server
 raises an error because the value of ``answer`` does not match any of
 the valid options:
 
