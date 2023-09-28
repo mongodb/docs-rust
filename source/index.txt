@@ -11,6 +11,7 @@
    /fundamentals
    API Documentation <{+api+}/>
    /connection-troubleshooting
+   /op-error-handling
    /issues-and-help
    /compatibility
    View the Source <https://github.com/mongodb/mongo-rust-driver>
@@ -75,6 +76,13 @@ Connection Troubleshooting
 For solutions to some issues you might see when connecting to a MongoDB
 deployment while using the {+driver-long+}, see
 :ref:`rust-connection-troubleshooting`.
+
+Operation Error Handling
+------------------------
+
+To learn about errors you might encounter when using the {+driver-long+}
+to perform MongoDB operations, see :ref:`rust-operation-errors`.
+
 
 Issues & Help
 -------------
