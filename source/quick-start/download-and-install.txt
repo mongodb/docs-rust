@@ -47,9 +47,8 @@ Download and Install
       .. tip::
    
          The ``mongodb`` crate resolves the ``bson`` crate, or the primary
-         MongoDB data representation crate. You can omit the ``bson`` crate from
-         your dependencies list and add the ``use mongodb::bson`` import statement to
-         your project files.
+         MongoDB data representation crate. You do not need to add the ``bson``
+         crate to your dependencies list.
 
       The following code shows an example dependencies list that
       includes the preceding crates:
