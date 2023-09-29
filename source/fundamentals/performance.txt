@@ -24,8 +24,7 @@ Client Lifecycle
 ----------------
 
 We recommend that you reuse your client across sessions and operations.
-You can use the same ``Client`` instance to perform multiple tasks, instead of creating a new one each time.
-The ``Client`` type is safe for concurrent use by multiple threads.
+You can use the same ``Client`` instance to perform multiple tasks, as the ``Client`` type is safe for concurrent use by multiple threads.
 Creating a new ``Client`` instance for each request results in slower performance.
 
 The following code creates a method that accepts a pointer to an existing ``Client`` instance,
@@ -61,8 +60,8 @@ to list databases in the deployment.
    :language: rust
    :dedent:
 
-As an example of the latter,
-the following code creates a new ``Client`` instance for each test run with ``tokio::test``.
+Implementing the second strategy,
+the following code creates a new ``Client`` instance for each test run by using the ``tokio::test`` macro.
 This ensures there is no unintended interaction between runtimes.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-new-client.rs
