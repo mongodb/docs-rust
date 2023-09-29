@@ -73,7 +73,7 @@ This ensures there is no unintended interaction between runtimes.
 Parallelism
 -----------
 
-If you can run parallel data operations, creating asynchronous, concurrent tasks achieves maximum performance.
+If you can run parallel data operations, you can optimize performance by running asynchronous, concurrent tasks.
 The following code uses the ``task`` module from the ``tokio`` crate to create separate, concurrent
 tasks for multiple data operations:
 
