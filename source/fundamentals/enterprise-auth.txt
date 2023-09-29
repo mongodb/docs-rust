@@ -18,8 +18,8 @@ In this guide, you can learn how to authenticate to MongoDB using the
 Edition. When you connect to MongoDB, you can use an authentication
 mechanism to establish trust between the driver and the server.
 
-The {+driver-short+} supports only the :ref:`LDAP (PLAIN) <rust-LDAP>`
-authentication mechanism.
+The {+driver-short+} supports the :ref:`LDAP (PLAIN) <rust-LDAP>`
+enterprise authentication mechanism.
 
 .. note:: GSSAPI/Kerberos Authentication
    
@@ -98,7 +98,7 @@ a connection string URI by using the following placeholders:
 
 .. code-block:: rust
    
-   let uri = "mongodb://<username>:<password>@<hostname>/?authMechanism=PLAIN";
+   let uri = "mongodb://<username>:<password>@<hostname>/?authSource=$external&authMechanism=PLAIN";
 
 Additional Information
 ----------------------

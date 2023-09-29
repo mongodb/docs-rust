@@ -10,6 +10,7 @@ async fn main() -> mongodb::error::Result<()> {
         .username("<username>".to_string())
         .password("<password>".to_string())
         .mechanism(AuthMechanism::Plain)
+        .source("$external".to_string())
         .build();
 
     client_options.credential = Some(plain_cred);
