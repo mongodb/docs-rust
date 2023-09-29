@@ -62,8 +62,8 @@ to list databases in the deployment.
    :dedent:
 
 Implementing the second strategy,
-the following code creates a new ``Client`` instance for each test run by using the ``tokio::test`` macro.
-This ensures there is no unintended interaction between runtimes.
+the following code creates a new ``Client`` instance for each test run with ``tokio::test``, 
+ensuring that there is no unintended interaction between runtimes:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/performance-new-client.rs
    :language: rust
