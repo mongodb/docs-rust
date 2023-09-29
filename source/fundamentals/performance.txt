@@ -16,7 +16,8 @@ Overview
 In this guide, you can learn how to optimize performance of the {+driver-short+}.
 To connect to MongoDB, you must create a ``Client`` instance. Your ``Client``
 instance automatically handles most aspects of connection, such as discovering server topology, monitoring
-your connection, and maintaining an internal connection pool. This guide describes best practices to configure and use your ``Client`` instance.
+your connection, and maintaining an internal connection pool.
+This guide describes best practices to configure and use your ``Client`` instance.
 
 .. _rust-performance-client-lifecycle:
 
@@ -42,7 +43,7 @@ Runtime
 -------
 
 A ``Client`` instance is bound to the instance of the ``tokio`` or ``async-std`` runtime in which you created it.
-If you use a ``Client`` instance to execute operations on a different runtime, you might experience unexpected behavior or failures.
+If you use a ``Client`` instance to perform operations on a different runtime, you might experience unexpected behavior or failures.
 
 If you are using the ``test`` helper macro from the ``tokio`` or ``async_std`` crate to test your application,
 you might accidentally run operations on a different runtime than you intended.
