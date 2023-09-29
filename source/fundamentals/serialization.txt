@@ -135,10 +135,10 @@ Attributes are optional pieces of metadata attached to fields of
 structs or variants of enums.
 
 The ``serde`` crate provides the ``serialize_with`` and
-``deserialize_with`` attributes to select helper functions to customize
-serialization and deserialization on specific fields and variants. To
-specify an attribute on a struct field or enum variant, include it
-before the definition:
+``deserialize_with`` attributes, which take helper functions as values.
+These helper functions customize serialization and deserialization on
+specific fields and variants. To specify an attribute on a field,
+include the attribute before the field definition:
 
 .. code-block:: rust
    
@@ -286,7 +286,7 @@ attribute to the name of the module:
        // ... other fields
    }
 
-To see a full list of these modules, see the `serde_helpers API
+For a full list of these modules, see the `serde_helpers API
 documentation <https://docs.rs/bson/latest/bson/serde_helpers/index.html#modules>`__.
 
 The ``serde`` crate provides many other attributes to customize
@@ -299,7 +299,7 @@ their functionality:
 - ``default``: if no value is present during deserialization, use the
   default value from ``Default::default()``
 
-To see a full list of ``serde`` attributes, see the `serde Attributes
+For a full list of ``serde`` attributes, see the `serde Attributes
 API documentation <https://serde.rs/attributes.html>`__.
 
 .. _rust-serialization-addtl-info:
@@ -310,7 +310,7 @@ Additional Information
 To learn more about BSON types, see :manual:`BSON Types
 </reference/bson-types/>` in the Server manual.
 
-To see more examples that demonstrate ``serde`` functionality, see the
+For more examples that demonstrate ``serde`` functionality, see the
 :website:`Structuring Data with Serde in Rust
 </developer/languages/rust/serde-improvements/>` Developer Center
 article.
