@@ -8,7 +8,6 @@ struct Vegetable {
     name: String,
     category: String,
     tropical: bool,
-    other_names: Vec<String>,
 }
 // end-veg-struct
 
@@ -38,7 +37,6 @@ async fn main() -> mongodb::error::Result<()> {
         name: "calabash".to_string(),
         category: "gourd".to_string(),
         tropical: true,
-        other_names: vec!["bottle gourd".to_string(), "lauki".to_string()],
     };
 
     my_coll.insert_one(calabash, None).await?;

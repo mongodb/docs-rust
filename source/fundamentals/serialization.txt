@@ -21,7 +21,7 @@ BSON is called **serialization**, while the reverse process is called
 The Rust language uses a static type system, but BSON has a dynamic
 schema. To handle conversions between Rust types and BSON, the driver and the
 ``bson`` library integrate functionality from the Serde framework. To
-learn how to install the ``serde`` crate, see the `serde crate entry
+learn how to install the ``serde`` crate, see `serde
 <https://crates.io/crates/serde>`__ at the ``crates.io`` crate registry.
 
 By implementing functionality from the ``serde`` crate into your
@@ -37,7 +37,8 @@ This guide includes the following sections:
   define custom Rust types to model data in your collections
 
 - :ref:`Custom Serialization <rust-custom-serialization>`: describes how
-  to modify default serialization and deserialization behavior by using attributes
+  to modify default serialization and deserialization behavior by using
+  attributes and provides examples
 
 - :ref:`Additional Information <rust-serialization-addtl-info>`:
   provides links to additional resources and API documentation for types
