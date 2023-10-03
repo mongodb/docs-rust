@@ -47,6 +47,7 @@ Connect to MongoDB
       command line output:
 
       .. code-block:: none
+         :copyable: false
 
          Found a movie:
          Some(
@@ -68,12 +69,7 @@ Connect to MongoDB
                      String(
                          "Crane Wilbur",
                      ),
-                     String(
-                         "Paul Panzer",
-                     ),
-                     String(
-                         "Edward Josè",
-                     ),
+                     ...
                  ]),
              }),
          )
