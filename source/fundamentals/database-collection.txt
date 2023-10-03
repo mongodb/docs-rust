@@ -270,7 +270,7 @@ how to drop a collection referenced by the ``my_coll`` variable:
 Additional Information
 ----------------------
 
-For more information about the concepts in this guide, see the following pages:
+For more information about the concepts in this guide, see the following documentation:
 
 - :ref:`Insert Documents <rust-insert-guide>` guide in the
   {+driver-short+} documentation

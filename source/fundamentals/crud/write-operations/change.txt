@@ -21,6 +21,25 @@ fields and values unchanged. Replace operations remove all existing
 fields of a document except for the ``_id`` field and substitute the
 removed fields with new fields and values.
 
+This guide includes the following sections:
+
+- :ref:`Update Documents <rust-update-documents>`: describes how to use the
+  driver to execute update operations
+
+- :ref:`Replace a Document <rust-replace-document>`: describes how to use the
+  driver to execute replace operations
+
+- :ref:`Modify Update and Replace Behavior <rust-update-options>`:
+  describes how to modify the default behavior of the methods described
+  in this guide
+
+- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
+  provides links to additional resources and API documentation for types
+  and methods mentioned in this guide
+
+Update Document Pattern
+~~~~~~~~~~~~~~~~~~~~~~~
+
 In MongoDB, all methods to change documents follow the same pattern:
 
 .. figure:: /includes/figures/change_diagram.png
@@ -403,10 +422,8 @@ Additional Information
 .. - :ref:`rust-update-many`
 .. - :ref:`rust-replace`
 
-To learn more about the concepts mentioned, see the following
-guides:
-
-- :manual:`Update Operators </reference/operator/update/#update-operators>`
+To learn more about the update operators, see :manual:`Update Operators
+</reference/operator/update/#update-operators>` in the Server manual.
 
 .. - :ref:`rust-query-document`
 .. - :ref:`rust-upsert`

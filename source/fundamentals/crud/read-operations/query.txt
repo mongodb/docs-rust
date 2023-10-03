@@ -50,7 +50,7 @@ using the ``find()`` method to match documents in a collection.
 This guide includes the following sections:
 
 - :ref:`Sample Data for Examples <rust-query-sample-data>`: presents
-  the sample data that is used by the read operation examples
+  the sample data that is used by the query examples
 
 - :ref:`Literal Values <rust-literal-values>`: describes how to
   query for data that exactly matches a value you provide in the query

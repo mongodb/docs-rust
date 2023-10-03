@@ -382,8 +382,8 @@ Additional Information
 .. - :ref:`rust-find-one`
 .. - :ref:`rust-find-multiple`
 
-To learn more about the operations mentioned in this guide, see the
-following documentation:
+To learn more about the operations in this guide, see the
+following {+driver-short+} documentation:
 
 - :ref:`rust-query-guide`
 - :ref:`rust-cursor-guide`

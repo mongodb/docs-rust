@@ -31,6 +31,9 @@ instance fetches the next batch of documents until all the results are returned.
 
 This guide includes the following sections:
 
+- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: presents
+  the sample data that is used by the cursor examples
+
 - :ref:`Retrieve Documents Individually <rust-cursor-individual>`:
   describes how to use iteration or a stream to access results one at a time
 
@@ -44,6 +47,24 @@ This guide includes the following sections:
 - :ref:`Additional Information <rust-cursor-addtl-info>`:
   provides links to related topics and API documentation for types
   and methods mentioned in this guide
+
+.. _rust-cursor-sample-data:
+
+Sample Data for Examples
+------------------------
+
+.. TODO decide on structs in crud
+
+The examples in this guide use the following sample documents. Each
+document describes a fruit:
+
+.. code-block:: json
+   :copyable: false
+   
+   { "name": "strawberry", "color": "red" },
+   { "name": "banana", "color": "yellow" },
+   { "name": "pomegranate", "color": "red" },
+   { "name": "pineapple", "color": "yellow" }
 
 .. _rust-cursor-individual:
 
@@ -284,7 +305,7 @@ Additional Information
 ----------------------
 
 To learn more about the operations in this guide, see the
-following Rust driver reference documentation:
+following {+driver-short+} documentation:
 
 - :ref:`rust-retrieve-guide`
 - :ref:`rust-query-guide`

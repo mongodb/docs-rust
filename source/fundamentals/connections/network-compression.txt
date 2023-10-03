@@ -32,6 +32,21 @@ The driver supports the following compressors:
    driver selects the first one that is supported by the MongoDB
    instance that the driver is connected to.
 
+This guide includes the following sections:
+
+- :ref:`Add Compression Feature Flags <rust-nc-add-flags>`: describes
+  how to add feature flags to your application for different compressors
+
+- :ref:`Enable Network Compression <rust-nc-enable-compression>`:
+  describes how to implement network compression in your application by
+  using a ``Client`` instance
+
+- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
+  provides links to additional resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-nc-add-flags:
+
 Add Compression Feature Flags
 -----------------------------
 
@@ -75,6 +90,8 @@ necessary feature flag to your ``mongodb`` dependency:
    
    To specify multiple compressors, you must add the feature flag for
    each compressor to your ``mongodb`` dependency.
+
+.. _rust-nc-enable-compression:
 
 Enable Network Compression
 --------------------------

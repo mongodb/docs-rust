@@ -515,8 +515,8 @@ following parameters:
 Additional Information
 ----------------------
 
-To learn more about performing the previous operations, see the
-following guides:
+To learn more about the operations in this guide, see the
+following {+driver-short+} documentation:
 
 .. - :ref:`rust-query-guide`
 

@@ -16,6 +16,22 @@ Overview
 In this guide, you can learn how to connect to a MongoDB instance or
 replica set deployment by using the {+driver-short+}.
 
+This guide includes the following sections:
+
+- :ref:`Connection URI <rust-connection-uri>`: describes connection URIs
+  and their constituent parts
+
+- :ref:`MongoDB Client <rust-client>`: describes the ``Client`` type and
+  ways to create a client from a connection string
+
+- :ref:`Connection Example <rust-atlas-connection-example>`: provides
+  examples that show how to connect to MongoDB by using an Atlas
+  connection string
+
+- :ref:`Other Ways to Connect to MongoDB <rust-other-ways-to-connect>`:
+  describes ways to connect to MongoDB deployments that are not hosted
+  on Atlas
+
 .. _rust-connection-uri:
 
 Connection URI
@@ -61,8 +77,10 @@ options. In the example, we set two connection options:
    To learn more about setting connection options, see the guide on
    :ref:`rust-connection-options`.
 
+.. _rust-client:
+
 MongoDB Client
-~~~~~~~~~~~~~~
+--------------
 
 To connect to MongoDB, you need to create a ``Client`` instance. A
 client manages your connections and runs database commands.
@@ -100,7 +118,7 @@ To learn more about the {+stable-api+} feature, see the
 .. _rust-atlas-connection-example:
 
 Connection Example
-~~~~~~~~~~~~~~~~~~
+------------------
 
 The following code shows how you can create a client that uses an Atlas
 connection string and the {+stable-api+} version, connect to MongoDB, and
