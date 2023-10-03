@@ -4,7 +4,7 @@ use once_cell::sync::Lazy;
 static CLIENT: Lazy<Client> = Lazy::new(|| {
     let rt = Runtime::new().unwrap();
     rt.block_on(async {
-        Client::with_uri_str("mongodb://example.com").await.unwrap()
+        Client::with_uri_str("<connection string>").await.unwrap()
     })
 });
 

@@ -1,4 +1,4 @@
-let client = Client::with_uri_str("mongodb://example.com").await?;
+let client = Client::with_uri_str("<connection string>").await?;
 let some_data = doc! { "title": "1984", "author": "George Orwell" };
 
 for i in 0..5 {
