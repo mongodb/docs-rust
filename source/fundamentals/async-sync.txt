@@ -17,7 +17,7 @@ Overview
 By default, the driver will use ``tokio``, but you can explicitly choose a runtime
 by specifying one of ``tokio-runtime`` or ``async-std-runtime`` feature flags in your ``Cargo.toml``.
 
-Configuring the async runtime
+Configure the async runtime
 -----------------------------
 
 To use ``async-std``, add the following to your ``Cargo.toml``:
@@ -29,10 +29,11 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
    default-features = false
    features = ["async-std-runtime"]
 
-Enabling the sync API
+Enable the sync API
 ---------------------
 
-The driver also provides a blocking sync API. To enable this, add the ``sync`` or ``tokio-sync`` feature to your Cargo.toml:
+The driver also provides a blocking sync API.
+To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml``.
 
 .. code-block:: toml
 
@@ -57,6 +58,9 @@ one option is to spawn tasks and time out on their JoinHandle futures instead of
 This will ensure the driver’s futures will always be completely polled while also allowing the application to continue in the event of a timeout.
 
 e.g.
+
+
+.. code-block:: rust
 
 let collection = client.database("foo").collection("bar");
 let handle = tokio::task::spawn(async move {
