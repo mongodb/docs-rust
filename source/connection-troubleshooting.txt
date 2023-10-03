@@ -25,6 +25,7 @@ using the {+driver-long+} to connect to a MongoDB deployment.
      finding more resources
    - The `MongoDB Community Forums <https://community.mongodb.com>`__ for
      questions, discussions, or general technical support
+   
    ..
        TODO:
      - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the

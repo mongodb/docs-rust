@@ -145,7 +145,7 @@ connection code samples.
 
 .. tip::
 
-   Follow the :ref:`Quick Start guide <rust-connect-to-your-cluster>`
+   Follow the :ref:`Quick Start guide <rust-quick-start-connection-string>`
    to retrieve your Atlas connection string.
 
 .. note::
