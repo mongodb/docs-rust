@@ -48,22 +48,36 @@ Connect to MongoDB
 
       .. code-block:: none
 
-         {
-            "_id": { ... },
-            "plot": "Young Pauline is left a lot of money when her wealthy ...";
-            "genres": [
-               "Action"
-            ],
-            "runtime": 199,
-            "cast": [
-               "Pearl White",
-               "Crane Wilbur",
-               "Paul Panzer",
-               "Edward Josè"
-            ],
-            ...
-         }
-         
+         Found a movie:
+         Some(
+             Document({
+                 "_id": ObjectId(...),
+                 "title": String(
+                     "The Perils of Pauline",
+                 ),
+                 "plot": String(
+                     "Young Pauline is left a lot of money ...",
+                 ),
+                 "runtime": Int32(
+                     199,
+                 ),
+                 "cast": Array([
+                     String(
+                         "Pearl White",
+                     ),
+                     String(
+                         "Crane Wilbur",
+                     ),
+                     String(
+                         "Paul Panzer",
+                     ),
+                     String(
+                         "Edward Josè",
+                     ),
+                 ]),
+             }),
+         )
+
       If you encounter an error or see no output, check whether you specified the
       proper connection string in the ``main.rs`` file, and that you loaded the
       sample data.
