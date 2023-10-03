@@ -90,14 +90,14 @@ Download and Install
       
       If you want to use a different synchronous or asynchronous runtime crate,
       replace the feature flag with your runtime crate's corresponding flag.
-      The driver supports the following alternative runtime crates:
+      The driver supports the following alternative feature flags, which use the
+      `async-std <https://crates.io/crates/async-std>`__ crate runtime:
 
-      - The ``async-std`` crate with the ``"async-std-runtime"`` feature flag. For 
-        more information about this crate, see the `crates.io documentation
-        <https://crates.io/crates/async-std>`__.
-      - The ``sync`` crate with the ``"sync"`` feature flag. For more information
-        about this crate, see the `crates.io documentation
-        <https://crates.io/crates/sync>`__.
+      - The ``"async-std-runtime"`` feature flag
+      - The ``"sync"`` feature flag
+
+      For more information about these feature flags, see the `API documentation
+      <{+api+}/#all-feature-flags>`__.
 
       If you want to use both the asynchronous and synchronous runtimes, specify
       the ``tokio`` runtime dependency and include the ``"tokio-sync"`` flag in
