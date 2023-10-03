@@ -289,7 +289,8 @@ following Rust driver reference documentation:
 - :ref:`rust-retrieve-guide`
 - :ref:`rust-query-guide`
 
-.. TODO link to serialization guide
+To learn more about converting between Rust types and BSON, see the
+guide on :ref:`rust-serialization`.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~

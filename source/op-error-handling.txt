@@ -156,5 +156,6 @@ reason for the error, and the ``details`` field provides specific
 details about the failing operation. To address this error, you must
 either revise the document to adhere to the schema validation rules or
 bypass validation.
-  
-.. TODO To learn more about schema validation, see <link>.
+
+To learn more about schema validation, see the guide on
+:ref:`rust-schema-validation`.

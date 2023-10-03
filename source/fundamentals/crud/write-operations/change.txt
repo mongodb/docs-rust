@@ -42,8 +42,8 @@ The {+driver-short+} provides the following methods to change documents:
 - ``update_many()``
 - ``replace_one()``
 
-.. TODO link to compound operations - You can retrieve and modify data
-.. in one step using compound operations. To learn more, see ...
+You can retrieve and modify data in one action by using compound
+operations. To learn more, see the guide on :ref:`rust-compound-operations`.
 
 The _id Field
 ~~~~~~~~~~~~~

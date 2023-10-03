@@ -220,15 +220,8 @@ guides:
 - :manual:`Operator Expressions </meta/aggregation-quick-reference/#operator-expressions>`
 - :manual:`Aggregation Pipeline Limits </core/aggregation-pipeline-limits/>`
 
-.. TODO To view more aggregation examples, see the following guides:
-.. 
-.. - :ref:`Count <>`
-.. - :ref:`Limit <>`
-.. - :ref:`Skip <>`
-.. - :ref:`Text <>`
-
-.. TODO To learn more about the ``aggregate()`` method and its behavior, see
-.. :ref:`Retrieve Data <>`.
+To learn more about the behavior of the ``aggregate()`` method, see
+:ref:`rust-retrieve-guide` guide.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~

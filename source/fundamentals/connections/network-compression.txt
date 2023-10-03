@@ -115,7 +115,8 @@ Zstandard as the compressors for a connection:
 To learn more about connection strings, see :manual:`Connection String
 URI Format </reference/connection-string/>` in the Server manual.
 
-.. TODO link to connection options page
+To learn more about setting client options, see the
+guide on :ref:`rust-connection-options`.
 
 .. _rust-compression-clientoptions-ex:
 

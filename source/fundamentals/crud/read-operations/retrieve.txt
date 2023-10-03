@@ -85,8 +85,7 @@ retrieve any documents that match the filter criteria.
 To see an example that uses this method to retrieve data, see
 the :ref:`find() example <rust-find-example>`.
 
-.. TODO To learn about query filters, see :ref:`Specify a Query <...>`.
-.. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
+To learn more about specifying a query, see the :ref:`rust-query-guide` guide.
 
 Find One Document
 ~~~~~~~~~~~~~~~~~
@@ -271,15 +270,12 @@ parameter. An aggregation pipeline includes one or more **stages** that
 specify how to transform data. A stage includes an aggregation operator
 (prefixed with a ``$``) and any required parameters for that operator.
 
-.. TODO To learn more about aggregation, see the
-.. :ref:`Aggregation <rust-aggregation>` guide.
+To learn more about aggregation, see the :ref:`rust-aggregation` guide.
 
 The method returns the resulting documents in a ``Cursor`` type. If
 your aggregation pipeline does not contain a :manual:`$match
 </reference/operator/aggregation/match/>` stage, the pipeline processes
 all of the documents in the collection.
-
-.. TODO To learn how to access data from a cursor, see :ref:`rust-cursor-guide`.
 
 Modify Aggregation Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -386,16 +382,17 @@ Additional Information
 .. - :ref:`rust-find-one`
 .. - :ref:`rust-find-multiple`
 
-.. TODO To learn more about the operations mentioned, see the following
-.. guides:
-.. 
-.. - :ref:`rust-query-guide`
-.. - :ref:`rust-cursor-guide`
+To learn more about the operations mentioned in this guide, see the
+following documentation:
+
+- :ref:`rust-query-guide`
+- :ref:`rust-cursor-guide`
+- :ref:`rust-aggregation`
+
 .. - :ref:`rust-skip-guide`
 .. - :ref:`rust-sort-guide`
 .. - :ref:`rust-limit-guide`
 .. - :ref:`rust-project-guide`
-.. - :ref:`rust-aggregation-guide`
 .. - :ref:`rust-collations-guide`
 
 API Documentation

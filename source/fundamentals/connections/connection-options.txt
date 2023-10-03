@@ -12,9 +12,6 @@ options. You can set connection options as parameters of your
 connection string to specify how your ``Client`` instance behaves while
 connected to the server.
 
-.. TODO link to the authentication mechanisms guide in authMechanism below
-.. (https://github.com/mongodb/docs-rust/pull/29)
-
 .. list-table::
    :header-rows: 1
    :widths: 30 12 12 46
@@ -37,7 +34,8 @@ connected to the server.
      - None
      - Specifies which authentication mechanism to use. If you do not
        specify this option, the driver uses the default authentication
-       mechanism.
+       mechanism. To learn more about authentication in the
+       {+driver-short+}, see the guide on :ref:`rust-authentication`.
 
    * - **authMechanismProperties**
      - String

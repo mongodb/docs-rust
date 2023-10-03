@@ -42,8 +42,8 @@ Call one of the following methods on a `Client
 - `default_database() <{+api+}/struct.Client.html#method.default_database>`__: access the
   default database specified for your ``Client`` instance
  
-.. TODO when client options page is completed. To learn how to specify
-.. the default database for your client, see :ref:`clientoptions`.
+To learn how to specify the default database for your client, see
+the guide on :ref:`rust-connection-options`.
 
 If you pass the name of a nonexistent database to the ``database()`` or
 ``database_with_options()`` methods, the driver still returns a
@@ -209,9 +209,10 @@ within a database referenced by the ``db`` variable:
    :start-after: begin-create-coll
    :end-before: end-create-coll
 
-.. TODO While creating a collection, you can implement document validation to
-.. maintain a consistent document schema and control which write operations
-.. succeed. To learn how to enable this feature, see the guide on :ref:`rust-doc-validation`.
+While creating a collection, you can implement schema validation to
+maintain a consistent document schema and control which write operations
+succeed. To learn how to enable this feature, see the guide on
+:ref:`rust-schema-validation`.
 
 List Collections
 ----------------

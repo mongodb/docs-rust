@@ -20,8 +20,9 @@ between the driver and the server.
 
 .. tip::
    
-   .. TODO To learn how to authenticate to MongoDB by using ``GSSAPI/Kerberos`` or
-   .. ``LDAP``, see the guide on :ref:`rust-enterprise-auth`.
+   To learn how to authenticate to MongoDB by using the ``PLAIN``
+   authentication mechanism, see the guide on
+   :ref:`rust-enterprise-auth`.
    
    To learn more about connecting to a MongoDB deployment, see the
    :ref:`rust-connect-to-mongodb`.

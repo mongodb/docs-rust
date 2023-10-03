@@ -155,10 +155,11 @@ Additional Information
 .. - :ref:`rust-delete-one`
 .. - :ref:`rust-delete-many`
 
-.. TODO To learn more about performing the operations mentioned, see the
-.. following guides:
+To learn more about performing the operations mentioned in this guide,
+see the following documentation:
 
-.. - :ref:`rust-query-guide`
+- :ref:`rust-query-guide`
+
 .. - :ref:`rust-indexes`.
 .. - :ref:`rust-collations`.
 

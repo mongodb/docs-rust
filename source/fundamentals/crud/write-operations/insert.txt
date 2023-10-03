@@ -289,11 +289,6 @@ Additional Information
 .. TODO For runnable examples of the insert operations, see the following usage
 .. examples:
 
-.. TODO To learn more about performing the operations mentioned, see the
-.. following guides:
-.. 
-.. - :ref:`rust-query-guide`
-
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
