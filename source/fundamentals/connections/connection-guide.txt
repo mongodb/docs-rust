@@ -18,17 +18,17 @@ replica set deployment by using the {+driver-short+}.
 
 This guide includes the following sections:
 
-- :ref:`Connection URI <rust-connection-uri>`: describes connection URIs
+- :ref:`Connection URI <rust-connection-uri>` describes connection URIs
   and their constituent parts
 
-- :ref:`MongoDB Client <rust-client>`: describes the ``Client`` type and
+- :ref:`MongoDB Client <rust-client>` describes the ``Client`` type and
   ways to create a client from a connection string
 
-- :ref:`Connection Example <rust-atlas-connection-example>`: provides
+- :ref:`Connection Example <rust-atlas-connection-example>` provides
   examples that show how to connect to MongoDB by using an Atlas
   connection string
 
-- :ref:`Other Ways to Connect to MongoDB <rust-other-ways-to-connect>`:
+- :ref:`Other Ways to Connect to MongoDB <rust-other-ways-to-connect>`
   describes ways to connect to MongoDB deployments that are not hosted
   on Atlas
 

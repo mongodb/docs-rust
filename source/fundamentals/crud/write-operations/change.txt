@@ -23,18 +23,18 @@ removed fields with new fields and values.
 
 This guide includes the following sections:
 
-- :ref:`Update Documents <rust-update-documents>`: describes how to use the
+- :ref:`Update Documents <rust-update-documents>` describes how to use the
   driver to execute update operations
 
-- :ref:`Replace a Document <rust-replace-document>`: describes how to use the
+- :ref:`Replace a Document <rust-replace-document>` describes how to use the
   driver to execute replace operations
 
-- :ref:`Modify Update and Replace Behavior <rust-update-options>`:
+- :ref:`Modify Update and Replace Behavior <rust-update-options>`
   describes how to modify the default behavior of the methods described
   in this guide
 
-- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
-  provides links to additional resources and API documentation for types
+- :ref:`Additional Information <rust-crud-change-addtl-info>`
+  provides links to resources and API documentation for types
   and methods mentioned in this guide
 
 Update Document Pattern
@@ -412,8 +412,16 @@ instance and pass it to the ``update_one()`` method:
    :copyable:
    :dedent:
 
+.. _rust-crud-change-addtl-info:
+
 Additional Information
 ----------------------
+
+For more information about the concepts in this guide, see the following
+documentation:
+
+- :ref:`rust-query-guide` guide
+- :ref:`rust-compound-operations` guide
 
 .. TODO For runnable examples of the update and replace operations, see the
 .. following usage examples:
@@ -425,9 +433,7 @@ Additional Information
 To learn more about the update operators, see :manual:`Update Operators
 </reference/operator/update/#update-operators>` in the Server manual.
 
-.. - :ref:`rust-query-document`
 .. - :ref:`rust-upsert`
-.. - :ref:`rust-compound-operations`
 
 .. TODO To learn more about updating array elements, see :ref:`rust-update-arrays`.
 

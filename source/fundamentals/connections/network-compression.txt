@@ -34,15 +34,14 @@ The driver supports the following compressors:
 
 This guide includes the following sections:
 
-- :ref:`Add Compression Feature Flags <rust-nc-add-flags>`: describes
+- :ref:`Add Compression Feature Flags <rust-nc-add-flags>` describes
   how to add feature flags to your application for different compressors
 
-- :ref:`Enable Network Compression <rust-nc-enable-compression>`:
-  describes how to implement network compression in your application by
-  using a ``Client`` instance
+- :ref:`Enable Network Compression <rust-nc-enable-compression>`
+  describes how to enable network compression on your ``Client`` instance
 
-- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
-  provides links to additional resources and API documentation for types
+- :ref:`Additional Information <rust-addl-info-network-compression>`
+  provides links to resources and API documentation for types
   and methods mentioned in this guide
 
 .. _rust-nc-add-flags:
@@ -129,9 +128,6 @@ Zstandard as the compressors for a connection:
    let uri = "mongodb+srv://<user>:<password>@<cluster-url>/?compressors=snappy,zlib,zstd";
    let client = Client::with_uri_str(uri).await?;
 
-To learn more about connection strings, see :manual:`Connection String
-URI Format </reference/connection-string/>` in the Server manual.
-
 To learn more about setting client options, see the
 guide on :ref:`rust-connection-options`.
 
@@ -176,7 +172,8 @@ For more information about the concepts in this guide, see the following
 documentation:
 
 - :ref:`rust-connect-to-mongodb`
-- :manual:`Connection String Compression Options </reference/connection-string/#compression-options>`
+- :manual:`Connection String Compression Options
+  </reference/connection-string/#compression-options>` in the Server manual
 - `All Rust Driver Feature Flags <{+api+}/index.html#all-feature-flags>`__
 
 API Documentation

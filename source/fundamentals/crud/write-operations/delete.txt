@@ -18,22 +18,20 @@ collections using **delete operations**.
 
 This guide includes the following sections:
 
-- :ref:`Sample Data for Examples <rust-retrieve-sample-data>`: presents
+- :ref:`Sample Data for Examples <rust-retrieve-sample-data>` presents
   the sample data that is used by the delete operation example
 
-- :ref:`Delete Operations <rust-delete-operations>`: describes how to use the
+- :ref:`Delete Operations <rust-delete-operations>` describes how to use the
   driver to execute delete operations
 
-- :ref:`Additional Information <rust-crud-retrieve-addtl-info>`:
-  provides links to additional resources and API documentation for types
+- :ref:`Additional Information <rust-crud-del-addtl-info>`
+  provides links to resources and API documentation for types
   and methods mentioned in this guide
 
 .. _rust-delete-sample-data:
 
 Sample Data for Examples
 ------------------------
-
-.. TODO decide on structs for crud
 
 The example in this guide uses the following sample documents. Each
 document represents an item in a store's inventory and contains
@@ -160,6 +158,8 @@ following parameters:
    ``delete_many()`` for the delete operation, the driver would delete
    the first of the two documents that matched the query filter.
 
+.. _rust-crud-del-addtl-info:
+
 Additional Information
 ----------------------
 
@@ -170,9 +170,9 @@ Additional Information
 .. - :ref:`rust-delete-many`
 
 To learn more about the operations in this guide, see the
-following {+driver-short+} documentation:
+following documentation:
 
-- :ref:`rust-query-guide`
+- :ref:`rust-query-guide` guide
 
 .. - :ref:`rust-indexes`.
 .. - :ref:`rust-collations`.
