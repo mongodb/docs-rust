@@ -7,7 +7,7 @@ Quick Reference
 On this page, you can see examples that use the {+driver-short+} to
 perform several common MongoDB tasks. Each row of the following table
 describes the task, shows the driver syntax to execute the task, and
-includes links to the related reference and API Documentation.
+includes links to the related reference and API documentation.
 
 The {+driver-short+} offers an asynchronous runtime for executing async
 applications. Additionally, the driver supports a blocking synchronous
