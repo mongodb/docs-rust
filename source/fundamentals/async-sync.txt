@@ -56,6 +56,8 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    features = ["sync"]
 
 The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
+The following code uses the ``sync`` module to perform actions with the blocking API.
+Each request must finish before the next can begin.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/async-sync-sync.rs
    :language: rust
