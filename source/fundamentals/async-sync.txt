@@ -13,7 +13,7 @@ Asynchronous and Synchronous Runtimes
 Overview
 --------
 
-In this guide, you can learn how to use the driver's asynchronous and synchronous APIs.
+In this guide, you can learn how to configure and use the driver's asynchronous and synchronous APIs.
 
 {+driver-short+} supports both ``tokio`` and ``async-std``, the two most popular asynchronous runtime crates.
 By default, the driver uses ``tokio``, but you can explicitly choose a runtime
@@ -21,10 +21,11 @@ by specifying one of ``tokio-runtime`` or ``async-std-runtime`` feature flags in
 
 The driver also includes a synchronous API for simplicity, or when parallelism is not necessary.
 
-Configure the asynchronous runtime
---------------------------------------
+Configure the Asynchronous Runtime
+----------------------------------
 
 The driver uses ``tokio`` by default.
+Use the `Client() <{+api+}/struct.Client.html>`__ type 
 To use ``async-std``, add the following to your ``Cargo.toml``:
 
 .. code-block:: toml
@@ -37,7 +38,7 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
 Enable the sync API
 ---------------------
 
-The driver also provides a blocking sync API.
+The driver also provides a blocking, synchronous API.
 To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml``.
 
 .. code-block:: toml
@@ -49,33 +50,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
 
 The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
 
-..
-   Warning about timeouts / cancellation
-   -------------------------------------
-
-   In async Rust, it is common to implement cancellation and timeouts
-   by dropping a future after a certain period of time instead of polling it to completion.
-   However, doing this with futures returned by the driver can leave the driver's internals in an inconsistent state,
-   which may lead to unpredictable or incorrect behavior.
-   As such, it is highly recommended to poll all futures returned from the driver to completion.
-
-   To use timeout mechanisms like ``tokio::time::timeout`` with the driver,
-   one option is to spawn tasks and time out on their JoinHandle futures instead of on the driver’s futures directly.
-   This will ensure the driver’s futures will always be completely polled while also allowing the application to continue in the event of a timeout.
-
-   e.g.
-
-
-   .. code-block:: rust
-
-      let collection = client.database("foo").collection("bar");
-      let handle = tokio::task::spawn(async move {
-          collection.insert_one(doc! { "x": 1 }, None).await
-      });
-
-      tokio::time::timeout(Duration::from_secs(5), handle).await???;
-
-Additional information
+Additional Information
 ----------------------
 
 For more information about the concepts in this guide, see the following pages:
@@ -88,4 +63,5 @@ API Documentation
 To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
 
-- `mongodb::sync <{+api+}/sync/index.html>`__
+- `Client <{+api+}/struct.Client.html>`__
+- `sync <{+api+}/sync/index.html>`__
