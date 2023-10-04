@@ -59,6 +59,8 @@ options. In the example, we set two connection options:
 .. TODO To learn more about connection
 .. options, see the :ref:`rust-connection-options` reference.
 
+.. _rust-connect-to-mongodb-client:
+
 MongoDB Client
 ~~~~~~~~~~~~~~
 
