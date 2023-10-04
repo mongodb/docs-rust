@@ -25,7 +25,14 @@ Configure the Asynchronous Runtime
 ----------------------------------
 
 The driver uses ``tokio`` by default.
-Use the `Client() <{+api+}/struct.Client.html>`__ type 
+Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programming.
+The following code uses the ``task`` module from the ``tokio`` crate to create separate, concurrent
+tasks for multiple data operations:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-tokio.rs
+   :language: rust
+   :dedent:
+
 To use ``async-std``, add the following to your ``Cargo.toml``:
 
 .. code-block:: toml
@@ -49,6 +56,10 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    features = ["sync"]
 
 The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
+
+.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-sync.rs
+   :language: rust
+   :dedent:
 
 Additional Information
 ----------------------
