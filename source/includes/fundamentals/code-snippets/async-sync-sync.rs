@@ -1,7 +1,7 @@
 use mongodb::sync::Client;
 
 fn main() {
-    let client = Client::with_uri_str("<connection string>").await?;
+    let client = Client::with_uri_str("<connection string>")?;
     let some_data = doc! { "title": "1984", "author": "George Orwell" };
 
     for i in 0..5 {
