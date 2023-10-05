@@ -72,7 +72,7 @@ For more information about the concepts in this guide, see the following pages:
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
   
 API Documentation
------------------
+~~~~~~~~~~~~~~~~~
 
 To learn more about the methods and types discussed in this
 guide, see the following API Documentation:
