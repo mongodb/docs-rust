@@ -68,7 +68,7 @@ Additional Information
 
 For more information about the concepts in this guide, see the following pages:
 
-- :ref:`Performance Considerations <rust-performance>`
+.. - :ref:`Performance Considerations <rust-performance>`
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
   
 API Documentation
