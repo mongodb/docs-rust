@@ -13,7 +13,8 @@ Asynchronous and Synchronous Runtimes
 Overview
 --------
 
-In this guide, you can learn how to configure and use the driver's asynchronous and synchronous APIs.
+In this guide, you can learn about the {+driver-short+}'s asynchronous and synchronous runtimes.
+This guide explains how to enable the available runtimes and structure your code to use each API.
 
 {+driver-short+} supports both ``tokio`` and ``async-std``, the two most popular asynchronous runtime crates.
 By default, the driver uses ``tokio``, but you can explicitly choose a runtime
