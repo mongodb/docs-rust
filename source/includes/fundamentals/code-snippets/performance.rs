@@ -1,6 +1,6 @@
-// ... Create a client earlier in the code
+// ... Create a client earlier in your code
 
 async fn make_request(client: &Client) -> Result<(), Box<dyn Error>> {
-    // Perform operations by using the client
+    // Use the client to perform operations
     Ok(())
 }
