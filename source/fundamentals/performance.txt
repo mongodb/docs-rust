@@ -38,8 +38,6 @@ by using the same client:
 .. literalinclude:: /includes/fundamentals/code-snippets/performance.rs
    :language: rust
    :dedent:
-   :start-after: start-perf-client-faster
-   :end-before: end-perf-client-faster
 
 .. _rust-performance-parallelism:
 
