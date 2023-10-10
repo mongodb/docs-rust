@@ -56,7 +56,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    default-features = false
    features = ["sync"]
 
-The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
+When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations. The synchronous API calls through to the asynchronous API internally, so you can use ``sync`` types as you might use types from the asynchronous API.
 The following code uses the ``sync`` module to perform actions with the blocking API.
 The driver waits for each request to complete before continuing.
 
