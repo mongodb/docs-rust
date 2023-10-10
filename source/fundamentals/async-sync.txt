@@ -110,6 +110,9 @@ When the ``insert_one`` method runs, the driver waits for each request to comple
 Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
+You can use both asynchronous and synchronous APIs in the same application
+by using the following in your ``Cargo.toml`` file.
+
 .. code-block:: toml
 
    [dependencies]
