@@ -93,6 +93,9 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    default-features = false
    features = ["sync"]
 
+Synchronous Example
+~~~~~~~~~~~~~~~~~~~
+   
 When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations.
 The synchronous API calls through to the asynchronous API internally,
 so you can use ``sync`` types as you might use types from the asynchronous API.
@@ -104,9 +107,6 @@ When the ``insert_one`` method runs, the driver waits for each request to comple
    :language: rust
    :dedent:
 
-   .. TODO
-      Examples section
-
 Additional Information
 ----------------------
 
@@ -114,7 +114,7 @@ For more information about the concepts in this guide, see the following pages:
 
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
 
-.. - :ref:`Performance Considerations <rust-performance>`
+  .. - :ref:`Performance Considerations <rust-performance>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
