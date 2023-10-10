@@ -107,6 +107,19 @@ When the ``insert_one`` method runs, the driver waits for each request to comple
    :language: rust
    :dedent:
 
+Use Both Asynchronous and Synchronous APIs
+------------------------------------------
+
+.. code-block:: toml
+
+   [dependencies]
+   futures = "0.3.28"
+   tokio = {version = "1.32.0", features = ["full"]}
+
+   [dependencies.mongodb]
+   version = "2.6.1"
+   features = ["tokio-sync"]
+
 Additional Information
 ----------------------
 
