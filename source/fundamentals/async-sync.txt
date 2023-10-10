@@ -26,13 +26,16 @@ Configure the Asynchronous Runtime
 ----------------------------------
 
 The driver uses the ``tokio`` runtime by default.
-Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programming.
-The following code uses the ``task`` module from the ``tokio`` crate to create separate, concurrent
-tasks for multiple data operations:
+You can explicitly choose a runtime by specifying either the ``tokio-runtime`` or ``async-std-runtime`` feature flag in your ``Cargo.toml``.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-tokio.rs
-   :language: rust
-   :dedent:
+To use ``tokio``, add the following to your ``Cargo.toml``:
+
+.. code-block:: toml
+
+   [dependencies.mongodb]
+   version = "2.6.0"
+   default-features = false
+   features = ["tokio-runtime"]
 
 To use ``async-std``, add the following to your ``Cargo.toml``:
 
@@ -43,11 +46,21 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
    default-features = false
    features = ["async-std-runtime"]
 
-   .. TODO
-      Examples section
+
+Asynchronous Example: Tokio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programming.
+
+The following code uses the ``task`` module from the ``tokio`` crate
+to create separate, concurrent tasks for multiple data operations:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-tokio.rs
+   :language: rust
+   :dedent:
 
 Configure the Synchronous Runtime
-------------------------------------
+---------------------------------
 
 The driver also provides a blocking, synchronous API.
 To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml``.
