@@ -22,6 +22,8 @@ by specifying one of ``tokio-runtime`` or ``async-std-runtime`` feature flags in
 
 The driver also includes a synchronous API for simplicity, or when parallelism is not necessary.
 
+.. _rust-async-sync-configure-async:
+
 Configure the Asynchronous Runtime
 ----------------------------------
 
@@ -80,6 +82,8 @@ to create separate, concurrent tasks for multiple data operations:
    :language: rust
    :dedent:
 
+.. _rust-async-sync-configure-sync:
+
 Configure the Synchronous Runtime
 ---------------------------------
 
@@ -95,7 +99,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
 
 Synchronous Code Example
 ------------------------
-   
+
 When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations.
 The synchronous API calls through to the asynchronous API internally,
 so you can use ``sync`` types as you might use types from the asynchronous API.
