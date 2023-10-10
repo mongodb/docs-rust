@@ -100,10 +100,10 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
 Synchronous Code Example
 ------------------------
 
-When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations.
+When using the synchronous runtime, use types from the ``mongodb::sync`` module to perform operations.
 The synchronous API calls through to the asynchronous API internally,
 so you can use ``sync`` types as you might use types from the asynchronous API.
-The following code uses the ``sync`` module to insert data into a collection using the blocking API.
+The following code uses the ``sync`` module to insert data into a collection using the synchronous API.
 It uses the synchronous client type imported from the ``sync`` module on the first line.
 When the ``insert_one`` method runs, the driver waits for each request to complete before continuing.
 
@@ -134,7 +134,7 @@ For more information about the concepts in this guide, see the following pages:
 
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
 
-  .. - :ref:`Performance Considerations <rust-performance>`
+.. - :ref:`Performance Considerations <rust-performance>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
