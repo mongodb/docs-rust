@@ -28,36 +28,46 @@ Configure the Asynchronous Runtime
 The driver uses the ``tokio`` runtime by default.
 You can explicitly choose a runtime by specifying either the ``tokio-runtime`` or ``async-std-runtime`` feature flag in your ``Cargo.toml``.
 
-To use ``tokio``, add the following to your ``Cargo.toml``:
 
-.. code-block:: toml
+.. tabs::
 
-   [dependencies.mongodb]
-   version = "2.6.0"
-   default-features = false
-   features = ["tokio-runtime"]
+   .. tab:: tokio
+      :tabid: asynchronous-api-tokio
 
-Also install the crate by running:
+      To use ``tokio``, add the following to your ``Cargo.toml``:
 
-.. code-block:: none
+      .. code-block:: toml
 
-   cargo add tokio
+         [dependencies.mongodb]
+         version = "2.6.0"
+         default-features = false
+         features = ["tokio-runtime"]
 
-To use ``async-std``, add the following to your ``Cargo.toml``:
+      Also install the crate by running:
 
-.. code-block:: toml
+      .. code-block:: none
 
-   [dependencies.mongodb]
-   version = "2.6.0"
-   default-features = false
-   features = ["async-std-runtime"]
+         cargo add tokio
 
-Also install the crate by running:
+   .. tab:: async-std
+      :tabid: asynchronous-api-async-std
 
-.. code-block:: none
+      To use ``async-std``, add the following to your ``Cargo.toml``:
 
-   cargo add async-std
+      .. code-block:: toml
 
+         [dependencies.mongodb]
+         version = "2.6.0"
+         default-features = false
+         features = ["async-std"]
+
+      Also install the crate by running:
+
+      .. code-block:: none
+
+         cargo add async-std
+
+For more information on installing both the driver and runtimes, see :ref:`rust-quick-start-download-and-install`.
 
 Asynchronous Example: Tokio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
