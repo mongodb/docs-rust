@@ -37,6 +37,12 @@ To use ``tokio``, add the following to your ``Cargo.toml``:
    default-features = false
    features = ["tokio-runtime"]
 
+Also install the crate by running:
+
+.. code-block:: none
+
+   cargo add tokio
+
 To use ``async-std``, add the following to your ``Cargo.toml``:
 
 .. code-block:: toml
@@ -45,6 +51,12 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
    version = "2.6.0"
    default-features = false
    features = ["async-std-runtime"]
+
+Also install the crate by running:
+
+.. code-block:: none
+
+   cargo add async-std
 
 
 Asynchronous Example: Tokio
