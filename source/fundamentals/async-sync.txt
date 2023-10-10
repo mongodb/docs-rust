@@ -6,7 +6,7 @@ Asynchronous and Synchronous Runtimes
 
 .. contents:: On this page
    :local:
-   :backlinks: nones
+   :backlinks: none
    :depth: 2
    :class: singlecol
 
@@ -25,7 +25,7 @@ The driver also includes a synchronous API for simplicity, or when parallelism i
 Configure the Asynchronous Runtime
 ----------------------------------
 
-The driver uses ``tokio`` by default.
+The driver uses the ``tokio`` runtime by default.
 Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programming.
 The following code uses the ``task`` module from the ``tokio`` crate to create separate, concurrent
 tasks for multiple data operations:
@@ -43,8 +43,8 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
    default-features = false
    features = ["async-std-runtime"]
 
-Enable the sync API
----------------------
+Configure the Synchronous Runtime
+------------------------------------
 
 The driver also provides a blocking, synchronous API.
 To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml``.
@@ -58,7 +58,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
 
 The sync-specific types can be imported from ``mongodb::sync`` (e.g. ``mongodb::sync::Client``).
 The following code uses the ``sync`` module to perform actions with the blocking API.
-Each request must finish before the next can begin.
+The driver waits for each request to complete before continuing.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/async-sync-sync.rs
    :language: rust
