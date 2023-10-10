@@ -43,6 +43,9 @@ To use ``async-std``, add the following to your ``Cargo.toml``:
    default-features = false
    features = ["async-std-runtime"]
 
+   .. TODO
+      Examples section
+
 Configure the Synchronous Runtime
 ------------------------------------
 
@@ -56,13 +59,19 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    default-features = false
    features = ["sync"]
 
-When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations. The synchronous API calls through to the asynchronous API internally, so you can use ``sync`` types as you might use types from the asynchronous API.
-The following code uses the ``sync`` module to perform actions with the blocking API.
-The driver waits for each request to complete before continuing.
+When using the synchronous runtime, you must use types from the ``mongodb::sync`` module to perform operations.
+The synchronous API calls through to the asynchronous API internally,
+so you can use ``sync`` types as you might use types from the asynchronous API.
+The following code uses the ``sync`` module to insert data into a collection using the blocking API.
+It uses the synchronous client type imported from the ``sync`` module on the first line.
+When the ``insert_one`` method runs, the driver waits for each request to complete before continuing.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/async-sync-sync.rs
    :language: rust
    :dedent:
+
+   .. TODO
+      Examples section
 
 Additional Information
 ----------------------
@@ -71,7 +80,7 @@ For more information about the concepts in this guide, see the following pages:
 
 .. - :ref:`Performance Considerations <rust-performance>`
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
-  
+
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
