@@ -28,7 +28,6 @@ Configure the Asynchronous Runtime
 The driver uses the ``tokio`` runtime by default.
 You can explicitly choose a runtime by specifying either the ``tokio-runtime`` or ``async-std-runtime`` feature flag in your ``Cargo.toml``.
 
-
 .. tabs::
 
    .. tab:: tokio
@@ -114,6 +113,7 @@ Additional Information
 For more information about the concepts in this guide, see the following pages:
 
 - `Asynchronous Programming in Rust <https://rust-lang.github.io/async-book/>`__
+
 .. - :ref:`Performance Considerations <rust-performance>`
 
 API Documentation
