@@ -62,8 +62,6 @@ For more information on installing both the driver and runtimes, see :ref:`rust-
 Asynchronous Code Example (Tokio)
 ---------------------------------
 
-Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programming.
-
 The following code uses the ``task`` module from the ``tokio`` crate
 to create separate, concurrent tasks for multiple data operations:
 
