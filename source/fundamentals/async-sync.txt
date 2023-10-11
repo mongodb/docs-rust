@@ -13,8 +13,8 @@ Asynchronous and Synchronous Runtimes
 Overview
 --------
 
-In this guide, you can learn about the {+driver-short+}'s :ref:`asynchronous <rust-async-sync-configure-async:>`
-and :ref:`synchronous <rust-async-sync-configure-sync:>` runtimes.
+In this guide, you can learn about the {+driver-short+}'s :ref:`asynchronous <rust-async-sync-configure-async>`
+and :ref:`synchronous <rust-async-sync-configure-sync>` runtimes.
 This guide explains how to enable the available runtimes and structure your code to use each API.
 
 {+driver-short+} supports both ``tokio`` and ``async-std``, the two most popular asynchronous runtime crates.
