@@ -115,8 +115,8 @@ When the ``insert_one`` method runs, the driver waits for each request to comple
 Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
-You can use both asynchronous and synchronous APIs in the same application
-by using the following in your ``Cargo.toml`` file.
+You can use both asynchronous and synchronous APIs in the same application. For example, to enable both ``tokio` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
+``"tokio-sync"`` flag to your ``mongodb`` dependency:
 
 .. code-block:: toml
 
