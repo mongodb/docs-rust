@@ -134,8 +134,9 @@ The following table describes the options available in ``InsertOneOptions``:
        | Default: ``false``
 
    * - ``write_concern``
-     - | The write concern for the operation. To learn more about write
-         concerns, see :manual:`Write Concern
+     - | The write concern for the operation. If you don't set a write
+         concern, the operation inherits the one set for the collection.
+         To learn more about write concerns, see :manual:`Write Concern
          </reference/write-concern/>` in the Server manual.
        
        | Type: ``WriteConcern``
@@ -147,6 +148,7 @@ The following table describes the options available in ``InsertOneOptions``:
          {+server+} versions 4.4 and later.
     
        | Type: ``Bson``
+       | Default: ``None``
 
 .. _rust-insertone-bypass-validation-ex:
 
@@ -234,8 +236,9 @@ following table describes the options available in
        | Default: ``true``
 
    * - ``write_concern``
-     - | The write concern for the operation. To learn more about write
-         concerns, see :manual:`Write Concern
+     - | The write concern for the operation. If you don't set a write
+         concern, the operation inherits the one set for the collection.
+         To learn more about write concerns, see :manual:`Write Concern
          </reference/write-concern/>` in the Server manual.
        
        | Type: ``WriteConcern``
@@ -247,6 +250,7 @@ following table describes the options available in
          {+server+} versions 4.4 and later.
     
        | Type: ``Bson``
+       | Default: ``None``
 
 The following code shows how to construct an ``InsertManyOptions``
 instance:

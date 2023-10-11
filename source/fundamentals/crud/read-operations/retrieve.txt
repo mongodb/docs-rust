@@ -59,7 +59,7 @@ information about its categorization and unit price:
 Find Operations
 ---------------
 
-Use **find operations** to retrieve data from MongoDB. Find operations
+Use find operations to retrieve data from MongoDB. Find operations
 consist of the ``find()`` and ``find_one()`` methods.
 
 You can also run find operations after starting a session with the
@@ -256,7 +256,7 @@ following parameters:
 Aggregation Operations
 ----------------------
 
-Use **aggregation operations** to retrieve and transform data from your
+Use aggregation operations to retrieve and transform data from your
 collections. You can perform aggregation operations by using the ``aggregate()``
 method.
 
@@ -298,11 +298,13 @@ The following table describes commonly used settings that you can specify in
      - | Enables writing to temporary files. If ``true``,
          aggregation stages can write data to the ``_tmp`` subdirectory in the
          ``dbPath`` directory.
-
        | Default: ``false``
 
    * - ``batch_size`` 
-     - The number of documents the server should return in each cursor batch.
+     - | The number of documents the server should return in each cursor
+         batch.
+       | Default: ``101`` documents initially, ``16 MB`` maximum for
+         subsequent batches
 
    * - ``collation``
      - | The collation to use when sorting results.

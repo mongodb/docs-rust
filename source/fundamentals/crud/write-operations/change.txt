@@ -388,8 +388,9 @@ The following table describes the options available in ``UpdateOptions``:
        | Default: ``nil``
 
    * - ``write_concern``
-     - | The write concern for the operation. To learn more about write
-         concerns, see :manual:`Write Concern
+     - | The write concern for the operation. If you don't set a write
+         concern, the operation inherits the one set for the collection.
+         To learn more about write concerns, see :manual:`Write Concern
          </reference/write-concern/>` in the Server manual.
        
        | Type: ``WriteConcern``
@@ -407,6 +408,7 @@ The following table describes the options available in ``UpdateOptions``:
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
        | Type: ``Bson``
+       | Default: ``None``
 
 .. TODO add links to guides for relevant options
 
