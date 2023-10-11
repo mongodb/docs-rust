@@ -1,4 +1,4 @@
-.. _rust-async-sync:
+.. _rust-runtimes:
 
 =====================================
 Asynchronous and Synchronous Runtimes
@@ -13,8 +13,8 @@ Asynchronous and Synchronous Runtimes
 Overview
 --------
 
-In this guide, you can learn about the {+driver-short+}'s :ref:`asynchronous <rust-async-sync-configure-async>`
-and :ref:`synchronous <rust-async-sync-configure-sync>` runtimes.
+In this guide, you can learn about the {+driver-short+}'s :ref:`asynchronous <rust-runtimes-configure-async>`
+and :ref:`synchronous <rust-runtimes-configure-sync>` runtimes.
 This guide explains how to enable the available runtimes and structure your code to use each API.
 
 {+driver-short+} supports both ``tokio`` and ``async-std``, the two most popular asynchronous runtime crates.
@@ -23,7 +23,7 @@ by specifying one of ``tokio-runtime`` or ``async-std-runtime`` feature flags in
 
 The driver also includes a synchronous API for simplicity, or when parallelism is not necessary.
 
-.. _rust-async-sync-configure-async:
+.. _rust-runtimes-configure-async:
 
 Configure the Asynchronous Runtime
 ----------------------------------
@@ -79,11 +79,11 @@ Use the `Client() <{+api+}/struct.Client.html>`__ type for asynchronous programm
 The following code uses the ``task`` module from the ``tokio`` crate
 to create separate, concurrent tasks for multiple data operations:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-tokio.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/runtimes-tokio.rs
    :language: rust
    :dedent:
 
-.. _rust-async-sync-configure-sync:
+.. _rust-runtimes-configure-sync:
 
 Configure the Synchronous Runtime
 ---------------------------------
@@ -108,7 +108,7 @@ The following code uses the ``sync`` module to insert data into a collection usi
 It uses the synchronous client type imported from the ``sync`` module on the first line.
 When the ``insert_one`` method runs, the driver waits for each request to complete before continuing.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/async-sync-sync.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/runtimes-sync.rs
    :language: rust
    :dedent:
 
