@@ -107,10 +107,12 @@ The following table describes the options available in
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
          run.
+       |
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       |
        | Type: ``Document``
        | Default: ``None``
 
@@ -119,6 +121,7 @@ The following table describes the options available in
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       |
        | Type: ``Document``
        | Default: ``None``
 
@@ -128,10 +131,12 @@ The following table describes the options available in
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
        | Type: ``Collation``
        | Default: ``None``
 
@@ -140,6 +145,7 @@ The following table describes the options available in
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Hint``
        | Default: ``None``
 
@@ -147,6 +153,7 @@ The following table describes the options available in
      - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
+       |
        | Type: ``Document``
 
    * - ``comment``
@@ -154,6 +161,7 @@ The following table describes the options available in
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Bson``
        | Default: ``None``
 
@@ -237,29 +245,33 @@ The following table describes the options available in
    * - ``array_filters`` 
      - | The set of filters specifying the array elements to which the
          update applies.
+       |
        | Type: ``Vec<Document>``
 
    * - ``bypass_document_validation``
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
          :manual:`Schema Validation </core/schema-validation>` in the Server manual.
-
+       |
        | Type: ``bool``
        | Default: ``false``
 
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
          run.
+       |
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       |
        | Type: ``Document``
        | Default: ``None``
 
    * - ``return_document`` 
      - | If ``Before``, the operation returns the document before the
          update. If ``After``, the operation returns the updated document.
+       |
        | Type: ``ReturnDocument``
        | Default: ``ReturnDocument::Before``
 
@@ -268,12 +280,14 @@ The following table describes the options available in
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       |
        | Type: ``Document``
        | Default: ``None``
 
    * - ``upsert``
      - | If true, the operation inserts a document if no documents match
          the query filter.
+       |
        | Type: ``bool``
        | Default: ``false``
 
@@ -283,10 +297,12 @@ The following table describes the options available in
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
        | Type: ``Collation``
        | Default: ``None``
 
@@ -295,6 +311,7 @@ The following table describes the options available in
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Hint``
        | Default: ``None``
 
@@ -302,6 +319,7 @@ The following table describes the options available in
      - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
+       |
        | Type: ``Document``
 
    * - ``comment``
@@ -309,6 +327,7 @@ The following table describes the options available in
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Bson``
        | Default: ``None``
 
@@ -401,22 +420,26 @@ The following table describes the options available in
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
          :manual:`Schema Validation </core/schema-validation>` in the Server manual.
+       |
        | Type: ``bool``
        | Default: ``false``
 
    * - ``max_time`` 
      - | The maximum amount of time, in milliseconds, that the query can
          run.
+       |
        | Type: ``Duration``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       |
        | Type: ``Document``
        | Default: ``None``
 
    * - ``return_document`` 
      - | If ``Before``, the operation returns the document before the
          update. If ``After``, the operation returns the updated document.
+       |
        | Type: ``ReturnDocument``
        | Default: ``ReturnDocument::Before``
 
@@ -425,12 +448,14 @@ The following table describes the options available in
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       |
        | Type: ``Document``
        | Default: ``None``
 
    * - ``upsert``
      - | If true, the operation inserts a document if no documents match
          the query filter.
+       |
        | Type: ``bool``
        | Default: ``false``
 
@@ -440,10 +465,12 @@ The following table describes the options available in
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
        | Type: ``Collation``
        | Default: ``None``
 
@@ -452,6 +479,7 @@ The following table describes the options available in
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Hint``
        | Default: ``None``
 
@@ -459,6 +487,7 @@ The following table describes the options available in
      - | A map of parameters and values. You can access these parameters
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
+       |
        | Type: ``Document``
 
    * - ``comment``
@@ -466,6 +495,7 @@ The following table describes the options available in
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Bson``
        | Default: ``None``
 

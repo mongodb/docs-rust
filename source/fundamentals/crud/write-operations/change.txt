@@ -359,30 +359,33 @@ The following table describes the options available in ``UpdateOptions``:
    * - ``array_filters`` 
      - | The set of filters specifying the array elements to which the
          update applies.
+       |
        | Type: ``Vec<Document>``
 
    * - ``bypass_document_validation``
      - | If ``true``, allows the driver to perform a write that violates
          document-level validation. To learn more about validation, see
          the guide on :ref:`rust-schema-validation`.
-
+       |
        | Type: ``bool``
        | Default: ``false``
 
    * - ``upsert``
      - | If true, the operation inserts a document if no documents match
          the query filter.
-       
+       |
        | Type: ``bool``
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
        | Type: ``Collation``
        | Default: ``None``
 
    * - ``hint`` 
      - | The index to use for the operation. This option is available
          only when connecting to {+server+} versions 4.2 and later.
+       |
        | Type: ``Hint``
        | Default: ``None``
 
@@ -392,13 +395,14 @@ The following table describes the options available in ``UpdateOptions``:
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
    * - ``let_vars``
      - | A map of parameters and values. These parameters can be accessed
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
-       
+       |
        | Type: ``Document``
 
    * - ``comment``
@@ -406,6 +410,7 @@ The following table describes the options available in ``UpdateOptions``:
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Bson``
        | Default: ``None``
 

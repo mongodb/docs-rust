@@ -83,6 +83,7 @@ The following table describes settings that you can specify in a
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
        | Type: ``Collation``
        | Default: ``None``
 
@@ -92,6 +93,7 @@ The following table describes settings that you can specify in a
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
    * - ``hint`` 
@@ -99,6 +101,7 @@ The following table describes settings that you can specify in a
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Hint``
        | Default: ``None``
 
@@ -106,6 +109,7 @@ The following table describes settings that you can specify in a
      - | A map of parameters and values. These parameters can be accessed
          as variables in aggregation expressions. This option is available
          only when connecting to {+server+} versions 5.0 and later.
+       |
        | Type: ``Document``
 
    * - ``comment``
@@ -113,6 +117,7 @@ The following table describes settings that you can specify in a
          it through the database profiler, ``currentOp``, and
          logs. This option is available only when connecting to
          {+server+} versions 4.4 and later.
+       |
        | Type: ``Bson``
        | Default: ``None``
 

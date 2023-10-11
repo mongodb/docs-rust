@@ -305,19 +305,21 @@ The following table describes commonly used settings that you can specify in
          cursor batch. This option sets the number of documents the cursor
          keeps in memory rather than the number of documents the cursor
          returns.
-
+       |
        | Type: ``u32``
        | Default: ``101`` documents initially, ``16 MB`` maximum for
          subsequent batches
 
    * - ``collation``
      - | The collation to use when sorting results.
+       |
        | Default: ``None``
 
    * - ``hint`` 
      - | The index to use for the operation. To learn more about
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual.
+       |
        | Default: ``None``
 
    * - ``read_concern`` 
@@ -333,6 +335,7 @@ The following table describes commonly used settings that you can specify in
          the collection. To learn more about write concerns, see
          :manual:`Write Concern </reference/write-concern/>` in the
          Server manual.
+       |
        | Type: ``WriteConcern``
 
 .. TODO link to collation fundamentals page under collations setting

@@ -265,7 +265,7 @@ an options instance:
          cursor batch. This option sets the number of documents the cursor
          keeps in memory rather than the number of documents the cursor
          returns.
-
+       |
        | Type: ``u32``
        | Default: ``101`` documents initially, ``16 MB`` maximum for
          subsequent batches
@@ -275,7 +275,7 @@ an options instance:
          to produce a tailable cursor. To learn more about tailable
          cursors, see :manual:`Tailable Cursors
          </core/tailable-cursors/>` in the Server manual.
-
+       |
        | Type: ``CursorType``
        | Default: ``CursorType::NonTailable``
 

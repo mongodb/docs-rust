@@ -94,7 +94,7 @@ the builder design pattern to define the struct more efficiently.
      - | *(Required)* The {+stable-api+} version to use.
        | Specified with the ``ServerApiVersion`` enum. The only
          accepted value is ``V1``.
-
+       |
        | Type: ``ServerApiVersion``
 
    * - ``strict``
