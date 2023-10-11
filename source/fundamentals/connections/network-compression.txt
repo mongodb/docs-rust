@@ -154,7 +154,7 @@ accepted compression levels and default levels for Zlib and Zstandard:
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 30 30
+   :widths: 30 30 40
 
    * - Compressor
      - Default Level

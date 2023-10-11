@@ -84,7 +84,7 @@ The following table describes settings that you can specify in a
    * - ``collation`` 
      - | The collation to use when sorting results.
        | Type: ``Collation``
-       | Default: ``nil``
+       | Default: ``None``
 
    * - ``write_concern``
      - | The write concern for the operation. If you don't set a write
@@ -99,7 +99,7 @@ The following table describes settings that you can specify in a
          manual. This option is available only when connecting to
          {+server+} versions 4.4 and later.
        | Type: ``Hint``
-       | Default: ``nil``
+       | Default: ``None``
 
    * - ``let_vars``
      - | A map of parameters and values. These parameters can be accessed

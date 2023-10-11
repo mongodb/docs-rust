@@ -144,7 +144,7 @@ the operation:
      - The number of documents modified by the operation
 
    * - ``upserted_id`` 
-     - The ``_id`` of the upserted document, or ``nil`` if there is none
+     - The ``_id`` of the upserted document, or empty if there is none
 
 If multiple documents match the query filter you pass to ``UpdateOne()``,
 the method selects and updates the first matched document. If no
@@ -272,7 +272,7 @@ the operation:
      - The number of documents modified by the operation
 
    * - ``upserted_id`` 
-     - The ``_id`` of the upserted document, or ``nil`` if there is none
+     - The ``_id`` of the upserted document, or empty if there is none
 
 If multiple documents match the query filter you pass to ``replace_one()``,
 the method selects and replaces the first matched document. If no
@@ -379,13 +379,13 @@ The following table describes the options available in ``UpdateOptions``:
    * - ``collation`` 
      - | The collation to use when sorting results.
        | Type: ``Collation``
-       | Default: ``nil``
+       | Default: ``None``
 
    * - ``hint`` 
      - | The index to use for the operation. This option is available
          only when connecting to {+server+} versions 4.2 and later.
        | Type: ``Hint``
-       | Default: ``nil``
+       | Default: ``None``
 
    * - ``write_concern``
      - | The write concern for the operation. If you don't set a write
