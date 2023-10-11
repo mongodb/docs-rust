@@ -89,7 +89,7 @@ The synchronous API calls through to the asynchronous API internally,
 so you can use ``sync`` types as you might use types from the asynchronous API.
 
 The following code uses the ``sync`` module to insert data into a collection using the synchronous API.
-When the ``insert_one`` method runs inside the `for` loop, the driver waits for each request to complete before continuing.
+When the ``insert_one`` method runs inside the ``for`` loop, the driver waits for each request to complete before continuing.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/runtimes-sync.rs
    :language: rust
