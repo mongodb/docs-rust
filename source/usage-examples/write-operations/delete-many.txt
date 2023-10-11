@@ -1,0 +1,71 @@
+.. _rust-usage-deletemany:
+
+=========================
+Delete Multiple Documents
+=========================
+
+You can delete multiple documents from a collection in a single operation
+by calling the ``delete_many()`` method on a ``Collection`` instance.
+
+To specify which documents to delete, pass a query filter that matches
+the documents you want to delete. If you provide an empty document,
+MongoDB matches all documents in the collection and deletes them. While
+you can use ``delete_many()`` to delete all documents in a collection,
+consider using the ``drop()`` method instead for better performance.
+
+The ``delete_many()`` method returns a ``DeleteResult`` type, which contains
+the ``deleted_count`` field. You can retrieve the total number of documents
+deleted in your operation by printing the value of ``deleted_count``.
+
+Example
+-------
+
+This example accesses the ``planets`` collection in the ``sample_guides``
+database and deletes the documents representing the three closest planets
+to the sun. The following code filters for and deletes documents with an
+``orderFromSun`` field value less than or equal to ``3``:
+
+.. tabs::
+
+   .. tab:: Asynchronous Runtime
+      :tabid: delete-many-async
+
+      .. literalinclude:: /includes/usage-examples/code-snippets/delete-many-async.rs
+         :language: rust
+         :copyable:
+         :dedent:
+
+   .. tab:: Synchronous Runtime
+      :tabid: delete-many-sync
+
+      .. literalinclude:: /includes/usage-examples/code-snippets/delete-many-sync.rs
+         :language: rust
+         :copyable:
+         :dedent:
+
+Expected Result
+~~~~~~~~~~~~~~~
+
+Running either of the preceding full examples prints the following results:
+
+.. code-block:: none
+
+   Deleted documents: 3
+
+Additional Information
+----------------------
+
+To learn more about deleting documents, see the :ref:`rust-delete-guide` guide.
+
+To learn more about using query filters, see :ref:`rust-query-guide`.
+
+API Documentation
+-----------------
+
+To learn more about the methods and types mentioned on this
+page, see the following API documentation:
+
+- `delete_many() <{+api+}/struct.Collection.html#method.delete_many>`__
+- `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
+- `deleted_count <{+api+}/results/struct.DeleteResult.html#structfield.deleted_count>`__
+
