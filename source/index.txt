@@ -8,6 +8,7 @@
 
    /quick-start
    /quick-reference
+   /usage-examples
    /fundamentals
    API Documentation <{+api+}/>
    /connection-troubleshooting
@@ -18,7 +19,6 @@
 
 ..
    /whats-new
-   /usage-examples
    /faq
 
 Introduction

@@ -68,4 +68,3 @@ page, see the following API documentation:
 - `delete_many() <{+api+}/struct.Collection.html#method.delete_many>`__
 - `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
 - `deleted_count <{+api+}/results/struct.DeleteResult.html#structfield.deleted_count>`__
-
