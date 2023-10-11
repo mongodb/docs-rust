@@ -90,7 +90,7 @@ Download and Install
                version = "{+version+}"
                features = ["tokio-sync"]
 
-.. TODO link to runtimes page. this information should be integrated
+.. TODO link to runtimes page. this information will be integrated
 .. into that page
 ..
   If you want to use a different synchronous or asynchronous runtime crate,
