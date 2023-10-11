@@ -125,16 +125,22 @@ The following table describes commonly used settings that you can specify in
 
    * - ``collation`` 
      - | The collation to use when sorting results.
+       |
+       | Type: ``Collation``
        | Default: ``None``
 
    * - ``hint`` 
      - | The index to use for the operation. To learn more about
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual.
+       |
+       | Type: ``Hint``
        | Default: ``None``
 
    * - ``projection`` 
      - | The projection to use when returning results.
+       |
+       | Type: ``Document``
        | Default: ``None``
 
    * - ``read_concern`` 
@@ -143,9 +149,13 @@ The following table describes commonly used settings that you can specify in
          collection. To learn more about read concerns, see
          :manual:`Read Concern </reference/read-concern/>`
          in the Server manual.
+       |
+       | Type: ``ReadConcern``
 
    * - ``skip`` 
      - | The number of documents to skip when returning results.  
+       |
+       | Type: ``u64``
        | Default: ``None``
 
    * - ``sort`` 
@@ -153,6 +163,8 @@ The following table describes commonly used settings that you can specify in
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary.
+       |
+       | Type: ``Document``
        | Default: ``None``
 
 .. TODO link to projection fundamentals page under projection setting
@@ -298,6 +310,8 @@ The following table describes commonly used settings that you can specify in
      - | Enables writing to temporary files. If ``true``,
          aggregation stages can write data to the ``_tmp`` subdirectory in the
          ``dbPath`` directory.
+       |
+       | Type: ``bool``
        | Default: ``false``
 
    * - ``batch_size`` 
@@ -313,6 +327,7 @@ The following table describes commonly used settings that you can specify in
    * - ``collation``
      - | The collation to use when sorting results.
        |
+       | Type: ``Collation``
        | Default: ``None``
 
    * - ``hint`` 
@@ -320,6 +335,7 @@ The following table describes commonly used settings that you can specify in
          indexes, see :manual:`Indexes </indexes/>` in the Server
          manual.
        |
+       | Type: ``Hint``
        | Default: ``None``
 
    * - ``read_concern`` 
@@ -328,6 +344,8 @@ The following table describes commonly used settings that you can specify in
          collection. To learn more about read concerns, see
          :manual:`Read Concern </reference/read-concern/>`
          in the Server manual.
+       |
+       | Type: ``ReadConcern``
 
    * - ``write_concern``
      - | The write concern for the operation. If you don't set this
