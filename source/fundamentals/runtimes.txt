@@ -31,24 +31,21 @@ Configure the Asynchronous Runtime
 The driver uses the ``tokio`` runtime by default.
 You can explicitly choose a runtime by specifying either the ``tokio-runtime`` or ``async-std-runtime`` feature flag in your ``Cargo.toml``.
 
+Select from the following tabs to see how to add feature flags for each corresponding crate:
+
 .. tabs::
 
    .. tab:: tokio
       :tabid: asynchronous-api-tokio
 
-      To use ``tokio``, add the following to your ``Cargo.toml``:
-
       .. code-block:: toml
 
          [dependencies.mongodb]
          version = "{+version+}"
-         default-features = false
          features = ["tokio-runtime"]
 
    .. tab:: async-std
       :tabid: asynchronous-api-async-std
-
-      To use ``async-std``, add the following to your ``Cargo.toml``:
 
       .. code-block:: toml
 
