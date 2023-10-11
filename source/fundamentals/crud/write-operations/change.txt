@@ -358,7 +358,7 @@ The following table describes the options available in ``UpdateOptions``:
 
    * - ``array_filters``
      - | Filters specifying to which array elements an update
-         should apply to.
+         applies to.
        
        | Type: ``Vec<Document>``
 

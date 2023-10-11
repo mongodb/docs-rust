@@ -235,7 +235,7 @@ The following table describes the options available in
 
    * - ``array_filters`` 
      - | The set of filters specifying the array elements to which the
-         update should apply.
+         update applies to.
        | Type: ``Vec<Document>``
 
    * - ``bypass_document_validation``

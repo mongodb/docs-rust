@@ -301,8 +301,12 @@ The following table describes commonly used settings that you can specify in
        | Default: ``false``
 
    * - ``batch_size`` 
-     - | The number of documents the server should return in each cursor
-         batch.
+     - | Specifies the maximum number of documents the server returns per
+         cursor batch. This option sets the number of documents the cursor
+         keeps in memory rather than the number of documents the cursor
+         returns.
+
+       | Type: ``u32``
        | Default: ``101`` documents initially, ``16 MB`` maximum for
          subsequent batches
 
