@@ -89,7 +89,7 @@ client manages your connections and runs database commands.
 
 .. tip:: Reuse Your Client
    
-   We recommend that you reuse your client across sessions and operations.
+   You can improve performance by reusing your client across sessions and operations.
    You can use the same ``Client`` instance to perform multiple tasks, instead of
    creating a new one each time. The ``Client`` type is safe for
    concurrent use by multiple threads or async tasks.
@@ -209,7 +209,7 @@ When connecting to a replica set, the driver takes the following actions by defa
 
    You are only required to specify one host to connect to a replica set.
    However, to ensure connectivity when the specified host
-   is unavailable, we recommend that you provide the full list of hosts.
+   is unavailable, provide the full list of hosts.
 
 Direct Connection
 `````````````````

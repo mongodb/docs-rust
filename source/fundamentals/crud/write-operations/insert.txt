@@ -134,11 +134,11 @@ The following table describes the options available in ``InsertOneOptions``:
        | Default: ``false``
 
    * - ``write_concern``
-     - | The write concern for the operation. If you don't set a write
-         concern, the operation inherits the one set for the collection.
-         To learn more about write concerns, see :manual:`Write Concern
-         </reference/write-concern/>` in the Server manual.
-       
+     - | The write concern for the operation. If you don't set this
+         option, the operation inherits the write concern set for
+         the collection. To learn more about write concerns, see
+         :manual:`Write Concern </reference/write-concern/>` in the
+         Server manual.
        | Type: ``WriteConcern``
 
    * - ``comment``
@@ -236,11 +236,11 @@ following table describes the options available in
        | Default: ``true``
 
    * - ``write_concern``
-     - | The write concern for the operation. If you don't set a write
-         concern, the operation inherits the one set for the collection.
-         To learn more about write concerns, see :manual:`Write Concern
-         </reference/write-concern/>` in the Server manual.
-       
+     - | The write concern for the operation. If you don't set this
+         option, the operation inherits the write concern set for
+         the collection. To learn more about write concerns, see
+         :manual:`Write Concern </reference/write-concern/>` in the
+         Server manual.
        | Type: ``WriteConcern``
 
    * - ``comment``

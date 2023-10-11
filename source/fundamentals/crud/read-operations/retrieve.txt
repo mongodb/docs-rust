@@ -139,7 +139,7 @@ The following table describes commonly used settings that you can specify in
 
    * - ``read_concern`` 
      - | The read concern to use for the find operation. If you don't
-         set a read concern, the operation inherits the one set for the
+         set this option, the operation inherits the read concern set for the
          collection. To learn more about read concerns, see
          :manual:`Read Concern </reference/read-concern/>`
          in the Server manual.
@@ -322,17 +322,18 @@ The following table describes commonly used settings that you can specify in
 
    * - ``read_concern`` 
      - | The read concern to use for the find operation. If you don't
-         set a read concern, the operation inherits the one set for the
+         set this option, the operation inherits the read concern set for the
          collection. To learn more about read concerns, see
          :manual:`Read Concern </reference/read-concern/>`
          in the Server manual.
 
-   * - ``write_concern`` 
-     - | The write concern to use for the find operation. If you don't
-         set a write concern, the operation inherits the one set for the
-         collection. To learn more about write concerns, see
-         :manual:`Write Concern </reference/write-concern/>`
-         in the Server manual.
+   * - ``write_concern``
+     - | The write concern for the operation. If you don't set this
+         option, the operation inherits the write concern set for
+         the collection. To learn more about write concerns, see
+         :manual:`Write Concern </reference/write-concern/>` in the
+         Server manual.
+       | Type: ``WriteConcern``
 
 .. TODO link to collation fundamentals page under collations setting
 

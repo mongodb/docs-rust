@@ -150,7 +150,7 @@ possible values:
 
 For the compressors that have a ``level`` field, set the value to
 ``None`` to indicate the default level. The following table describes the
-accepted compression levels and default levels for Zlib and Zstandard:
+default and accepted compression levels for Zlib and Zstandard:
 
 .. list-table::
    :header-rows: 1

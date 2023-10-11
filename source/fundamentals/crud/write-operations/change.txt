@@ -356,10 +356,9 @@ The following table describes the options available in ``UpdateOptions``:
    * - Option
      - Description
 
-   * - ``array_filters``
-     - | Filters specifying to which array elements an update
-         applies to.
-       
+   * - ``array_filters`` 
+     - | The set of filters specifying the array elements to which the
+         update applies.
        | Type: ``Vec<Document>``
 
    * - ``bypass_document_validation``
@@ -388,11 +387,11 @@ The following table describes the options available in ``UpdateOptions``:
        | Default: ``None``
 
    * - ``write_concern``
-     - | The write concern for the operation. If you don't set a write
-         concern, the operation inherits the one set for the collection.
-         To learn more about write concerns, see :manual:`Write Concern
-         </reference/write-concern/>` in the Server manual.
-       
+     - | The write concern for the operation. If you don't set this
+         option, the operation inherits the write concern set for
+         the collection. To learn more about write concerns, see
+         :manual:`Write Concern </reference/write-concern/>` in the
+         Server manual.
        | Type: ``WriteConcern``
 
    * - ``let_vars``

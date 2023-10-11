@@ -188,8 +188,9 @@ Logical
 
 Logical operators require at least two match criteria and can match
 documents that meet some, all, or none of these criteria. For example,
-you can use the ``$or`` method to query for documents that match either
-a ``$gt`` comparison operator or a literal value query.
+you can use the logical operator ``$or`` to query for documents that
+match either a ``$gt`` (greater than) comparison operator or a literal
+value query.
 
 Example
 ~~~~~~~
