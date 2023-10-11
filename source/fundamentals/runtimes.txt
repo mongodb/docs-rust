@@ -57,7 +57,7 @@ Select from the following tabs to see how to add feature flags for each correspo
 For more information on installing both the driver and runtimes, see :ref:`rust-quick-start-download-and-install`.
 
 Tokio Runtime Example
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 The following code uses the ``task`` module from the ``tokio`` crate
 to create separate, concurrent tasks for multiple data operations:
@@ -82,7 +82,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
    features = ["sync"]
 
 Synchronous Code Example
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 When using the synchronous runtime, use types from the ``mongodb::sync`` module to perform operations.
 The synchronous API calls through to the asynchronous API internally,
