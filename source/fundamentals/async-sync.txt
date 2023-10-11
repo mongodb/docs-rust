@@ -41,7 +41,7 @@ You can explicitly choose a runtime by specifying either the ``tokio-runtime`` o
       .. code-block:: toml
 
          [dependencies.mongodb]
-         version = "2.6.0"
+         version = "{+version+}"
          default-features = false
          features = ["tokio-runtime"]
 
@@ -59,7 +59,7 @@ You can explicitly choose a runtime by specifying either the ``tokio-runtime`` o
       .. code-block:: toml
 
          [dependencies.mongodb]
-         version = "2.6.0"
+         version = "{+version+}"
          default-features = false
          features = ["async-std"]
 
@@ -94,7 +94,7 @@ To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml`
 .. code-block:: toml
 
    [dependencies.mongodb]
-   version = "2.6.0"
+   version = "{+version+}"
    default-features = false
    features = ["sync"]
 
@@ -125,7 +125,7 @@ You can use both asynchronous and synchronous APIs in the same application. For 
    tokio = {version = "1.32.0", features = ["full"]}
 
    [dependencies.mongodb]
-   version = "2.6.1"
+   version = "{+version+}"
    features = ["tokio-sync"]
 
 Additional Information
