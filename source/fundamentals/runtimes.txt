@@ -90,8 +90,8 @@ Synchronous Code Example
 When using the synchronous runtime, use types from the ``mongodb::sync`` module to perform operations.
 The synchronous API calls through to the asynchronous API internally,
 so you can use ``sync`` types as you might use types from the asynchronous API.
+
 The following code uses the ``sync`` module to insert data into a collection using the synchronous API.
-It uses the synchronous client type imported from the ``sync`` module on the first line.
 When the ``insert_one`` method runs, the driver waits for each request to complete before continuing.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/runtimes-sync.rs
@@ -101,7 +101,8 @@ When the ``insert_one`` method runs, the driver waits for each request to comple
 Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
-You can use both asynchronous and synchronous APIs in the same application. For example, to enable both ``tokio` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
+You can use both asynchronous and synchronous APIs in the same application.
+For example, to enable both ``tokio` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
 ``"tokio-sync"`` flag to your ``mongodb`` dependency:
 
 .. code-block:: toml
