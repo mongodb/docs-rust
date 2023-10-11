@@ -59,8 +59,8 @@ You can explicitly choose a runtime by specifying either the ``tokio-runtime`` o
 
 For more information on installing both the driver and runtimes, see :ref:`rust-quick-start-download-and-install`.
 
-Asynchronous Code Example (Tokio)
----------------------------------
+Tokio Runtime Example
+---------------------
 
 The following code uses the ``task`` module from the ``tokio`` crate
 to create separate, concurrent tasks for multiple data operations:
