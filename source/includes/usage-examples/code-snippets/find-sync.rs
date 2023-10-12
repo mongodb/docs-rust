@@ -1,6 +1,7 @@
 use mongodb::{
     bson::{doc, Document},
-    sync::{Client, Collection}
+    sync::{Client, Collection},
+    options::FindOptions
 };
 use serde::{ Deserialize, Serialize };
 use std::env;
@@ -19,9 +20,13 @@ fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
+    let opts = FindOptions::builder()
+        .sort(doc! { "name": 1 })
+        .build();
+
     let mut cursor = my_coll.find(
         doc! { "cuisine": "French" },
-        None
+        opts
     )?;
     
     for result in cursor {
