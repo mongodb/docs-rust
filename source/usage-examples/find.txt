@@ -20,56 +20,58 @@ For more information on iterating through documents returned by a Cursor, see
 Example
 -------
 
-This example accesses the ``restaurants`` collection in the ``sample_restaurants``
-database and queries for restaurants that offer French cuisine. The example uses
-a ``Restaurant`` struct as a model for documents in the ``restaurants`` collection.
+This example finds documents from the ``restaurants`` collection that represent French
+restaurants. It uses the following parameters:
 
-The following code uses a query filter to match documents with a ``cuisine`` value
-of ``French``, passes the filter to the ``find()`` method, and prints the matching
-documents:
+- A query filter that instructs the driver to return only documents with a ``cuisine``
+  value of ``French``
+- An options parameter that sorts the matching documents in alphabetical order
 
 .. tabs::
 
    .. tab:: Asynchronous
       :tabid: find-async
 
-      .. literalinclude:: /includes/usage-examples/code-snippets/find-async.rs
-         :language: rust
-         :copyable:
-         :dedent:
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/find-async.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+
+            Running this full examples prints a series of documents
+            in the following format:
+            :language: console
+            :visible: false
+
+            // Results truncated
+            ...
+            Restaurant { name: "Bistro Citron", cuisine: "French" }
+            ...
 
    .. tab:: Synchronous
       :tabid: find-sync
 
-      .. literalinclude:: /includes/usage-examples/code-snippets/find-sync.rs
-         :language: rust
-         :copyable:
-         :dedent:
+      .. io-code-block::
+         :copyable: true
 
-Expected Result 
-~~~~~~~~~~~~~~~
+        .. input:: /includes/usage-examples/code-snippets/find-sync.rs
+            :language: rust
+            :dedent:
 
-Running either of the preceding full examples prints a series of documents in the
-following format:
+        .. output::
 
-.. code-block:: none
+            Running this full examples prints a series of documents
+            in the following format:
+            :language: console
+            :visible: false
 
-    // Results truncated
-    ...
-    Restaurant {
-        address: Address {
-            coord: [
-                -73.92581,
-                40.7032485,
-            ],
-            street: "Knickerbocker Avenue",
-            zipcode: "11237",
-        },
-        borough: "Brooklyn",
-        cuisine: "French",
-        name: "Mominette",
-    }
-    ...
+            // Results truncated
+            ...
+            Restaurant { name: "Bistro Citron", cuisine: "French" }
+            ...
 
 Additional Information
 ----------------------

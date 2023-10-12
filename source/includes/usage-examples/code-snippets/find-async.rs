@@ -1,16 +1,11 @@
-use mongodb::{ 
-    bson::doc,
-    Client,
-    Collection
-};
 use futures::TryStreamExt;
+use mongodb::{ bson::doc, Client, Collection, options::FindOptions };
 use serde::{ Deserialize, Serialize };
 use std::env;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {
     address: Address,
-    borough: String,
     cuisine: String,
     name: String,
 }
@@ -18,7 +13,6 @@ struct Restaurant {
 #[derive(Serialize, Deserialize, Debug)]
 struct Address {
     coord: Vec<f64>,
-    street: String,
     zipcode: String,
 }
 
@@ -40,8 +34,11 @@ async fn main() -> mongodb::error::Result<()> {
     ).await?;
 
     while let Some(doc) = cursor.try_next().await? {
-        println!("{:#?}", doc);
+        println!("{:?}", doc);
     }
 
     Ok(())
 }
+
+
+

@@ -7,24 +7,12 @@ use std::env;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {
-    address: Address,
-    borough: String,
-    cuisine: String,
     name: String,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-struct Address {
-    coord: Vec<f64>,
-    street: String,
-    zipcode: String,
+    cuisine: String,
 }
 
 fn main() -> mongodb::error::Result<()> {
-    let uri = match env::var("MONGO_URI") {
-        Ok(val) => val,
-        Err(_e) => "No env variable found".to_string(),
-    };
+    let uri = "<connection string>";
     let client = Client::with_uri_str(uri)?;
 
     let my_coll: Collection<Restaurant> = client
@@ -37,7 +25,7 @@ fn main() -> mongodb::error::Result<()> {
     )?;
     
     for result in cursor {
-        println!("{:#?}", result?);
+        println!("{:?}", result?);
       }
 
     Ok(())
