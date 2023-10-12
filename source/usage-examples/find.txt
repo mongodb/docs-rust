@@ -27,7 +27,7 @@ fields to model the documents in the collection.
 The following code passes the following parameters to the ``find()`` method:
 
 - A query filter that instructs the driver to return only documents with a ``cuisine``
-  value of ``French``
+  value of ``"French"``
 - An options parameter that sorts the matching documents in alphabetical order
 
 
