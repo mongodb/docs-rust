@@ -1,5 +1,9 @@
+use mongodb::{ 
+    bson::doc,
+    Client,
+    Collection
+};
 use futures::TryStreamExt;
-use mongodb::{ bson::doc, Client, Collection };
 use serde::{ Deserialize, Serialize };
 use std::env;
 
@@ -34,7 +38,7 @@ async fn main() -> mongodb::error::Result<()> {
         doc! { "cuisine": "French" },
         None
     ).await?;
-    
+
     while let Some(doc) = cursor.try_next().await? {
         println!("{:#?}", doc);
     }
