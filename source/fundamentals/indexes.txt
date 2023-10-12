@@ -1,0 +1,496 @@
+.. _rust-indexes:
+
+=======
+Indexes
+=======
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to use the {+driver-short+} to create
+and manage **indexes**. Indexes are special data structures that improve
+query performance in MongoDB.
+
+If you perform a query on a collection without any indexes, MongoDB
+scans every document to find matches. These collection scans are slow
+and can negatively affect the performance of your application. When you
+create an index that covers your query, MongoDB limits the number of
+documents it inspects to find matches, which results in improved
+performance. 
+
+.. tip::
+
+   You can use indexes in update operations, delete operations, and
+   some aggregation pipeline stages. To learn more about using indexes
+   in aggregations, see :manual:`Improve Performance with Indexes and Document Filters
+   </core/aggregation-pipeline-optimization/#improve-performance-with-indexes-and-document-filters>`
+   in the Server manual.
+
+Query Coverage and Performance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following table describes the elements that you can include in a
+MongoDB query:
+
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 30 70
+
+   * - Element
+     - Description
+
+   * - Query
+     - | **Required**
+       | Specifies the fields and values to match
+
+   * - Options
+     - | **Optional**
+       | Specify how the query executes
+
+   * - Projection
+     - | **Optional**
+       | Specifies the fields that MongoDB should return in matched
+         documents
+
+   * - Sort
+     - | **Optional**
+       | Specifies the order of documents returned
+
+When all of the fields you reference in your query's elements are in
+the same index, MongoDB can return results directly from the index.
+These queries are called **covered queries**.
+
+.. important:: Sort Criteria
+
+   Your sort criteria must match or invert the order of the index.
+
+   Suppose your collection has the following index on the ``name`` field
+   in ascending order (A-Z) and the ``age`` field in descending order (9-0):
+
+   .. code-block:: none
+      :copyable: false
+
+      name_1_age_-1
+
+   MongoDB uses this index when you sort documents in either
+   of the following configurations:
+
+   - ``name`` ascending, ``age`` descending
+   - ``name`` descending, ``age`` ascending
+
+   If you specify the same sort order for both fields, MongoDB does not
+   use the index and performs an in-memory sort.
+
+   To learn how to ensure your index covers your query, see
+   :manual:`Covered Query </core/query-optimization/#covered-query>` in
+   the Server manual.
+
+Operational Considerations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To improve your query performance, create indexes on fields that appear
+often in your queries. However, it is a good practice to track index
+memory and disk usage for capacity planning because each index consumes
+disk space and memory. Additionally, if a write operation updates an
+indexed field, MongoDB also has to update the relevant index.
+
+MongoDB supports dynamic schemas, so your application can query
+against fields with unknown or variable names. If you are connected to
+MongoDB Server version 4.2 or later, you can create wildcard indexes to
+support these queries. To learn more about this index type, see
+:manual:`Wildcard Indexes </core/indexes/index-types/index-wildcard/>`
+in the Server manual.
+
+Index Types
+-----------
+
+MongoDB supports multiple index types to support your queries. The
+following sections describe common index types and show how to create
+each index type in a collection. To view a full list of index types, see
+:manual:`Index Types </core/indexes/index-types>` in the Server manual.
+
+.. _rust-single-field:
+
+Single Field Indexes
+~~~~~~~~~~~~~~~~~~~~
+
+A single field index holds a reference to a document field.
+
+This index improves the performance of single field queries and sorts.
+It also supports TTL indexes that automatically remove documents from a
+collection after a certain amount of time. To learn more about TTL
+indexes, see :manual:`TTL indexes </core/index-ttl/>` in the Server manual.
+
+.. note::
+
+   MongoDB automatically creates a single field index on the ``_id``
+   field when you create a new collection.
+
+Example
+```````
+
+The following code creates an ascending index on the
+``city`` field in the ``zips`` collection:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-single-field
+      :end-before: end-single-field
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created index:
+      city_1
+
+.. rust-compound:
+
+Compound Indexes
+~~~~~~~~~~~~~~~~
+
+A compound index holds a reference to multiple document fields.
+
+Example
+```````
+
+The following code creates a compound index on the
+``city`` and ``pop`` fields in the ``zips`` collection:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-compound
+      :end-before: end-compound
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created index:
+      city_1_pop_-1
+
+.. _rust-multikey:
+
+Multikey Indexes (Array Field Indexes)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A multikey index holds a reference to an array-valued field. This index
+improves the performance of queries on array fields.
+
+You can create a multikey index by using the same syntax for creating a
+:ref:`single field index <rust-single-field>`.
+
+Example
+```````
+
+The following code creates a multikey index on the
+``tags`` field in the ``posts`` collection:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-multikey
+      :end-before: end-multikey
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created index:
+      tags_1
+
+.. _rust-clustered:
+
+Clustered Indexes
+~~~~~~~~~~~~~~~~~
+
+Clustered indexes improve the performance of insert, update, and delete
+operations on clustered collections. Clustered collections store
+documents ordered by the clustered index key value. To learn more about
+these collections, see :manual:`Clustered Collections
+</core/clustered-collections/>` in the Server manual.
+
+You can create a clustered index only when creating a collection.
+To create a clustered collection, create a ``ClusteredIndex`` instance.
+Set the ``ClusteredIndex`` instance as the value of the
+``clustered_index`` field of a ``CreateCollectionOptions`` instance.
+Then, pass the options to the ``create_collection()`` method.
+
+The value of the ``key`` field must be ``{_id: 1}`` and the value of the
+``unique`` field must be ``true`` in your ``ClusteredIndex`` instance.
+
+Example
+```````
+
+The following code creates a clustered index on the ``_id`` field
+when creating a new ``students`` collection in the ``db`` database:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-clustered
+      :end-before: end-clustered
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created index:
+
+.. _golang-text-indexes:
+
+Text Indexes
+~~~~~~~~~~~~
+
+Text indexes support text search queries on string content. This index
+requires a string field or an array of strings. MongoDB supports text
+search for several languages. You can specify the default language as an
+option when creating the index.
+
+A collection can only contain one text index. If you want to create a
+text index for multiple text fields, you need to create a :ref:`compound
+index <golang-compound-index>`. The text search runs on all the text fields
+within the compound index.
+
+.. tip::
+
+   Text indexes differ from the more powerful
+   :atlas:`Atlas full text search indexes </atlas-search>`.
+   Atlas users should use Atlas search.
+
+Example
+```````
+
+The following example creates a text index on the ``plot`` field with
+``italian`` as the default language in the ``sample_mflix.movies``
+collection:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go
+      
+      indexModel := mongo.IndexModel{Keys: bson.D{{"title", 1}}}
+      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
+      if err != nil {
+          panic(err)
+      }
+
+      fmt.Println("Name of Index Created: " + name)
+
+   .. output::
+      :language: none
+      :visible: false
+
+      plot_text
+
+.. _golang-geo-indexes:
+
+Geospatial Indexes
+~~~~~~~~~~~~~~~~~~
+
+MongoDB supports queries containing geospatial coordinate data by using
+**2dsphere indexes**. A ``2dsphere`` index must be in a GeoJSON objects
+field. 
+
+This index allows you to perform the following:
+
+- Query geospatial data for inclusion, intersection, and proximity.
+- Calculation of distances on a Euclidean plane and for working with the
+  "legacy coordinate pairs" syntax used in MongoDB 2.2 and earlier.
+
+Example
+```````
+
+The ``location.geo`` field in a document from the
+``sample_mflix.theaters`` collection is a GeoJSON Point object that
+describes the coordinates of the theater:
+
+.. code-block:: javascript
+   :emphasize-lines: 13-16
+
+   {
+      "_id" : ObjectId("59a47286cfa9a3a73e51e75c"),
+      "theaterId" : 104,
+      "location" : {
+         "address" : {
+            "street1" : "5000 W 147th St",
+            "city" : "Hawthorne",
+            "state" : "CA",
+            "zipcode" : "90250"
+         },
+         "geo" : {
+            "type" : "Point",
+            "coordinates" : [
+               -118.36559,
+               33.897167
+            ]
+         }
+      }
+   }
+
+The following example creates a ``2dsphere`` index on the ``location.geo`` field:
+
+.. important::
+
+   Attempting to create a geospatial index on a field that is covered by
+   a geospatial index results in an error.
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go      
+
+      indexModel := mongo.IndexModel{
+          Keys: bson.D{{"location.geo", "2dsphere"}}
+      }
+      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
+      if err != nil {
+          panic(err)
+      }
+
+      fmt.Println("Name of Index Created: " + name)
+
+   .. output::
+      :language: none
+      :visible: false
+
+      location.geo_2dsphere
+
+.. _golang-unique-indexes:
+
+Unique Indexes
+~~~~~~~~~~~~~~
+
+Unique indexes ensure that the indexed fields do not store duplicate
+values. By default, MongoDB creates a unique index on the ``_id`` field
+during the creation of a collection. 
+
+To create a unique index, specify the field or combination of fields
+that you want to prevent duplication on and set the ``unique`` option to
+``true``.
+
+Example
+```````
+
+The following example creates a unique, descending index on the ``theaterId`` field:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go
+
+      indexModel := mongo.IndexModel{
+          Keys: bson.D{{"theaterId", -1}}, 
+          Options: options.Index().SetUnique(true),
+      }
+      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
+      if err != nil {
+          panic(err)
+      }
+
+      fmt.Println("Name of Index Created: " + name)
+
+   .. output::
+      :language: none
+      :visible: false
+
+      theaterId_-1
+
+.. _golang-remove-index:
+
+Remove an Index
+---------------
+
+You can remove any unused index except the default unique index on the
+``_id`` field. To remove an index, pass the name of your index to the
+``DropOne()`` method.
+
+The following example removes an ascending index on the ``title`` field
+in the ``sample_mflix.movies`` collection:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input::
+      :language: go
+
+      res, err := coll.Indexes().DropOne(context.TODO(), "title_1")
+      if err != nil {
+          panic(err)
+      }
+      fmt.Println(res)
+
+   .. output::
+      :language: none
+      :visible: false
+
+      {"nIndexesWas": {"$numberInt":"2"}}
+
+Additional Information
+----------------------
+
+To learn more about designing data models and creating appropriate
+indexes for your application, see :manual:`Indexing Strategies
+</applications/indexes>` and :manual:`Operational Factors and Data
+Models </core/data-model-operations>` in the Server manual.
+
+To learn more about the indexes mentioned, see the following
+guides:
+
+- :manual:`Single Field Indexes </core/index-single>`
+- :manual:`TTL Indexes </core/index-ttl>`
+- :manual:`Compound Indexes </core/index-compound>`
+- :manual:`Multikey Indexes </core/index-multikey>`
+- :manual:`Text Indexes </core/index-text>`
+- :manual:`Compound Text Index Restrictions </core/index-text/#std-label-text-index-compound>`
+- :manual:`Geospatial Queries </geospatial-queries/>`
+- :manual:`GeoJSON Objects </reference/geojson>`
+- :manual:`Unique Indexes </core/index-unique>`
+- :v5.3:`Clustered Indexes </reference/method/db.createCollection/#std-label-db.createCollection.clusteredIndex>`
+- :v5.3:`Clustered Collections </core/clustered-collections/#std-label-clustered-collections>`
+
+To learn more about the operations mentioned, see the following
+guides:
+
+- :ref:`golang-query-document`
+- :ref:`golang-change-document`
+- :ref:`golang-delete-guide`
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods discussed in this
+guide, see the following API Documentation:
+
+- `IndexModel <{+api+}/mongo#IndexModel>`__
+- `CreateOne() <{+api+}/mongo#IndexView.CreateOne>`__
+- `IndexOptions <{+api+}/mongo/options#IndexOptions>`__
+- `SetDefaultLanguage() <{+api+}/mongo/options#IndexOptions.SetDefaultLanguage>`__
+- `DropOne() <{+api+}/mongo#IndexView.DropOne>`__
+- `CreateCollection() <{+api+}/mongo#Database.CreateCollection>`__
+- `CreateCollectionOptions <{+api+}/mongo/options#CreateCollectionOptions>`__
