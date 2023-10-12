@@ -21,11 +21,15 @@ Example
 -------
 
 This example finds documents from the ``restaurants`` collection that represent French
-restaurants. It uses the following parameters:
+restaurants. The example uses a ``Restaurants`` struct containing ``name`` and ``cuisine``
+fields to model the documents in the collection. 
+
+The following code passes the following parameters to the ``find()`` method:
 
 - A query filter that instructs the driver to return only documents with a ``cuisine``
   value of ``French``
 - An options parameter that sorts the matching documents in alphabetical order
+
 
 .. tabs::
 
@@ -40,9 +44,6 @@ restaurants. It uses the following parameters:
             :dedent:
 
         .. output::
-
-            Running this full examples prints a series of documents
-            in the following format:
             :language: console
             :visible: false
 
@@ -62,9 +63,6 @@ restaurants. It uses the following parameters:
             :dedent:
 
         .. output::
-
-            Running this full examples prints a series of documents
-            in the following format:
             :language: console
             :visible: false
 
