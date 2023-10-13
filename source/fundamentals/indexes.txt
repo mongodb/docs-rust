@@ -155,7 +155,7 @@ The following code creates an ascending index on the
       Created index:
       city_1
 
-.. rust-compound:
+.. _rust-compound:
 
 Compound Indexes
 ~~~~~~~~~~~~~~~~
@@ -240,15 +240,48 @@ The value of the ``key`` field must be ``{_id: 1}`` and the value of the
 Example
 ```````
 
-The following code creates a clustered index on the ``_id`` field
-when creating a new ``students`` collection in the ``db`` database:
+The following code creates a clustered index with default configuration on the
+``_id`` field when creating a new ``items`` collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-clustered
+   :end-before: end-clustered
+   :language: rust
+   :dedent:
+
+.. _rust-text:
+
+Text Indexes
+~~~~~~~~~~~~
+
+A text index supports text search queries on string content. This index
+references a string field or a field with a value of a string array.
+MongoDB supports text search for several languages. You can specify the
+default language as an option when creating the index.
+
+A collection can only contain one text index. To create a
+text index on multiple text fields, you can create a :ref:`compound
+index <rust-compound>`. Then, a text search runs on all the text fields
+in the compound index.
+
+.. tip:: Atlas Full Text Search
+
+   Text indexes are different from Atlas full text search indexes. To
+   learn more about Atlas search indexes, see the :atlas:`Atlas search
+   documentation </atlas-search/>`.
+
+Example
+```````
+
+The following code creates a text index on the
+``body`` field in the ``posts`` collection:
 
 .. io-code-block::
    :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/indexes.rs
-      :start-after: begin-clustered
-      :end-before: end-clustered
+      :start-after: begin-multikey
+      :end-before: end-multikey
       :language: rust
       :dedent:
 
@@ -257,54 +290,7 @@ when creating a new ``students`` collection in the ``db`` database:
       :visible: false
 
       Created index:
-
-.. _golang-text-indexes:
-
-Text Indexes
-~~~~~~~~~~~~
-
-Text indexes support text search queries on string content. This index
-requires a string field or an array of strings. MongoDB supports text
-search for several languages. You can specify the default language as an
-option when creating the index.
-
-A collection can only contain one text index. If you want to create a
-text index for multiple text fields, you need to create a :ref:`compound
-index <golang-compound-index>`. The text search runs on all the text fields
-within the compound index.
-
-.. tip::
-
-   Text indexes differ from the more powerful
-   :atlas:`Atlas full text search indexes </atlas-search>`.
-   Atlas users should use Atlas search.
-
-Example
-```````
-
-The following example creates a text index on the ``plot`` field with
-``italian`` as the default language in the ``sample_mflix.movies``
-collection:
-
-.. io-code-block::
-   :copyable: true
-
-   .. input::
-      :language: go
-      
-      indexModel := mongo.IndexModel{Keys: bson.D{{"title", 1}}}
-      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
-      if err != nil {
-          panic(err)
-      }
-
-      fmt.Println("Name of Index Created: " + name)
-
-   .. output::
-      :language: none
-      :visible: false
-
-      plot_text
+      tags_1
 
 .. _golang-geo-indexes:
 
