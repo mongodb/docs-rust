@@ -229,7 +229,7 @@ collection names as strings.
 To see detailed information about each collection, call the `list_collections() <{+api+}/struct.Database.html#method.list_collections>`__
 method on your ``Database`` instance. This method returns a
 ``Vec<CollectionSpecification>`` type. The `CollectionSpecification
-<{+api+}/struct.CollectionSpecification.html>`__ type
+<{+api+}/results/struct.CollectionSpecification.html>`__ type
 contains fields describing each collection, such as its type and settings.
 
 The following example shows how to print the names of the collections in
