@@ -75,7 +75,7 @@ Configure the Synchronous Runtime
 The driver also provides a blocking, synchronous API.
 To use the synchronous runtime, add the either the ``"sync"`` or ``"tokio-sync"`` feature flag
 to your ``mongodb`` dependency.
-
+Select from the following tabs to see how to add feature flags for each corresponding crate:
 .. code-block:: toml
 
    [dependencies.mongodb]
