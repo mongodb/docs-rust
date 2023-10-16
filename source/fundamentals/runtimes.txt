@@ -22,6 +22,7 @@ By default, the driver uses the ``tokio`` asynchronous runtime, but you can sele
 by adding feature flags to your ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism is not necessary.
+You can select a synchronous runtime by adding feature flags to your ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 .. _rust-runtimes-configure-async:
 
