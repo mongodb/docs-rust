@@ -1,0 +1,70 @@
+.. _rust-usage-examples:
+
+==============
+Usage Examples
+==============
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. toctree::
+
+   .. /usage-examples/delete-many
+
+Overview
+--------
+
+Usage examples provide convenient starting points for popular MongoDB
+operations. Each example provides the following:
+
+- A full asynchronous and synchronous Rust program that you can run in
+  your own environment
+- The expected output of the program
+
+How to Use the Usage Examples
+-----------------------------
+
+These examples use the :atlas:`sample datasets </sample-data>` provided by
+Atlas. Each example runs one or more operations on the ``restaurants``
+collection in the ``sample_restaurants`` database. You can load the sample
+datasets into your database on the free tier of MongoDB Atlas by following the
+:atlas:`Get Started with Atlas Guide </getting-started/#atlas-getting-started>`
+or you can :guides:`import the sample dataset into a local MongoDB instance
+</server/import/>`.
+
+Once you import the datasets, you can copy and paste a usage example into your
+development environment of choice. Follow the :ref:`rust-quickstart` to learn
+more about getting started with the {+driver-short+}.
+
+Connection String
+~~~~~~~~~~~~~~~~~
+
+After you have copied a usage example into your development environment, you
+must edit the connection URI to connect the example to your MongoDB instance:
+
+.. code-block:: none
+   :copyable: false
+
+   // Replace the bracketed text with your MongoDB deployment's connection string
+   let uri = "<connection string>";
+
+.. Available Usage Examples
+.. ------------------------
+
+.. TODO: add Usage Example pages as they are created
+    - :ref:`Find a Document<rust-find-one-usage>`
+    - :ref:`Find Multiple Documents<rust-find-usage>`
+    - :ref:`Insert a Document<rust-insert-one-usage>`
+    - :ref:`Insert Multiple Documents<rust-insert-many-usage>`
+    - :ref:`Update a Document<rust-update-one-usage>`
+    - :ref:`Update Multiple Document<rust-update-many-usage>`
+    - :ref:`Replace a Document<rust-replace-usage>`
+    - :ref:`Delete a Document<rust-delete-one-usage>`
+    - :ref:`Delete Multiple Documents<rust-delete-many-usage>`
+    - :ref:`Count Documents<rust-count-usage>`
+    - :ref:`Find Distinct Values<rust-distinct-usage>`
+
+
