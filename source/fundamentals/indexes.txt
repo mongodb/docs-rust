@@ -56,14 +56,14 @@ MongoDB query:
 
    * - Projection
      - | **Optional**
-       | Specifies the fields that MongoDB should return in matched
+       | Specifies the fields that MongoDB returns in matched
          documents
 
    * - Sort
      - | **Optional**
        | Specifies the order of documents returned
 
-When all of the fields you reference in your query's elements are in
+When all the fields you reference in your query's elements are in
 the same index, MongoDB can return results directly from the index.
 These queries are called **covered queries**.
 
@@ -99,7 +99,7 @@ To improve your query performance, create indexes on fields that appear
 often in your queries. However, it is a good practice to track index
 memory and disk usage for capacity planning because each index consumes
 disk space and memory. Additionally, if a write operation updates an
-indexed field, MongoDB also has to update the relevant index.
+indexed field, MongoDB also must update the relevant index.
 
 MongoDB supports dynamic schemas, so your application can query
 against fields with unknown or variable names. If you are connected to
@@ -402,7 +402,7 @@ name of the index to the ``drop_index()`` method.
 
 .. tip:: Remove All Indexes
    
-   You can remove all of the indexes on a collection except for the
+   You can remove all the indexes on a collection except for the
    ``_id`` index at once by using the ``drop_indexes()`` method.
 
 The following example removes an index called ``city_1`` from the
