@@ -19,7 +19,7 @@ operations. Each example provides the following:
 - A Rust program that you can run in your own environment
 - The expected output of the program
 
-Every usage example provides the same example using both the asynchronous
+Each usage example provides the same example using both the asynchronous
 and synchronous runtimes.
 
 .. TODO: link to the runtimes guide
