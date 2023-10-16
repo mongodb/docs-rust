@@ -321,7 +321,7 @@ The following sample document in the ``stores`` collection contains the
 field ``location``. This field has a GeoJSON point value:
 
 .. code-block:: javascript
-   :emphasize-lines: 13-16
+   :emphasize-lines: 4-10
 
    {
       "_id": "...",
