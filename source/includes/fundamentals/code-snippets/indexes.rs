@@ -44,13 +44,17 @@ async fn main() -> mongodb::error::Result<()> {
     let db = client.database("db");
     // begin-clustered
     let cl_idx = ClusteredIndex::default();
-    let opts = CreateCollectionOptions::builder().clustered_index(cl_idx).build();
+    let opts = CreateCollectionOptions::builder()
+        .clustered_index(cl_idx)
+        .build();
 
     db.create_collection("items", opts).await?;
     // end-clustered
 
     // begin-text
-    let idx_opts = IndexOptions::builder().default_language("spanish".to_string()).build();
+    let idx_opts = IndexOptions::builder()
+        .default_language("spanish".to_string())
+        .build();
 
     let index = IndexModel::builder()
         .keys(doc! { "body": 1 })

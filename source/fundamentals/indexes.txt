@@ -114,7 +114,9 @@ Index Types
 MongoDB supports multiple index types to support your queries. The
 following sections describe common index types and show how to create
 each index type in a collection. You can use the ``create_index()`` and
-``create_indexes()`` methods to create indexes in a collection.
+``create_indexes()`` methods to create indexes in a collection. The
+``create_index()`` method takes an ``IndexModel`` struct parameter that
+you can construct by using the type's ``builder()`` method.
 
 To view a full list of index types, see
 :manual:`Index Types </core/indexes/index-types>` in the Server manual.
@@ -321,7 +323,7 @@ The following sample document in the ``stores`` collection contains the
 field ``location``. This field has a GeoJSON point value:
 
 .. code-block:: javascript
-   :emphasize-lines: 4-10
+   :emphasize-lines: 5-9
 
    {
       "_id": "...",
@@ -420,6 +422,9 @@ indexes for your application, see :manual:`Indexing Strategies
 </applications/indexes>` and :manual:`Operational Factors and Data
 Models </core/data-model-operations>` in the Server manual.
 
+To learn about performing read operations, see the guides in the
+:ref:`rust-crud-read-operations` category.
+
 To learn more about the concepts mentioned in this guide, see the
 following Server documentation:
 
@@ -440,3 +445,11 @@ API Documentation
 To learn more about the methods and types discussed in this
 guide, see the following API documentation:
 
+- `create_index() <{+api+}/struct.Collection.html#method.create_index>`__
+- `create_indexes() <{+api+}/struct.Collection.html#method.create_indexes>`__
+- `IndexModel <{+api+}/struct.IndexModel.html>`__
+- `IndexOptions <{+api+}/options/struct.IndexOptions.html>`__
+- `ClusteredIndex <{+api+}/options/struct.ClusteredIndex.html>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `drop_index() <{+api+}/struct.Collection.html#method.drop_index>`__
+- `drop_indexes() <{+api+}/struct.Collection.html#method.drop_indexes>`__
