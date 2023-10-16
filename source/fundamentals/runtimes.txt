@@ -55,7 +55,8 @@ Select from the following tabs to see how to add feature flags for each correspo
          default-features = false
          features = ["async-std"]
 
-For more information on installing the driver and adding feature flags, see the :ref:`rust-quick-start-download-and-install` step of the Quick Start.
+For more information on installing the driver and adding feature flags,
+see the :ref:`rust-quick-start-download-and-install` step of the Quick Start.
 
 Tokio Runtime Example
 ~~~~~~~~~~~~~~~~~~~~~
