@@ -51,7 +51,7 @@ your development environment.
 
    .. step:: Edit the Connection String
 
-      Edit the connection URI in your application file to connect to your MongoDB instance:
+      In your application file, edit the connection URI to connect to your MongoDB instance:
 
       .. code-block:: none
          :copyable: false
