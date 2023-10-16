@@ -49,17 +49,19 @@ your development environment.
       To learn more about creating an application that uses the {+driver-short+}, follow the
       :ref:`rust-quickstart`.
 
-Connection String
-~~~~~~~~~~~~~~~~~
+   .. step:: Edit the Connection String
 
-After you copy a usage example into your development environment, you must edit
-the connection URI to connect the example to your MongoDB instance:
+      Edit the connection URI in your application file to connect to your MongoDB instance:
 
-.. code-block:: none
-   :copyable: false
+      .. code-block:: none
+         :copyable: false
 
-   // Replace the placeholder with your MongoDB deployment's connection string
-   let uri = "<connection string>";
+         // Replace the placeholder with your MongoDB deployment's connection string
+         let uri = "<connection string>";
+
+After completing these steps, you should be able to run a program in your 
+development environment and see the output described on the program's corresponding
+usage example page.
 
 .. Available Usage Examples
 .. ------------------------
