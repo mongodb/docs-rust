@@ -21,7 +21,7 @@ The {+driver-short+} supports ``tokio`` and ``async-std``, two popular asynchron
 By default, the driver uses the ``tokio`` asynchronous runtime, but you can select a runtime
 by adding feature flags to your ``mongodb`` dependency in your ``Cargo.toml`` file.
 
-The driver also includes a synchronous API for simplicity, or when parallelism is not necessary.
+The driver also includes a synchronous API for use cases that require blocking, or when parallelism is not necessary.
 
 .. _rust-runtimes-configure-async:
 
@@ -29,7 +29,8 @@ Configure the Asynchronous Runtime
 ----------------------------------
 
 The driver uses the ``tokio`` runtime by default.
-You can explicitly choose a runtime by specifying either the ``tokio-runtime`` or ``async-std-runtime`` feature flag in your ``Cargo.toml``.
+You can explicitly choose a runtime by specifying adding the ``"tokio-runtime"`` or ``"async-std-runtime"``
+feature flags to your ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
 
@@ -54,7 +55,7 @@ Select from the following tabs to see how to add feature flags for each correspo
          default-features = false
          features = ["async-std"]
 
-For more information on installing both the driver and runtimes, see :ref:`rust-quick-start-download-and-install`.
+For more information on installing the driver and adding feature flags, see the :ref:`rust-quick-start-download-and-install` step of the Quick Start.
 
 Tokio Runtime Example
 ~~~~~~~~~~~~~~~~~~~~~
@@ -72,7 +73,8 @@ Configure the Synchronous Runtime
 ---------------------------------
 
 The driver also provides a blocking, synchronous API.
-To enable this, add the ``sync`` or ``tokio-sync`` feature to your ``Cargo.toml``.
+To use the synchronous runtime, add the either the ``"sync"`` or ``"tokio-sync"`` feature flag
+to your ``mongodb`` dependency.
 
 .. code-block:: toml
 
@@ -99,7 +101,7 @@ Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
 You can use both asynchronous and synchronous APIs in the same application.
-For example, to enable both ``tokio` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
+For example, to enable both ``tokio`` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
 ``"tokio-sync"`` flag to your ``mongodb`` dependency:
 
 .. code-block:: toml
