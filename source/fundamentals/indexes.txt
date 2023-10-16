@@ -86,7 +86,7 @@ These queries are called **covered queries**.
    - ``name`` descending, ``age`` ascending
 
    If you specify the same sort order for both fields, MongoDB does not
-   use the index and performs an in-memory sort.
+   use the index and instead performs an in-memory sort.
 
    To learn how to ensure your index covers your query, see
    :manual:`Covered Query </core/query-optimization/#covered-query>` in
@@ -113,7 +113,10 @@ Index Types
 
 MongoDB supports multiple index types to support your queries. The
 following sections describe common index types and show how to create
-each index type in a collection. To view a full list of index types, see
+each index type in a collection. You can use the ``create_index()`` and
+``create_indexes()`` methods to create indexes in a collection.
+
+To view a full list of index types, see
 :manual:`Index Types </core/indexes/index-types>` in the Server manual.
 
 .. _rust-single-field:
@@ -273,15 +276,16 @@ in the compound index.
 Example
 ```````
 
-The following code creates a text index on the
-``body`` field in the ``posts`` collection:
+The following code creates a text index on the ``body`` field in the
+``posts`` collection. The code sets an option to specify ``"spanish"``
+as the default language for the text index:
 
 .. io-code-block::
    :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/indexes.rs
-      :start-after: begin-multikey
-      :end-before: end-multikey
+      :start-after: begin-text
+      :end-before: end-text
       :language: rust
       :dedent:
 
@@ -290,7 +294,7 @@ The following code creates a text index on the
       :visible: false
 
       Created index:
-      tags_1
+      body_1
 
 .. _golang-geo-indexes:
 
@@ -298,144 +302,115 @@ Geospatial Indexes
 ~~~~~~~~~~~~~~~~~~
 
 MongoDB supports queries containing geospatial coordinate data by using
-**2dsphere indexes**. A ``2dsphere`` index must be in a GeoJSON objects
-field. 
+``2dsphere`` indexes. You can create a ``2dsphere`` index on a field
+with GeoJSON object values.
 
-This index allows you to perform the following:
+This index type supports the following tasks:
 
-- Query geospatial data for inclusion, intersection, and proximity.
-- Calculation of distances on a Euclidean plane and for working with the
-  "legacy coordinate pairs" syntax used in MongoDB 2.2 and earlier.
+- Queries on geospatial data to find inclusion, intersection, and proximity
+- Calculation of distances on a Euclidean plane
+
+.. important::
+
+   You cannot create two geospatial indexes on the same field.
 
 Example
 ```````
 
-The ``location.geo`` field in a document from the
-``sample_mflix.theaters`` collection is a GeoJSON Point object that
-describes the coordinates of the theater:
+The following sample document in the ``stores`` collection contains the
+field ``location``. This field has a GeoJSON point value:
 
 .. code-block:: javascript
    :emphasize-lines: 13-16
 
    {
-      "_id" : ObjectId("59a47286cfa9a3a73e51e75c"),
-      "theaterId" : 104,
-      "location" : {
-         "address" : {
-            "street1" : "5000 W 147th St",
-            "city" : "Hawthorne",
-            "state" : "CA",
-            "zipcode" : "90250"
-         },
-         "geo" : {
-            "type" : "Point",
-            "coordinates" : [
-               -118.36559,
-               33.897167
-            ]
-         }
+      "_id": "...",
+      "storeName": "Green Apple Market",
+      "location": {
+         "type": "Point",
+         "coordinates": [
+            -118.36559,
+            33.897167
+         ]
       }
    }
 
-The following example creates a ``2dsphere`` index on the ``location.geo`` field:
-
-.. important::
-
-   Attempting to create a geospatial index on a field that is covered by
-   a geospatial index results in an error.
+The following code creates a geospatial ``2dsphere`` index on the
+``location`` field in the ``stores`` collection:
 
 .. io-code-block::
    :copyable: true
 
-   .. input::
-      :language: go      
-
-      indexModel := mongo.IndexModel{
-          Keys: bson.D{{"location.geo", "2dsphere"}}
-      }
-      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
-      if err != nil {
-          panic(err)
-      }
-
-      fmt.Println("Name of Index Created: " + name)
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-geo
+      :end-before: end-geo
+      :language: rust
+      :dedent:
 
    .. output::
-      :language: none
+      :language: console
       :visible: false
 
-      location.geo_2dsphere
+      Created index:
+      location_"2dsphere"
 
-.. _golang-unique-indexes:
+.. _rust-unique:
 
 Unique Indexes
 ~~~~~~~~~~~~~~
 
-Unique indexes ensure that the indexed fields do not store duplicate
+A unique index ensures that the indexed fields do not store duplicate
 values. By default, MongoDB creates a unique index on the ``_id`` field
-during the creation of a collection. 
+when you create a collection.
 
 To create a unique index, specify the field or combination of fields
-that you want to prevent duplication on and set the ``unique`` option to
-``true``.
+that you want to maintain uniqueness for and set the ``unique`` option
+to ``true``.
 
 Example
 ```````
 
-The following example creates a unique, descending index on the ``theaterId`` field:
+The following code creates a unique, descending index on the
+``user_id`` field in the ``users`` collection:
 
 .. io-code-block::
    :copyable: true
 
-   .. input::
-      :language: go
-
-      indexModel := mongo.IndexModel{
-          Keys: bson.D{{"theaterId", -1}}, 
-          Options: options.Index().SetUnique(true),
-      }
-      name, err := coll.Indexes().CreateOne(context.TODO(), indexModel)
-      if err != nil {
-          panic(err)
-      }
-
-      fmt.Println("Name of Index Created: " + name)
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-unique
+      :end-before: end-unique
+      :language: rust
+      :dedent:
 
    .. output::
-      :language: none
+      :language: console
       :visible: false
 
-      theaterId_-1
+      Created index:
+      user_id_-1
 
-.. _golang-remove-index:
+.. _rust-remove-index:
 
 Remove an Index
 ---------------
 
-You can remove any unused index except the default unique index on the
-``_id`` field. To remove an index, pass the name of your index to the
-``DropOne()`` method.
+You can remove, or drop, any indexes from a collection except the
+default unique index on the ``_id`` field. To remove an index, pass the
+name of the index to the ``drop_index()`` method.
 
-The following example removes an ascending index on the ``title`` field
-in the ``sample_mflix.movies`` collection:
+.. tip:: Remove All Indexes
+   
+   You can remove all of the indexes on a collection except for the
+   ``_id`` index at once by using the ``drop_indexes()`` method.
 
-.. io-code-block::
-   :copyable: true
+The following example removes an index called ``city_1`` from the
+``zips`` collection:
 
-   .. input::
-      :language: go
-
-      res, err := coll.Indexes().DropOne(context.TODO(), "title_1")
-      if err != nil {
-          panic(err)
-      }
-      fmt.Println(res)
-
-   .. output::
-      :language: none
-      :visible: false
-
-      {"nIndexesWas": {"$numberInt":"2"}}
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-drop
+   :end-before: end-drop
+   :language: rust
+   :dedent:
 
 Additional Information
 ----------------------
@@ -445,8 +420,8 @@ indexes for your application, see :manual:`Indexing Strategies
 </applications/indexes>` and :manual:`Operational Factors and Data
 Models </core/data-model-operations>` in the Server manual.
 
-To learn more about the indexes mentioned, see the following
-guides:
+To learn more about the concepts mentioned in this guide, see the
+following Server documentation:
 
 - :manual:`Single Field Indexes </core/index-single>`
 - :manual:`TTL Indexes </core/index-ttl>`
@@ -457,26 +432,11 @@ guides:
 - :manual:`Geospatial Queries </geospatial-queries/>`
 - :manual:`GeoJSON Objects </reference/geojson>`
 - :manual:`Unique Indexes </core/index-unique>`
-- :v5.3:`Clustered Indexes </reference/method/db.createCollection/#std-label-db.createCollection.clusteredIndex>`
-- :v5.3:`Clustered Collections </core/clustered-collections/#std-label-clustered-collections>`
-
-To learn more about the operations mentioned, see the following
-guides:
-
-- :ref:`golang-query-document`
-- :ref:`golang-change-document`
-- :ref:`golang-delete-guide`
+- :manual:`Clustered Collections </core/clustered-collections/>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods discussed in this
-guide, see the following API Documentation:
+To learn more about the methods and types discussed in this
+guide, see the following API documentation:
 
-- `IndexModel <{+api+}/mongo#IndexModel>`__
-- `CreateOne() <{+api+}/mongo#IndexView.CreateOne>`__
-- `IndexOptions <{+api+}/mongo/options#IndexOptions>`__
-- `SetDefaultLanguage() <{+api+}/mongo/options#IndexOptions.SetDefaultLanguage>`__
-- `DropOne() <{+api+}/mongo#IndexView.DropOne>`__
-- `CreateCollection() <{+api+}/mongo#Database.CreateCollection>`__
-- `CreateCollectionOptions <{+api+}/mongo/options#CreateCollectionOptions>`__
