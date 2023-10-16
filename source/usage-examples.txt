@@ -59,9 +59,9 @@ your development environment.
          // Replace the placeholder with your MongoDB deployment's connection string
          let uri = "<connection string>";
 
-After completing these steps, you should be able to run a program in your 
-development environment and see the output described on the program's corresponding
-usage example page.
+After completing these steps, you can run a program in your development environment
+and see the output described on the program's corresponding usage example page.
+
 
 .. Available Usage Examples
 .. ------------------------
