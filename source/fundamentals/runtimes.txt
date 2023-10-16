@@ -79,12 +79,27 @@ to your ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
 
-.. code-block:: toml
+.. tabs::
 
-   [dependencies.mongodb]
-   version = "{+version+}"
-   default-features = false
-   features = ["sync"]
+   .. tab:: sync
+      :tabid: synchronous-api
+
+      .. code-block:: toml
+
+         [dependencies.mongodb]
+         version = "{+version+}"
+         default-features = false
+         features = ["sync"]
+
+   .. tab:: tokio-sync
+      :tabid: synchronous-api-tokio
+
+      .. code-block:: toml
+
+         [dependencies.mongodb]
+         version = "{+version+}"
+         default-features = false
+         features = ["tokio-sync"]
 
 Synchronous Code Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
