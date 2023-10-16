@@ -19,10 +19,10 @@ This guide explains how to enable the available runtimes and structure your code
 
 The {+driver-short+} supports ``tokio`` and ``async-std``, two popular asynchronous runtime crates.
 By default, the driver uses the ``tokio`` asynchronous runtime, but you can select a runtime
-by adding feature flags to your ``mongodb`` dependency in your ``Cargo.toml`` file.
+by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism is not necessary.
-You can select a synchronous runtime by adding feature flags to your ``mongodb`` dependency in your ``Cargo.toml`` file.
+You can select a synchronous runtime by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 .. _rust-runtimes-configure-async:
 
@@ -31,7 +31,7 @@ Configure the Asynchronous Runtime
 
 The driver uses the ``tokio`` runtime by default.
 You can explicitly choose a runtime by specifying adding the ``"tokio-runtime"`` or ``"async-std-runtime"``
-feature flags to your ``mongodb`` dependency.
+feature flags to the ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
 
@@ -76,7 +76,7 @@ Configure the Synchronous Runtime
 
 The driver also provides a blocking, synchronous API.
 To use the synchronous runtime, add the either the ``"sync"`` or ``"tokio-sync"`` feature flag
-to your ``mongodb`` dependency.
+to the ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
 
@@ -121,7 +121,7 @@ Use Both Asynchronous and Synchronous APIs
 
 You can use both asynchronous and synchronous APIs in the same application.
 For example, to enable both ``tokio`` runtimes, you can add the ``tokio`` dependency to your dependencies list, and add the
-``"tokio-sync"`` flag to your ``mongodb`` dependency:
+``"tokio-sync"`` flag to the ``mongodb`` dependency:
 
 .. code-block:: toml
 
