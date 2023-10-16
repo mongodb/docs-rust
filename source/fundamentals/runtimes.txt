@@ -101,7 +101,7 @@ Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
 You can use both asynchronous and synchronous APIs in the same application.
-For example, to enable both ``tokio`` runtimes, you can add the ``tokio`` dependency to your dependencies list and add the
+For example, to enable both ``tokio`` runtimes, you can add the ``tokio`` dependency to your dependencies list, and add the
 ``"tokio-sync"`` flag to your ``mongodb`` dependency:
 
 .. code-block:: toml
