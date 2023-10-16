@@ -13,31 +13,41 @@ Usage Examples
 Overview
 --------
 
-Usage examples provide convenient starting points for popular MongoDB
-operations. Each example provides the following:
+Usage examples enable you to set up, run, and gain a broad understanding of
+a MongoDB operation. Each usage example includes the following:
 
-- A Rust program that you can run in your own environment
+- A general overview of the MongoDB operation
+- One asynchronous and one synchronous Rust program that you can run
+  in your own environment
 - The expected output of the program
 
-Each usage example provides the same example using both the asynchronous
-and synchronous runtimes.
-
-.. TODO: link to the runtimes guide
+.. TODO: To learn more about the runtimes offered by the {+driver-short+},
+   see <add link to runtimes page>.
 
 How to Use the Usage Examples
 -----------------------------
 
-These examples use the :atlas:`sample datasets </sample-data>` provided by
-Atlas. Each example runs one or more operations on the ``restaurants``
-collection in the ``sample_restaurants`` database. You can load the sample
-datasets into your database on the free tier of MongoDB Atlas by following the
-:atlas:`Get Started with Atlas Guide </getting-started/#atlas-getting-started>`
-or you can :guides:`import the sample dataset into a local MongoDB instance
-</server/import/>`.
+The usage examples run operations on the ``restaurants`` collection in the
+``sample_restaurants`` database. This dataset is one of the :atlas:`sample datasets
+</sample-data>` provided by Atlas. Before running the programs included in the
+usage examples, perform the following actions to access the sample datasets in
+your development environment.
 
-Once you import the datasets, you can copy and paste a usage example into your
-development environment of choice. Follow the :ref:`rust-quickstart` to learn
-more about creating an application that uses the {+driver-short+}.
+.. procedure::
+   :style: connected
+
+   .. step:: Retrieve the Sample Datasets
+      
+      Follow the :atlas:`Get Started with Atlas Guide </getting-started/#atlas-getting-started>`
+      to import the sample datasets into your database on the free tier of MongoDB Atlas.
+
+   .. step:: Use the Sample Datasets in your Development Environment
+
+      Copy the usage example program that you wish to run. Then, navigate to a file in
+      your application and paste the program.
+      
+      To learn more about creating an application that uses the {+driver-short+}, follow the
+      :ref:`rust-quickstart`.
 
 Connection String
 ~~~~~~~~~~~~~~~~~
