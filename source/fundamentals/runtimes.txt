@@ -18,7 +18,7 @@ and :ref:`synchronous <rust-runtimes-configure-sync>` runtimes.
 This guide explains how to enable the available runtimes and structure your code to use each API.
 
 The {+driver-short+} supports ``tokio`` and ``async-std``, two popular asynchronous runtime crates.
-By default, the driver uses the ``tokio`` asynchronous runtime, but you can select a runtime
+By default, the driver uses the ``tokio`` asynchronous runtime, but you can select a specific runtime
 by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism is not necessary.
