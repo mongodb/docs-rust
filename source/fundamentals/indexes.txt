@@ -67,7 +67,7 @@ When your query elements reference fields that are all included in the
 same index, MongoDB can return results directly from the index.
 These queries are called **covered queries**.
 
-To learn how to ensure your index covers your query, see
+To learn how to ensure that your index covers your query, see
 :manual:`Covered Query </core/query-optimization/#covered-query>` in
 the Server manual.
 
@@ -75,7 +75,7 @@ the Server manual.
 
    Your sort criteria must match or invert the order of the index.
 
-   Suppose your collection has the following index on the ``name`` field
+   Suppose a collection has the following index on the ``name`` field
    in ascending order (A-Z) and the ``age`` field in descending order (9-0):
 
    .. code-block:: none
@@ -115,6 +115,12 @@ MongoDB supports multiple index types to support your queries. The
 following sections describe common index types and show how to create
 each index type in a collection.
 
+.. note:: Sample Collections
+   
+   The examples in this guide use collections from the Atlas sample
+   data. To learn how to import this data, see the :atlas:`Load Sample
+   Data </sample-data/>` tutorial in the Atlas documentation.
+
 You can use the ``create_index()`` and
 ``create_indexes()`` methods to create indexes in a collection. The
 ``create_index()`` method takes an ``IndexModel`` struct parameter that
@@ -137,14 +143,14 @@ indexes, see :manual:`TTL indexes </core/index-ttl/>` in the Server manual.
 
 .. note::
 
-   MongoDB automatically creates a single field index on the ``_id``
-   field when you create a new collection.
+   When you create a new collection, MongoDB automatically creates a
+   single field index on the ``_id`` field.
 
 Example
 ```````
 
 The following code creates an ascending index on the
-``city`` field in the ``zips`` collection:
+``city`` field in the ``sample_training.zips`` collection:
 
 .. io-code-block::
    :copyable: true
@@ -170,7 +176,7 @@ Compound Indexes
 A compound index holds a reference to multiple document fields.
 
 This index improves the performance of queries and sorts on multiple
-fields. When you create a compound index, you specify a direction for
+fields. When you create a compound index, you must specify a direction for
 each of the indexed fields.
 
 You can create a multikey index by using the same syntax for creating a
@@ -180,7 +186,7 @@ Example
 ```````
 
 The following code creates a compound index on the
-``city`` and ``pop`` fields in the ``zips`` collection:
+``city`` and ``pop`` fields in the ``sample_training.zips`` collection:
 
 .. io-code-block::
    :copyable: true
@@ -213,7 +219,7 @@ Example
 ```````
 
 The following code creates a multikey index on the
-``tags`` field in the ``posts`` collection:
+``tags`` field in the ``sample_training.posts`` collection:
 
 .. io-code-block::
    :copyable: true
@@ -266,7 +272,8 @@ Example
 ```````
 
 The following code creates a clustered index with default configuration on the
-``_id`` field when creating a new collection called ``items``:
+``_id`` field when creating a new collection called ``items`` in the
+``sample_training`` database:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
    :start-after: begin-clustered
@@ -281,8 +288,8 @@ Text Indexes
 
 A text index supports text search queries on string content. This index
 references a field with a string value or a string array value.
-MongoDB supports text search for several languages. You can specify the
-default language as an option when creating the index.
+MongoDB supports text search for several languages. When you create a
+text index, you can specify the default language as an option.
 
 A collection can only contain one text index. To create a
 text index on multiple text fields, you can create a :ref:`compound
@@ -293,15 +300,15 @@ in the compound index.
 .. tip:: Atlas Full Text Search
 
    Text indexes are different from Atlas full text search indexes. To
-   learn more about Atlas search indexes, see the :atlas:`Atlas search
+   learn more about Atlas Search indexes, see the :atlas:`Atlas Search
    documentation </atlas-search/>`.
 
 Example
 ```````
 
 The following code creates a text index on the ``body`` field in the
-``posts`` collection. The code sets an option to specify ``"spanish"``
-as the default language for the text index:
+``sample_training.posts`` collection. The code sets an option to specify
+``"spanish"`` as the default language for the text index:
 
 .. io-code-block::
    :copyable: true
@@ -340,26 +347,30 @@ This index type supports the following tasks:
 Example
 ```````
 
-The following sample document in the ``stores`` collection contains the
-field ``location``. This field has a GeoJSON point value:
+The following sample document in the ``sample_mflix.theaters``
+collection contains the field ``location.geo``. This field has a GeoJSON
+point value:
 
 .. code-block:: javascript
-   :emphasize-lines: 5-9
+   :emphasize-lines: 7-11
 
    {
-      "_id": "...",
-      "storeName": "Green Apple Market",
-      "location": {
+     "_id": ...,
+     "theaterId": ...,
+     "location": {
+       "address": ...,
+       "geo": {
          "type": "Point",
          "coordinates": [
-            -118.36559,
-            33.897167
+           -93.24565,
+           44.85466
          ]
-      }
+       }
+     }
    }
 
 The following code creates a geospatial ``2dsphere`` index on the
-``location`` field in the ``stores`` collection:
+``location.geo`` field in the ``sample_mflix.theaters`` collection:
 
 .. io-code-block::
    :copyable: true
@@ -375,7 +386,7 @@ The following code creates a geospatial ``2dsphere`` index on the
       :visible: false
 
       Created index:
-      location_"2dsphere"
+      location.geo_"2dsphere"
 
 .. _rust-unique:
 
@@ -383,8 +394,8 @@ Unique Indexes
 ~~~~~~~~~~~~~~
 
 A unique index ensures that the indexed fields do not store duplicate
-values. By default, MongoDB creates a unique index on the ``_id`` field
-when you create a collection.
+values. By default, MongoDB creates a unique, single field index on the
+``_id`` field when you create a collection.
 
 To create a unique index, specify the field or combination of fields
 that you want to maintain uniqueness for and set the ``unique`` option
@@ -393,24 +404,15 @@ to ``true``.
 Example
 ```````
 
-The following code creates a unique, descending index on the
-``user_id`` field in the ``users`` collection:
+The following code shows how to set the ``unique`` field to ``true`` in an
+``IndexOptions`` instance and pass these options when creating an
+``IndexModel``:
 
-.. io-code-block::
-   :copyable: true
-
-   .. input:: /includes/fundamentals/code-snippets/indexes.rs
-      :start-after: begin-unique
-      :end-before: end-unique
-      :language: rust
-      :dedent:
-
-   .. output::
-      :language: console
-      :visible: false
-
-      Created index:
-      user_id_-1
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-unique
+   :end-before: end-unique
+   :language: rust
+   :dedent:
 
 .. _rust-remove-index:
 
@@ -427,7 +429,7 @@ name of the index to the ``drop_index()`` method.
    ``_id`` index at once by using the ``drop_indexes()`` method.
 
 The following example removes an index called ``city_1`` from the
-``zips`` collection:
+``sample_training.zips`` collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
    :start-after: begin-drop
