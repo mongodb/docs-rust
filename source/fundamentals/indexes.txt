@@ -63,8 +63,8 @@ MongoDB query:
      - | **Optional**
        | Specifies the order of documents returned
 
-When all the fields you reference in your query's elements are in
-the same index, MongoDB can return results directly from the index.
+When your query elements reference fields that are all included in the
+same index, MongoDB can return results directly from the index.
 These queries are called **covered queries**.
 
 .. important:: Sort Criteria
@@ -97,7 +97,7 @@ Operational Considerations
 
 To improve your query performance, create indexes on fields that appear
 often in your queries. However, it is a good practice to track index
-memory and disk usage for capacity planning because each index consumes
+memory and disk usage for capacity planning, because each index consumes
 disk space and memory. Additionally, if a write operation updates an
 indexed field, MongoDB also must update the relevant index.
 
@@ -113,7 +113,9 @@ Index Types
 
 MongoDB supports multiple index types to support your queries. The
 following sections describe common index types and show how to create
-each index type in a collection. You can use the ``create_index()`` and
+each index type in a collection.
+
+You can use the ``create_index()`` and
 ``create_indexes()`` methods to create indexes in a collection. The
 ``create_index()`` method takes an ``IndexModel`` struct parameter that
 you can construct by using the type's ``builder()`` method.
@@ -166,6 +168,13 @@ Compound Indexes
 ~~~~~~~~~~~~~~~~
 
 A compound index holds a reference to multiple document fields.
+
+This index improves the performance of queries and sorts on multiple
+fields. When you create a compound index, you specify a direction for
+each of the indexed fields.
+
+You can create a multikey index by using the same syntax for creating a
+:ref:`single field index <rust-single-field>`.
 
 Example
 ```````
@@ -234,19 +243,30 @@ these collections, see :manual:`Clustered Collections
 </core/clustered-collections/>` in the Server manual.
 
 You can create a clustered index only when creating a collection.
-To create a clustered collection, create a ``ClusteredIndex`` instance.
-Set the ``ClusteredIndex`` instance as the value of the
-``clustered_index`` field of a ``CreateCollectionOptions`` instance.
-Then, pass the options to the ``create_collection()`` method.
+To create a clustered collection, perform the following steps:
 
-The value of the ``key`` field must be ``{_id: 1}`` and the value of the
-``unique`` field must be ``true`` in your ``ClusteredIndex`` instance.
+1. Create a ``ClusteredIndex`` instance.
+
+#. Set the ``ClusteredIndex`` instance as the value of the
+   ``clustered_index`` field of a ``CreateCollectionOptions`` instance.
+
+#. Pass the options to the ``create_collection()`` method.
+
+You must set the following fields of the ``ClusteredIndex`` struct:
+
+- The ``key`` field, which specifies the key pattern. The value of this
+  field must be ``{ _id: 1 }``.
+- The ``unique`` field, which specifies the uniqueness of the index. The
+  value of this field must be ``true``.
+
+To create a ``ClusteredIndex`` instance that automatically uses the
+required values, you can call the type's ``default()`` method.
 
 Example
 ```````
 
 The following code creates a clustered index with default configuration on the
-``_id`` field when creating a new ``items`` collection:
+``_id`` field when creating a new collection called ``items``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
    :start-after: begin-clustered
@@ -260,13 +280,14 @@ Text Indexes
 ~~~~~~~~~~~~
 
 A text index supports text search queries on string content. This index
-references a string field or a field with a value of a string array.
+references a field with a string value or a string array value.
 MongoDB supports text search for several languages. You can specify the
 default language as an option when creating the index.
 
 A collection can only contain one text index. To create a
 text index on multiple text fields, you can create a :ref:`compound
-index <rust-compound>`. Then, a text search runs on all the text fields
+index <rust-compound>`. When you run a text search after creating a
+compound index, the search operation runs on all the text fields
 in the compound index.
 
 .. tip:: Atlas Full Text Search
@@ -433,7 +454,7 @@ following Server documentation:
 - :manual:`Compound Indexes </core/index-compound>`
 - :manual:`Multikey Indexes </core/index-multikey>`
 - :manual:`Text Indexes </core/index-text>`
-- :manual:`Compound Text Index Restrictions </core/index-text/#std-label-text-index-compound>`
+- :manual:`Compound Text Indexes </core/indexes/index-types/index-text/#compound-text-indexes>`
 - :manual:`Geospatial Queries </geospatial-queries/>`
 - :manual:`GeoJSON Objects </reference/geojson>`
 - :manual:`Unique Indexes </core/index-unique>`
@@ -442,7 +463,7 @@ following Server documentation:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types discussed in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `create_index() <{+api+}/struct.Collection.html#method.create_index>`__
