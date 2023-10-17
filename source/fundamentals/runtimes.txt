@@ -30,7 +30,7 @@ Configure the Asynchronous Runtime
 ----------------------------------
 
 The driver uses the ``tokio`` runtime by default.
-You can explicitly choose a runtime by specifying adding the ``"tokio-runtime"`` or ``"async-std-runtime"``
+You can explicitly choose a runtime by adding the ``"tokio-runtime"`` or ``"async-std-runtime"``
 feature flags to the ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
