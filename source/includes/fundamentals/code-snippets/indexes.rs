@@ -45,14 +45,18 @@ async fn main() -> mongodb::error::Result<()> {
     // begin-clustered
     let db = client.database("sample_training");
     let cl_idx = ClusteredIndex::default();
-    let opts = CreateCollectionOptions::builder().clustered_index(cl_idx).build();
+    let opts = CreateCollectionOptions::builder()
+        .clustered_index(cl_idx)
+        .build();
 
     db.create_collection("items", opts).await?;
     // end-clustered
 
     let my_coll: Collection<Document> = client.database("sample_training").collection("posts");
     // begin-text
-    let idx_opts = IndexOptions::builder().default_language("spanish".to_string()).build();
+    let idx_opts = IndexOptions::builder()
+        .default_language("spanish".to_string())
+        .build();
 
     let index = IndexModel::builder()
         .keys(doc! { "body": 1 })

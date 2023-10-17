@@ -47,20 +47,20 @@ MongoDB query:
      - Description
 
    * - Query
-     - | **Required**
+     - | *Required*
        | Specifies the fields and values to match
 
    * - Options
-     - | **Optional**
+     - | *Optional*
        | Specify how the query executes
 
    * - Projection
-     - | **Optional**
+     - | *Optional*
        | Specifies the fields that MongoDB returns in matched
          documents
 
    * - Sort
-     - | **Optional**
+     - | *Optional*
        | Specifies the order of documents returned
 
 When your query elements reference fields that are all included in the
@@ -141,10 +141,8 @@ It also supports TTL indexes that automatically remove documents from a
 collection after a certain amount of time. To learn more about TTL
 indexes, see :manual:`TTL indexes </core/index-ttl/>` in the Server manual.
 
-.. note::
-
-   When you create a new collection, MongoDB automatically creates a
-   single field index on the ``_id`` field.
+When you create a new collection, MongoDB automatically creates a
+:ref:`unique <rust-unique>`, single field index on the ``_id`` field.
 
 Example
 ```````
