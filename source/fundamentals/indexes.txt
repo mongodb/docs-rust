@@ -67,6 +67,10 @@ When your query elements reference fields that are all included in the
 same index, MongoDB can return results directly from the index.
 These queries are called **covered queries**.
 
+To learn how to ensure your index covers your query, see
+:manual:`Covered Query </core/query-optimization/#covered-query>` in
+the Server manual.
+
 .. important:: Sort Criteria
 
    Your sort criteria must match or invert the order of the index.
@@ -87,10 +91,6 @@ These queries are called **covered queries**.
 
    If you specify the same sort order for both fields, MongoDB does not
    use the index and instead performs an in-memory sort.
-
-   To learn how to ensure your index covers your query, see
-   :manual:`Covered Query </core/query-optimization/#covered-query>` in
-   the Server manual.
 
 Operational Considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
