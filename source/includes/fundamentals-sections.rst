@@ -10,6 +10,7 @@ Fundamentals section:
 - :ref:`Manage Databases and Collections <rust-db-coll>`
 - :ref:`Implement Schema Validation <rust-schema-validation>`
 - :ref:`Perform Aggregations <rust-aggregation>`
+- :ref:`Perform Operations on Time Series Collections <rust-time-series>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
 - :ref:`Run A Database Command <rust-run-command>`
 - :ref:`Optimize Driver Performance <rust-performance>`
