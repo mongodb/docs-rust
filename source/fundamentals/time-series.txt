@@ -25,7 +25,7 @@ following pieces of information:
 
 The following table describes some sample situations where data could be
 stored in a time series collection. Each row describes the situation,
-the measured quantity, and the additional metadata in each document:
+the measured quantity, and the metadata in each document:
 
 .. list-table::
    :widths: 40, 30, 30
@@ -141,8 +141,8 @@ Query a Time Series Collection
 ------------------------------
 
 You can use the same syntax and conventions to query a time series
-collection as you would when performing read or aggregation operations on
-normal collections. To find more information about these operations, see
+collection as you use when performing read or aggregation operations on
+other collections. To find more information about these operations, see
 the :ref:`Additional Information <rust-tseries-addtl-info>` section.
 
 .. _rust-tseries-addtl-info:
