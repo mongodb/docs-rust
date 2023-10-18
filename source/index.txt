@@ -50,8 +50,8 @@ See driver syntax examples for common MongoDB commands in the
 Usage Examples
 --------------
 
-For fully runnable code snippets and explanations for common
-methods, see :ref:`rust-usage-examples`.
+For fully runnable code examples and explanations of common
+MongoDB operations, see :ref:`rust-usage-examples`.
 
 Fundamentals
 ------------

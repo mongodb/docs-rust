@@ -13,13 +13,14 @@ Usage Examples
 Overview
 --------
 
-Usage examples enable you to set up, run, and gain a broad understanding of
-a MongoDB operation. Each usage example includes the following:
+Usage examples enable you gain a broad understanding of common MongoDB operations
+by demonstrating how to organize and run a small sample application. Each usage
+example includes the following:
 
 - A general overview of the MongoDB operation
-- One asynchronous and one synchronous Rust program that you can run
-  in your own environment
-- The expected output of the program
+- Asynchronous and synchronous Rust code examples that you can run in
+  your own environment
+- The expected output of the code example
 
 .. TODO: To learn more about the runtimes offered by the {+driver-short+},
    see <add link to runtimes page>.
@@ -28,20 +29,19 @@ How to Use the Usage Examples
 -----------------------------
 
 The usage examples run operations on the ``restaurants`` collection in the
-``sample_restaurants`` database. This dataset is one of the :atlas:`sample datasets
-</sample-data>` provided by Atlas. Before running the programs included in the
-usage examples, perform the following actions to access the sample datasets in
-your development environment.
+``sample_restaurants`` database. This dataset is one of the sample datasets
+provided in the Atlas sample data. Before running the programs included in
+the usage examples, perform the following actions:
 
 .. procedure::
    :style: connected
 
-   .. step:: Retrieve the Sample Datasets
+   .. step:: Load the Sample Datasets
       
       Follow the :atlas:`Get Started with Atlas Guide </getting-started/#atlas-getting-started>`
       to import the sample datasets into your database on the free tier of MongoDB Atlas.
 
-   .. step:: Use the Sample Datasets in your Development Environment
+   .. step:: Add the Usage Example Code to Your Development Environment
 
       Copy the usage example program that you wish to run. Then, navigate to a file in
       your application and paste the program.
@@ -49,34 +49,34 @@ your development environment.
       To learn more about creating an application that uses the {+driver-short+}, follow the
       :ref:`rust-quickstart`.
 
-   .. step:: Edit the Connection String
+   .. step:: Replace the Connection String Placeholder
 
-      In your application file, edit the connection URI to connect to your MongoDB instance:
+      In your application file, replace the connection string placeholder so that the program
+      connects to your MongoDB deployment:
 
-      .. code-block:: none
+      .. code-block:: rust
          :copyable: false
 
-         // Replace the placeholder with your MongoDB deployment's connection string
          let uri = "<connection string>";
 
 After completing these steps, you can run a program in your development environment
-and see the output described on the program's corresponding usage example page.
-
+and see the output described in the **Expected Output** section of the corresponding
+usage example.
 
 .. Available Usage Examples
 .. ------------------------
 
 .. TODO: add Usage Example pages as they are created
-    - :ref:`Find a Document<rust-find-one-usage>`
-    - :ref:`Find Multiple Documents<rust-find-usage>`
-    - :ref:`Insert a Document<rust-insert-one-usage>`
-    - :ref:`Insert Multiple Documents<rust-insert-many-usage>`
-    - :ref:`Update a Document<rust-update-one-usage>`
-    - :ref:`Update Multiple Documents<rust-update-many-usage>`
-    - :ref:`Replace a Document<rust-replace-usage>`
-    - :ref:`Delete a Document<rust-delete-one-usage>`
-    - :ref:`Delete Multiple Documents<rust-delete-many-usage>`
-    - :ref:`Count Documents<rust-count-usage>`
-    - :ref:`Find Distinct Values<rust-distinct-usage>`
+    - :ref:`Find a Document <rust-find-one-usage>`
+    - :ref:`Find Multiple Documents <rust-find-usage>`
+    - :ref:`Insert a Document <rust-insert-one-usage>`
+    - :ref:`Insert Multiple Documents <rust-insert-many-usage>`
+    - :ref:`Update a Document <rust-update-one-usage>`
+    - :ref:`Update Multiple Documents <rust-update-many-usage>`
+    - :ref:`Replace a Document <rust-replace-usage>`
+    - :ref:`Delete a Document <rust-delete-one-usage>`
+    - :ref:`Delete Multiple Documents <rust-delete-many-usage>`
+    - :ref:`Count Documents <rust-count-usage>`
+    - :ref:`Find Distinct Values <rust-distinct-usage>`
 
 
