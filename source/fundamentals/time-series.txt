@@ -7,7 +7,7 @@ Time Series Collections
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 Overview
@@ -23,111 +23,153 @@ following pieces of information:
 - Metadata that describes the measurement
 - The timestamp for the measurement
 
+The following table describes some sample situations where data could be
+stored in a time series collection. Each row describes the situation,
+the measured quantity, and the additional metadata in each document:
+
 .. list-table::
-   :widths: 33, 33, 33
+   :widths: 40, 30, 30
    :header-rows: 1
    :stub-columns: 1
 
-   * - Example
-     - Measurement
+   * - Situation
+     - Measured Quantity
      - Metadata
 
-   * - Sales Data
-     - Revenue
-     - Company
+   * - Industry sales data
+     - Revenue in USD
+     - Company, country
 
-   * - Infection Rates
-     - Amount of People Infected
-     - Location
+   * - Weather data
+     - Precipitation level
+     - Location, sensor type
+
+   * - Housing prices
+     - Monthly rent
+     - Location, currency
+
+This guide includes the following sections:
+
+- :ref:`Create a Time Series Collection <rust-tseries-create>` describes
+  the syntax for creating a time series collection and provides example code
+
+- :ref:`Query a Time Series Collection <rust-tseries-query>` describes how to
+  perform operations on time series collections
+
+- :ref:`Additional Information <rust-tseries-addtl-info>`
+  provides links to resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-tseries-create:
 
 Create a Time Series Collection
 -------------------------------
 
-.. important::
+.. important:: Server Version for Time Series Collections
 
-   Time series collections require MongoDB 5.0 or later.
+   You must be connected to a deployment running MongoDB 5.0 or later to
+   create and interact with time series collections.
 
-To create a time series collection, pass the following parameters to the
-``CreateCollection()`` method:
+To create a time series collection, perform the following actions:
 
-- The name of the new collection to create
-- The ``TimeSeriesOptions`` object specifying at least the time field
+1. Create a ``TimeseriesOptions`` instance that specifies properties of
+   your time series collection.
+
+#. Create a ``CreateCollectionOptions`` instance and set the value of
+   the ``timeseries`` field to your ``TimeseriesOptions`` instance.
+
+#. Pass the ``CreateCollectionOptions`` instance to the
+   ``create_collection()`` method. You must also pass the collection
+   name as a parameter.
 
 Example
 ~~~~~~~
 
-The following example creates the ``spring_weather.march2022`` time series
-collection with the ``temperature`` as the time field:
+This example creates the ``sept2023`` time series collection in the
+``precipitation`` database with the following configuration:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/timeSeries.go
-   :start-after: begin create ts coll
-   :end-before: end create ts coll
-   :emphasize-lines: 2, 5
-   :language: go
+- The time field is ``precipitation_mm``
+- The metadata field is ``location``
+- The time granularity is minutes
+
+.. literalinclude:: /includes/fundamentals/code-snippets/tseries.rs
+   :start-after: begin-create-ts
+   :end-before: end-create-ts
+   :language: rust
    :dedent:
 
-To check if you created the collection, send the ``"listCollections"``
-command to the ``RunCommand()`` method:
+To verify that you successfully created the time series collection, run
+the ``list_collections()`` method on the database and print the results:
 
 .. io-code-block::
-   :caption: Testing whether we created a time series collection.
    :copyable: true
 
-   .. input:: /includes/fundamentals/code-snippets/timeSeriesRunCommand.go
-      :language: go
-      :emphasize-lines: 1, 4
+   .. input:: /includes/fundamentals/code-snippets/tseries.rs
+      :start-after: begin-list-colls
+      :end-before: end-list-colls
+      :language: rust
+      :dedent:
 
-   .. output:: 
+   .. output::
+      :language: console
+      :emphasize-lines: 2-3, 7-15
       :visible: false
-      :emphasize-lines: 9, 11, 15
-      :language: json
 
-      {  
-         ...
-         "cursor": {
-              "firstBatch": [
-                  {
-                      "info": {
-                          "readOnly": false
-                      },
-                      "name": "march2022",
-                      "options": {
-                          "timeseries": {
-                              ...
-                          }
-                      },
-                      "type": "timeseries"
+      CollectionSpecification {
+          name: "sept2023",
+          collection_type: Timeseries,
+          options: CreateCollectionOptions {
+              ...
+              timeseries: Some(
+                  TimeseriesOptions {
+                      time_field: "precipitation_mm",
+                      meta_field: Some(
+                          "location",
+                      ),
+                      granularity: Some(
+                          Minutes,
+                      ),
                   },
+              ),
+              ...
+          },
           ...
-       }
+      }
+
+.. _rust-tseries-query:
 
 Query a Time Series Collection
 ------------------------------
 
-To query a time series collection, use the same conventions as you
-would for :ref:`retrieving <golang-retrieve>` and aggregating data.
+You can use the same syntax and conventions to query a time series
+collection as you would when performing read or aggregation operations on
+normal collections. To find more information about these operations, see
+the :ref:`Additional Information <rust-tseries-addtl-info>` section.
+
+.. _rust-tseries-addtl-info:
 
 Additional Information
 ----------------------
 
-To learn more about the operations mentioned, see the following
-guides:
+To learn more about the concepts mentioned in this guide, see the
+following Server manual entries:
 
-- :ref:`manual-timeseries-collection`
-- :ref:`manual-timeseries-collection-limitations`
-- :ref:`golang-run-command-usage-example`
-- :ref:`golang-retrieve`
+- :manual:`Time Series </core/timeseries-collections/>`
+- :manual:`Create and Query a Time Series Collection <>`
+- :manual:`Set Granularity for Time Series Data </core/timeseries/timeseries-granularity/>`
 
-.. TODO: db and collections, run command fundamentals page, aggregation page
+To learn more about creating collections, see the guide on
+:ref:`rust-db-coll`.
+
+To learn more about performing read operations, see the
+:ref:`rust-retrieve-guide` guide.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
-guide, see the following API Documentation:
+To learn more about the methods and types mentioned in this
+guide, see the following API documentation:
 
-- `TimeSeriesOptions <{+api+}/mongo/options#TimeSeriesOptions>`__
-- `SetTimeField() <{+api+}/mongo/options#TimeSeriesOptions.SetTimeField>`__
-- `CreateCollection() <{+api+}/mongo#Database.CreateCollection>`__
-- `SetTimeSeriesOptions() <{+api+}/mongo/options#CreateCollectionOptions.SetTimeSeriesOptions>`__
-- `RunCommand() <{+api+}/mongo#Database.RunCommand>`__
+- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
+- `find() <{+api+}/struct.Collection.html#method.find>`__
+- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
