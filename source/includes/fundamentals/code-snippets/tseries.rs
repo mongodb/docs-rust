@@ -9,17 +9,20 @@ use std::env;
 async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
-    let db = client.database("precipitation");
 
     // begin-create-ts
+    let db = client.database("precipitation");
+
     let ts_opts = TimeseriesOptions::builder()
         .time_field("precipitation_mm".to_string())
         .meta_field(Some("location".to_string()))
         .granularity(Some(TimeseriesGranularity::Minutes))
         .build();
 
-    let coll_opts = CreateCollectionOptions::builder().timeseries(ts_opts).build();
-
+    let coll_opts = CreateCollectionOptions::builder()
+        .timeseries(ts_opts)
+        .build();
+    
     db.create_collection("sept2023", coll_opts).await?;
     // end-create-ts
 

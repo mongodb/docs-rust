@@ -112,7 +112,6 @@ the ``list_collections()`` method on the database and print the results:
 
    .. output::
       :language: console
-      :emphasize-lines: 2-3, 7-15
       :visible: false
 
       CollectionSpecification {
@@ -161,8 +160,8 @@ following Server manual entries:
 To learn more about creating collections, see the guide on
 :ref:`rust-db-coll`.
 
-To learn more about performing read operations, see the
-:ref:`rust-retrieve-guide` guide.
+To learn more about performing read operations, see the guides in the
+:ref:`rust-crud-read-operations` category.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
@@ -170,6 +169,9 @@ API Documentation
 To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
-- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
-- `find() <{+api+}/struct.Collection.html#method.find>`__
-- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
+- `TimeseriesOptions <{+api+}/options/struct.TimeseriesOptions.html>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
+- `TimeseriesGranularity <{+api+}/options/enum.TimeseriesGranularity.html>`__
+- `list_collections() <{+api+}/struct.Database.html#method.list_collections>`__
+- `CollectionSpecification <{+api+}/results/struct.CollectionSpecification.html>`__
