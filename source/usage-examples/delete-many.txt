@@ -11,14 +11,23 @@ To specify which documents to delete, pass a query filter that matches
 the documents you want to delete. If you provide an empty document,
 MongoDB matches all documents in the collection and deletes them. While
 you can use ``delete_many()`` to delete all documents in a collection,
-consider using the ``drop()`` method instead for better performance.
+consider calling the ``drop()`` method on a ``Collection`` instance instead
+for better performance. The ``drop()`` method also deletes all the indexes
+associated with the collection. To learn more about the ``drop()`` method,
+see the :ref:`rust-drop-collection` section in the Databases and Collections
+guide.
 
 The ``delete_many()`` method returns a ``DeleteResult`` type, which contains
-the ``deleted_count`` field. You can retrieve the total number of documents
-deleted in your operation by printing the value of ``deleted_count``.
+information about the operation that MongoDB ran. You can retrieve the total
+number of documents deleted from the ``deleted_count`` field of the ``DeleteResult``
+instance.
 
 Example
 -------
+
+This example deletes documents from the ``restaurants`` collection that represent French
+restaurants. The example uses a ``Restaurants`` struct containing ``name`` and ``cuisine``
+fields to model the documents in the collection.
 
 This example accesses the ``planets`` collection in the ``sample_guides``
 database and deletes the documents representing the three closest planets
@@ -55,7 +64,8 @@ Running either of the preceding full examples prints the following results:
 Additional Information
 ----------------------
 
-To learn more about deleting documents, see the :ref:`rust-delete-guide` guide.
+To learn more parameters you can set on delete operations, see the :ref:`rust-delete-guide`
+guide.
 
 To learn more about using query filters, see :ref:`rust-query-guide`.
 
