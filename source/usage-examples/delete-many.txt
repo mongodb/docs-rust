@@ -25,41 +25,51 @@ instance.
 Example
 -------
 
-This example deletes documents from the ``restaurants`` collection that represent French
-restaurants. The example uses a ``Restaurants`` struct containing ``name`` and ``cuisine``
-fields to model the documents in the collection.
+This example deletes documents from the ``restaurants`` collection that represent
+restaurants located on Broadway in Manhattan. The example uses a ``Restaurant`` struct
+containing ``name``, ``address``, and ``borough`` fields to model the documents in the
+collection. 
 
-This example accesses the ``planets`` collection in the ``sample_guides``
-database and deletes the documents representing the three closest planets
-to the sun. The following code filters for and deletes documents with an
-``orderFromSun`` field value less than or equal to ``3``:
+The code performs the following actions:
+
+- Creates a query filter to match documents with a ``borough`` value of ``"Manhattan"`` 
+  and a ``street`` value of ``"Broadway"``
+- Passes the filter and an empty ``options`` parameter to the ``delete_many()`` method
+- Prints the number of deleted documents
 
 .. tabs::
 
-   .. tab:: Asynchronous Runtime
+   .. tab:: Asynchronous
       :tabid: delete-many-async
 
-      .. literalinclude:: /includes/usage-examples/code-snippets/delete-many-async.rs
-         :language: rust
-         :copyable:
-         :dedent:
+      .. io-code-block::
+         :copyable: true
 
-   .. tab:: Synchronous Runtime
-      :tabid: delete-many-sync
+        .. input:: /includes/usage-examples/code-snippets/delete-many-async.rs
+            :language: rust
+            :dedent:
 
-      .. literalinclude:: /includes/usage-examples/code-snippets/delete-many-sync.rs
-         :language: rust
-         :copyable:
-         :dedent:
+        .. output::
+            :language: console
+            :visible: false
 
-Expected Result
-~~~~~~~~~~~~~~~
+            Deleted documents: 615
 
-Running either of the preceding full examples prints the following results:
+   .. tab:: Synchronous
+      :tabid: find-sync
 
-.. code-block:: none
+      .. io-code-block::
+         :copyable: true
 
-   Deleted documents: 3
+        .. input:: /includes/usage-examples/code-snippets/delete-many-sync.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            Deleted documents: 615
 
 Additional Information
 ----------------------
