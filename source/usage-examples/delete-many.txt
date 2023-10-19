@@ -25,10 +25,9 @@ instance.
 Example
 -------
 
-This example deletes documents from the ``restaurants`` collection that represent
-restaurants located on Broadway in Manhattan. The example uses a ``Restaurant`` struct
-containing ``name``, ``address``, and ``borough`` fields to model the documents in the
-collection. 
+This example deletes documents from the ``restaurants`` collection that match
+a query filter. The example uses a ``Restaurant`` struct containing ``name``,
+``address``, and ``borough`` fields to model the documents in the collection. 
 
 The code performs the following actions:
 
