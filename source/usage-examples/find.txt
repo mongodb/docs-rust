@@ -12,24 +12,21 @@ that match the filter in the collection. If you do not include a filter, MongoDB
 returns all the documents in the collection.
 
 The ``find()`` method returns a ``Cursor`` type, which you can iterate through
-to retrieve the documents that match the filter criteria. The {+driver-short+}
-offers two access patterns to iterate through the returned ``Cursor`` instance.
-For more information on iterating through documents returned by a Cursor, see
-:ref:`rust-cursor-guide`.
+to retrieve the documents that match the filter criteria. For more information
+on iterating through documents returned by a ``Cursor``, see :ref:`rust-cursor-guide`.
 
 Example
 -------
 
-This example finds documents from the ``restaurants`` collection that represent French
-restaurants. The example uses a ``Restaurants`` struct containing ``name`` and ``cuisine``
-fields to model the documents in the collection. 
+This example finds documents from the ``restaurants`` collection that match a
+query filter. The example uses a ``Restaurants`` struct containing ``name`` and
+``cuisine`` fields to model the documents in the collection. 
 
 The following code passes the following parameters to the ``find()`` method:
 
-- A query filter that instructs the driver to return only documents with a ``cuisine``
-  value of ``"French"``
-- An options parameter that sorts the matching documents in alphabetical order
-
+- A query filter that matches documents containing a ``cuisine`` value of ``"French"``
+- An options parameter that sorts the matching documents by their ``"name"`` values in
+  alphabetical order
 
 .. tabs::
 
@@ -49,7 +46,8 @@ The following code passes the following parameters to the ``find()`` method:
 
             // Results truncated
             ...
-            Restaurant { name: "Bistro Citron", cuisine: "French" }
+            Restaurant { name: "Cafe Un Deux Trois", cuisine: "French" }
+            Restaurant { name: "Calliope", cuisine: "French" }
             ...
 
    .. tab:: Synchronous
@@ -68,7 +66,8 @@ The following code passes the following parameters to the ``find()`` method:
 
             // Results truncated
             ...
-            Restaurant { name: "Bistro Citron", cuisine: "French" }
+            Restaurant { name: "Cafe Un Deux Trois", cuisine: "French" }
+            Restaurant { name: "Calliope", cuisine: "French" }
             ...
 
 Additional Information
