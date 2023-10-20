@@ -1,8 +1,8 @@
 .. _rust-runtimes:
 
-===============================================
-Configure Asynchronous and Synchronous Runtimes
-===============================================
+===========================================
+Configure Asynchronous and Synchronous APIs
+===========================================
 
 .. contents:: On this page
    :local:
@@ -14,15 +14,15 @@ Overview
 --------
 
 In this guide, you can learn about the {+driver-short+}'s :ref:`asynchronous <rust-runtimes-configure-async>`
-and :ref:`synchronous <rust-runtimes-configure-sync>` runtimes.
-This guide explains how to enable the available runtimes and structure your code to use each API.
+and :ref:`synchronous <rust-runtimes-configure-sync>` APIs.
+This guide explains how to enable the available APIs and structure your code to use each.
 
 The {+driver-short+} supports ``tokio`` and ``async-std``, two popular asynchronous runtime crates.
 By default, the driver uses the ``tokio`` asynchronous runtime, but you can select a specific runtime
 by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism is not necessary.
-You can select a synchronous runtime by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
+You can select the synchronous API by adding feature flags to the ``mongodb`` dependency in your ``Cargo.toml`` file.
 
 .. _rust-runtimes-configure-async:
 
@@ -71,11 +71,11 @@ to create separate, concurrent tasks for multiple data operations:
 
 .. _rust-runtimes-configure-sync:
 
-Configure the Synchronous Runtime
----------------------------------
+Configure the Synchronous API
+-----------------------------
 
 The driver also provides a blocking, synchronous API.
-To use the synchronous runtime, add the either the ``"sync"`` or ``"tokio-sync"`` feature flag
+To use the synchronous API, add the either the ``"sync"`` or ``"tokio-sync"`` feature flag
 to the ``mongodb`` dependency.
 
 Select from the following tabs to see how to add feature flags for each corresponding crate:
@@ -105,10 +105,7 @@ Select from the following tabs to see how to add feature flags for each correspo
 Synchronous Code Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-When using the synchronous runtime, use types from the ``mongodb::sync`` module to perform operations.
-The synchronous API calls through to the asynchronous API internally,
-so you can use ``sync`` types as you might use types from the asynchronous API.
-
+When using the synchronous API, use types from the ``mongodb::sync`` module to perform operations.
 The following code uses the ``sync`` module to insert data into a collection using the synchronous API.
 When the ``insert_one`` method runs inside the ``for`` loop, the driver waits for each request to complete before continuing.
 
