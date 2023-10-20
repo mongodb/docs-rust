@@ -1,8 +1,8 @@
 .. _rust-runtimes:
 
-===========================================
-Configure Asynchronous and Synchronous APIs
-===========================================
+=================================
+Asynchronous and Synchronous APIs
+=================================
 
 .. contents:: On this page
    :local:
