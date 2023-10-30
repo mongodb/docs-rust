@@ -19,11 +19,11 @@ efficiently store chronological sequences of measurements over a period
 of time. Each document in a time series collection contains the
 following pieces of information:
 
-- The quantity that is being measured over time
+- Quantity that is being measured over time
 - Metadata that describes the measurement
-- The timestamp for the measurement
+- Timestamp for the measurement
 
-The following table describes some sample situations where data could be
+The following table describes some sample situations for which data could be
 stored in a time series collection. Each row describes the situation,
 the measured quantity, and the metadata in each document:
 
@@ -36,16 +36,16 @@ the measured quantity, and the metadata in each document:
      - Measured Quantity
      - Metadata
 
-   * - Industry sales data
+   * - Recording monthly sales by industry
      - Revenue in USD
      - Company, country
 
-   * - Weather data
+   * - Tracking weather changes
      - Precipitation level
      - Location, sensor type
 
-   * - Housing prices
-     - Monthly rent
+   * - Recording fluctuations in housing prices
+     - Monthly rent price
      - Location, currency
 
 This guide includes the following sections:
@@ -67,8 +67,9 @@ Create a Time Series Collection
 
 .. important:: Server Version for Time Series Collections
 
-   You must be connected to a deployment running MongoDB 5.0 or later to
-   create and interact with time series collections.
+   To create and interact with time series collections, you must be
+   connected to a deployment running MongoDB 5.0 or later.
+   
 
 To create a time series collection, perform the following actions:
 
@@ -88,9 +89,9 @@ Example
 This example creates the ``sept2023`` time series collection in the
 ``precipitation`` database with the following configuration:
 
-- The time field is ``precipitation_mm``
-- The metadata field is ``location``
-- The time granularity is minutes
+- ``time_field`` is set to ``"precipitation_mm"``
+- ``meta_field`` is set to ``"location"``
+- ``granularity`` is set to minutes
 
 .. literalinclude:: /includes/fundamentals/code-snippets/tseries.rs
    :start-after: begin-create-ts
@@ -154,7 +155,7 @@ To learn more about the concepts mentioned in this guide, see the
 following Server manual entries:
 
 - :manual:`Time Series </core/timeseries-collections/>`
-- :manual:`Create and Query a Time Series Collection <>`
+- :manual:`Create and Query a Time Series Collection </core/timeseries/timeseries-procedures/>`
 - :manual:`Set Granularity for Time Series Data </core/timeseries/timeseries-granularity/>`
 
 To learn more about creating collections, see the guide on
