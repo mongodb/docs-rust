@@ -10,6 +10,7 @@ Fundamentals section:
 - :ref:`Manage Databases and Collections <rust-db-coll>`
 - :ref:`Implement Schema Validation <rust-schema-validation>`
 - :ref:`Perform Aggregations <rust-aggregation>`
+- :ref:`Create and Manage Indexes <rust-indexes>`
 - :ref:`Create a Time Series Collection <rust-time-series>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
 - :ref:`Run A Database Command <rust-run-command>`
@@ -17,7 +18,6 @@ Fundamentals section:
 
 ..
   - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
-  - :ref:`Construct Indexes <rust-indexes>`
   - :ref:`Specify Collations to Order Results <rust-collations>`
   - :ref:`Monitor Driver Events <rust-monitoring>`
   - :ref:`Store and Retrieve Large Files by Using GridFS <rust-gridfs>`
