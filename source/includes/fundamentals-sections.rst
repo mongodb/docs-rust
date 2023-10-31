@@ -11,15 +11,16 @@ Fundamentals section:
 - :ref:`Implement Schema Validation <rust-schema-validation>`
 - :ref:`Perform Aggregations <rust-aggregation>`
 - :ref:`Create and Manage Indexes <rust-indexes>`
+- :ref:`Create a Time Series Collection <rust-time-series>`
 - :ref:`Record Driver Events <rust-tracing-logging>`
 - :ref:`Run A Database Command <rust-run-command>`
 - :ref:`Optimize Driver Performance <rust-performance>`
+- :ref:`Configure Asynchronous and Synchronous Runtimes <rust-runtimes>`
 
 ..
   - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
   - :ref:`Specify Collations to Order Results <rust-collations>`
   - :ref:`Monitor Driver Events <rust-monitoring>`
   - :ref:`Store and Retrieve Large Files by Using GridFS <rust-gridfs>`
-  - :ref:`Use a Time Series Collection <rust-time-series>`
   - :ref:`Encrypt Fields <rust-fle>`
   - :ref:`Query and Write Geospatial Data <rust-geo>`

@@ -18,9 +18,11 @@ Fundamentals
    /fundamentals/schema-validation
    /fundamentals/aggregation
    /fundamentals/indexes
+   /fundamentals/time-series
    /fundamentals/tracing-logging
    /fundamentals/run-command
    /fundamentals/performance
+   /fundamentals/runtimes
 
 ..
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
@@ -28,7 +30,6 @@ Fundamentals
    /fundamentals/collations
    /fundamentals/monitoring
    /fundamentals/gridfs
-   /fundamentals/time-series
    /fundamentals/encrypt-fields
    /fundamentals/geo
   
