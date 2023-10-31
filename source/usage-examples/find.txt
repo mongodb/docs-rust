@@ -1,4 +1,4 @@
-.. _rust-usage-find:
+.. _rust-find-usage:
 
 =======================
 Find Multiple Documents
