@@ -73,7 +73,7 @@ guide.
 To learn more about the ``drop()`` method, see the :ref:`rust-drop-collection` section in
 the Databases and Collections guide.
 
-To learn more about using query filters, see :ref:`rust-query-guide`.
+To learn more about using query filters, see the :ref:`rust-query-guide` guide.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
