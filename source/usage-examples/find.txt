@@ -71,7 +71,7 @@ Additional Information
 
 To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
 
-For more information about using cursors, see :ref:`rust-cursor-guide`.
+For more information about using cursors, see the :ref:`rust-cursor-guide` guide.
 
 To learn more about using query filters, see the :ref:`rust-query-guide` guide.
 
