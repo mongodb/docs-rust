@@ -51,8 +51,15 @@ Execute a Command
 -----------------
 
 To run a database command, you must specify the command and any relevant
-parameters in a command document, then pass the command document to the
-``run_command()`` method.
+parameters in a command document, then pass the command document to a
+command execution method. The {+driver-short+} provides the following methods
+to run database commands:
+
+- ``run_command()``, which returns the command response as a
+  ``Document`` type. You can use this method with any database command.
+- ``run_cursor_command()``, which returns the command response as an iterable
+  ``Cursor`` type. You can use this method only if your database command
+  returns multiple result documents.
 
 The following code shows how you can use the ``run_command()``
 method to run the ``hello`` command, which returns information about
@@ -68,14 +75,15 @@ parameters, see the :ref:`Additional Information section
 
 .. note:: Read Preference
 
-   The ``run_command()`` method does not obey the read preference you
-   might have set on your ``Database`` object elsewhere in your code. By
-   default, it uses the ``primary`` read preference.
+   The ``run_command()`` and ``run_cursor_command()`` methods do not
+   obey the read preference you might have set on your ``Database``
+   object elsewhere in your code. By default, they use the ``primary``
+   read preference.
    
    You can set a read preference for command execution by
-   passing an options object. The following code shows how to specify a
-   read preference in a ``SelectionCriteria`` instance and pass it as an
-   option to the ``run_command()`` method:
+   passing an options object to either method. The following code shows
+   how to specify a read preference in a ``SelectionCriteria`` instance
+   and pass it as an option to the ``run_command()`` method:
    
    .. code-block:: rust
 
@@ -84,6 +92,10 @@ parameters, see the :ref:`Additional Information section
       );
       let result = my_db.run_command(command_doc, command_options).await?;
    
+   The ``run_cursor_command()`` method takes a
+   ``RunCursorCommandOptions`` instance as a parameter. You can set the
+   ``selection_criteria`` field of this struct to select a read preference.
+
    For more information on read preference options, see :manual:`Read
    Preference </core/read-preference/>` in the Server manual.
 
@@ -92,8 +104,8 @@ parameters, see the :ref:`Additional Information section
 Response
 --------
 
-The ``run_command()`` method returns a ``Document`` instance that contains
-the response from the database after the command runs. Each
+Each method returns a ``Document`` object or a cursor that contains
+the response from the database after the command has been executed. Each
 database command performs a different function, so the response content
 can vary across commands. However, every response contains a document
 with the following fields:
@@ -214,5 +226,7 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 - `run_command() <{+api+}/struct.Database.html#method.run_command>`__
+- `run_cursor_command() <{+api+}/struct.Database.html#method.run_cursor_command>`__
 - `SelectionCriteria <{+api+}/options/enum.SelectionCriteria.html>`__
+- `RunCursorCommandOptions <{+api+}/options/struct.RunCursorCommandOptions.html>`__
 - `ReadPreference <{+api+}/options/enum.ReadPreference.html>`__
