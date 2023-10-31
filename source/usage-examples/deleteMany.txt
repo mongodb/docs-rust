@@ -76,7 +76,7 @@ the Databases and Collections guide.
 To learn more about using query filters, see :ref:`rust-query-guide`.
 
 API Documentation
------------------
+~~~~~~~~~~~~~~~~~
 
 To learn more about the methods and types mentioned on this
 page, see the following API documentation:
