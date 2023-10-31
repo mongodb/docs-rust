@@ -1,0 +1,86 @@
+.. _rust-delete-many-usage:
+
+=========================
+Delete Multiple Documents
+=========================
+
+You can delete multiple documents from a collection in a single operation
+by calling the ``delete_many()`` method on a ``Collection`` instance.
+
+Pass a query filter to the ``delete_many()`` method to delete documents in the
+collection that match the filter. If you do not include a filter, MongoDB deletes
+all the documents in the collection. To delete all documents in a collection,
+consider calling the ``drop()`` method on a ``Collection`` instance instead for
+better performance. The ``drop()`` method also deletes all the indexes associated
+with the collection.
+
+The ``delete_many()`` method returns a ``DeleteResult`` type, which contains
+information about the delete operation. You can retrieve the total number of
+documents deleted from the ``deleted_count`` field of the ``DeleteResult``
+instance.
+
+Example
+-------
+
+This example deletes documents from the ``restaurants`` collection that match
+a query filter. The example uses a ``Restaurant`` struct that has ``name``,
+``address``, and ``borough`` fields to model the documents in the collection. 
+
+The following code passes a query filter as a parameter to the ``delete_many()`` method.
+The filter matches documents where the value of the ``borough`` field is ``"Manhattan"``
+and the value of the ``street`` field is ``"Broadway"``.
+
+.. tabs::
+
+   .. tab:: Asynchronous
+      :tabid: delete-many-async
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/delete-many-async.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            Deleted documents: 615
+
+   .. tab:: Synchronous
+      :tabid: find-sync
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/delete-many-sync.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            Deleted documents: 615
+
+Additional Information
+----------------------
+
+To learn more parameters you can set on delete operations, see the :ref:`rust-delete-guide`
+guide.
+
+To learn more about the ``drop()`` method, see the :ref:`rust-drop-collection` section in
+the Databases and Collections guide.
+
+To learn more about using query filters, see :ref:`rust-query-guide`.
+
+API Documentation
+-----------------
+
+To learn more about the methods and types mentioned on this
+page, see the following API documentation:
+
+- `delete_many() <{+api+}/struct.Collection.html#method.delete_many>`__
+- `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
+- `deleted_count <{+api+}/results/struct.DeleteResult.html#structfield.deleted_count>`__
