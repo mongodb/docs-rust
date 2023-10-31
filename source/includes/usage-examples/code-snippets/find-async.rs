@@ -1,11 +1,10 @@
 use mongodb::{ 
     bson::doc,
     Client,
-    Collection,
-    options::FindOptions };
+    Collection
+};
 use futures::TryStreamExt;
 use serde::{ Deserialize, Serialize };
-use std::env;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {

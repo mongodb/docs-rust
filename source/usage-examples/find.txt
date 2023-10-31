@@ -22,7 +22,7 @@ that match a query filter. The example uses a ``Restaurant`` struct that has ``n
 and ``cuisine`` fields to model the documents in the collection.
 
 The following code passes a query filter as a parameter to the ``find()`` method. The
-filter matches documents whose value of the ``cuisine`` field is ``"French"``.
+filter matches documents where the value of the ``cuisine`` field is ``"French"``.
 
 .. tabs::
 
@@ -71,7 +71,7 @@ Additional Information
 
 To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
 
-For more information about using cursors, see the :ref:`rust-cursor-guide` guide.
+To learn more about using cursors, see the :ref:`rust-cursor-guide` guide.
 
 To learn more about using query filters, see the :ref:`rust-query-guide` guide.
 

@@ -1,10 +1,8 @@
 use mongodb::{
     bson::{doc, Document},
-    sync::{Client, Collection},
-    options::FindOptions
+    sync::{Client, Collection}
 };
 use serde::{ Deserialize, Serialize };
-use std::env;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {
