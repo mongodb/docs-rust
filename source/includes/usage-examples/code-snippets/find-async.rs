@@ -22,13 +22,9 @@ async fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let opts = FindOptions::builder()
-        .sort(doc! { "name": 1 })
-        .build();
-
     let mut cursor = my_coll.find(
         doc! { "cuisine": "French" },
-        opts
+        None
     ).await?;
 
     while let Some(doc) = cursor.try_next().await? {
