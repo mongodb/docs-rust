@@ -2,8 +2,8 @@ use std::{ env, sync::Arc };
 
 use bson::Document;
 use mongodb::{
-    sync::Client,
-    sync::Collection,
+    Client,
+    Collection,
     event::command::{ CommandEventHandler, CommandStartedEvent },
     options::ClientOptions,
 };
@@ -11,7 +11,7 @@ use mongodb::{
 fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
 
-    let mut client_options = ClientOptions::parse(uri)?;
+    let mut client_options = ClientOptions::parse(uri).await?;
 
     // begin-command
     struct CommandStartHandler;
