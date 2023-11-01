@@ -21,10 +21,10 @@ statistics, initializing a replica set, or running an aggregation pipeline.
 This guide includes the following sections:
 
 - :ref:`Execute a Command <rust-execute-command>` describes the syntax
-  and behavior of the ``run_command()`` method
+  and behavior of the ``run_command()`` and ``run_cursor_command()`` methods
 
 - :ref:`Response <rust-command-response>` describes the information
-  that the ``run_command()`` method returns
+  that the command execution methods return
 
 - :ref:`Command Example <rust-command-example>` provides a command
   example and describes the output for the command
@@ -75,7 +75,9 @@ this command and collect the results, as shown in the following code:
 
 .. code-block:: rust
 
-   let cursor = my_db.run_cursor_command(doc! { "checkMetadataConsistency": 1 }, None).await?;
+   let cursor = my_db
+    .run_cursor_command(doc! { "checkMetadataConsistency": 1 }, None)
+    .await?;
 
 To find a link to a full list of database commands and corresponding
 parameters, see the :ref:`Additional Information section
