@@ -69,6 +69,14 @@ the current member's role in the replica set, on a database:
 
    let result = my_db.run_command(doc! { "hello": 1 }, None).await?;
 
+The ``checkMetadataConsistency`` command returns multiple result
+documents. You can use the ``run_cursor_command()`` method to run
+this command and collect the results, as shown in the following code:
+
+.. code-block:: rust
+
+   let cursor = my_db.run_cursor_command(doc! { "checkMetadataConsistency": 1 }, None).await?;
+
 To find a link to a full list of database commands and corresponding
 parameters, see the :ref:`Additional Information section
 <rust-addtl-info-runcommand>`.
@@ -104,11 +112,14 @@ parameters, see the :ref:`Additional Information section
 Response
 --------
 
-Each method returns a ``Document`` object or a cursor that contains
-the response from the database after the command has been executed. Each
-database command performs a different function, so the response content
-can vary across commands. However, every response contains a document
-with the following fields:
+The ``run_command()`` method returns a ``Document`` object that contains
+the response from the database after the command has been executed. The
+``run_cursor_command()`` returns a ``Cursor`` that references multiple
+result documents.
+
+Each database command performs a different function, so the response
+content can vary depending on the command executed. However, every
+response contains a document with the following fields:
 
 .. list-table::
    :header-rows: 1
