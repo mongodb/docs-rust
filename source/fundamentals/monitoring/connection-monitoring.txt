@@ -1,0 +1,242 @@
+.. _rust-connection-monitoring:
+
+==========================
+Connection Pool Monitoring
+==========================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecols
+
+Overview
+--------
+
+This guide shows you how to use the {+driver-short+} to monitor the
+driver's **connection pool**. A connection pool is a set of open TCP
+connections your driver maintains with a MongoDB instance. Connection
+pools help reduce the number of network handshakes your application
+needs to perform, which might make your application run faster.
+
+You can use information about changes to your connection pool in your
+application, or you can monitor the connection pool to learn more about
+how the driver uses connections.
+
+Event Subscription Example
+--------------------------
+
+You can access one or more connection pool events by
+subscribing to them in your application. The following example connects
+to a MongoDB deployment and subscribes to the ``ConnectionCreatedEvent`` event type:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/monitoring/cpm-subscribe.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-cmap
+   :end-before: end-cmap
+
+Event Descriptions
+------------------
+
+You can subscribe to one or more of the following connection pool
+monitoring events:
+
+.. list-table::
+   :widths: 33 67
+   :header-rows: 1
+
+   * - Event Name
+     - Description
+
+   * - ``PoolCreatedEvent``
+     - Created when a connection pool is created.
+
+   * - ``PoolReadyEvent``
+     - Created when a connection pool is ready.
+
+   * - ``PoolClearedEvent``
+     - Created when a connection pool is cleared.
+
+   * - ``PoolClosedEvent``
+     - Created when a connection pool is closed, before the destruction of
+       the server instance.
+
+   * - ``ConnectionCreatedEvent``
+     - Created when a connection is created, but not necessarily
+       when it is used for an operation.
+
+   * - ``ConnectionReadyEvent``
+     - Created after a connection successfully completes a
+       handshake and is ready to be used for operations.
+
+   * - ``ConnectionClosedEvent``
+     - Created when a connection is closed.
+
+   * - ``ConnectionCheckoutStartedEvent``
+     - Created when an operation attempts to acquire a connection for
+       execution.
+
+   * - ``ConnectionCheckoutFailedEvent``
+     - Created when an operation fails to acquire a connection for
+       execution.
+
+   * - ``ConnectionCheckedOutEvent``
+     - Created when an operation successfully acquires a connection for
+       execution.
+
+   * - ``ConnectionCheckedInEvent``
+     - Created when a connection is checked back into the pool after an operation
+       is executed.
+
+Example Event Documents
+-----------------------
+
+The following sections show sample output for each type of connection
+pool monitoring event.
+
+PoolCreatedEvent
+~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   PoolCreatedEvent {
+     address: ...,
+     options: {...}
+   }
+
+PoolReadyEvent
+~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   PoolReadyEvent {
+     address: ...
+   }
+
+PoolClearedEvent
+~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   PoolClearedEvent {
+     address: ...,
+     serviceId: ...,
+   }
+
+PoolClosedEvent
+~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   PoolClosedEvent {
+     address: ...
+   }
+
+ConnectionCreatedEvent
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionCreatedEvent {
+     address: ...,
+     connectionId: 1
+   }
+
+ConnectionReadyEvent
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionReadyEvent {
+     address: ...,
+     connectionId: 1
+   }
+
+ConnectionClosedEvent
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionClosedEvent {
+     address: ...,
+     connectionId: 1,
+     reason: ...,
+     /* private fields */
+   }
+
+ConnectionCheckOutStartedEvent
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionCheckOutStartedEvent {
+     address: ...,
+   }
+
+ConnectionCheckoutFailedEvent
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionCheckOutFailedEvent {
+     address: ...,
+     reason: ...,
+     /* private fields */
+   }
+
+ConnectionCheckedOutEvent
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionCheckedOutEvent {
+     address: ...,
+     connectionId: 1
+   }
+
+ConnectionCheckedInEvent
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   ConnectionCheckedInEvent {
+     address: ...,
+     connectionId: 1
+   }
+
+Additional Information
+----------------------
+
+To learn more about monitoring a MongoDB deployment, see the :website:`How
+to Monitor MongoDB
+</basics/how-to-monitor-mongodb-and-what-metrics-to-monitor>` article.
+
+To learn more about connecting to MongoDB, see the
+:ref:`rust-connect-to-mongodb`.
+
+To learn more about improving the performance of your application, see
+the guide on :ref:`rust-performance`.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about the methods and types mentioned in this
+guide, see the following API documentation:
+
+- `CmapEventHandler <{+api+}/event/cmap/trait.CmapEventHandler.html>`__
+- `handle_connection_created_event() <{+api+}/event/cmap/trait.CmapEventHandler.html#method.handle_connection_created_event>`__
+- `ConnectionCreatedEvent <{+api+}/event/cmap/struct.ConnectionCreatedEvent.html>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
+- `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__

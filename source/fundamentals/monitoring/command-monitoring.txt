@@ -1,0 +1,128 @@
+.. _rust-command-monitoring:
+
+==================
+Command Monitoring
+==================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecols
+
+Overview
+--------
+
+This guide shows you how to use the {+driver-short+} to monitor the
+outcome of commands that the driver sends to your MongoDB deployment.
+
+You can use information about command events in your
+application, or you can monitor commands to learn more about
+how the driver executes them.
+
+Event Subscription Example
+--------------------------
+
+You can access one or more command events by
+subscribing to them in your application. The following example connects
+to a MongoDB deployment and subscribes to the ``CommandStartedEvent`` event type:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/monitoring/command-subscribe.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-command
+   :end-before: end-command
+
+Event Descriptions
+------------------
+
+You can subscribe to one or more of the following command monitoring
+events:
+
+.. list-table::
+   :widths: 33 67
+   :header-rows: 1
+
+   * - Event Name
+     - Description
+
+   * - ``CommandStartedEvent``
+     - Created when a command starts.
+
+   * - ``CommandSucceededEvent``
+     - Created when a command succeeds.
+
+   * - ``CommandFailedEvent``
+     - Created when a command fails.
+
+Example Event Documents
+-----------------------
+
+The following sections show sample output for each type of command monitoring event.
+
+CommandStartedEvent
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   CommandStartedEvent {
+     request_id: 12,
+     db: "testdb",
+     command_name: "find",
+     connection: ...,
+     command: ...,
+     service_id: ...
+   }
+
+CommandSucceededEvent
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   CommandSucceededEvent {
+       duration: ...,
+       reply: ...,
+       command_name: "find",
+       request_id: 12,
+       connection: ...,
+       service_id: ...,
+   }
+
+CommandFailedEvent
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+   :copyable: false
+
+   CommandFailedEvent {
+       duration: ...,
+       command_name: "find",
+       failure: ...,
+       request_id: 12,
+       connection: ...,
+       service_id: ...,
+   }
+
+Additional Information
+----------------------
+
+To learn more about monitoring a MongoDB deployment, see the :website:`How
+to Monitor MongoDB
+</basics/how-to-monitor-mongodb-and-what-metrics-to-monitor>` article.
+
+To learn more about performing operations MongoDB, see the
+:ref:`rust-crud` guides.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about the methods and types mentioned in this
+guide, see the following API documentation:
+
+- `CommandEventHandler <{+api+}/event/cmap/trait.CommandEventHandler.html>`__
+- `handle_command_started_event() <{+api+}/event/cmap/trait.CommandEventHandler.html#method.handle_command_started_event>`__
+- `CommandStartedEvent <{+api+}/event/cmap/struct.CommandStartedEvent.html>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
+- `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__
