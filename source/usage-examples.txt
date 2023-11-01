@@ -12,6 +12,7 @@ Usage Examples
 
 .. toctree::
 
+   /usage-examples/findOne
    /usage-examples/find
 
 Overview
@@ -85,9 +86,9 @@ Available Usage Examples
 ------------------------
 
 - :ref:`Find Multiple Documents <rust-find-usage>`
+- :ref:`Find a Document <rust-find-one-usage>`
   
 .. TODO: add Usage Example pages as they are created
-    - :ref:`Find a Document <rust-find-one-usage>`
     - :ref:`Insert a Document <rust-insert-one-usage>`
     - :ref:`Insert Multiple Documents <rust-insert-many-usage>`
     - :ref:`Update a Document <rust-update-one-usage>`
