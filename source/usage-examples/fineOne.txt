@@ -1,0 +1,89 @@
+.. _rust-find-one-usage:
+
+===============
+Find a Document
+===============
+
+You can retrieve a single document in a collection by calling the ``find_one()``
+method on a ``Collection`` instance. 
+
+Pass a query filter to the ``find_one()`` method to return one document in the collection
+that matches the filter. If multiple documents match the query filter, the ``find_one()``
+method returns the first matching document according to the documents' natural order, or as
+the documents appear in the database.
+
+The ``find_one()`` method returns a ``Result<Option<T>>`` type. This type has a value of
+``Some`` if a document matches the query filter and ``None`` if no documents match.
+
+Example
+-------
+
+This example finds a document from the ``sample_restaurants.restaurants`` collection
+that matches a query filter. The example uses a ``Restaurant`` struct that has ``name``
+and ``cuisine`` fields to model the documents in the collection.
+
+The following code passes a query filter as a parameter to the ``find_one()`` method.
+The filter matches documents where the value of the ``name`` field is ``"Tompkins Square Bagels"``.
+
+.. tabs::
+
+   .. tab:: Asynchronous
+      :tabid: find-async
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/find-one-async.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            Some(
+                Restaurant {
+                    name: "Tompkins Square Bagels",
+                    cuisine: "American",
+                },
+            )
+
+   .. tab:: Synchronous
+      :tabid: find-sync
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/find-one-sync.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            Some(
+                Restaurant {
+                    name: "Tompkins Square Bagels",
+                    cuisine: "American",
+                },
+            )
+
+Additional Information
+----------------------
+
+To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
+
+To learn more about natural order, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
+in the Server manual glossary.
+
+To learn more about using query filters, see the :ref:`rust-query-guide` guide.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about the methods and types mentioned on this
+page, see the following API documentation:
+
+- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
+- `Result <{+api+}/error/type.Result.html>`__
