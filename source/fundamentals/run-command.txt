@@ -97,7 +97,7 @@ parameters, see the :ref:`Additional Information section
    
    .. code-block:: rust
 
-      let command_options: SelectionCriteria = SelectionCriteria::ReadPreference(
+      let command_options = SelectionCriteria::ReadPreference(
           ReadPreference::Primary
       );
       let result = my_db.run_command(command_doc, command_options).await?;
