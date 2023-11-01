@@ -124,7 +124,7 @@ PoolClearedEvent
 
    PoolClearedEvent {
      address: ...,
-     serviceId: ...,
+     service_id: ...,
    }
 
 PoolClosedEvent
@@ -145,7 +145,7 @@ ConnectionCreatedEvent
 
    ConnectionCreatedEvent {
      address: ...,
-     connectionId: 1
+     connection_id: 1
    }
 
 ConnectionReadyEvent
@@ -156,7 +156,7 @@ ConnectionReadyEvent
 
    ConnectionReadyEvent {
      address: ...,
-     connectionId: 1
+     connection_id: 1
    }
 
 ConnectionClosedEvent
@@ -167,7 +167,7 @@ ConnectionClosedEvent
 
    ConnectionClosedEvent {
      address: ...,
-     connectionId: 1,
+     connection_id: 1,
      reason: ...,
      /* private fields */
    }
@@ -202,7 +202,7 @@ ConnectionCheckedOutEvent
 
    ConnectionCheckedOutEvent {
      address: ...,
-     connectionId: 1
+     connection_id: 1
    }
 
 ConnectionCheckedInEvent
@@ -213,7 +213,7 @@ ConnectionCheckedInEvent
 
    ConnectionCheckedInEvent {
      address: ...,
-     connectionId: 1
+     connection_id: 1
    }
 
 Additional Information
