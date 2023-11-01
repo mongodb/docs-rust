@@ -76,8 +76,8 @@ this command and collect the results, as shown in the following code:
 .. code-block:: rust
 
    let cursor = my_db
-    .run_cursor_command(doc! { "checkMetadataConsistency": 1 }, None)
-    .await?;
+       .run_cursor_command(doc! { "checkMetadataConsistency": 1 }, None)
+       .await?;
 
 To find a link to a full list of database commands and corresponding
 parameters, see the :ref:`Additional Information section
