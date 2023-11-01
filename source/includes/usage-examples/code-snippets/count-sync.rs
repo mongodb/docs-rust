@@ -9,10 +9,7 @@ struct Restaurant {
 }
 
 fn main() -> mongodb::error::Result<()> {
-    let uri = match env::var("MONGODB_URI") {
-        Ok(val) => val,
-        Err(_e) => "No env variable found".to_string(),
-    };
+    let uri = "<connection string>";
 
     let client = Client::with_uri_str(uri)?;
     let my_coll: Collection<Restaurant> = client
