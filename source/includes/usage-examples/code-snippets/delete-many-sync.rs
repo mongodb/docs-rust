@@ -6,7 +6,6 @@ use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {
-    name: String,
     address: Address,
     borough: String,
 }

@@ -14,9 +14,9 @@ all the documents in the collection.
 .. tip::
 
     To delete all documents in a collection, consider calling the ``drop()``
-    method on a ``Collection`` instance instead for better performance. The 
-    ``drop()`` method also deletes all the indexes associated with the
-    collection.
+    method on a ``Collection`` instance instead of passing an empty filter to
+    ``delete_many()``. The ``drop()`` method also deletes all the indexes
+    associated with the collection.
 
     To learn more about the ``drop()`` method, see the :ref:`rust-drop-collection`
     section in the Databases and Collections guide.
@@ -29,8 +29,8 @@ Example
 -------
 
 This example deletes documents from the ``restaurants`` collection that match
-a query filter. The example uses a ``Restaurant`` struct that has ``name``,
-``address``, and ``borough`` fields to model the documents in the collection. 
+a query filter. The example uses a ``Restaurant`` struct that has ``address``
+and ``borough`` fields to model the documents in the collection. 
 
 The following code passes a query filter as a parameter to the ``delete_many()`` method.
 The filter matches documents where the value of the ``borough`` field is ``"Manhattan"``
