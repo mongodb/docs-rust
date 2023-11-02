@@ -7,29 +7,34 @@ Count Documents
 You can count the number of documents in a collection by calling one of
 the following methods on a ``Collection`` instance:
 
-- ``count_documents()``: counts the number of documents that match a
-  query filter
-- ``estimated_document_count()``: estimates the total number of
-  documents in a collection by using collection metadata
+- `count_documents() <{+api+}/struct.Collection.html#method.count_documents>`__:
+  counts the number of documents that match a query filter. To learn
+  more about creating query filters, see the :ref:`rust-query-guide`
+  guide.
+
+- `estimated_document_count() <{+api+}/struct.Collection.html#method.estimated_document_count>`__:
+  estimates the total number of documents in a collection by using
+  collection metadata.
 
 Each method returns the count as a ``u64`` instance.
 
 .. note::
    
-   If you do not pass a filter to the ``count_documents()`` method,
+   If you don't pass a filter to the ``count_documents()`` method,
    MongoDB counts the total number of documents in the collection.
 
 Example
 -------
 
-This example counts documents in the ``sample_restaurants.restaurants``
-collection. The example uses a ``Restaurant`` struct that has a ``name``
-field to model the documents in the collection.
+This example counts documents in the ``restaurants`` collection of the
+``sample_restaurants`` database. The example uses a ``Restaurant``
+struct that has a ``name`` field to model the documents in the
+collection.
 
 The following code first uses the ``estimated_document_count()`` method
 to count the total number of documents in the collection. Then, the
 example uses the ``count_documents()`` method to count the number of
-documents that match a query filter. The filter matches documents where
+documents that match a query filter. The filter matches documents in which
 the value of the ``name`` field includes the string ``"Sunset"``.
 
 .. tabs::
@@ -48,7 +53,7 @@ the value of the ``name`` field includes the string ``"Sunset"``.
             :language: console
             :visible: false
 
-            // Your values may differ
+            // Your values might differ
             Number of documents: 25216
             Number of matching documents: 10
 
@@ -66,20 +71,6 @@ the value of the ``name`` field includes the string ``"Sunset"``.
             :language: console
             :visible: false
 
-            // Your values may differ
+            // Your values might differ
             Number of documents: 25216
             Number of matching documents: 10
-
-Additional Information
-----------------------
-
-To learn more about using query filters, see the :ref:`rust-query-guide` guide.
-
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-To learn more about the methods and types mentioned on this
-page, see the following API documentation:
-
-- `estimated_document_count() <{+api+}/struct.Collection.html#method.estimated_document_count>`__
-- `count_documents() <{+api+}/struct.Collection.html#method.count_documents>`__
