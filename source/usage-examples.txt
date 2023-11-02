@@ -13,6 +13,7 @@ Usage Examples
 .. toctree::
 
    /usage-examples/find
+   /usage-examples/insertMany
    /usage-examples/count
 
 Overview
@@ -88,12 +89,12 @@ Available Usage Examples
 ------------------------
 
 - :ref:`Find Multiple Documents <rust-find-usage>`
+- :ref:`Insert Multiple Documents <rust-insert-many-usage>`
 - :ref:`Count Documents <rust-count-usage>`
   
 .. TODO: add Usage Example pages as they are created
     - :ref:`Find a Document <rust-find-one-usage>`
     - :ref:`Insert a Document <rust-insert-one-usage>`
-    - :ref:`Insert Multiple Documents <rust-insert-many-usage>`
     - :ref:`Update a Document <rust-update-one-usage>`
     - :ref:`Update Multiple Documents <rust-update-many-usage>`
     - :ref:`Replace a Document <rust-replace-usage>`
