@@ -5,14 +5,20 @@ Find a Document
 ===============
 
 You can retrieve a single document in a collection by calling the ``find_one()``
-method on a ``Collection`` instance. 
+method on a ``Collection`` instance. To learn more about this method, see the
+`find_one() <{+api+}/struct.Collection.html#method.find_one>`__ API documentation.
 
 Pass a query filter to the ``find_one()`` method to return one document in the collection
 that matches the filter. If multiple documents match the query filter, this method returns
 the first matching document according to their :term:`natural order` in the database, or
-according to the sort order specified in a ``FindOneOptions`` instance.
+according to the sort order specified in a ``FindOneOptions`` instance. For more information
+about natural order, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
+in the Server manual glossary.
 
-The ``find_one()`` method returns a ``Result<Option<T>>`` type.
+The ``find_one()`` method returns a ``Result<Option<T>>`` type. To learn more about this
+type, see the `Result <{+api+}/error/type.Result.html>`__ API documentation.
+
+To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
 
 Example
 -------
@@ -69,22 +75,3 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
                     cuisine: "American",
                 },
             )
-
-Additional Information
-----------------------
-
-To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
-
-To learn more about natural order, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
-in the Server manual glossary.
-
-To learn more about using query filters, see the :ref:`rust-query-guide` guide.
-
-API Documentation
-~~~~~~~~~~~~~~~~~
-
-To learn more about the methods and types mentioned on this
-page, see the following API documentation:
-
-- `find_one() <{+api+}/struct.Collection.html#method.find_one>`__
-- `Result <{+api+}/error/type.Result.html>`__
