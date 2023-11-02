@@ -74,10 +74,3 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
             // Your values might differ
             Deleted documents: 615
 
-Additional Information
-----------------------
-
-
-
-To learn more about creating query filters, see the :ref:`rust-query-guide` guide.
-
