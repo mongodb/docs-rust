@@ -28,7 +28,7 @@ To learn more about delete operations, see the :ref:`rust-delete-guide` guide.
 Example
 -------
 
-This example deletes all of the documents from the ``restaurants`` collection that
+This example deletes all the documents from the ``restaurants`` collection that
 match a query filter. The example uses a ``Restaurant`` struct that has ``address``
 and ``borough`` fields to model the documents in the collection. 
 
