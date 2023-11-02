@@ -32,9 +32,11 @@ This example deletes all of the documents from the ``restaurants`` collection th
 match a query filter. The example uses a ``Restaurant`` struct that has ``address``
 and ``borough`` fields to model the documents in the collection. 
 
-The following code passes a query filter as a parameter to the ``delete_many()`` method.
+This example passes a query filter as a parameter to the ``delete_many()`` method.
 The filter matches documents where the value of the ``borough`` field is ``"Manhattan"``
 and the value of the ``address.street`` field is ``"Broadway"``.
+
+Select the **Asynchronous** or **Synchronous** tab to see corresponding code for each runtime:
 
 .. tabs::
 
