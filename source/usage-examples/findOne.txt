@@ -8,22 +8,23 @@ You can retrieve a single document in a collection by calling the ``find_one()``
 method on a ``Collection`` instance. 
 
 Pass a query filter to the ``find_one()`` method to return one document in the collection
-that matches the filter. If multiple documents match the query filter, the ``find_one()``
-method returns the first matching document according to the documents' natural order, or as
-the documents appear in the database.
+that matches the filter. If multiple documents match the query filter, this method returns
+the first matching document according to their :term:`natural order` in the database, or
+according to the sort order specified in a ``FindOneOptions`` instance.
 
-The ``find_one()`` method returns a ``Result<Option<T>>`` type. This type has a value of
-``Some`` if a document matches the query filter and ``None`` if no documents match.
+The ``find_one()`` method returns a ``Result<Option<T>>`` type.
 
 Example
 -------
 
-This example finds a document from the ``sample_restaurants.restaurants`` collection
-that matches a query filter. The example uses a ``Restaurant`` struct that has ``name``
-and ``cuisine`` fields to model the documents in the collection.
+This example retrieves a document from the ``restaurants`` collection in the
+``sample_restaurants`` database that matches a query filter. The example populates a
+``Restaurant`` struct with the data from the retrieved document.
 
-The following code passes a query filter as a parameter to the ``find_one()`` method.
-The filter matches documents where the value of the ``name`` field is ``"Tompkins Square Bagels"``.
+This example uses a query filter that matches documents in which the value of the
+``name`` field is ``"Tompkins Square Bagels"``.
+
+Select the **Asynchronous** or **Synchronous** tab to see corresponding code for each runtime:
 
 .. tabs::
 

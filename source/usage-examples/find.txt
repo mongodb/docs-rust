@@ -17,9 +17,10 @@ to retrieve individual documents.
 Example
 -------
 
-This example finds documents from the ``sample_restaurants.restaurants`` collection
-that match a query filter. The example uses a ``Restaurant`` struct that has ``name``
-and ``cuisine`` fields to model the documents in the collection.
+This example retrieves documents from the ``restaurants`` collection in the
+``sample_restaurants`` database that match a query filter. The example uses a
+``Restaurant`` struct that has ``name`` and ``cuisine`` fields to model the documents
+in the collection.
 
 The following code passes a query filter as a parameter to the ``find()`` method. The
 filter matches documents where the value of the ``cuisine`` field is ``"French"``.
