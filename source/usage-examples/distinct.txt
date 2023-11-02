@@ -1,8 +1,8 @@
 .. _rust-distinct-usage:
 
-===============
-Count Documents
-===============
+==========================
+List Distinct Field Values
+==========================
 
 You can list the distinct values of a document field across a collection
 by calling the `distinct() <{+api+}/struct.Collection.html#method.distinct>`__

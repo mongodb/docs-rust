@@ -90,7 +90,7 @@ Available Usage Examples
 
 - :ref:`Find Multiple Documents <rust-find-usage>`
 - :ref:`Count Documents <rust-count-usage>`
-- :ref:`List Distinct Values of a Field <rust-distinct-usage>`
+- :ref:`List Distinct Field Values <rust-distinct-usage>`
 
 .. TODO: add Usage Example pages as they are created
     - :ref:`Find a Document <rust-find-one-usage>`
