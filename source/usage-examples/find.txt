@@ -23,7 +23,7 @@ This example retrieves documents from the ``restaurants`` collection in the
 in the collection.
 
 The following code passes a query filter as a parameter to the ``find()`` method. The
-filter matches documents where the value of the ``cuisine`` field is ``"French"``.
+filter matches documents in which the value of the ``cuisine`` field is ``"French"``.
 
 Select the **Asynchronous** or **Synchronous** tab to see corresponding code for each runtime:
 
