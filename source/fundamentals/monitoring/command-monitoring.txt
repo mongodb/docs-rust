@@ -20,18 +20,22 @@ You can use information about command events in your
 application, or you can monitor commands to learn more about
 how the driver executes them.
 
-Event Subscription Example
---------------------------
+This guide includes the following sections:
 
-You can access one or more command events by
-subscribing to them in your application. The following example connects
-to a MongoDB deployment and subscribes to the ``CommandStartedEvent`` event type:
+- :ref:`Event Descriptions <rust-command-monitoring-descriptions>` describes
+  the command events that the driver can generate
 
-.. literalinclude:: /includes/fundamentals/code-snippets/monitoring/command-subscribe.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-command
-   :end-before: end-command
+- :ref:`Event Subscription Example <rust-command-monitoring-example>`
+  provides sample code that shows how to subscribe to a command event
+
+- :ref:`Example Event Documents <rust-command-monitoring-documents>`
+  provides samples of each command event
+  
+- :ref:`Additional Information <rust-command-monitoring-addtl-info>`
+  provides links to resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-command-monitoring-descriptions:
 
 Event Descriptions
 ------------------
@@ -53,7 +57,24 @@ events:
      - Created when a command succeeds.
 
    * - ``CommandFailedEvent``
-     - Created when a command fails.
+     - Created when a command does not succeed.
+
+.. _rust-command-monitoring-example:
+
+Event Subscription Example
+--------------------------
+
+You can access one or more command events by
+subscribing to them in your application. The following example connects
+to a MongoDB deployment and subscribes to the ``CommandStartedEvent`` event type:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/monitoring/command-subscribe.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-command
+   :end-before: end-command
+
+.. _rust-command-monitoring-documents:
 
 Example Event Documents
 -----------------------
@@ -105,6 +126,8 @@ CommandFailedEvent
        service_id: ...,
    }
 
+.. _rust-command-monitoring-addtl-info:
+
 Additional Information
 ----------------------
 
@@ -112,7 +135,7 @@ To learn more about monitoring a MongoDB deployment, see the :website:`How
 to Monitor MongoDB
 </basics/how-to-monitor-mongodb-and-what-metrics-to-monitor>` article.
 
-To learn more about performing operations MongoDB, see the
+To learn more about performing MongoDB operations, see the
 :ref:`rust-crud` guides.
 
 API Documentation
@@ -121,8 +144,8 @@ API Documentation
 To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
-- `CommandEventHandler <{+api+}/event/cmap/trait.CommandEventHandler.html>`__
-- `handle_command_started_event() <{+api+}/event/cmap/trait.CommandEventHandler.html#method.handle_command_started_event>`__
-- `CommandStartedEvent <{+api+}/event/cmap/struct.CommandStartedEvent.html>`__
+- `CommandEventHandler <{+api+}/event/command/trait.CommandEventHandler.html>`__
+- `handle_command_started_event() <{+api+}/event/command/trait.CommandEventHandler.html#method.handle_command_started_event>`__
+- `CommandStartedEvent <{+api+}/event/command/struct.CommandStartedEvent.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__
