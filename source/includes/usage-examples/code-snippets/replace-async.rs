@@ -27,7 +27,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let res = my_coll.replace_one(filter, replacement, None).await?;
     println!(
-        "Matched {} document(s), replaced {} document(s)",
+        "Matched documents: {}\nReplaced documents: {}",
         res.matched_count,
         res.modified_count
     );

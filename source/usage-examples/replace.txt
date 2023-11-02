@@ -50,7 +50,8 @@ The following code replaces a document in which the value of the
             :language: console
             :visible: false
 
-            Matched 1 document(s), replaced 1 document(s)
+            Matched documents: 1
+            Replaced documents: 1
 
    .. tab:: Synchronous
       :tabid: find-sync
@@ -66,4 +67,5 @@ The following code replaces a document in which the value of the
             :language: console
             :visible: false
 
-            Matched 1 document(s), replaced 1 document(s)
+            Matched documents: 1
+            Replaced documents: 1
