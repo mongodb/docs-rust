@@ -12,12 +12,12 @@ the following methods on a ``Collection`` instance:
 - ``estimated_document_count()``: estimates the total number of
   documents in a collection by using collection metadata
 
+Each method returns the count as a ``u64`` instance.
+
 .. note::
    
    If you do not pass a filter to the ``count_documents()`` method,
    MongoDB counts the total number of documents in the collection.
-
-Each method returns the count as a ``u64`` instance.
 
 Example
 -------
@@ -27,11 +27,10 @@ collection. The example uses a ``Restaurant`` struct that has a ``name``
 field to model the documents in the collection.
 
 The following code first uses the ``estimated_document_count()`` method
-to perform an estimated count of the documents in
-the collection. Then, the example uses the ``count_documents()`` method
-to count the number of documents that match a query filter. The filter
-matches documents where the value of the ``name`` field includes the
-string ``"Sunset"``.
+to count the total number of documents in the collection. Then, the
+example uses the ``count_documents()`` method to count the number of
+documents that match a query filter. The filter matches documents where
+the value of the ``name`` field includes the string ``"Sunset"``.
 
 .. tabs::
 
