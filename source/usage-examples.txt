@@ -14,6 +14,7 @@ Usage Examples
 
    /usage-examples/find
    /usage-examples/count
+   /usage-examples/distinct
 
 Overview
 --------
@@ -89,7 +90,8 @@ Available Usage Examples
 
 - :ref:`Find Multiple Documents <rust-find-usage>`
 - :ref:`Count Documents <rust-count-usage>`
-  
+- :ref:`List Distinct Values of a Field <rust-distinct-usage>`
+
 .. TODO: add Usage Example pages as they are created
     - :ref:`Find a Document <rust-find-one-usage>`
     - :ref:`Insert a Document <rust-insert-one-usage>`
@@ -99,6 +101,6 @@ Available Usage Examples
     - :ref:`Replace a Document <rust-replace-usage>`
     - :ref:`Delete a Document <rust-delete-one-usage>`
     - :ref:`Delete Multiple Documents <rust-delete-many-usage>`
-    - :ref:`Find Distinct Values <rust-distinct-usage>`
+    
 
 
