@@ -16,11 +16,13 @@ instances as a parameter to the ``insert_many()`` method.
 
 .. tip:: 
 
-   If you have only one document to insert, consider using the `insert_one() 
-   <{+api+}/struct.Collection.html#method.insert_one>`__ method instead.
+   To insert a single document, consider using the `insert_one() 
+   <{+api+}/struct.Collection.html#method.insert_one>`__ method instead. For a
+   runnable code example that uses this method, see the :ref:`rust-insert-one-usage`
+   usage example.
 
 The ``insert_many()`` method returns an `InsertManyResult <{+api+}/results/struct.InsertManyResult.html>`__
-type from which you can access the ``_id`` values of the inserted documents.
+type that references the ``_id`` values of the inserted documents.
 
 To learn more about inserting documents into a collection, see the
 :ref:`rust-insert-guide` guide.

@@ -18,7 +18,7 @@ fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let docs = vec![
+    let docs = vec! [
         Restaurant {
             name: "While in Kathmandu".to_string(),
             cuisine: "Nepalese".to_string(),
