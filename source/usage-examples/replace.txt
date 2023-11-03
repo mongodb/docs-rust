@@ -32,7 +32,7 @@ struct that has ``name``, ``borough``, and ``cuisine`` fields to model
 documents in the collection.
 
 The following code replaces a document in which the value of the
-``name`` field is ``"Landmark Coffee Shop"`` with a new document.
+``name`` field is ``"Landmark Coffee Shop"`` with a new document:
 
 .. tabs::
 
