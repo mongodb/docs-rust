@@ -9,7 +9,7 @@ You can retrieve a single document in a collection by calling the `find_one()
 
 Pass a query filter to the ``find_one()`` method to return one document in the collection
 that matches the filter. If multiple documents match the query filter, this method returns
-the first matching document according to their :term:`natural order` in the database, or
+the first matching document according to their :term:`natural order` in the database or
 according to the sort order specified in a ``FindOneOptions`` instance.
 
 The ``find_one()`` method returns a `Result<Option<T>> <{+api+}/error/type.Result.html>`__
