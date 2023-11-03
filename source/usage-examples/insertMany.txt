@@ -24,9 +24,9 @@ Example
 -------
 
 This example inserts documents into the ``restaurants`` collection of the
-``sample_restaurants`` database. The example populates a ``Restaurant``
-struct, containing ``name`` and ``cuisine`` fields, with the data from each inserted 
-document.
+``sample_restaurants`` database. The example uses a ``Restaurant`` struct containing
+``name`` and ``cuisine`` fields to model the documents that are inserted into the
+collection.
 
 The following code passes a vector of documents as a parameter to the
 ``insert_many()`` method. The vector contains documents in which the value of the
