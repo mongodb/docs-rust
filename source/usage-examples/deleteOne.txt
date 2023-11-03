@@ -64,8 +64,7 @@ corresponding code for each runtime:
             :language: console
             :visible: false
 
-            // Your values might differ
-            Deleted documents: 615
+            Deleted documents: 1
 
    .. tab:: Synchronous
       :tabid: delete-many-sync
@@ -81,6 +80,5 @@ corresponding code for each runtime:
             :language: console
             :visible: false
 
-            // Your values might differ
-            Deleted documents: 615
+            Deleted documents: 1
 
