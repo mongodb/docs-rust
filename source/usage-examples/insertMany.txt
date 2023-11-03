@@ -10,10 +10,11 @@ on a ``Collection`` instance.
 
 Pass a vector containing one or more documents to the ``insert_many()`` method
 to insert them into your collection. If you have only one document to insert,
-consider using the ``insert_one()`` method instead.
+consider using the `insert_one() <{+api+}/struct.Collection.html#method.insert_one>`__
+method instead.
 
-The ``insert_many()`` method returns a ``Result<InsertManyResult>`` type from which
-you can access the ``_id`` values of the inserted documents.
+The ``insert_many()`` method returns a `Result<InsertManyResult> <{+api+}/results/struct.InsertManyResult.html>`__
+type from which you can access the ``_id`` values of the inserted documents.
 
 .. tip::
 
@@ -54,7 +55,6 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
             Inserted documents with _ids:
             ObjectId("654516036a974e45a716c458")
             ObjectId("654516036a974e45a716c45a")
-            ObjectId("654516036a974e45a716c459")
 
    .. tab:: Synchronous
       :tabid: find-sync
@@ -74,4 +74,3 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
             Inserted documents with _ids:
             ObjectId("654516036a974e45a716c458")
             ObjectId("654516036a974e45a716c45a")
-            ObjectId("654516036a974e45a716c459")
