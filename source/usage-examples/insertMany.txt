@@ -9,29 +9,32 @@ You can insert multiple documents into a collection by calling the
 on a ``Collection`` instance.
 
 Pass a vector containing one or more documents to the ``insert_many()`` method
-to insert them into your collection. If you have only one document to insert,
-consider using the `insert_one() <{+api+}/struct.Collection.html#method.insert_one>`__
-method instead.
+to insert them into your collection. These documents must be instances of the type
+that you parameterized your ``Collection`` instance with. For example, if you
+parameterized your collection with the ``MyStruct`` struct, pass a vector of ``MyStruct``
+instances as a parameter to the ``insert_many()`` method. 
 
-The ``insert_many()`` method returns a `Result<InsertManyResult> <{+api+}/results/struct.InsertManyResult.html>`__
+.. tip:: 
+
+   If you have only one document to insert, consider using the `insert_one() 
+   <{+api+}/struct.Collection.html#method.insert_one>`__ method instead.
+
+The ``insert_many()`` method returns an `InsertManyResult <{+api+}/results/struct.InsertManyResult.html>`__
 type from which you can access the ``_id`` values of the inserted documents.
 
-.. tip::
-
-   To learn more about inserting documents into a collection, see the
-   :ref:`rust-insert-guide` guide.
+To learn more about inserting documents into a collection, see the
+:ref:`rust-insert-guide` guide.
 
 Example
 -------
 
 This example inserts documents into the ``restaurants`` collection of the
 ``sample_restaurants`` database. The example uses a ``Restaurant`` struct containing
-``name`` and ``cuisine`` fields to model the documents that are inserted into the
+``name`` and ``cuisine`` fields to model the documents being inserted into the
 collection.
 
 The following code passes a vector of documents as a parameter to the
-``insert_many()`` method. The vector contains documents in which the value of the
-``cuisine`` field is ``"Nepalese"``.
+``insert_many()`` method.
 
 Select the **Asynchronous** or **Synchronous** tab to see corresponding code for each runtime:
 
@@ -51,10 +54,9 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
             :language: console
             :visible: false
 
-            // Your ObjectID values might differ
             Inserted documents with _ids:
-            ObjectId("654516036a974e45a716c458")
-            ObjectId("654516036a974e45a716c45a")
+            ObjectId("...")
+            ObjectId("...")
 
    .. tab:: Synchronous
       :tabid: find-sync
@@ -70,7 +72,6 @@ Select the **Asynchronous** or **Synchronous** tab to see corresponding code for
             :language: console
             :visible: false
 
-            // Your ObjectID values might differ
             Inserted documents with _ids:
-            ObjectId("654516036a974e45a716c458")
-            ObjectId("654516036a974e45a716c45a")
+            ObjectId("...")
+            ObjectId("...")
