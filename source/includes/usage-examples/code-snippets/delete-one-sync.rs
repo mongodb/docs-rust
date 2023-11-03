@@ -1,5 +1,5 @@
 use mongodb::{
-    bson::{doc, oid::ObjectID},
+    bson::{doc, oid::ObjectId},
     sync::{Client, Collection}
 };
 use std::str::FromStr;
