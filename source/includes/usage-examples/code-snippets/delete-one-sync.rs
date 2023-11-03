@@ -19,7 +19,7 @@ fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let id = ObjectId::from_str("5eb3d668b31de5d588f42bfc").expect("Converting to ObjectID");
+    let id = ObjectId::from_str("5eb3d668b31de5d588f42bfc").expect("Could not convert to ObjectID");
     let filter = doc! { "_id": id };
 
     let result = my_coll.delete_one(filter, None)?;
