@@ -4,13 +4,13 @@
 Insert Multiple Documents
 =========================
 
-You can query for multiple documents in a collection by calling the
-`find() <{+api+}/struct.Collection.html#method.find>`__ method on a
-``Collection`` instance.
+You can insert multiple documents in a collection by calling the
+`insert_many() <{+api+}/struct.Collection.html#method.insert_many>`__ method
+on a ``Collection`` instance.
 
-Pass a query filter to the ``find()`` method to return documents in the collection
-that match the filter. If you do not include a filter, MongoDB returns all the
-documents in the collection.
+Pass a query filter to the ``insert_many()`` method to return documents in the
+collection that match the filter. If you do not include a filter, MongoDB returns
+all the documents in the collection.
 
 .. tip::
 
