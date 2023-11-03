@@ -12,7 +12,9 @@ You must insert a document of the same type that you parameterized your
 ``Collection`` instance with. For example, if you parameterized your
 collection with the ``MyStruct`` struct, pass a ``MyStruct``
 instance as a parameter to the ``insert_one()`` method to insert a
-document.
+document. To learn more about specifying a type parameter, see the
+:ref:`Collection Parameterization <rust-coll-parameterization>` section
+of the Databases and Collections guide.
 
 The ``insert_one()`` method returns an `InsertOneResult
 <{+api+}/results/struct.InsertOneResult.html>`__ type which contains the
