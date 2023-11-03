@@ -52,34 +52,34 @@ You can subscribe to one or more of the following SDAM events:
    * - Event Name
      - Description
 
-   * - ``ServerDescriptionChangedEvent``
+   * - `ServerDescriptionChangedEvent <{+api+}/event/sdam/struct.ServerDescriptionChangedEvent.html>`__
      - Created when an instance state changes, such as when a replica set
        member changes from a secondary to a primary.
 
-   * - ``ServerOpeningEvent``
+   * - `ServerOpeningEvent <{+api+}/event/sdam/struct.ServerOpeningEvent.html>`__
      - Created when a connection to an instance, such as a replica set member, opens.
 
-   * - ``ServerClosedEvent``
+   * - `ServerClosedEvent <{+api+}/event/sdam/struct.ServerClosedEvent.html>`__
      - Created when a connection to an instance, such as a replica set member, closes.
 
-   * - ``TopologyDescriptionChangedEvent``
+   * - `TopologyDescriptionChangedEvent <{+api+}/event/sdam/struct.TopologyDescriptionChangedEvent.html>`__
      - Created when the topology description changes, such as when there
        is an election of a new primary or when a ``mongos`` proxy disconnects.
 
-   * - ``TopologyOpeningEvent``
+   * - `TopologyOpeningEvent <{+api+}/event/sdam/struct.TopologyOpeningEvent.html>`__
      - Created before the driver attempts to connect to an instance.
 
-   * - ``TopologyClosedEvent``
+   * - `TopologyClosedEvent <{+api+}/event/sdam/struct.TopologyClosedEvent.html>`__
      - Created after all instance connections in the topology close.
 
-   * - ``ServerHeartbeatStartedEvent``
+   * - `ServerHeartbeatStartedEvent <{+api+}/event/sdam/struct.ServerHeartbeatStartedEvent.html>`__
      - Created before the driver issues a ``hello`` command to an instance.
 
-   * - ``ServerHeartbeatSucceededEvent``
+   * - `ServerHeartbeatSucceededEvent <{+api+}/event/sdam/struct.ServerHeartbeatSucceededEvent.html>`__
      - Created when the ``hello`` command returns successfully from a
        MongoDB instance.
 
-   * - ``ServerHeartbeatFailedEvent``
+   * - `ServerHeartbeatFailedEvent <{+api+}/event/sdam/struct.ServerHeartbeatFailedEvent.html>`__
      - Created when a ``hello`` command to a MongoDB instance does not
        return a successful response.
 
@@ -234,7 +234,5 @@ To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `SdamEventHandler <{+api+}/event/sdam/trait.SdamEventHandler.html>`__
-- `handle_server_opening_event() <{+api+}/event/sdam/trait.SdamEventHandler.html#method.handle_server_opening_event>`__
-- `ServerOpeningEvent <{+api+}/event/sdam/struct.ServerOpeningEvent.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__

@@ -50,13 +50,13 @@ events:
    * - Event Name
      - Description
 
-   * - ``CommandStartedEvent``
+   * - `CommandStartedEvent <{+api+}/event/command/struct.CommandStartedEvent.html>`__
      - Created when a command starts.
 
-   * - ``CommandSucceededEvent``
+   * - `CommandSucceededEvent <{+api+}/event/command/struct.CommandSucceededEvent.html>`__
      - Created when a command succeeds.
 
-   * - ``CommandFailedEvent``
+   * - `CommandFailedEvent <{+api+}/event/command/struct.CommandFailedEvent.html>`__
      - Created when a command does not succeed.
 
 .. _rust-command-monitoring-example:
@@ -145,7 +145,5 @@ To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `CommandEventHandler <{+api+}/event/command/trait.CommandEventHandler.html>`__
-- `handle_command_started_event() <{+api+}/event/command/trait.CommandEventHandler.html#method.handle_command_started_event>`__
-- `CommandStartedEvent <{+api+}/event/command/struct.CommandStartedEvent.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__

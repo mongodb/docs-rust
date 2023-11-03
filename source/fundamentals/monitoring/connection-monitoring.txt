@@ -14,7 +14,7 @@ Overview
 --------
 
 This guide shows you how to use the {+driver-short+} to monitor the
-driver's **connection pool**. A connection pool is a set of open
+driver's connection pool. A connection pool is a set of open
 Transmission Control Protocol (TCP) connections that your driver
 maintains with a MongoDB instance. Connection pools help reduce the
 number of new connections your application needs to create,
@@ -54,43 +54,43 @@ monitoring events:
    * - Event Name
      - Description
 
-   * - ``PoolCreatedEvent``
+   * - `PoolCreatedEvent <{+api+}/event/cmap/struct.PoolCreatedEvent.html>`__
      - Created when a connection pool is created.
 
-   * - ``PoolReadyEvent``
+   * - `PoolReadyEvent <{+api+}/event/cmap/struct.PoolReadyEvent.html>`__
      - Created when a connection pool is ready.
 
-   * - ``PoolClearedEvent``
+   * - `PoolClearedEvent <{+api+}/event/cmap/struct.PoolClearedEvent.html>`__
      - Created when a connection pool is cleared.
 
-   * - ``PoolClosedEvent``
+   * - `PoolClosedEvent <{+api+}/event/cmap/struct.PoolClosedEvent.html>`__
      - Created when a connection pool is closed, before the destruction of
        the server instance.
 
-   * - ``ConnectionCreatedEvent``
+   * - `ConnectionCreatedEvent <{+api+}/event/cmap/struct.ConnectionCreatedEvent.html>`__
      - Created when a connection is created, but not necessarily
        when it is used for an operation.
 
-   * - ``ConnectionReadyEvent``
+   * - `ConnectionReadyEvent <{+api+}/event/cmap/struct.ConnectionReadyEvent.html>`__
      - Created after a connection successfully completes a
        handshake and is ready to be used for operations.
 
-   * - ``ConnectionClosedEvent``
+   * - `ConnectionClosedEvent <{+api+}/event/cmap/struct.ConnectionClosedEvent.html>`__
      - Created when a connection is closed.
 
-   * - ``ConnectionCheckoutStartedEvent``
+   * - `ConnectionCheckoutStartedEvent <{+api+}/event/cmap/struct.ConnectionCheckoutStartedEvent.html>`__
      - Created when an operation attempts to acquire a connection for
        execution.
 
-   * - ``ConnectionCheckoutFailedEvent``
+   * - `ConnectionCheckoutFailedEvent <{+api+}/event/cmap/struct.ConnectionCheckoutFailedEvent.html>`__
      - Created when an operation cannot acquire a connection for
        execution.
 
-   * - ``ConnectionCheckedOutEvent``
+   * - `ConnectionCheckedOutEvent <{+api+}/event/cmap/struct.ConnectionCheckedOutEvent.html>`__
      - Created when an operation successfully acquires a connection for
        execution.
 
-   * - ``ConnectionCheckedInEvent``
+   * - `ConnectionCheckedInEvent <{+api+}/event/cmap/struct.ConnectionCheckedInEvent.html>`__
      - Created when a connection is checked back into the pool after an operation
        is executed.
 
@@ -260,7 +260,5 @@ To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `CmapEventHandler <{+api+}/event/cmap/trait.CmapEventHandler.html>`__
-- `handle_connection_created_event() <{+api+}/event/cmap/trait.CmapEventHandler.html#method.handle_connection_created_event>`__
-- `ConnectionCreatedEvent <{+api+}/event/cmap/struct.ConnectionCreatedEvent.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__
