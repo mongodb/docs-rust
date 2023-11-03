@@ -1,0 +1,86 @@
+.. _rust-delete-one-usage:
+
+=================
+Delete a Document
+=================
+
+You can delete a document from a collection by calling the `delete_one()
+<{+api+}/struct.Collection.html#method.delete_one>`__ method on a ``Collection``
+instance.
+
+Pass a query filter to the ``delete_one()`` method to delete a single document in the
+collection that matches the filter. If multiple documents match the query filter, this
+method deletes the first matching document according to their :term:`natural order` in
+the database or according to the sort order specified in a ``DeleteOptions`` instance.
+
+The ``delete_one()`` method returns a `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
+type. This type contains information about the delete operation, such as the total
+number of documents deleted.
+
+To learn more about delete operations, see the :ref:`rust-delete-guide` guide.
+
+Example
+-------
+
+This example deletes a document that matches a query filter from the ``restaurants``
+collection in the ``sample_restaurants`` database. The example uses a ``Restaurant`` struct
+that has ``_id`` and ``name`` fields to model the documents in the collection. 
+
+This example uses a query filter that matches the following document based on its ``_id``
+value:
+
+.. code-block:: json
+   :copyable: false
+   :emphasize-lines: 2
+
+    {
+        _id: ObjectId('5eb3d668b31de5d588f42bfc'),
+        name: "Sac's Pizza Place"
+    }
+.. note::
+
+   The {+driver-short+} automatically generates a unique ``ObjectId``
+   value for each document's ``_id`` field, so your ``ObjectId`` value
+   might differ from the preceding code example. For more information
+   about the ``_id`` field, see the :manual:`ObjectId </reference/method/ObjectId/>`
+   page in the Server manual.
+
+Select the **Asynchronous** or **Synchronous** tab to see the
+corresponding code for each runtime:
+
+.. tabs::
+
+   .. tab:: Asynchronous
+      :tabid: delete-many-async
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/delete-one-async.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            // Your values might differ
+            Deleted documents: 615
+
+   .. tab:: Synchronous
+      :tabid: delete-many-sync
+
+      .. io-code-block::
+         :copyable: true
+
+        .. input:: /includes/usage-examples/code-snippets/delete-one-sync.rs
+            :language: rust
+            :dedent:
+
+        .. output::
+            :language: console
+            :visible: false
+
+            // Your values might differ
+            Deleted documents: 615
+
