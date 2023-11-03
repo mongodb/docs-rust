@@ -32,7 +32,7 @@ fields to model the documents in the collection.
 
 The following code passes a query filter as a parameter to the
 ``find()`` method. The filter matches documents in which the value of
-the ``cuisine`` field is ``"French"``.
+the ``cuisine`` field is ``"French"``:
 
 .. tabs::
 
