@@ -4,23 +4,21 @@
 Insert Multiple Documents
 =========================
 
-You can insert multiple documents in a collection by calling the
+You can insert multiple documents into a collection by calling the
 `insert_many() <{+api+}/struct.Collection.html#method.insert_many>`__ method
 on a ``Collection`` instance.
 
-Pass a query filter to the ``insert_many()`` method to return documents in the
-collection that match the filter. If you do not include a filter, MongoDB returns
-all the documents in the collection.
+Pass a vector containing one or more documents to the ``insert_many()`` method
+to insert them into your collection. If you have only one document to insert,
+consider using the ``insert_one()`` method instead.
+
+The ``insert_many()`` method returns a ``Result<InsertManyResult>`` type from which
+you can access the ``_id`` values of the inserted documents.
 
 .. tip::
 
-   To learn more about retrieving documents,
-   see the :ref:`rust-retrieve-guide` guide, and to learn more about
-   creating query filters, see the :ref:`rust-query-guide` guide.
-
-The ``find()`` method returns a `Cursor <{+api+}/struct.Cursor.html>`__
-type, which you can iterate through to retrieve individual documents. To
-learn more about using cursors, see the :ref:`rust-cursor-guide` guide.
+   To learn more about inserting documents into a collection, see the
+   :ref:`rust-insert-guide` guide.
 
 Example
 -------
