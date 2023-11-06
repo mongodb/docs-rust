@@ -181,8 +181,8 @@ The following documents describe employees of a company:
      "bonus": 1800
    }
 
-This example performs an update operation with the
-``update_many()`` method. The method has the following parameters:
+This example performs an update operation with the ``update_many()`` method.
+The ``update_many()`` method takes the following parameters:
 
 - A query filter to match documents where the value of the
   ``department`` field is ``"Marketing"``
@@ -206,7 +206,7 @@ This example performs an update operation with the
       :language: console
       :visible: false
 
-      Modified 2 document(s)
+      Modified documents: 2
 
 The following shows the updated documents resulting from the preceding update operation:
 
@@ -245,8 +245,8 @@ The following document describes an employee of a company:
    }
 
 This example queries for the preceding document by specifying a query filter to match the
-document's unique ``"_id"`` value. Then, the code performs an update operation with the
-``update_one()`` method. The method has the following parameters:
+document's unique ``_id`` value. Then, the code performs an update operation with the
+``update_one()`` method. The ``update_one()`` method takes the following parameters:
 
 - A query filter that matches a document in which the value of the ``_id`` field is
   ``ObjectId('4274')``
@@ -266,7 +266,7 @@ document's unique ``"_id"`` value. Then, the code performs an update operation w
       :language: console
       :visible: false
 
-      Modified 1 document(s)
+      Modified documents: 1
 
 The following shows the updated document resulting from the preceding update operation:
 
@@ -280,12 +280,8 @@ The following shows the updated document resulting from the preceding update ope
      "role": "Consultant"
    }
 
-.. note::
+.. tip::
 
-   The {+driver-short+} automatically generates a unique ``ObjectId``
-   value for each document's ``_id`` field, so your ``ObjectId`` value
-   might differ from the preceding code example.
-   
    For more information about the ``_id`` field, see the :ref:`_id Field <rust-id>`
    section of this page or the :manual:`ObjectId </reference/method/ObjectId/>`
    page in the Server manual.
@@ -379,8 +375,8 @@ the preceding document with one that has the following fields:
       :language: console
       :visible: false
 
-      Matched 1 document(s)
-      Modified 1 document(s)
+      Matched documents: 1
+      Modified documents: 1
 
 The replaced document contains the contents of the replacement document
 and the immutable ``_id`` field:
