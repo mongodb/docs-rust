@@ -64,6 +64,8 @@ The {+driver-short+} provides the following methods to change documents:
 You can retrieve and modify data in one action by using compound
 operations. To learn more, see the guide on :ref:`rust-compound-operations`.
 
+.. _rust-id:
+
 The _id Field
 ~~~~~~~~~~~~~
 
@@ -225,6 +227,67 @@ The following shows the updated documents resulting from the preceding update op
      "role": "Analytics Specialist",
      "bonus": 2300
    }
+
+Update by ObjectId Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following document describes an employee of a company:
+
+.. code-block:: json
+   :copyable: false
+   :emphasize-lines: 2
+
+   {
+     "_id": ObjectId('52cdef7'),
+     "name": "Jill Millerton",
+     "department": "Marketing",
+     "role": "Consultant"
+   }
+
+This example queries for the preceding document by specifying a query filter to match the
+document's unique ``"_id"`` value. Then, the code performs an update operation with the
+``update_one()`` method. The method has the following parameters:
+
+- A query filter that matches a document in which the value of the ``_id`` field is ``52cdef7``
+
+- An update document that creates instructions to change the value of ``name`` from
+    ``"Jill Millerton"`` to ``"Jill Gillison"``
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/change.rs
+      :start-after: begin-update-by-id
+      :end-before: end-update-by-id
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Modified 1 document(s)
+
+The following shows the updated document resulting from the preceding update operation:
+
+.. code-block:: json
+   :copyable: false
+
+   {
+     "_id": ObjectId('52cdef7'),
+     "name": "Jill Gillison",
+     "department": "Marketing",
+     "role": "Consultant"
+   }
+
+.. note::
+
+   The {+driver-short+} automatically generates a unique ``ObjectId``
+   value for each document's ``_id`` field, so your ``ObjectId`` value
+   might differ from the preceding code example.
+   
+   For more information about the ``_id`` field, see the :ref:`_id field <rust-id>`
+   section of this page or the :manual:`ObjectId </reference/method/ObjectId/>`
+   page in the Server manual.
 
 .. _rust-replace-document:
 

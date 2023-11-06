@@ -1,5 +1,11 @@
 use bson::Document;
-use mongodb::{bson::doc, options::UpdateOptions, Client, Collection};
+use mongodb::{
+    bson::{doc, oid::ObjectId},
+    options::UpdateOptions,
+    Client,
+    Collection
+};
+use std::str::FromStr;
 use std::env;
 
 #[tokio::main]
@@ -21,6 +27,20 @@ async fn main() -> mongodb::error::Result<()> {
         .await?;
     println!("Modified {} document(s)", res.modified_count);
     // end-update
+
+    // begin-update-by-id
+    let id = ObjectId::from_str("52cdef7").expect("Could not convert to ObjectId");
+    let filter = doc! { "_id": id };
+
+    let update_doc = doc! {
+            "$set": doc!{ "name": "Jill Gillison"}
+    };
+
+    let res = my_coll
+        .update_one(filter, update_doc, None)
+        .await?;
+    println!("Modified {} document(s)", res.modified_count);
+    // end-update-by-id
 
     // begin-replace
     let replace_doc = doc! {
