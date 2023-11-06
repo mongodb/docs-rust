@@ -29,7 +29,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-update
 
     // begin-update-by-id
-    let id = ObjectId::from_str("52cdef7").expect("Could not convert to ObjectId");
+    let id = ObjectId::from_str("4274").expect("Could not convert to ObjectId");
     let filter = doc! { "_id": id };
 
     let update_doc = doc! {
@@ -43,6 +43,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-update-by-id
 
     // begin-replace
+    let filter = doc! { "_id": ObjectId::from_str("4501").expect("Could not convert to ObjectId") };
     let replace_doc = doc! {
         "name": "Susan Lee",
         "role": "Lead Consultant",
@@ -50,7 +51,7 @@ async fn main() -> mongodb::error::Result<()> {
     };
 
     let res = my_coll
-        .replace_one(doc! { "_id": 4501 }, replace_doc, None)
+        .replace_one(filter, replace_doc, None)
         .await?;
     println!(
         "Matched {} document(s)\nModified {} document(s)",

@@ -238,7 +238,7 @@ The following document describes an employee of a company:
    :emphasize-lines: 2
 
    {
-     "_id": ObjectId('52cdef7'),
+     "_id": ObjectId('4274'),
      "name": "Jill Millerton",
      "department": "Marketing",
      "role": "Consultant"
@@ -249,7 +249,7 @@ document's unique ``"_id"`` value. Then, the code performs an update operation w
 ``update_one()`` method. The method has the following parameters:
 
 - A query filter that matches a document in which the value of the ``_id`` field is
-  ``ObjectId('52cdef7')``
+  ``ObjectId('4274')``
 
 - An update document that creates instructions to change the value of ``name`` from
   ``"Jill Millerton"`` to ``"Jill Gillison"``
@@ -286,7 +286,7 @@ The following shows the updated document resulting from the preceding update ope
    value for each document's ``_id`` field, so your ``ObjectId`` value
    might differ from the preceding code example.
    
-   For more information about the ``_id`` field, see the :ref:`_id field <rust-id>`
+   For more information about the ``_id`` field, see the :ref:`_id Field <rust-id>`
    section of this page or the :manual:`ObjectId </reference/method/ObjectId/>`
    page in the Server manual.
 
@@ -354,7 +354,7 @@ The following document describes an employee of a company:
    :copyable: false
 
    {
-     "_id": 4501,
+     "_id": ObjectId('4501'),
      "name": "Matt DeGuy",
      "role": "Consultant",
      "team_members": [ "Jill Gillison", "Susan Lee" ]
@@ -389,7 +389,7 @@ and the immutable ``_id`` field:
    :copyable: false
 
    {
-     "_id": 4501,
+     "_id": ObjectId('4501'),
      "name": "Susan Lee",
      "role": "Lead Consultant",
      "team_members": [ "Jill Gillison" ]
