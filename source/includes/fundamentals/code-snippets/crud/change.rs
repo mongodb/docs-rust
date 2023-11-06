@@ -30,14 +30,14 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-update-by-id
     let id = ObjectId::from_str("4274").expect("Could not convert to ObjectId");
-    let filter = doc! { "_id": id };
+    let filter_doc = doc! { "_id": id };
 
     let update_doc = doc! {
             "$set": doc!{ "name": "Jill Gillison"}
     };
 
     let res = my_coll
-        .update_one(filter, update_doc, None)
+        .update_one(filter_doc, update_doc, None)
         .await?;
     println!("Modified documents: {}", res.modified_count);
     // end-update-by-id
