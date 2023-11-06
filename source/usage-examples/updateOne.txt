@@ -20,18 +20,18 @@ information about the result of the update operation, such as the
 number of modified documents.
 
 To learn more about the ``update_one()`` method, see the
-:ref:`rust-replace-document` section of the Modify Documents guide.
+:ref:`rust-change-guide` guide.
 
 Example
 -------
 
-This example replaces a document in the ``restaurants`` collection of
+This example updates a document in the ``restaurants`` collection of
 the ``sample_restaurants`` database. The example uses a ``Restaurant``
-struct that has ``name``, ``borough``, and ``cuisine`` fields to model
+struct that has ``name`` and ``cuisine`` fields to model
 documents in the collection.
 
-The following code replaces a document in which the value of the
-``name`` field is ``"Landmark Coffee Shop"`` with a new document.
+The following code adds the ``price`` field to a document in which the
+value of the ``name`` field is ``"Spice Market"``.
 
 Select the **Asynchronous** or **Synchronous** tab to see the
 corresponding code for each runtime:
@@ -39,12 +39,12 @@ corresponding code for each runtime:
 .. tabs::
 
    .. tab:: Asynchronous
-      :tabid: replace-async
+      :tabid: update-one-async
 
       .. io-code-block::
          :copyable: true
 
-        .. input:: /includes/usage-examples/code-snippets/replace-async.rs
+        .. input:: /includes/usage-examples/code-snippets/update-one-async.rs
             :language: rust
             :dedent:
 
@@ -53,15 +53,15 @@ corresponding code for each runtime:
             :visible: false
 
             Matched documents: 1
-            Replaced documents: 1
+            Updated documents: 1
 
    .. tab:: Synchronous
-      :tabid: replace-sync
+      :tabid: update-one-sync
 
       .. io-code-block::
          :copyable: true
 
-        .. input:: /includes/usage-examples/code-snippets/replace-sync.rs
+        .. input:: /includes/usage-examples/code-snippets/update-one-sync.rs
             :language: rust
             :dedent:
 
@@ -70,4 +70,4 @@ corresponding code for each runtime:
             :visible: false
 
             Matched documents: 1
-            Replaced documents: 1
+            Updated documents: 1
