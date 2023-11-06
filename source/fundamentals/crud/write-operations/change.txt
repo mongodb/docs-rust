@@ -248,10 +248,11 @@ This example queries for the preceding document by specifying a query filter to 
 document's unique ``"_id"`` value. Then, the code performs an update operation with the
 ``update_one()`` method. The method has the following parameters:
 
-- A query filter that matches a document in which the value of the ``_id`` field is ``52cdef7``
+- A query filter that matches a document in which the value of the ``_id`` field is
+  ``ObjectId('52cdef7')``
 
 - An update document that creates instructions to change the value of ``name`` from
-    ``"Jill Millerton"`` to ``"Jill Gillison"``
+  ``"Jill Millerton"`` to ``"Jill Gillison"``
 
 .. io-code-block::
 
