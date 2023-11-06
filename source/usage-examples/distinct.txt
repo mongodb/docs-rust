@@ -4,7 +4,7 @@
 List Distinct Field Values
 ==========================
 
-You can list the distinct values of a document field by calling the
+You can list the distinct field values of a document by calling the
 `distinct() <{+api+}/struct.Collection.html#method.distinct>`__ method
 on a ``Collection`` instance.
 
