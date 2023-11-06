@@ -9,9 +9,9 @@ You can delete a document from a collection by calling the `delete_one()
 instance.
 
 Pass a query filter to the ``delete_one()`` method to delete a single document in the
-collection that matches the filter. If multiple documents match the query filter, this
-method deletes the first matching document according to their :term:`natural order` in
-the database or according to the sort order specified in a `DeleteOptions <{+api+}/options/struct.DeleteOptions.html>`__
+collection that matches the filter. If multiple documents match the query filter, MongoDB
+deletes the first matching document according to their :term:`natural order` in the
+database or according to the sort order specified in a `DeleteOptions <{+api+}/options/struct.DeleteOptions.html>`__
 instance.
 
 The ``delete_one()`` method returns a `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
