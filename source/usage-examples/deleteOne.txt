@@ -25,29 +25,15 @@ Example
 
 This example deletes a document that matches a query filter from the ``restaurants``
 collection in the ``sample_restaurants`` database. The example uses a ``Restaurant`` struct
-that has ``_id`` and ``name`` fields to model the documents in the collection. 
+that has ``name`` and ``borough`` fields to model the documents in the collection. 
 
-This example uses a query filter that matches the following document based on its ``_id``
-value:
+This example uses a query filter that matches documents in which the value of the
+``name`` field is ``"Haagen-Dazs"`` and the borough field is ``"Brooklyn"``. This query
+filter matches several documents, so the ``delete_one()`` method deletes the first matching
+document.
 
-.. code-block:: json
-   :copyable: false
-   :emphasize-lines: 2
-
-    {
-        _id: ObjectId('5eb3d668b31de5d588f42bfc'),
-        name: "Sac's Pizza Place"
-    }
-.. note::
-
-   The {+driver-short+} automatically generates a unique ``ObjectId``
-   value for each document's ``_id`` field, so your ``ObjectId`` value
-   might differ from the preceding code example. For more information
-   about the ``_id`` field, see the :manual:`ObjectId </reference/method/ObjectId/>`
-   page in the Server manual.
-
-Select the **Asynchronous** or **Synchronous** tab to see the
-corresponding code for each runtime:
+Select the **Asynchronous** or **Synchronous** tab to see the corresponding code for
+each runtime:
 
 .. tabs::
 

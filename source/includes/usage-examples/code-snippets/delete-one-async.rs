@@ -1,15 +1,14 @@
 use mongodb::{ 
-    bson::{doc, oid::ObjectId},
+    bson::doc,
     Client,
     Collection 
 };
-use std::str::FromStr;
 use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Restaurant {
-    _id: ObjectId,
     name: String,
+    borough: String,
 }
 
 #[tokio::main]
@@ -21,8 +20,12 @@ async fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let id = ObjectId::from_str("5eb3d668b31de5d588f42bfc").expect("Could not convert to ObjectID");
-    let filter = doc! { "_id": id };
+    let filter =
+        doc! { "$and": [
+           doc! { "name": "Haagen-Dazs" },
+           doc! { "borough": "Brooklyn" }
+       ]
+    };
 
     let result = my_coll.delete_one(filter, None).await?;
 
