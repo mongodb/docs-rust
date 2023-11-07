@@ -8,8 +8,7 @@ You can update multiple documents in a collection by calling the `update_many()
 <{+api+}/struct.Collection.html#method.update_many>`__ method on a
 ``Collection`` instance.
 
-Pass the following parameters to the ``update_many()`` method to update
-a document:
+Pass the following parameters to the ``update_many()`` method:
 
 - Query filter, which specifies the criteria to match
 - Update document, which specifies the updates to make to all matching
@@ -17,19 +16,17 @@ a document:
 
 The ``update_many()`` method returns an `UpdateResult
 <{+api+}/results/struct.UpdateResult.html>`__ type that contains
-information about the result of the update operation, such as the
+information about the results of the update operation, such as the
 number of modified documents.
 
 To learn more about the ``update_many()`` method, see the
-:ref:`rust-change-guide` guide.
+:ref:`rust-update-documents` section of the Modify Documents guide.
 
 Example
 -------
 
 This example updates a document in the ``restaurants`` collection of
-the ``sample_restaurants`` database. The example uses a ``Restaurant``
-struct that has ``borough`` and ``address`` fields to model the
-documents in the collection.
+the ``sample_restaurants`` database.
 
 The following code adds the ``near_me`` field to documents in which the
 value of the ``address.street`` field is ``"Sullivan Street"`` and the

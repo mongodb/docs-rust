@@ -8,8 +8,7 @@ You can replace a document in a collection by calling the `replace_one()
 <{+api+}/struct.Collection.html#method.replace_one>`__ method on a
 ``Collection`` instance.
 
-Pass the following parameters to the ``replace_one()`` method to update
-a document:
+Pass the following parameters to the ``replace_one()`` method:
 
 - Query filter, which specifies the criteria to match
 - Replacement document, which contains the fields and values that will
@@ -17,7 +16,7 @@ a document:
 
 The ``replace_one()`` method returns an `UpdateResult
 <{+api+}/results/struct.UpdateResult.html>`__ type that contains
-information about the result of the replace operation, such as the
+information about the results of the replace operation, such as the
 number of modified documents.
 
 To learn more about the ``replace_one()`` method, see the

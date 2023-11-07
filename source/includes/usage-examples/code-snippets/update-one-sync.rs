@@ -1,19 +1,12 @@
 use std::env;
 use mongodb::{ bson::doc, sync::{ Client, Collection } };
-use serde::{ Deserialize, Serialize };
-
-#[derive(Serialize, Deserialize, Debug)]
-struct Restaurant {
-    borough: String,
-    cuisine: String,
-    name: String,
-}
+use bson::Document;
 
 fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
 
     let client = Client::with_uri_str(uri)?;
-    let my_coll: Collection<Restaurant> = client
+    let my_coll: Collection<Document> = client
         .database("sample_restaurants")
         .collection("restaurants");
 
@@ -21,11 +14,7 @@ fn main() -> mongodb::error::Result<()> {
     let update = doc! { "$set": doc! {"price": "$$$"} };
 
     let res = my_coll.update_one(filter, update, None)?;
-    println!(
-        "Matched documents: {}\nUpdated documents: {}",
-        res.matched_count,
-        res.modified_count
-    );
+    println!("Matched documents: {}\nUpdated documents: {}", res.matched_count, res.modified_count);
 
     Ok(())
 }

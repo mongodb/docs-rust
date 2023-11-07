@@ -13,7 +13,7 @@ the first matching document according to their :term:`natural order` in the data
 according to the sort order specified in a ``FindOneOptions`` instance.
 
 The ``find_one()`` method returns an `Option<T> <https://doc.rust-lang.org/nightly/core/option/enum.Option.html>`__
-type, where ``<T>`` is the type with which you parameterized your ``Collection``
+type, where ``T`` is the type with which you parameterized your ``Collection``
 instance.
 
 To learn more about retrieving documents, see the :ref:`rust-retrieve-guide` guide.
