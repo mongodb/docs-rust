@@ -29,7 +29,8 @@ This example updates a document in the ``restaurants`` collection of
 the ``sample_restaurants`` database.
 
 The following code adds the ``price`` field to a document in which the
-value of the ``name`` field is ``"Spice Market"``.
+value of the ``name`` field is ``"Spice Market"``. MongoDB
+updates the first document that matches the query filter.
 
 Select the :guilabel:`Asynchronous` or :guilabel:`Synchronous` tab to
 see the corresponding code for each runtime:
