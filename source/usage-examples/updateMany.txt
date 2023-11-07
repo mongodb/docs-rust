@@ -52,7 +52,6 @@ see the corresponding code for each runtime:
             :visible: false
 
             // Your values might differ
-            Matched documents: 22
             Updated documents: 22
 
    .. tab:: Synchronous
@@ -70,5 +69,4 @@ see the corresponding code for each runtime:
             :visible: false
 
             // Your values might differ
-            Matched documents: 22
             Updated documents: 22

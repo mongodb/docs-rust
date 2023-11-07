@@ -19,7 +19,7 @@ async fn main() -> mongodb::error::Result<()> {
     let update = doc! { "$set": doc! { "near_me": true } };
 
     let res = my_coll.update_many(filter, update, None).await?;
-    println!("Matched documents: {}\nUpdated documents: {}", res.matched_count, res.modified_count);
+    println!("Updated documents: {}", res.modified_count);
 
     Ok(())
 }

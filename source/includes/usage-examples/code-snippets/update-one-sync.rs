@@ -14,7 +14,7 @@ fn main() -> mongodb::error::Result<()> {
     let update = doc! { "$set": doc! {"price": "$$$"} };
 
     let res = my_coll.update_one(filter, update, None)?;
-    println!("Matched documents: {}\nUpdated documents: {}", res.matched_count, res.modified_count);
+    println!("Updated documents: {}", res.modified_count);
 
     Ok(())
 }

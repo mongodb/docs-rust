@@ -51,7 +51,6 @@ see the corresponding code for each runtime:
             :language: console
             :visible: false
 
-            Matched documents: 1
             Updated documents: 1
 
    .. tab:: Synchronous
@@ -68,5 +67,4 @@ see the corresponding code for each runtime:
             :language: console
             :visible: false
 
-            Matched documents: 1
             Updated documents: 1
