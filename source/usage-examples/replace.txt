@@ -13,7 +13,7 @@ a document:
 
 - Query filter, which specifies the criteria to match
 - Replacement document, which contains the fields and values that will
-  replace an existing document
+  replace the first matched document
 
 The ``replace_one()`` method returns an `UpdateResult
 <{+api+}/results/struct.UpdateResult.html>`__ type that contains

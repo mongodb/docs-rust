@@ -12,7 +12,8 @@ Pass the following parameters to the ``update_one()`` method to update
 a document:
 
 - Query filter, which specifies the criteria to match
-- Update document, which specifies the updates to make to a document
+- Update document, which specifies the updates to make to the first
+  matched document
 
 The ``update_one()`` method returns an `UpdateResult
 <{+api+}/results/struct.UpdateResult.html>`__ type that contains
