@@ -22,15 +22,19 @@ async fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let filter = doc! { "address.street": "Sullivan Street", "borough": "Manhattan" };
+    let filter =
+        doc! { 
+            "address.street": "Sullivan Street", 
+            "borough": "Manhattan" 
+        };
     let update = doc! { "$set": doc! { "near_me": true } };
 
     let res = my_coll.update_many(filter, update, None).await?;
     println!(
-        "Matched documents: {}\nUpdated documents: {}",
-        res.matched_count,
+        "Matched documents: {}\nUpdated documents: {}", 
+        res.matched_count, 
         res.modified_count
     );
-
+    
     Ok(())
 }
