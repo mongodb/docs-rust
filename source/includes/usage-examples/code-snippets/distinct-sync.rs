@@ -10,11 +10,13 @@ fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let ct = my_coll.estimated_document_count(None)?;
-    println!("Number of documents: {}", ct);
+    let filter = doc! { "cuisine": "Turkish" };
+    let boroughs = my_coll.distinct("borough", filter, None)?;
 
-    let ct = my_coll.count_documents(doc! { "name": doc! { "$regex": "Sunset" } }, None)?;
-    println!("Number of matching documents: {}", ct);
+    println!("List of field values for 'borough':");
+    for b in boroughs.iter() {
+        println!("{:?}", b);
+    }
 
     Ok(())
 }
