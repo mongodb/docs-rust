@@ -8,15 +8,15 @@ You can delete a document from a collection by calling the `delete_one()
 <{+api+}/struct.Collection.html#method.delete_one>`__ method on a ``Collection``
 instance.
 
-Pass a query filter to the ``delete_one()`` method to delete a single document in the
-collection that matches the filter. If multiple documents match the query filter, MongoDB
+Pass a query filter to the ``delete_one()`` method to match the document you want to
+delete from the collection. If multiple documents match the query filter, MongoDB
 deletes the first matching document according to their :term:`natural order` in the
 database or according to the sort order specified in a `DeleteOptions <{+api+}/options/struct.DeleteOptions.html>`__
 instance.
 
 The ``delete_one()`` method returns a `DeleteResult <{+api+}/results/struct.DeleteResult.html>`__
-type. This type contains information about the delete operation, such as the total
-number of documents deleted.
+type. This type contains information about the result of the delete operation, such as
+the total number of documents deleted.
 
 To learn more about delete operations, see the :ref:`rust-delete-guide` guide.
 
@@ -28,8 +28,8 @@ collection in the ``sample_restaurants`` database. The example uses a ``Restaura
 that has ``name`` and ``borough`` fields to model the documents in the collection. 
 
 This example uses a query filter that matches documents in which the value of the
-``name`` field is ``"Haagen-Dazs"`` and the ``borough`` field is ``"Brooklyn"``. This query
-filter matches several documents, so MongoDB deletes the first matching document.
+``name`` field is ``"Haagen-Dazs"`` and the ``borough`` field is ``"Brooklyn"``. MongoDB
+deletes the first of several results that match the query filter.
 
 Select the **Asynchronous** or **Synchronous** tab to see the corresponding code for
 each runtime:
