@@ -1,5 +1,6 @@
 use std::env;
 use mongodb::{ bson::doc, Client, Collection };
+use bson::Document;
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {

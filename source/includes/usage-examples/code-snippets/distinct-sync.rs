@@ -1,5 +1,6 @@
 use std::env;
 use mongodb::{ bson::doc, sync::{ Client, Collection } };
+use bson::Document;
 
 fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
