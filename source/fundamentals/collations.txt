@@ -140,11 +140,11 @@ This example specifies a ``Collation`` instance and sets the collation locale to
 You must use the ``locale()`` function to build the ``Collation`` instance, but all other
 builder functions are optional.
 
-.. code-block:: rust
-
-   let collation = Collation::builder()
-        .locale("en_US")
-        .build();
+.. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
+   :language: rust
+   :dedent:
+   :start-after: start-collation
+   :end-before: end-collation
 
 Set a Collation on a Collection
 -------------------------------
@@ -164,18 +164,11 @@ according to the ``"fr"`` locale conventions. The ``strength()`` collation build
 function receives a value of ``CollationStrength::Primary`` to ignore differences in
 diacritics.
 
-.. code-block:: rust
-
-    let collation = Collation::builder()
-        .locale("fr")
-        .strength(CollationStrength::Primary)
-        .build();
-
-    let opts = CreateCollectionOptions::builder()
-        .collation(collation)
-        .build();
-    
-    let result = my_db.create_collection("books", opts).await?;
+.. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
+   :language: rust
+   :dedent:
+   :start-after: start-create-collection
+   :end-before: end-create-collection
 
 Use the Default Collation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -204,15 +197,11 @@ of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
 .. io-code-block::
    :copyable: true
 
-   .. input::
+   .. input:: /includes/fundamentals/code-snippets/collation.rs
       :language: rust
-
-      let query = doc! { "name": doc! { "$lt": "Infinite Jest" } };
-      let mut cursor = my_coll.find(query, None).await?;
-      
-      while let Some(doc) = cursor.try_next().await? {
-         println!("{}", doc);
-      }
+      :dedent:
+      :start-after: start-default-query
+      :end-before: end-default-query
 
    .. output::
       :language: none
@@ -262,25 +251,11 @@ The following example uses the ``create_index()`` method to create an ascending 
 .. io-code-block::
    :copyable: true
 
-   .. input::
-      :language: go
-
-      let collation = Collation::builder()
-         .locale("en_US")
-         .build();
-
-      let index_opts = IndexOptions::builder()
-         .collation(collation)
-         .build();
-      
-      let index = IndexModel::builder()
-         .keys(doc! { "name": 1 })
-         .options(index_opts)
-         .build();
-      
-      let result = my_coll.create_index(index, None).await?;
-
-      println!("Created index: {}", result.index_name);
+   .. input:: /includes/fundamentals/code-snippets/collation.rs
+      :language: rust
+      :dedent:
+      :start-after: start-index
+      :end-before: end-index
 
    .. output::
       :language: none
@@ -317,24 +292,11 @@ This example performs the following actions:
 .. io-code-block::
    :copyable: true
 
-   .. input::
-      :language: go
-
-      let collation = Collation::builder()
-         .locale("en_US")
-         .numeric_ordering(true)
-         .build();
-
-      let opts = FindOptions::builder()
-         .collation(collation)
-         .build();
-      
-      let filter = doc! { "length": doc! { "$gt": "1000" } };
-      let mut cursor = my_coll.find(filter, opts).await?;
-
-      while let Some(result) = cursor.try_next().await? {
-         println!("{}", result);
-      };
+   .. input:: /includes/fundamentals/code-snippets/collation.rs
+      :language: rust
+      :dedent:
+      :start-after: start-op-collation
+      :end-before: end-op-collation
 
    .. output::
       :language: none
@@ -379,5 +341,5 @@ following API documentation:
 - `IndexOptions <{+api+}/options/struct.IndexOptions.html>`__
 - `IndexModel <{+api+}/struct.IndexModel.html>`__
 - `find() <{+api+}/struct.Collection.html#method.find>`__
-- `FindOptions <{+api+}/struct.FindOptions.html>`__
+- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
 
