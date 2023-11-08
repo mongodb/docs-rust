@@ -79,8 +79,9 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Description
 
    * - ``locale()``
-     - | For a full list of supported locales, see :manual:`Supported Languages and Locales
-       | </reference/collation-locales-defaults/#supported-languages-and-locales>` in the Server manual.
+     - | For a full list of supported locales, see
+       | :manual:`Supported Languages and Locales </reference/collation-locales-defaults/#supported-languages-and-locales>`
+       | in the Server manual.
      - Specifies the ICU locale
        
    * - ``strength()``
