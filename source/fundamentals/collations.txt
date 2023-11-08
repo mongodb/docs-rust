@@ -84,46 +84,57 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Specifies the ICU locale.
        
    * - ``strength()``
-     - ``CollationStrength::Primary``, ``CollationStrength::Secondary``, ``CollationStrength::Tertiary``,
-       ``CollationStrength::Quaternary``, and ``CollationStrength::Identical``
+     - ``CollationStrength::Primary`` 
+       ``CollationStrength::Secondary``
+       ``CollationStrength::Tertiary``
+       ``CollationStrength::Quaternary``
+       ``CollationStrength::Identical``
      - Specifies the level of comparison to perform
 
    * - ``case_level()``
-     - ``true`` or ``false``
+     - ``true``
+       ``false``
      - Specifies whether the driver performs case comparison
 
    * - ``case_first()``
-     - ``CollationCaseFirst::Upper``, ``CollationCaseFirst::Lower``, and ``CollationCaseFirst::Off``
+     - ``CollationCaseFirst::Upper``
+       ``CollationCaseFirst::Lower``
+       ``CollationCaseFirst::Off``
      - Specifies the sort order of case differences during tertiary level comparisons
 
    * - ``numeric_ordering()``
-     - ``true`` or ``false``
+     - ``true``
+       ``false``
      - Specifies whether the driver compares numeric strings as numbers
 
    * - ``alternate()``
-     - ``CollationAlternate::NonIgnorable`` and ``CollationAlternate::Shifted``
+     - ``CollationAlternate::NonIgnorable``
+       ``CollationAlternate::Shifted``
      - Specifies whether the driver considers whitespace and punctuation as base characters
        during string comparison
 
    * - ``max_variable()``
-     - ``CollationMaxVariable::Punct`` and ``CollationMaxVariable::Space``
+     - ``CollationMaxVariable::Punct``
+       ``CollationMaxVariable::Space``
      - Specifies which characters the driver ignores when ``alternate`` is set to
        ``CollationAlternate::Shifted``
 
    * - ``normalization()``
-     - ``true`` or ``false``
+     - ``true``
+       ``false``
      - Specifies whether the driver performs text normalization for string values
 
    * - ``backwards()``
-     - ``true`` or ``false``
+     - ``true``
+       ``false``
      - Specifies whether the driver sorts strings containing diacritics in reverse character order
 
-Build a Collation Example
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Example
+~~~~~~~
 
-The following example specifies a ``Collation`` instance and sets the collation locale
-to ``"en_US"``. You must use the ``locale()`` function to build the ``Collation`` instance,
-but all other builder functions are optional.
+This example specifies a ``Collation`` instance and sets the collation locale to ``"en_US"``.
+You must use the ``locale()`` function to build the ``Collation`` instance, but all other
+builder functions are optional.
 
 .. code-block:: rust
 
@@ -144,10 +155,10 @@ method with your options instance as an argument.
 Create a Collection Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following example creates a collection called ``books`` and specifies a default
-collation according to the ``"fr"`` locale conventions. The ``strength()`` collation
-builder function receives a value of ``CollationStrength::Primary`` to ignore differences
-in diacritics.
+This example creates a collection called ``books`` and specifies a default collation
+according to the ``"fr"`` locale conventions. The ``strength()`` collation builder
+function receives a value of ``CollationStrength::Primary`` to ignore differences in
+diacritics.
 
 .. code-block:: rust
 
@@ -160,27 +171,28 @@ in diacritics.
         .collation(collation)
         .build();
     
-    let result = my_db.create_collection("books", opts);
+    let result = my_db.create_collection("books", opts).await?;
 
 Use the Default Collation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you run an operation that uses a collation on the ``books`` collection, the operation
+If you run an operation that supports collations on the ``books`` collection, the operation
 uses the default collation specified in the :ref:`rust-create-collection`.
 
 Assume the ``books`` collection contains the following documents:
 
 .. code-block:: json
 
-   {"name" : "Emma", "length" : "474"}
-   {"name" : "Les Misérables", "length": "1462"}
-   {"name" : "Infinite Jest", "length" : "1104"}
-   {"name" : "Cryptonomicon", "length" : "918"}
-   {"name" : "Ça", "length" : "1138"}
+   { "name" : "Emma", "length" : "474" }
+   { "name" : "Les Misérables", "length": "1462" }
+   { "name" : "Infinite Jest", "length" : "1104" }
+   { "name" : "Cryptonomicon", "length" : "918" }
+   { "name" : "Ça", "length" : "1138" }
 
 .. note::
 
-   To learn how to insert documents into a collection, see :ref:`rust-insert-guide`.
+   To learn how to insert documents into a collection, see the :ref:`rust-insert-guide`
+   guide.
    
 The following example uses the ``find()`` method to return all documents in which the value
 of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
@@ -195,16 +207,17 @@ of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
       let mut cursor = my_coll.find(query, None).await?;
       
       while let Some(doc) = cursor.try_next().await? {
-         println!("{:?}", doc);
+         println!("{}", doc);
       }
 
    .. output::
       :language: none
       :visible: false
 
-      { "name": "Ça", "length": 1138 }
-      { "name": "Cryptonomicon", "length": 918}
       { "name": "Emma", "length": 474 }
+      { "name": "Cryptonomicon", "length": 918 }
+      { "name" : "Ça", "length" : "1138" }
+      
 
 If you don't specify a default collation for the ``books`` collection, the ``find()`` method
 follows default binary collation rules to determine the ``name`` values that precede
@@ -215,8 +228,8 @@ documents:
 .. code-block:: json
    :copyable: false
 
-   { "name": "Cryptonomicon", "length": 918}
-   { "name": "Emma", "length": 474 }
+      { "name": "Emma", "length": 474 }
+      { "name": "Cryptonomicon", "length": 918 }
 
 .. _rust-index-collation:
 
@@ -261,9 +274,9 @@ The following example uses the ``create_index()`` method to create an ascending 
          .options(index_opts)
          .build();
       
-      let res = my_coll.create_index(index, None)?;
+      let result = my_coll.create_index(index, None).await?;
 
-      println!("Created index: {}", res.index_name);
+      println!("Created index: {}", result.index_name);
 
    .. output::
       :language: none
@@ -289,13 +302,13 @@ in the Server manual.
 Example
 ~~~~~~~
 
-You can use operations that support collation to update and query for documents in the 
-``books`` collection. 
+This example performs the following actions:
 
-The following example uses the ``find()`` method to return documents in which the value of
-the ``length`` field is greater than ``"1000"``. The ``numeric_ordering()`` collation builder
-function receives a value of ``true``, which ensures that values are sorted in numerical order
-rather than alphabetical order:
+- Sets the ``numeric_ordering`` collation option to ``true``, which ensures that values are sorted in
+  numerical order rather than alphabetical order
+- Specifies a collation in a ``FindOptions`` instance, which overrides the collection's default collation
+- Uses the ``find()`` method to return documents in which the value of the ``length`` field is greater
+  than ``"1000"``
 
 .. io-code-block::
    :copyable: true
@@ -313,19 +326,19 @@ rather than alphabetical order:
          .build();
       
       let filter = doc! { "length": doc! { "$gt": "1000" } };
-      let mut cursor = my_coll.find(filter, opts)?;
+      let mut cursor = my_coll.find(filter, opts).await?;
 
-      for result in cursor {
-         println!("{}", result?);
-      }
+      while let Some(result) = cursor.try_next().await? {
+         println!("{}", result);
+      };
 
    .. output::
       :language: none
       :visible: false
 
-      {"name" : "Infinite Jest", "length" : "1104"}
-      {"name" : "Ça", "length" : "1138"}
       {"name" : "Les Misérables", "length": "1462"}
+      {"name" : "Infinite Jest", "length" : "1104"}
+      {"name" : "Ça", "length" : "1138"
    
 If you run the preceding find operation without setting the ``numeric_ordering`` option to ``true``,
 the driver compares ``length`` values as strings. Then, the code returns the following documents:
@@ -333,8 +346,11 @@ the driver compares ``length`` values as strings. Then, the code returns the fol
 .. code-block:: json
    :copyable: false
    
-   { "name": "Cryptonomicon", "length": 918}
-   { "name": "Emma", "length": 474 }
+   {"name" : "Emma", "length" : "474"}
+   {"name" : "Les Misérables", "length": "1462"}
+   {"name" : "Infinite Jest", "length" : "1104"}
+   {"name" : "Cryptonomicon", "length" : "918"}
+   {"name" : "Ça", "length" : "1138"}
 
 Additional Information
 ----------------------
@@ -349,12 +365,15 @@ To learn more about collations, see the following Server manual pages:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the types and methods mentioned in this guide, see the following
-API documentation:
+To learn more about any of the methods or types discussed in this guide, see the
+following API documentation:
 
-- `Collation <{+api+}/mongo/options#Collation>`__
-- `CreateCollectionOptions <{+api+}/mongo/options#CreateCollectionOptions>`__
-- `IndexModel <{+api+}/mongo#IndexModel>`__
-- `CreateOne() <{+api+}/mongo#IndexView.CreateOne>`__
-- `IndexOptions <{+api+}/mongo/options#IndexOptions>`__
-- `UpdateOptions <{+api+}/mongo/options#UpdateOptions>`__
+- `Collation <{+api+}/options/struct.Collation.html>`__
+- `create_collection() <{+api+}/struct.Database.html#method.create_collection>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `create_index() <{+api+}/struct.Collection.html#method.create_index>`__
+- `IndexOptions <{+api+}/options/struct.IndexOptions.html>`__
+- `IndexModel <{+api+}/struct.IndexModel.html>`__
+- `find() <{+api+}/struct.Collection.html#method.find>`__
+- `FindOptions <{+api+}/struct.FindOptions.html>`__
+
