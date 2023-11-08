@@ -78,56 +78,60 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Possible Values 
      - Description
 
-   * - ``locale()``
+   * - | ``locale()``
      - For a full list of supported locales, see :manual:`Supported Languages and Locales
        </reference/collation-locales-defaults/#supported-languages-and-locales>` in the Server manual.
-     - Specifies the ICU locale.
+     - | Specifies the ICU locale.
        
-   * - ``strength()``
+   * - | ``strength()``
      - ``CollationStrength::Primary`` 
        ``CollationStrength::Secondary``
        ``CollationStrength::Tertiary``
        ``CollationStrength::Quaternary``
        ``CollationStrength::Identical``
-     - Specifies the level of comparison to perform
+     - | Specifies the level of comparison to perform
 
-   * - ``case_level()``
+   * - | ``case_level()``
      - ``true``
+       
        ``false``
-     - Specifies whether the driver performs case comparison
+     - | Specifies whether the driver performs case comparison
 
-   * - ``case_first()``
+   * - | ``case_first()``
      - ``CollationCaseFirst::Upper``
        ``CollationCaseFirst::Lower``
        ``CollationCaseFirst::Off``
-     - Specifies the sort order of case differences during tertiary level comparisons
+     - | Specifies the sort order of case differences during tertiary level comparisons
 
-   * - ``numeric_ordering()``
+   * - | ``numeric_ordering()``
      - ``true``
+       
        ``false``
-     - Specifies whether the driver compares numeric strings as numbers
+     - | Specifies whether the driver compares numeric strings as numbers
 
-   * - ``alternate()``
+   * - | ``alternate()``
      - ``CollationAlternate::NonIgnorable``
        ``CollationAlternate::Shifted``
-     - Specifies whether the driver considers whitespace and punctuation as base characters
-       during string comparison
+     - | Specifies whether the driver considers whitespace and punctuation as base characters
+       | during string comparison
 
-   * - ``max_variable()``
+   * - | ``max_variable()``
      - ``CollationMaxVariable::Punct``
        ``CollationMaxVariable::Space``
-     - Specifies which characters the driver ignores when ``alternate`` is set to
-       ``CollationAlternate::Shifted``
+     - | Specifies which characters the driver ignores when ``alternate`` is set to
+       | ``CollationAlternate::Shifted``
 
-   * - ``normalization()``
+   * - | ``normalization()``
      - ``true``
+       
        ``false``
-     - Specifies whether the driver performs text normalization for string values
+     - | Specifies whether the driver performs text normalization for string values
 
-   * - ``backwards()``
+   * - | ``backwards()``
      - ``true``
+       
        ``false``
-     - Specifies whether the driver sorts strings containing diacritics in reverse character order
+     - | Specifies whether the driver sorts strings containing diacritics in reverse character order
 
 Example
 ~~~~~~~
@@ -246,7 +250,7 @@ specifying the collation covers the query.
    To learn more about indexes and covered queries, see the :ref:`rust-indexes` guide.
 
 Set the index collation by using the ``collation()`` function to build an ``IndexOptions`` instance.
-Then, pass your ``IndexOptions`` as an argument to an ``IndexModel`` instance, and pass your
+Then, pass your ``IndexOptions`` as an argument to an ``IndexModel`` builder function, and pass your
 ``IndexModel`` as an argument to the ``create_index()`` method.
 
 Example
@@ -293,9 +297,9 @@ Operations that read, update, and delete documents from a collection can use col
 Applying a collation to an operation overrides any default collation previously defined
 for a collection.
 
-If you apply a new collation to an operation that differs from an index's collation,
-you cannot use that index. As a result, the operation may not perform as well as one
-that is covered by an index. For more information on the disadvantages of sorting operations
+If you apply a collation to an operation that differs from an index's collation, you
+cannot use that index. As a result, the operation may not perform as well as one that
+is covered by an index. For more information on the disadvantages of sorting operations
 not covered by an index, see :manual:`Using Indexes to Sort Query Results </tutorial/sort-results-with-indexes/>`
 in the Server manual.
 
@@ -359,8 +363,8 @@ To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide` gu
 
 To learn more about collations, see the following Server manual pages:
 
-- :manual:`Collation </reference/collation/#collation-document>`
-- :manual:`Collation Locales and Default Parameters </reference/collation-locales-defaults/#supported-languages-and-locales>`
+- :manual:`Collation </reference/collation/>`
+- :manual:`Collation Locales and Default Parameters </reference/collation-locales-defaults/>`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
