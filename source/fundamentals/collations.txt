@@ -79,55 +79,73 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Description
 
    * - ``locale()``
+    
      - | For a full list of supported locales, see
        | :manual:`Supported Languages and Locales </reference/collation-locales-defaults/#supported-languages-and-locales>`
        | in the Server manual.
+
      - Specifies the ICU locale
        
    * - ``strength()``
+    
      - | ``CollationStrength::Primary``,
        | ``CollationStrength::Secondary``,
        | ``CollationStrength::Tertiary``,
        | ``CollationStrength::Quaternary``,
        | ``CollationStrength::Identical``
+
      - Specifies the level of comparison to perform
 
    * - ``case_level()``
+    
      - | ``true``,
        | ``false``
+
      - Specifies whether the driver performs case comparison
 
    * - ``case_first()``
+    
      - | ``CollationCaseFirst::Upper``,
        | ``CollationCaseFirst::Lower``,
        | ``CollationCaseFirst::Off``
+
      - Specifies the sort order of case differences during tertiary level comparisons
 
    * - ``numeric_ordering()``
+    
      - | ``true``,
        | ``false``
+
      - Specifies whether the driver compares numeric strings as numbers
 
    * - ``alternate()``
+    
      - | ``CollationAlternate::NonIgnorable``,
        | ``CollationAlternate::Shifted``
+
      - Specifies whether the driver considers whitespace and punctuation as base characters
        during string comparison
 
    * - ``max_variable()``
+    
      - | ``CollationMaxVariable::Punct``,
        | ``CollationMaxVariable::Space``
+
      - Specifies which characters the driver ignores when ``alternate`` is set to
        ``CollationAlternate::Shifted``
 
    * - ``normalization()``
+    
      - | ``true``,
        | ``false``
+
      - Specifies whether the driver performs text normalization for string values
 
    * - ``backwards()``
+    
      - | ``true``,
        | ``false``
+       
      - Specifies whether the driver sorts strings containing diacritics in reverse character order
 
 Example
