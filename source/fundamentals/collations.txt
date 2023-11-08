@@ -78,60 +78,56 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Possible Values 
      - Description
 
-   * - | ``locale()``
-     - For a full list of supported locales, see :manual:`Supported Languages and Locales
-       </reference/collation-locales-defaults/#supported-languages-and-locales>` in the Server manual.
-     - | Specifies the ICU locale.
+   * - ``locale()``
+     - | For a full list of supported locales, see :manual:`Supported Languages and Locales
+       | </reference/collation-locales-defaults/#supported-languages-and-locales>` in the Server manual.
+     - Specifies the ICU locale
        
-   * - | ``strength()``
-     - ``CollationStrength::Primary`` 
-       ``CollationStrength::Secondary``
-       ``CollationStrength::Tertiary``
-       ``CollationStrength::Quaternary``
-       ``CollationStrength::Identical``
-     - | Specifies the level of comparison to perform
+   * - ``strength()``
+     - | ``CollationStrength::Primary``,
+       | ``CollationStrength::Secondary``,
+       | ``CollationStrength::Tertiary``,
+       | ``CollationStrength::Quaternary``,
+       | ``CollationStrength::Identical``
+     - Specifies the level of comparison to perform
 
-   * - | ``case_level()``
-     - ``true``
-       
-       ``false``
-     - | Specifies whether the driver performs case comparison
+   * - ``case_level()``
+     - | ``true``,
+       | ``false``
+     - Specifies whether the driver performs case comparison
 
-   * - | ``case_first()``
-     - ``CollationCaseFirst::Upper``
-       ``CollationCaseFirst::Lower``
-       ``CollationCaseFirst::Off``
-     - | Specifies the sort order of case differences during tertiary level comparisons
+   * - ``case_first()``
+     - | ``CollationCaseFirst::Upper``,
+       | ``CollationCaseFirst::Lower``,
+       | ``CollationCaseFirst::Off``
+     - Specifies the sort order of case differences during tertiary level comparisons
 
-   * - | ``numeric_ordering()``
-     - ``true``
-       
-       ``false``
-     - | Specifies whether the driver compares numeric strings as numbers
+   * - ``numeric_ordering()``
+     - | ``true``,
+       | ``false``
+     - Specifies whether the driver compares numeric strings as numbers
 
-   * - | ``alternate()``
-     - ``CollationAlternate::NonIgnorable``
-       ``CollationAlternate::Shifted``
-     - | Specifies whether the driver considers whitespace and punctuation as base characters
-       | during string comparison
-
-   * - | ``max_variable()``
-     - ``CollationMaxVariable::Punct``
-       ``CollationMaxVariable::Space``
-     - | Specifies which characters the driver ignores when ``alternate`` is set to
+   * - ``alternate()``
+     - | ``CollationAlternate::NonIgnorable``,
        | ``CollationAlternate::Shifted``
+     - Specifies whether the driver considers whitespace and punctuation as base characters
+       during string comparison
 
-   * - | ``normalization()``
-     - ``true``
-       
-       ``false``
-     - | Specifies whether the driver performs text normalization for string values
+   * - ``max_variable()``
+     - | ``CollationMaxVariable::Punct``,
+       | ``CollationMaxVariable::Space``
+     - Specifies which characters the driver ignores when ``alternate`` is set to
+       ``CollationAlternate::Shifted``
 
-   * - | ``backwards()``
-     - ``true``
-       
-       ``false``
-     - | Specifies whether the driver sorts strings containing diacritics in reverse character order
+   * - ``normalization()``
+     - | ``true``,
+       | ``false``
+     - Specifies whether the driver performs text normalization for string values
+
+   * - ``backwards()``
+     - | ``true``,
+       | ``false``
+     - Specifies whether the driver sorts strings containing diacritics in reverse character order
 
 Example
 ~~~~~~~
@@ -302,9 +298,9 @@ This example performs the following actions:
       :language: none
       :visible: false
 
-      {"name" : "Les Misérables", "length": "1462"}
-      {"name" : "Infinite Jest", "length" : "1104"}
-      {"name" : "Ça", "length" : "1138"
+      { "name" : "Les Misérables", "length": "1462" }
+      { "name" : "Infinite Jest", "length" : "1104" }
+      { "name" : "Ça", "length" : "1138" }
    
 If you run the preceding find operation without setting the ``numeric_ordering`` option to ``true``,
 the driver compares ``length`` values as strings. Then, the code returns the following documents:
@@ -312,11 +308,11 @@ the driver compares ``length`` values as strings. Then, the code returns the fol
 .. code-block:: json
    :copyable: false
    
-   {"name" : "Emma", "length" : "474"}
-   {"name" : "Les Misérables", "length": "1462"}
-   {"name" : "Infinite Jest", "length" : "1104"}
-   {"name" : "Cryptonomicon", "length" : "918"}
-   {"name" : "Ça", "length" : "1138"}
+   { "name" : "Emma", "length" : "474" }
+   { "name" : "Les Misérables", "length": "1462" }
+   { "name" : "Infinite Jest", "length" : "1104" }
+   { "name" : "Cryptonomicon", "length" : "918" }
+   { "name" : "Ça", "length" : "1138" }
 
 Additional Information
 ----------------------
