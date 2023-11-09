@@ -13,10 +13,9 @@ Collations
 Overview
 --------
 
-In this guide, you can learn how to use **collations** to adjust how your query
-or aggregation operation compares string values and returns results. A collation
-is a set of character ordering conventions that apply to a specific language and
-locale.
+In this guide, you can learn how to use **collations** to order your query or
+aggregation operation results by string values. A collation is a set of character
+ordering conventions that apply to a specific language and locale.
 
 Collations in MongoDB
 ---------------------
@@ -145,7 +144,7 @@ Call the following ``Collation::builder()`` functions to specify the collation:
     
      - | ``true``,
        | ``false``
-       
+
      - Specifies whether the driver sorts strings containing diacritics in reverse character order
 
 Example
