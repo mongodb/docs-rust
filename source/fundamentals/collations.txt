@@ -327,7 +327,7 @@ To learn more about collations, see the following Server manual pages:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this guide, see the
+To learn more about any of the methods or types mentioned in this guide, see the
 following API documentation:
 
 - `Collation <{+api+}/options/struct.Collation.html>`__
