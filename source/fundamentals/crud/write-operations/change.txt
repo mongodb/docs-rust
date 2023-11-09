@@ -167,14 +167,14 @@ The following documents describe employees of a company:
    :copyable: false
 
    {
-     "_id": { ... },
+     "_id": ObjectId('4337'),
      "name": "Shelley Olson",
      "department": "Marketing",
      "role": "Director",
      "bonus": 3000
    },
    {
-     "_id": { ... },
+     "_id": ObjectId('4902'),
      "name": "Remi Ibrahim",
      "department": "Marketing",
      "role": "Consultant",
@@ -208,20 +208,20 @@ The ``update_many()`` method takes the following parameters:
 
       Modified documents: 2
 
-The following shows the updated documents resulting from the preceding update operation:
+The following documents reflect the changes resulting from the preceding update operation:
 
 .. code-block:: json
    :copyable: false
 
    {
-     "_id": { ... },
+     "_id": ObjectId('4337'),
      "name": "Shelley Olson",
      "department": "Business Operations",
      "role": "Analytics Specialist",
      "bonus": 3500
    },
    {
-     "_id": { ... },
+     "_id": ObjectId('4902'),
      "name": "Remi Ibrahim",
      "department": "Business Operations",
      "role": "Analytics Specialist",
@@ -248,11 +248,11 @@ This example queries for the preceding document by specifying a query filter to 
 document's unique ``_id`` value. Then, the code performs an update operation with the
 ``update_one()`` method. The ``update_one()`` method takes the following parameters:
 
-- A query filter that matches a document in which the value of the ``_id`` field is
+- Query filter that matches a document in which the value of the ``_id`` field is
   ``ObjectId('4274')``
 
-- An update document that creates instructions to change the value of ``name`` from
-  ``"Jill Millerton"`` to ``"Jill Gillison"``
+- Update document that creates instructions to set the value of ``name`` to
+  ``"Jill Gillison"``
 
 .. io-code-block::
 
@@ -268,7 +268,7 @@ document's unique ``_id`` value. Then, the code performs an update operation wit
 
       Modified documents: 1
 
-The following shows the updated document resulting from the preceding update operation:
+The following document reflects the changes resulting from the preceding update operation:
 
 .. code-block:: json
    :copyable: false
@@ -282,9 +282,9 @@ The following shows the updated document resulting from the preceding update ope
 
 .. tip::
 
-   For more information about the ``_id`` field, see the :ref:`_id Field <rust-id>`
-   section of this page or the :manual:`ObjectId </reference/method/ObjectId/>`
-   page in the Server manual.
+   To learn more about the ``_id`` field, see the :ref:`_id Field <rust-id>`
+   section of this page or the :manual:`ObjectId() </reference/method/ObjectId/>`
+   method documentation in the Server manual.
 
 .. _rust-replace-document:
 

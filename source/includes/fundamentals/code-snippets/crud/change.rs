@@ -17,9 +17,9 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-update
     let update_doc = doc! {
-            "$set": doc!{ "department": "Business Operations",
+            "$set": doc! { "department": "Business Operations",
                           "role": "Analytics Specialist" },
-            "$inc": doc!{ "bonus": 500 }
+            "$inc": doc! { "bonus": 500 }
     };
 
     let res = my_coll
@@ -33,7 +33,7 @@ async fn main() -> mongodb::error::Result<()> {
     let filter_doc = doc! { "_id": id };
 
     let update_doc = doc! {
-            "$set": doc!{ "name": "Jill Gillison"}
+            "$set": doc! { "name": "Jill Gillison" }
     };
 
     let res = my_coll
