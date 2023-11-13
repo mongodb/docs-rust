@@ -135,7 +135,8 @@ The following table describes the options available in
        | Type: ``WriteConcern``
 
    * - ``collation`` 
-     - | The collation to use when sorting results.
+     - | The collation to use when sorting results. To learn more about collations,
+         see the :ref:`rust-collations` guide.
        |
        | Type: ``Collation``
        | Default: ``None``
@@ -301,7 +302,8 @@ The following table describes the options available in
        | Type: ``WriteConcern``
 
    * - ``collation`` 
-     - | The collation to use when sorting results.
+     - | The collation to use when sorting results. To learn more about collations,
+         see the :ref:`rust-collations` guide.
        |
        | Type: ``Collation``
        | Default: ``None``
@@ -469,7 +471,8 @@ The following table describes the options available in
        | Type: ``WriteConcern``
 
    * - ``collation`` 
-     - | The collation to use when sorting results.
+     - | The collation to use when sorting results. To learn more about collations,
+         see the :ref:`rust-collations` guide.
        |
        | Type: ``Collation``
        | Default: ``None``
@@ -564,7 +567,7 @@ following documentation:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types discussed in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `find_one_and_delete() <{+api+}/struct.Collection.html#method.find_one_and_delete>`__

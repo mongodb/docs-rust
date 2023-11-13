@@ -107,6 +107,3 @@ Available Usage Examples
 - :ref:`Delete Multiple Documents <rust-delete-many-usage>`
 - :ref:`Count Documents <rust-count-usage>`
 - :ref:`List Distinct Field Values <rust-distinct-usage>`
-
-.. TODO: add Usage Example pages as they are created
-    - :ref:`Delete a Document <rust-delete-one-usage>`

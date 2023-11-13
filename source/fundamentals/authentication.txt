@@ -315,7 +315,7 @@ To learn more about managing users of your MongoDB deployment, see
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types discussed in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `Credential <{+api+}/options/struct.Credential.html>`__

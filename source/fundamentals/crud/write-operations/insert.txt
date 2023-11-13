@@ -318,13 +318,16 @@ still find the non-error-producing documents in your collection:
 Additional Information
 ----------------------
 
-.. TODO For runnable examples of the insert operations, see the following usage
-.. examples:
+For runnable examples of the insert operations, see the following usage
+examples:
+
+- :ref:`rust-insert-one-usage`
+- :ref:`rust-insert-many-usage`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
+To learn more about any of the methods or types mentioned in this
 guide, see the following API documentation:
 
 - `insert_one() <{+api+}/struct.Collection.html#method.insert_one>`__
