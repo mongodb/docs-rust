@@ -21,8 +21,8 @@ This guide includes the following sections:
 
 - :ref:`rust-mongodb-collations` describes how MongoDB sorts strings according
   to both the default collation and a custom collation
-- :ref:`rust-specify-collation` describes how to create a ``Collation`` instance with
-  builder functions 
+- :ref:`rust-specify-collation` describes how to create a ``Collation`` instance by
+  using functions 
 - :ref:`rust-collection-collation` describes how to set the collation for a
   new collection
 - :ref:`rust-index-collation` describes how to set the collation for an index
@@ -177,8 +177,8 @@ method with your options instance as a parameter.
 Create Collection with a Collation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example creates a collection called ``books`` and specifies a default collation
-according to the ``"fr"``, or French, locale conventions. The ``strength`` field is set to
+This example creates a collection called ``books`` and specifies a collation according
+to the ``"fr"``, or French, locale conventions. The ``strength`` field is set to
 ``CollationStrength::Primary`` to ignore differences in diacritics.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
@@ -280,8 +280,8 @@ Set a Collation on an Operation
 -------------------------------
 
 Operations that read, update, and delete documents from a collection can use collations.
-Applying a collation to an operation overrides any default collation previously defined
-for a collection.
+Applying a collation to an operation overrides any collation previously defined for a
+collection.
 
 If you apply a collation to an operation that differs from an index's collation, you
 cannot use that index. As a result, the operation may not perform as efficiently as one that
@@ -296,7 +296,7 @@ This example performs the following actions:
 
 - Sets the ``numeric_ordering`` collation option to ``true``, which ensures that values are sorted in
   numerical order rather than alphabetical order
-- Specifies a collation in a ``FindOptions`` instance, which overrides the collection's default collation
+- Specifies a collation in a ``FindOptions`` instance, which overrides the collection's collation
 - Uses the ``find()`` method to return documents in which the value of the ``length`` field is greater
   than ``"1000"``
 
