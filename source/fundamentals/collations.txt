@@ -23,9 +23,9 @@ This guide includes the following sections:
   to both the default collation and a custom collation
 - :ref:`rust-specify-collation` describes how to create a ``Collation`` instance with
   builder functions 
-- :ref:`rust-collection-collation` describes how to set the default collation for a
+- :ref:`rust-collection-collation` describes how to set the collation for a
   new collection
-- :ref:`rust-index-collation` describes how to set the default collation for an index
+- :ref:`rust-index-collation` describes how to set the collation for an index
 - :ref:`rust-op-collation` describes how to apply a collation to read, update, and
   delete operations
 - :ref:`rust-collation-addtl-info` provides links to resources and API documentation
