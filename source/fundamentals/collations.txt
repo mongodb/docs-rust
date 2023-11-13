@@ -128,8 +128,7 @@ are optional:
      - Specifies the sort order of case differences during tertiary level comparisons
 
    * - | ``numeric_ordering()``
-     - | ``true``,
-       | ``false``
+     - | ``true``, ``false``
      - | Specifies whether the driver compares numeric strings as numbers
 
    * - ``alternate()``
@@ -145,13 +144,11 @@ are optional:
        | ``CollationAlternate::Shifted``
 
    * - ``normalization()``
-     - ``true``,
-       ``false``
+     - ``true``, ``false``
      - Specifies whether the driver performs text normalization for string values
 
    * - | ``backwards()``
-     - | ``true``,
-       | ``false``
+     - | ``true``, ``false``
      - | Specifies whether the driver sorts strings containing diacritics in reverse character order
 
 Example
