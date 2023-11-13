@@ -13,12 +13,28 @@ Collations
 Overview
 --------
 
-In this guide, you can learn how to use **collations** to order your query or
+In this guide, you can learn how to use **collations** to order your find or
 aggregation operation results by string values. A collation is a set of character
 ordering conventions that apply to a specific language and locale.
 
-Collations in MongoDB
----------------------
+This guide includes the following sections:
+
+- :ref:`rust-mongodb-collations` describes how MongoDB sorts strings according
+  to both the default collation and a custom collation
+- :ref:`rust-specify-collation` describes how to create a ``Collation`` instance with
+  builder functions 
+- :ref:`rust-collection-collation` describes how to set the default collation for a
+  new collection
+- :ref:`rust-index-collation` describes how to set the default collation for an index
+- :ref:`rust-op-collation` describes how to apply a collation to read, update, and
+  delete operations
+- :ref:`rust-collation-addtl-info` provides links to resources and API documentation
+  for types and methods mentioned in this guide
+
+.. _rust-mongodb-collations:
+
+MongoDB Collations
+------------------
 
 MongoDB sorts strings using *binary collation* by default. This collation
 method uses the `ASCII standard <https://en.wikipedia.org/wiki/ASCII>`_
@@ -35,7 +51,7 @@ following Canadian French words:
 - côte
 - côté
 
-When using the default binary collation, MongoDB sorts them in the following order:
+When using the default binary collation, MongoDB sorts the words in the following order:
 
 .. code-block:: none
 
@@ -44,7 +60,10 @@ When using the default binary collation, MongoDB sorts them in the following ord
    côte
    côté
 
-When using the Canadian French collation, MongoDB sorts them in the following order:
+In this sort order, "coté" is placed before "côte" because the ASCII standard "o" character value
+is lower than the "ô" character value.
+
+When using the Canadian French collation, MongoDB sorts the words in the following order:
 
 .. code-block:: none
 
@@ -52,12 +71,17 @@ When using the Canadian French collation, MongoDB sorts them in the following or
    côte
    coté
    côté
+
+In this sort order, "coté" is placed after "côte" because Canadian French collation rules position
+the character "e" before the character "é".
+
+.. _rust-specify-collation:
 
 Specify a Collation
 -------------------
 
-You can define a collation by specifying your collation locale and related options
-in a ``Collation`` instance. To build the ``Collation`` instance, call the
+You can define a collation by specifying your collation locale and related options in a
+``Collation`` struct instance. To begin building a ``Collation`` instance, call the
 ``Collation::builder()`` method.
 
 .. note:: Instantiating Options
@@ -67,7 +91,9 @@ in a ``Collation`` instance. To build the ``Collation`` instance, call the
    use the ``builder()`` method to construct an instance of each type
    by chaining option builder functions one at a time.
 
-Call the following ``Collation::builder()`` functions to specify the collation:
+Call the following ``Collation::builder()`` functions to specify the collation. You must use
+the ``locale()`` function to build the ``Collation`` instance, but all other builder functions
+are optional:
 
 .. list-table::
    :widths: 1 1 2
@@ -77,7 +103,7 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Possible Values 
      - Description
 
-   * - | ``locale()``
+   * - | ``locale()`` *(Required)*
      - | For a full list of supported locales, see
        | :manual:`Supported Languages and Locales </reference/collation-locales-defaults/#supported-languages-and-locales>`
        | in the Server manual.
@@ -92,8 +118,7 @@ Call the following ``Collation::builder()`` functions to specify the collation:
      - Specifies the level of comparison to perform
 
    * - | ``case_level()``
-     - | ``true``,
-       | ``false``
+     - | ``true``, ``false``
      - | Specifies whether the driver performs case comparison
 
    * - ``case_first()``
@@ -132,9 +157,7 @@ Call the following ``Collation::builder()`` functions to specify the collation:
 Example
 ~~~~~~~
 
-This example specifies a ``Collation`` instance and sets the collation locale to ``"en_US"``.
-You must use the ``locale()`` function to build the ``Collation`` instance, but all other
-builder functions are optional.
+The following example specifies a ``Collation`` instance and sets the collation locale to ``"en_US"``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
    :language: rust
@@ -142,23 +165,24 @@ builder functions are optional.
    :start-after: start-collation
    :end-before: end-collation
 
+.. _rust-collection-collation:
+
 Set a Collation on a Collection
 -------------------------------
 
-When you create a new collection, you can define the default collation for future
-operations called on that collection. Set the default collation by using the ``collation()``
-function to build a ``CreateCollectionOptions`` instance. Then, call the ``create_collection()``
-method with your options instance as an argument.
+When you create a new collection, you can define the collation for future operations
+called on that collection. Set the collation by using the ``collation()`` function
+to build a ``CreateCollectionOptions`` instance. Then, call the ``create_collection()``
+method with your options instance as a parameter.
 
 .. _rust-create-collection:
 
-Create a Collection Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create Collection with a Collation Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This example creates a collection called ``books`` and specifies a default collation
-according to the ``"fr"`` locale conventions. The ``strength()`` collation builder
-function receives a value of ``CollationStrength::Primary`` to ignore differences in
-diacritics.
+according to the ``"fr"``, or French, locale conventions. The ``strength`` field is set to
+``CollationStrength::Primary`` to ignore differences in diacritics.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
    :language: rust
@@ -166,11 +190,11 @@ diacritics.
    :start-after: start-create-collection
    :end-before: end-create-collection
 
-Use the Default Collation Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Use the Collection's Collation Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you run an operation that supports collations on the ``books`` collection, the operation
-uses the default collation specified in the :ref:`rust-create-collection`.
+uses the collation specified in the preceding :ref:`rust-create-collection`.
 
 Assume the ``books`` collection contains the following documents:
 
@@ -182,7 +206,7 @@ Assume the ``books`` collection contains the following documents:
    { "name" : "Cryptonomicon", "length" : "918" }
    { "name" : "Ça", "length" : "1138" }
 
-.. note::
+.. tip::
 
    To learn how to insert documents into a collection, see the :ref:`rust-insert-guide`
    guide.
@@ -208,29 +232,23 @@ of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
       { "name" : "Ça", "length" : "1138" }
       
 
-If you don't specify a default collation for the ``books`` collection, the ``find()`` method
-follows default binary collation rules to determine the ``name`` values that precede
-``"Infinite Jest"``. These rules place words beginning with "Ç" after those beginning with "I".
-If the preceding find operation follows binary collation rules, the code returns only the following
-documents:
-
-.. code-block:: json
-   :copyable: false
-
-      { "name": "Emma", "length": 474 }
-      { "name": "Cryptonomicon", "length": 918 }
+If you don't specify a collation for the ``books`` collection, the ``find()`` method follows
+default binary collation rules to determine the ``name`` values that precede ``"Infinite Jest"``.
+These rules place words beginning with "Ç" after those beginning with "I". If the preceding find
+operation follows binary collation rules, the document that represents the book ``"Ça"`` is excluded
+from the results.
 
 .. _rust-index-collation:
 
 Set a Collation on an Index 
 ---------------------------
 
-When you create a new index on a collection, you can define the default collation for
-operations that use the index. To run an operation that uses the index and its default collation,
-your operation and index must specify the same collation. Additionally, ensure that the index
-specifying the collation covers the query. 
+When you create a new index on a collection, you can define the collation for operations
+that use the index. To run an operation that uses the index and its collation, your operation
+and index must specify the same collation. Additionally, ensure that the index specifying
+the collation covers the query. 
 
-.. note::
+.. tip::
 
    To learn more about indexes and covered queries, see the :ref:`rust-indexes` guide.
 
@@ -269,7 +287,7 @@ Applying a collation to an operation overrides any default collation previously 
 for a collection.
 
 If you apply a collation to an operation that differs from an index's collation, you
-cannot use that index. As a result, the operation may not perform as well as one that
+cannot use that index. As a result, the operation may not perform as efficiently as one that
 is covered by an index. For more information on the disadvantages of sorting operations
 not covered by an index, see :manual:`Using Indexes to Sort Query Results </tutorial/sort-results-with-indexes/>`
 in the Server manual.
@@ -303,16 +321,11 @@ This example performs the following actions:
       { "name" : "Ça", "length" : "1138" }
    
 If you run the preceding find operation without setting the ``numeric_ordering`` option to ``true``,
-the driver compares ``length`` values as strings. Then, the code returns the following documents:
+the driver compares ``length`` values as strings and orders the string value ``"1000"`` before the
+values ``"474"`` and ``"918"``. In this case, the preceding find operation returns all documents in
+the ``books`` collection.
 
-.. code-block:: json
-   :copyable: false
-   
-   { "name" : "Emma", "length" : "474" }
-   { "name" : "Les Misérables", "length": "1462" }
-   { "name" : "Infinite Jest", "length" : "1104" }
-   { "name" : "Cryptonomicon", "length" : "918" }
-   { "name" : "Ça", "length" : "1138" }
+.. _rust-collation-addtl-info:
 
 Additional Information
 ----------------------

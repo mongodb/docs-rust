@@ -21,14 +21,12 @@ async fn main() -> mongodb::error::Result<()> {
         doc! {"name" : "Cryptonomicon", "length" : "918"},
         doc! {"name" : "Ça", "length" : "1138"}
     ];
-
     let result = my_coll.insert_many(docs, None).await?;
 
     // start-collation
     let collation = Collation::builder()
         .locale("en_US")
         .build();
-
     // end-collation
 
     // start-create-collection
@@ -68,7 +66,6 @@ async fn main() -> mongodb::error::Result<()> {
         .build();
 
     let result = my_coll.create_index(index, None).await?;
-
     println!("Created index: {}", result.index_name);
     // end-index
 
