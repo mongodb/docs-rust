@@ -22,7 +22,7 @@ This guide includes the following sections:
 - :ref:`rust-mongodb-collations` describes how MongoDB sorts strings according
   to both the default collation and a custom collation
 - :ref:`rust-specify-collation` describes how to create a ``Collation`` instance by
-  using functions 
+  using builder functions 
 - :ref:`rust-collection-collation` describes how to set the collation for a
   new collection
 - :ref:`rust-index-collation` describes how to set the collation for an index
