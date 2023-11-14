@@ -4,6 +4,13 @@
 Delete Multiple Documents
 =========================
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: runnable, code example, write operation
+   
 You can delete multiple documents from a collection in a single operation
 by calling the `delete_many() <{+api+}/struct.Collection.html#method.delete_many>`__
 method on a ``Collection`` instance.

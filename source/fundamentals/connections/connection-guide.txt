@@ -4,6 +4,13 @@
 Connection Guide
 ================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: access deployment, code example, authentication
+
 .. contents:: On this page
    :local:
    :backlinks: none

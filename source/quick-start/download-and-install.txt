@@ -4,6 +4,13 @@
 Download and Install
 ====================
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: cargo.toml, code example
+   
 .. procedure::
    :style: connected
 

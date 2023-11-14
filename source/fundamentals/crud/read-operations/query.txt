@@ -4,6 +4,13 @@
 Specify a Query
 ===============
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: search, compare, code example 
+
 .. contents:: On this page
    :local:
    :backlinks: none

@@ -4,6 +4,13 @@
 Connect to MongoDB
 ==================
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: write lock, code example
+
 .. procedure::
    :style: connected
 

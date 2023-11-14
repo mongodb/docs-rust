@@ -4,6 +4,13 @@
 Authentication Mechanisms
 =========================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: validate credentials, protocols, code example 
+
 .. contents:: On this page
    :local:
    :backlinks: none

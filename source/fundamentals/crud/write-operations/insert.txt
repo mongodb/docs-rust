@@ -4,6 +4,13 @@
 Insert Documents
 ================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: set options, bulk write error, code example
+
 .. contents:: On this page
    :local:
    :backlinks: none

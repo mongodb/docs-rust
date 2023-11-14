@@ -4,6 +4,13 @@
 Usage Examples
 ==============
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: set up, runnable, code example
+
 .. contents:: On this page
    :local:
    :backlinks: none

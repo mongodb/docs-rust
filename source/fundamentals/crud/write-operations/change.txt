@@ -4,6 +4,13 @@
 Modify Documents
 ================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: update one, update many, set options, code example 
+
 .. contents:: On this page
    :local:
    :backlinks: none

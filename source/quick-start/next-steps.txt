@@ -4,6 +4,13 @@
 Next Steps
 ==========
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: learn more
+
 Congratulations on completing the quick start tutorial!
 
 In this tutorial, you created a Rust application that

@@ -4,6 +4,13 @@
 Delete a Document
 =================
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: runnable, code example, write operation
+
 You can delete a document from a collection by calling the `delete_one()
 <{+api+}/struct.Collection.html#method.delete_one>`__ method on a ``Collection``
 instance.

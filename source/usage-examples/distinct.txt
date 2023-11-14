@@ -4,6 +4,13 @@
 List Distinct Field Values
 ==========================
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: runnable, code example, read operation
+
 You can list the distinct values of a document field in a collection by
 calling the `distinct() <{+api+}/struct.Collection.html#method.distinct>`__
 method on a ``Collection`` instance. For example, if documents in a
