@@ -196,7 +196,7 @@ following documentation:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types mentioned in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `delete_one() <{+api+}/struct.Collection.html#method.delete_one>`__

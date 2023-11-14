@@ -137,7 +137,7 @@ see the :ref:`rust-connect-to-mongodb`.
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types mentioned in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `Client <{+api+}/struct.Client.html>`__

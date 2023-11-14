@@ -14,5 +14,5 @@ Learn more about the {+driver-long+} from the following resources:
 
 - Discover how to perform read and write operations in the 
   :ref:`CRUD Operations <rust-crud>` section.
-- See examples of frequently-used operations in the :ref:`Usage Examples
+- See examples of frequently used operations in the :ref:`Usage Examples
   <rust-usage-examples>` section.

@@ -515,7 +515,7 @@ To learn more about the update operators, see :manual:`Update Operators
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types mentioned in this
+To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `update_one() <{+api+}/struct.Collection.html#method.update_one>`__
