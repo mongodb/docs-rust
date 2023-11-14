@@ -243,7 +243,7 @@ of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
 If you don't specify a collation for the ``books`` collection, the ``find()`` method follows
 default binary collation rules to determine the ``name`` values that precede ``"Infinite Jest"``.
 These rules place words beginning with "Ç" after those beginning with "I". So, when the
-preceding find operation follows binary collation rules, the document with the ``name`` value of
+preceding find operation follows binary collation rules, the document in which the ``name`` value is
 ``"Ça"`` does not match the filter criteria.
 
 .. _rust-index-collation:
