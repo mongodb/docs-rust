@@ -4,6 +4,14 @@
 Collations
 ==========
 
+
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: string ordering, code example, french language
+
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -15,19 +23,17 @@ Overview
 
 In this guide, you can learn how to use **collations** to order your find or
 aggregation operation results by string values. A collation is a set of character
-ordering conventions that apply to a specific language and locale.
+ordering conventions that correspond to a specific language and locale.
 
 This guide includes the following sections:
 
-- :ref:`rust-mongodb-collations` describes how MongoDB sorts strings according
-  to both the default collation and a custom collation
-- :ref:`rust-specify-collation` describes how to create a ``Collation`` instance by
-  using builder functions 
+- :ref:`rust-mongodb-collations` describes how MongoDB sorts string values according
+  to the default collation and custom collations
+- :ref:`rust-specify-collation` describes how to create a ``Collation`` struct instance
 - :ref:`rust-collection-collation` describes how to set the collation for a
   new collection
 - :ref:`rust-index-collation` describes how to set the collation for an index
-- :ref:`rust-op-collation` describes how to apply a collation to read, update, and
-  delete operations
+- :ref:`rust-op-collation` describes how to apply a collation to certain CRUD operations
 - :ref:`rust-collation-addtl-info` provides links to resources and API documentation
   for types and methods mentioned in this guide
 
@@ -36,11 +42,16 @@ This guide includes the following sections:
 MongoDB Collations
 ------------------
 
-MongoDB sorts strings using *binary collation* by default. This collation
-method uses the `ASCII standard <https://en.wikipedia.org/wiki/ASCII>`_
-character values to compare and order strings. Certain languages and locales
-have specific character ordering conventions that differ from the ASCII
-standard.
+MongoDB sorts strings using *binary collation* by default. This collation method
+uses the ASCII standard character values to compare and order strings. Certain
+languages and locales have specific character ordering conventions that differ from
+the ASCII standard.
+
+.. tip::
+
+   To learn more about the ASCII standard, see the `ASCII
+   <https://en.wikipedia.org/w/index.php?title=ASCII&oldid=1180396712>`_ Wikipedia
+   page.
 
 For example, in Canadian French, the right-most accented character determines
 the ordering for strings when the other characters are the same. Consider the
@@ -60,8 +71,8 @@ When using the default binary collation, MongoDB sorts the words in the followin
    côte
    côté
 
-In this sort order, "coté" is placed before "côte" because the ASCII standard "o" character value
-is lower than the "ô" character value.
+In this sort order, "coté" is placed before "côte" because the ASCII standard positions the
+character "o" before the character "ô".
 
 When using the Canadian French collation, MongoDB sorts the words in the following order:
 
@@ -80,20 +91,20 @@ the character "e" before the character "é".
 Specify a Collation
 -------------------
 
-You can define a collation by specifying your collation locale and related options in a
-``Collation`` struct instance. To begin building a ``Collation`` instance, call the
-``Collation::builder()`` method.
+You can define a collation by specifying a collation locale and other options in a ``Collation``
+struct instance. To begin building a ``Collation`` instance, call the ``Collation::builder()``
+method.
 
 .. note:: Instantiating Options
    
    The {+driver-short+} implements the Builder design pattern for the
    creation of many different types, including ``Collation``. You can
    use the ``builder()`` method to construct an instance of each type
-   by chaining option builder functions one at a time.
+   by chaining option builder methods.
 
-Call the following ``Collation::builder()`` functions to specify the collation. You must use
-the ``locale()`` function to build the ``Collation`` instance, but all other builder functions
-are optional:
+The following table describes the builder methods that you can use to set fields of a ``Collation``
+instance. You must use the ``locale()`` method to build a valid ``Collation`` struct, but all other
+builder methods are optional:
 
 .. list-table::
    :widths: 1 1 2
@@ -169,7 +180,7 @@ Set a Collation on a Collection
 
 When you create a new collection, you can define the collation for future operations
 called on that collection. Set the collation by using the ``collation()`` function
-to build a ``CreateCollectionOptions`` instance. Then, call the ``create_collection()``
+when creating a ``CreateCollectionOptions`` instance. Then, call the ``create_collection()``
 method with your options instance as a parameter.
 
 .. _rust-create-collection:
@@ -177,8 +188,8 @@ method with your options instance as a parameter.
 Create Collection with a Collation Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example creates a collection called ``books`` and specifies a collation according
-to the ``"fr"``, or French, locale conventions. The ``strength`` field is set to
+This example specifies a collation according to the ``"fr"``, or French, locale conventions
+and applies the collation to a new collection called ``books``. The ``strength`` field is set to
 ``CollationStrength::Primary`` to ignore differences in diacritics.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/collation.rs
@@ -187,8 +198,8 @@ to the ``"fr"``, or French, locale conventions. The ``strength`` field is set to
    :start-after: start-create-collection
    :end-before: end-create-collection
 
-Use the Collection's Collation Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Collation Ordering Demonstration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you run an operation that supports collations on the ``books`` collection, the operation
 uses the collation specified in the preceding :ref:`rust-create-collection`.
@@ -231,9 +242,9 @@ of the ``name`` field alphabetically precedes ``"Infinite Jest"``:
 
 If you don't specify a collation for the ``books`` collection, the ``find()`` method follows
 default binary collation rules to determine the ``name`` values that precede ``"Infinite Jest"``.
-These rules place words beginning with "Ç" after those beginning with "I". If the preceding find
-operation follows binary collation rules, the document that represents the book ``"Ça"`` is excluded
-from the results.
+These rules place words beginning with "Ç" after those beginning with "I". So, when the
+preceding find operation follows binary collation rules, the document with the ``name`` value of
+``"Ça"`` does not match the filter criteria.
 
 .. _rust-index-collation:
 
@@ -241,9 +252,8 @@ Set a Collation on an Index
 ---------------------------
 
 When you create a new index on a collection, you can define the collation for operations
-that use the index. To run an operation that uses the index and its collation, your operation
-and index must specify the same collation. Additionally, ensure that the index specifying
-the collation covers the query. 
+that are covered by the index. To run an operation that uses the index and its collation, your
+operation and index must specify the same collation.
 
 .. tip::
 
@@ -257,7 +267,7 @@ Example
 ~~~~~~~
 
 The following example uses the ``create_index()`` method to create an ascending index on the
-``name`` field and specifies a new collation with an ``"en_US"`` locale:
+``name`` field and specifies a new collation corresponding to the ``"en_US"`` locale:
 
 .. io-code-block::
    :copyable: true
@@ -281,7 +291,7 @@ Set a Collation on an Operation
 
 Operations that read, update, and delete documents from a collection can use collations.
 Applying a collation to an operation overrides any collation previously defined for a
-collection.
+collection or index.
 
 If you apply a collation to an operation that differs from an index's collation, you
 cannot use that index. As a result, the operation may not perform as efficiently as one that
