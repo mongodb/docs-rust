@@ -9,7 +9,7 @@ Connect to MongoDB
    :values: tutorial
 
 .. meta::
-   :keywords: write lock, code example
+   :keywords: test connection, runnable, code example
 
 .. procedure::
    :style: connected
