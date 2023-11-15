@@ -78,7 +78,7 @@ When using the Canadian French collation, MongoDB sorts the words in the followi
 
 .. code-block:: none
    :copyable: false
-   
+
    cote
    côte
    coté
@@ -109,6 +109,7 @@ builder methods are optional:
 
 .. list-table::
    :widths: 1 1 2
+   :stub-columns: 1
    :header-rows: 1
 
    * - Method
