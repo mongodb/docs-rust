@@ -49,8 +49,8 @@ the ASCII standard.
 
 .. tip::
 
-   To learn more about the ASCII standard, see the
-   :wikipedia:`ASCII <w/index.php?title=ASCII&oldid=1180396712>`_ Wikipedia page.
+   To learn more about the ASCII standard, see the :wikipedia:`ASCII
+   <w/index.php?title=ASCII&oldid=1180396712>` Wikipedia page.
 
 For example, in Canadian French, the right-most accented character determines
 the ordering for strings when the other characters are the same. Consider the
