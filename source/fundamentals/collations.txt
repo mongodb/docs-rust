@@ -49,9 +49,8 @@ the ASCII standard.
 
 .. tip::
 
-   To learn more about the ASCII standard, see the `ASCII
-   <https://en.wikipedia.org/w/index.php?title=ASCII&oldid=1180396712>`_ Wikipedia
-   page.
+   To learn more about the ASCII standard, see the
+   :wikipedia:`ASCII <w/index.php?title=ASCII&oldid=1180396712>`_ Wikipedia page.
 
 For example, in Canadian French, the right-most accented character determines
 the ordering for strings when the other characters are the same. Consider the
@@ -65,6 +64,7 @@ following Canadian French words:
 When using the default binary collation, MongoDB sorts the words in the following order:
 
 .. code-block:: none
+   :copyable: false
 
    cote
    coté
@@ -77,7 +77,8 @@ character "o" before the character "ô".
 When using the Canadian French collation, MongoDB sorts the words in the following order:
 
 .. code-block:: none
-
+   :copyable: false
+   
    cote
    côte
    coté
