@@ -120,14 +120,8 @@ describes these methods:
 Example
 -------
 
-The following example does the following actions to demonstrate how
-to perform a transaction:
-
-1. Defines the ``insert_media()`` callback function that inserts data
-   into the ``books`` and ``films`` collections.
-#. Creates a session from the client by using the ``start_session()`` method.
-#. Uses the ``with_transaction()`` method to start a transaction and run
-   the ``insert_media()`` callback function within the transaction.
+The following code defines the ``insert_media()`` callback function that
+inserts data into the ``books`` and ``films`` collections:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/transaction.rs
    :language: rust
@@ -135,11 +129,26 @@ to perform a transaction:
    :start-after: begin-callback
    :end-before: end-callback
 
-.. literalinclude:: /includes/fundamentals/code-snippets/transaction.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-session
-   :end-before: end-session
+The following code performs the following actions to perform the
+transaction:
+
+#. Creates a session from the client by using the ``start_session()`` method.
+#. Uses the ``with_transaction()`` method to start a transaction and run
+   the ``insert_media()`` callback function within the transaction.
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/transaction.rs
+      :language: rust
+      :dedent:
+      :start-after: begin-session
+      :end-before: end-session
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Successfully committed transaction!
 
 If you need more control over your transactions, the `ClientSession API
 Documentation <{+api+}/struct.ClientSession.html#transactions>`__
