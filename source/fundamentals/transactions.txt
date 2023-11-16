@@ -9,7 +9,7 @@ Transactions
    :values: reference
 
 .. meta::
-   :keywords: code example, ACID, multi-document
+   :keywords: code example, ACID compliance, multi-document
 
 .. contents:: On this page
    :local:
@@ -50,11 +50,12 @@ Methods
 
 Create a ``ClientSession`` by using the ``start_session()`` method on your
 ``Client`` instance. You can then modify the session state using the
-methods provided by the ``Session`` interface. The following table
+methods provided by the ``ClientSession`` type. The following table
 describes these methods:
 
 .. list-table::
    :widths: 25 75
+   :stub-columns: 1
    :header-rows: 1
 
    * - Method
@@ -65,6 +66,7 @@ describes these methods:
          ``TransactionOptions`` parameter, on this session. The session
          must be passed into each operation within the transaction, or
          the operation runs outside of the transaction.
+       |
        | Errors returned from operations executed within the transaction
          might include a ``TRANSIENT_TRANSACTION_ERROR`` label, which
          indicates that the entire transaction can be retried with the
@@ -76,6 +78,7 @@ describes these methods:
      - | Commits the active transaction for this session. Returns an
          error if there is no active transaction for the session or the
          transaction was previously ended.
+       |
        | This method might return an error that includes an
          ``UNKNOWN_TRANSACTION_COMMIT_RESULT`` label, which 
          indicates that it is unknown if the committed transaction
@@ -94,6 +97,7 @@ describes these methods:
          this method to perform a transaction, the driver automatically
          handles any errors, so you do not have to implement error
          handling code.
+       |
        | Because the callback returns a future and can be run multiple
          times, the Rust language closure borrowing rules for captured
          values can be restrictive. So, the ``with_transaction()``
@@ -149,9 +153,9 @@ following pages in the Server manual:
 
 - :manual:`Transactions </core/transactions/>`
 - :manual:`Server Sessions </reference/server-sessions/>`
-- :manual:`causal consistency </core/read-isolation-consistency-recency/#causal-consistency>`
+- :manual:`Read Isolation, Consistency, and Recency </core/read-isolation-consistency-recency/#causal-consistency>`
 
-To learn more about ACID-compliance, see the :website:`What are ACID
+To learn more about ACID compliance, see the :website:`What are ACID
 Properties in Database Management Systems? </basics/acid-transactions>`
 article on the MongoDB website.
 
@@ -164,5 +168,10 @@ API Documentation
 To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
-- `collection() <{+api+}/struct.Database.html#method.collection>`__
-- `clone_with_type() <{+api+}/struct.Collection.html#method.clone_with_type>`__
+- `ClientSession <{+api+}/struct.ClientSession.html#>`__
+- `start_session() <{+api+}/struct.Client.html#method.start_session>`__
+- `start_transaction() <{+api+}/struct.ClientSession.html#method.start_transaction>`__
+- `commit_transaction() <{+api+}/struct.ClientSession.html#method.commit_transaction>`__
+- `abort_transaction() <{+api+}/struct.ClientSession.html#method.abort_transaction>`__
+- `with_transaction() <{+api+}/struct.ClientSession.html#method.with_transaction>`__
+- `TransactionOptions <{+api+}/options/struct.TransactionOptions.html>`__
