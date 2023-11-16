@@ -41,7 +41,7 @@ transactions instead of instantiating a new client each time.
 
 .. warning::
 
-   You should use a ``ClientSession`` only in operations running on the
+   Use a ``ClientSession`` only in operations running on the
    ``Client`` that created it. Using a ``ClientSession`` with a
    different ``Client`` results in operation errors.
 
@@ -95,7 +95,7 @@ describes these methods:
      - | Starts a transaction on this session and runs the given
          callback, then commits or ends the transaction. When you use
          this method to perform a transaction, the driver automatically
-         handles any errors, so you do not have to implement error
+         handles any errors, so you do not need to implement error
          handling code.
        |
        | Because the callback returns a future and can be run multiple
