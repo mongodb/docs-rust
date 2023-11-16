@@ -65,18 +65,6 @@ describes these methods:
          ``TransactionOptions`` parameter, on this session. The session
          must be passed into each operation within the transaction, or
          the operation runs outside of the transaction.
-       
-       .. important:: Methods That Can Run in Transactions
-
-          To run MongoDB tasks within transactions, you must use the
-          ``_with_session()`` suffixed methods. These methods accept a
-          ``ClientSession`` instance as a parameter.
-
-          For example, to delete a document normally, you can use the
-          ``delete_one()`` method. However, to delete a document within
-          a transaction, you must use the ``delete_one_with_session()``
-          method and pass the session as a parameter.
-
        | Errors returned from operations executed within the transaction
          might include a ``TRANSIENT_TRANSACTION_ERROR`` label, which
          indicates that the entire transaction can be retried with the
@@ -102,13 +90,28 @@ describes these methods:
 
    * - ``with_transaction()``
      - | Starts a transaction on this session and runs the given
-         callback, then commits or ends
-         the transaction. Because the callback returns a future and can
-         be run repeatedly, the Rust language closure borrowing rules for
-         captured values can be restrictive. So, the ``with_transaction()``
-         method accepts a context parameter passed to the callback.
+         callback, then commits or ends the transaction. When you use
+         this method to perform a transaction, the driver automatically
+         handles any errors, so you do not have to implement error
+         handling code.
+       | Because the callback returns a future and can be run multiple
+         times, the Rust language closure borrowing rules for captured
+         values can be restrictive. So, the ``with_transaction()``
+         method accepts a context parameter that is passed to the callback.
        |
-       | **Parameters**: context ``C``, callback ``FnMut(&'a mut ClientSession, &'a mut C)``, ``TransactionOptions``
+       | **Parameters**: context ``C``, callback ``FnMut(&'a mut
+         ClientSession, &'a mut C)``, ``TransactionOptions``
+
+.. important:: Methods That Can Run in Transactions
+
+   To run MongoDB tasks within transactions, you must use the
+   ``_with_session()`` suffixed methods. These methods accept a
+   ``ClientSession`` instance as a parameter.
+
+   For example, to delete a document normally, you can use the
+   ``delete_one()`` method. However, to delete a document within
+   a transaction, you must use the ``delete_one_with_session()``
+   method and pass the session as a parameter.
 
 Example
 -------
@@ -116,47 +119,50 @@ Example
 The following example does the following actions to demonstrate how
 to perform a transaction:
 
-1. Creates a session from the client by using the ``start_session()`` method.
-#. Uses the ``with_transaction()`` method to start and handle a transaction.
-#. Insert multiple documents. The ``WithTransaction()`` method executes the
-   insert and commits the transaction. If any operation results in
-   errors, ``WithTransaction()`` handles aborting the transaction.
+1. Defines the ``insert_media()`` callback function that inserts data
+   into the ``books`` and ``films`` collections.
+#. Creates a session from the client by using the ``start_session()`` method.
+#. Uses the ``with_transaction()`` method to start a transaction and run
+   the ``insert_media()`` callback function within the transaction.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/transaction.go
-   :language: go
+.. literalinclude:: /includes/fundamentals/code-snippets/transaction.rs
+   :language: rust
    :dedent:
-   :emphasize-lines: 4,8,10-11
-   :start-after: start-session
+   :start-after: begin-callback
+   :end-before: end-callback
+
+.. literalinclude:: /includes/fundamentals/code-snippets/transaction.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-session
    :end-before: end-session
 
-If you need more control over your transactions, you can find an example
-showing how to manually create, commit, and abort transactions in the
-`full code example <https://raw.githubusercontent.com/mongodb/docs-golang/{+docs-branch+}/source/includes/fundamentals/code-snippets/transaction.go>`__.
+If you need more control over your transactions, the `ClientSession API
+Documentation <{+api+}/struct.ClientSession.html#transactions>`__
+contains an example that shows how to manually create and commit a transaction.
 
 Additional Information
 ----------------------
 
-For more information about insert operations, see the
-:ref:`golang-insert-guide` fundamentals page.
+To learn more about the concepts mentioned in this guide, see the
+following pages in the Server manual:
 
-For more information about specifying write concerns in the
-{+driver-short+}, see :ref:`Write Concern <golang-writeconcern>`.
+- :manual:`Transactions </core/transactions/>`
+- :manual:`Server Sessions </reference/server-sessions/>`
+- :manual:`causal consistency </core/read-isolation-consistency-recency/#causal-consistency>`
 
-For an additional example using sessions and transactions with the {+driver-short+}, see the
-:website:`developer blog post on Multi-Document ACID Transactions
-</developer/languages/go/golang-multi-document-acid-transactions/>`.
+To learn more about ACID-compliance, see the :website:`What are ACID
+Properties in Database Management Systems? </basics/acid-transactions>`
+article on the MongoDB website.
 
-.. _api-docs-transaction:
+To learn more about insert operations, see the
+:ref:`rust-insert-guide` guide.
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the types or methods discussed in this
-guide, see the following API Documentation:
+To learn more about the methods and types mentioned in this
+guide, see the following API documentation:
 
-- `Session <{+api+}/mongo#Session>`__
-- `Client <{+api+}/mongo#Client>`__
-- `StartSession() <{+api+}/mongo#Client.StartSession>`__
-- `TransactionOptions <{+api+}/mongo/options#TransactionOptions>`__
-- `SetWriteConcern() <{+api+}/mongo/options#TransactionOptions.SetWriteConcern>`__
-- `InsertMany() <{+api+}/mongo#Collection.InsertMany>`__
+- `collection() <{+api+}/struct.Database.html#method.collection>`__
+- `clone_with_type() <{+api+}/struct.Collection.html#method.clone_with_type>`__
