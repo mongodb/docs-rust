@@ -54,10 +54,10 @@ Store Geospatial Data
 All geospatial data in MongoDB is stored in one of the following formats:
 
 - GeoJSON, a format that represents geospatial data on an earth-like
-  sphere.
+  sphere
 
 - Legacy Coordinate Pair, a format that represents geospatial data
-  on a Euclidean plane.
+  on a Euclidean plane
 
 GeoJSON
 ~~~~~~~
@@ -148,9 +148,9 @@ location of Washington, D.C.:
    let capital = vec! [-77.0369, 38.9072];
 
 
-To learn more about legacy coordinate pairs, see the
+To learn more about legacy coordinate pairs, see
 :manual:`Legacy Coordinate Pairs </geospatial-queries/#legacy-coordinate-pairs>`
-page in the Server manual.
+in the Server manual.
 
 .. _rust-indexes-geo:
 
@@ -181,11 +181,19 @@ To query data stored in the GeoJSON format, add the field containing
 both the ``type`` and ``coordinates`` fields to a ``2dsphere`` index. The
 following example creates a ``2dsphere`` index on the ``location.geo`` field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/geo.rs
-    :start-after: start-2dsphere
-    :end-before: end-2dsphere
-    :language: rust
-    :dedent:
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/geo.rs
+      :start-after: start-2dsphere
+      :end-before: end-2dsphere
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: none
+
+      Created index:
+      location.geo_"2dsphere"
 
 2d
 ~~
@@ -194,11 +202,19 @@ To query data stored as legacy coordinate pairs, add the field containing
 legacy coordinate pairs to a ``2d`` index. The following example creates a
 ``2d`` index on the ``location.geo.coordinates`` field:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/geo.rs
-    :start-after: start-2d
-    :end-before: end-2d
-    :language: rust
-    :dedent:
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/geo.rs
+      :start-after: start-2d
+      :end-before: end-2d
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: none
+
+      Created index:
+      location.geo.coordinates_"2d"
 
 .. _rust-query-geo:
 
@@ -268,7 +284,7 @@ The code returns documents in ascending order of their distance from the MongoDB
       :dedent:
 
    .. output::
-      :language: json
+      :language: none
 
       { "_id":{...},"theaterId":1908,"location":{"address":{...},"geo":{"type":"Point","coordinates":[-73.983487,40.76078] } } }
       { "_id":{...},"theaterId":1448,"location":{"address":{...},"geo":{"type":"Point","coordinates":[-73.982094,40.769882] } } }
@@ -291,7 +307,7 @@ stores four coordinates representing the bounds of the geographic search area.
       :dedent:
 
    .. output::
-      :language: json
+      :language: none
 
       { "_id":{...},"theaterId":322,"location":{"address":{...},"geo":{ "type":"Point","coordinates":[-87.849403, 41.90707] } } }
       { "_id":{...},"theaterId":2960,"location":{"address":{...},"geo":{ "type":"Point","coordinates":[-87.811262, 41.847938] } } }
