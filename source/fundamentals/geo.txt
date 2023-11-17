@@ -191,6 +191,7 @@ following example creates a ``2dsphere`` index on the ``location.geo`` field:
 
    .. output::
       :language: none
+      :visible: false
 
       Created index:
       location.geo_"2dsphere"
@@ -212,6 +213,7 @@ legacy coordinate pairs to a ``2d`` index. The following example creates a
 
    .. output::
       :language: none
+      :visible: false
 
       Created index:
       location.geo.coordinates_"2d"
@@ -285,6 +287,7 @@ The code returns documents in ascending order of their distance from the MongoDB
 
    .. output::
       :language: none
+      :visible: false
 
       { "_id":{...},"theaterId":1908,"location":{"address":{...},"geo":{"type":"Point","coordinates":[-73.983487,40.76078] } } }
       { "_id":{...},"theaterId":1448,"location":{"address":{...},"geo":{"type":"Point","coordinates":[-73.982094,40.769882] } } }
@@ -295,8 +298,8 @@ Query Within a Range Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following example queries for documents in which the ``location.geo`` field
-stores a location within Chicago area. The example creates a ``chicago`` vector that
-stores four coordinates representing the bounds of the geographic search area.
+stores a location within Chicago area. The example creates a vector called ``chicago``
+that stores four coordinates representing the bounds of the geographic search area.
 
 .. io-code-block::
 
@@ -308,6 +311,7 @@ stores four coordinates representing the bounds of the geographic search area.
 
    .. output::
       :language: none
+      :visible: false
 
       { "_id":{...},"theaterId":322,"location":{"address":{...},"geo":{ "type":"Point","coordinates":[-87.849403, 41.90707] } } }
       { "_id":{...},"theaterId":2960,"location":{"address":{...},"geo":{ "type":"Point","coordinates":[-87.811262, 41.847938] } } }
