@@ -208,7 +208,7 @@ After creating a ``2dsphere`` or ``2d`` index on fields containing geospatial da
 can perform geospatial queries that access those fields.
 
 To query geospatial data, create a query filter with a field name and a geospatial query
-operator. You can specify additional options for certain geospatial query operators to limit
+operator. You can specify options for certain geospatial query operators to limit
 the documents returned.
 
 The following sections on geospatial queries include code examples that use the ``theaters``
