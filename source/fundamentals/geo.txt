@@ -9,7 +9,7 @@ Search Geospatially
    :values: reference
 
 .. meta::
-   :keywords: code example, coordinates, location, geographic
+   :keywords: code example, geographic, map, distance
 
 .. contents:: On this page
    :local:
