@@ -139,14 +139,13 @@ Legacy Coordinate Pairs
 Use legacy coordinate pairs to represent geospatial data on a two-dimensional
 Euclidean plane.
 
-The following code specifies a legacy coordinate pair by using an array of two numbers.
-The first number represents the ``x`` axis value and the second represents the ``y``
-axis value:
+The following code specifies a legacy coordinate pair that represents the
+location of Washington, D.C.:
 
 .. code-block:: rust
    :copyable: false
 
-   bson.D{{"center", []int16{0, 0}}}
+   let capital = vec! [-77.0369, 38.9072];
 
 
 To learn more about legacy coordinate pairs, see the
