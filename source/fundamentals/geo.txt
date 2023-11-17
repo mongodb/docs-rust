@@ -76,8 +76,8 @@ containing the following values:
 - Latitude in the second position *(required)*
 - Elevation in the third position *(optional)*
 
-The following is the **position** of the MongoDB Headquarters in
-New York City, NY.
+The following code represents the **position** of the MongoDB Headquarters in
+New York City, NY:
 
 .. code-block:: rust
    :copyable: false
