@@ -34,13 +34,14 @@ Examples of geospatial data include:
 
 This guide includes the following sections:
 
-- :ref:`Store Geospatial Data <rust-store-geo>` describes
+- :ref:`Store Geospatial Data <rust-store-geo>` describes the data formats you can use to
+  represent geospatial data
 
-- :ref:`Geospatial Indexes <rust-retrieve-find>` describes 
+- :ref:`Geospatial Indexes <rust-indexes-geo>` describes how to create an index on fields
+  storing geospatial data 
 
-- :ref:`Geospatial Queries <rust-retrieve-aggregation>` describes
-
-- :ref:`Examples <rust-crud-retrieve-addtl-info>` describes
+- :ref:`Geospatial Queries <rust-query-geo>` describes how to query geospatial
+  data stored in indexed fields
 
 - :ref:`Additional Resources <rust-addtl-info-geo>` provides links to resources and
   API documentation for types and methods mentioned in this guide
@@ -171,7 +172,8 @@ Atlas sample data.
    
    To learn more about creating an index, see the :ref:`rust-indexes` guide.
 
-   For instructions on importing the Atlas sample data, see <>.
+   For instructions on importing the Atlas sample data, see the :atlas:`Load Sample Data
+   </sample-data>` page.
 
 2dsphere
 ~~~~~~~~
@@ -212,15 +214,15 @@ operator. You can specify options for certain geospatial query operators to limi
 the documents returned.
 
 The following sections on geospatial queries include code examples that use the ``theaters``
-collection in the ``sample_mflix`` database from the Atlas sample dataset. Assume that
-the ``theaters`` collection has a ``2dsphere`` index on the location.geo field and a ``2d``
-index on the ``location.geo.coordinates`` field.
+collection in the ``sample_mflix`` database from the Atlas sample data. Assume that
+the ``theaters`` collection has a ``2dsphere`` index on the ``location.geo`` field.
 
 .. tip:: 
    
    To learn more about querying data, see the :ref:`rust-query-guide` guide.
 
-   For instructions on importing the Atlas sample datasets, see <>.
+   For instructions on importing the Atlas sample data, see the :atlas:`Load Sample Data
+   </sample-data>` page.
 
 Query Operators
 ~~~~~~~~~~~~~~~

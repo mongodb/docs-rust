@@ -9,7 +9,7 @@ use std::env;
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri = "mongodb+srv://norareidy:HEeYJMIDsnrlIOzb@codetestcluster.8vjy7d0.mongodb.net/?retryWrites=true&w=majority";
+    let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
 
     let my_coll: Collection<Document> = client.database("sample_mflix").collection("theaters");
@@ -101,6 +101,6 @@ async fn main() -> mongodb::error::Result<()> {
         println!("{}", doc);
     }
     // end-range
-    
+
     Ok(())
 }
