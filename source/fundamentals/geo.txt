@@ -297,7 +297,7 @@ Query Within a Range Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following example queries for documents in which the ``location.geo`` field
-stores a location within Chicago area. The example creates a vector called ``chicago``
+stores a location within the Chicago area. The example creates a vector called ``chicago``
 that stores four coordinates representing the bounds of the geographic search area.
 
 .. io-code-block::
