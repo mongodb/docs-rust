@@ -30,7 +30,7 @@ visible. This feature is called **atomicity**.
 In MongoDB, transactions run within logical sessions. A
 session is a grouping of related read or write operations that you
 want to run sequentially. Sessions enable causal consistency for a group
-of operations and allow you to execute operations in an ACID-compliant
+of operations and allow you to execute operations in an **ACID-compliant**
 transaction, which is a transaction that meets an expectation of
 atomicity, consistency, isolation, and durability. MongoDB guarantees
 that the data involved in your transaction operations remains
