@@ -100,6 +100,7 @@ async fn main() -> mongodb::error::Result<()> {
     while let Some(doc) = cursor.try_next().await? {
         println!("{}", doc);
     }
+    
     // end-range
 
     Ok(())

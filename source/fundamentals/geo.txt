@@ -72,9 +72,8 @@ Positions
 A position represents a single place on Earth and exists in code as an array
 containing the following values:
 
-- Longitude in the first position *(required)*
-- Latitude in the second position *(required)*
-- Elevation in the third position *(optional)*
+- Longitude in the first position
+- Latitude in the second position 
 
 The following code represents the **position** of the MongoDB Headquarters in
 New York City, NY:
