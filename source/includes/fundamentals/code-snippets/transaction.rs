@@ -18,15 +18,15 @@ async fn insert_media(session: &mut ClientSession) -> Result<(), Error> {
 
     books_coll.insert_one_with_session(
         doc! { 
-            "name": "Sula".to_string(), 
-            "author": "Toni Morrison".to_string() 
+            "name": "Sula", 
+            "author": "Toni Morrison"
         },
         None,
         session
     ).await?;
 
     films_coll.insert_one_with_session(
-        doc! { "name": "Nostalgia".to_string(), "year": 1983 },
+        doc! { "name": "Nostalgia", "year": 1983 },
         None,
         session
     ).await?;
