@@ -53,7 +53,7 @@ Store Geospatial Data
 
 All geospatial data in MongoDB is stored in one of the following formats:
 
-- GeoJSON, a format that represents geospatial data on an earth-like
+- GeoJSON, a format that represents geospatial data on an Earth-like
   sphere
 
 - Legacy Coordinate Pair, a format that represents geospatial data
@@ -63,7 +63,7 @@ GeoJSON
 ~~~~~~~
 
 Use GeoJSON to store data that represents geospatial information on
-an earth-like sphere. GeoJSON is composed of one or more **positions**
+an Earth-like sphere. GeoJSON is composed of one or more **positions**
 and a **type**.
 
 Positions
