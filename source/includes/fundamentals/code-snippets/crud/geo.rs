@@ -37,12 +37,15 @@ async fn main() -> mongodb::error::Result<()> {
 
     // start-polygon
     let polygon = doc! {"name": "Vatican City", "location": doc! {
-            "type": "Polygon",
-            "coordinates": vec! [
+        "type": "Polygon",
+        "coordinates": vec![
+            vec! [
                 vec! [12.458, 41.906],
                 vec! [12.458, 41.901],
+                vec! [12.450, 41.901],
                 vec! [12.450, 41.906],
-                vec! [12.450, 41.901]
+                vec! [12.458, 41.906],
+                ]
             ],
         }
     };
@@ -85,15 +88,21 @@ async fn main() -> mongodb::error::Result<()> {
     // end-proximity
 
     // start-range
-    let chicago = vec! [
-        vec! [-87.851, 41.976],
-        vec! [-87.851, 41.653],
-        vec! [-87.651, 41.976],
-        vec! [-87.651, 41.653]
-    ];
+    let chicago = doc! {
+        "type": "Polygon",
+        "coordinates": vec![
+            vec![
+                vec![-87.851, 41.976],
+                vec![-87.851, 41.653],
+                vec![-87.651, 41.653],
+                vec![-87.651, 41.976],
+                vec![-87.851, 41.976],
+            ]
+        ]
+    };
 
-    let query = doc! {"location.geo": 
-        doc! { "$geoWithin": { "$polygon": chicago }}
+    let query = doc! {"location.geo":
+        doc! { "$geoWithin": { "$geometry": chicago }}
     };
 
     let mut cursor = my_coll.find(query, None).await?;
