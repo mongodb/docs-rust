@@ -31,7 +31,6 @@ async fn insert_media(session: &mut ClientSession) -> Result<(), Error> {
         session
     ).await?;
 
-    println!("Successfully committed transaction!");
     Ok(())
 }
 // end-callback
@@ -43,11 +42,10 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-session
     let mut session = client.start_session(None).await?;
-    session.with_transaction(
-        (), 
-        |session, _| insert_media(session).boxed(), 
-        None
-    ).await?;
+    session
+        .with_transaction((), |session, _| insert_media(session).boxed(), None)
+        .await?;
+    println!("Successfully committed transaction!");
     // end-session
 
     Ok(())

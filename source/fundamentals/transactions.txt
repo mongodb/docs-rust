@@ -71,8 +71,8 @@ describes these methods:
        |
        | Errors returned from operations run within the transaction
          might include a ``TRANSIENT_TRANSACTION_ERROR`` label, which
-         indicates that the entire transaction can be retried with the
-         expectation that it will succeed.
+         indicates that the entire transaction can be ended, then retried
+         with the expectation that it will succeed.
        |
        | **Parameter**: ``TransactionOptions``
 
