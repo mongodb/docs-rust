@@ -1,101 +1,73 @@
-use bson::{ doc, DateTime };
-use mongodb::{ Client, Collection, gridfs::GridFsBucket };
-use serde::{ Deserialize, Serialize };
+use mongodb::{
+    bson::{ Bson, doc, oid::ObjectId }, 
+    Client
+};
+use futures_util::{
+    io::AsyncWriteExt,
+    AsyncReadExt,
+    TryStreamExt
+};
+use std::{
+    fs,
+    str::FromStr,
+};
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
     let uri: &str = "<connection string>";
-
     let client = Client::with_uri_str(uri).await?;
     let my_db = client.database("db");
 
     // start-create
-    GridFsBucket::new(self.my_db.gridfs_bucket(None));
+    let bucket = my_db.gridfs_bucket(None);
     // end-create
 
+    // start-create-opts
+    let opts = GridFsBucketOptions::builder()
+        .bucket_name("my_bucket".to_string())
+        .build();
+    let bucket = my_db.gridfs_bucket(opts);
+    // end-create-opts
+
     // start-upload
+    let filename = "example.txt";
+    let file_bytes = fs::read(filename)?;
+    let mut upload_stream = bucket.open_upload_stream("example", None);
+    upload_stream.write_all(&file_bytes[..]).await?;
+    println!("Document uploaded with ID: {}", upload_stream.id());
+    upload_stream.close().await?;
     // end-upload
 
-    // start-retrieve
+    // start-retrieve 
+    let filter = doc! {};
+    let mut cursor = bucket.find(filter, None).await?;
+    while let Some(result) = cursor.try_next().await? {
+        println!("Length of {}: {}\n", result.length);
+    };
     // end-retrieve
 
     // start-download
+    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
+    let mut buf = Vec::new();
+    let mut download_stream = bucket.open_download_stream(Bson::ObjectId(id)).await?;
+    let result = download_stream.read_to_end(&mut buf).await?;
+    println!("{:?}", result);
     // end-download
 
     // start-rename
+    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
+    let new_name = "example2.0";
+    bucket.rename(Bson::ObjectId(id), &new_name).await?;
     // end-rename
 
     // start-delete-file
+    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
+    bucket.delete(Bson::ObjectId(id)).await?;
     // end-delete-file
 
     // start-delete-bucket
+    bucket.drop().await?;
     // end-delete-bucket
-    /*
-    let docs = vec![
-        doc! { "name": "Sonya Mehta", "age": 23, "genre_interests": vec!["fiction", "mystery", "memoir"], "last_active": DateTime::builder().year(2023).month(5).day(13).build().unwrap() },
-        doc! { "name": "Selena Sun", "age": 45, "genre_interests": vec!["fiction", "literary", "theory"], "last_active": DateTime::builder().year(2023).month(5).day(25).build().unwrap() },
-        doc! { "name": "Carter Johnson", "age": 56, "genre_interests": vec!["literary", "self help"], "last_active": DateTime::builder().year(2023).month(5).day(31).build().unwrap() },
-        doc! { "name": "Rick Cortes", "age": 18, "genre_interests": vec!["sci-fi", "fantasy", "memoir"], "last_active": DateTime::builder().year(2023).month(7).day(1).build().unwrap() },
-        doc! { "name": "Belinda James", "age": 76, "genre_interests": vec!["literary", "nonfiction"], "last_active": DateTime::builder().year(2023).month(6).day(11).build().unwrap() },
-        doc! { "name": "Corey Saltz", "age": 29, "genre_interests": vec!["fiction", "sports", "memoir"], "last_active": DateTime::builder().year(2023).month(1).day(23).build().unwrap() },
-        doc! { "name": "John Soo", "age": 16, "genre_interests": vec!["fiction", "sports"], "last_active": DateTime::builder().year(2023).month(1).day(3).build().unwrap() },
-        doc! { "name": "Lisa Ray", "age": 39, "genre_interests": vec!["poetry", "art", "memoir"], "last_active": DateTime::builder().year(2023).month(5).day(30).build().unwrap() },
-        doc! { "name": "Kiran Murray", "age": 20, "genre_interests": vec!["mystery", "fantasy", "memoir"], "last_active": DateTime::builder().year(2023).month(1).day(30).build().unwrap() },
-        doc! { "name": "Beth Carson", "age": 31, "genre_interests": vec!["mystery", "nonfiction"], "last_active": DateTime::builder().year(2023).month(8).day(4).build().unwrap() },
-        doc! { "name": "Thalia Dorn", "age": 21, "genre_interests": vec!["theory", "literary", "fiction"], "last_active": DateTime::builder().year(2023).month(8).day(19).build().unwrap() },
-        doc! { "name": "Arthur Ray", "age": 66, "genre_interests": vec!["sci-fi", "fantasy", "fiction"], "last_active": DateTime::builder().year(2023).month(11).day(27).build().unwrap() }
-    ];
-
-    my_coll.insert_many(docs, None).await?;
-    // end-insert
-
-    // begin-age-agg
-    let age_pipeline = vec![
-        doc! { "$unwind": doc! { "path": "$genre_interests" } },
-        doc! { "$group": doc! {
-            "_id": "$genre_interests",
-            "avg_age": doc! { "$avg": "$age" },
-            "min_age": doc! { "$min": "$age" },
-            "max_age": doc! { "$max": "$age" }
-        } }
-    ];
-
-    let mut results = my_coll.aggregate(age_pipeline, None).await?;
-    while let Some(result) = results.try_next().await? {
-        let doc = bson::from_document(result)?;
-        println!("* {}", doc);
-    }
-    // end-age-agg
-
-    // begin-lastactive-agg
-    let last_active_pipeline = vec![
-        doc! { "$project": { "month_last_active" : doc! { "$month" : "$last_active" } } },
-        doc! { "$group": doc! { "_id" : doc! {"month_last_active": "$month_last_active"} ,
-        "number" : doc! { "$sum" : 1 } } },
-        doc! { "$sort": { "_id.month_last_active" : 1 } }
-    ];
-
-    let mut results = my_coll.aggregate(last_active_pipeline, None).await?;
-    while let Some(result) = results.try_next().await? {
-        let doc = bson::from_document(result)?;
-        println!("* {}", doc);
-    }
-    // end-lastactive-agg
-
-    // begin-popular-agg
-    let popularity_pipeline = vec![
-        doc! { "$unwind" : "$genre_interests" },
-        doc! { "$group" : doc! { "_id" : "$genre_interests" , "number" : doc! { "$sum" : 1 } } },
-        doc! { "$sort" : doc! { "number" : -1 } },
-        doc! { "$limit": 3 }
-    ];
-
-    let mut results = my_coll.aggregate(popularity_pipeline, None).await?;
-    while let Some(result) = results.try_next().await? {
-        let doc = bson::from_document(result)?;
-        println!("* {}", doc);
-    }
-    // end-popular-agg*/
 
     Ok(())
 }
