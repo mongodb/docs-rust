@@ -26,14 +26,26 @@ use case, see the :manual:`GridFS server manual page </core/gridfs>`.
 
 This guide includes the following sections:
 
-- :ref:`How GridFS Works <rust-gridfs-info>` describes
-- :ref:`Create a GridFS Bucket <rust-gridfs-create>` describes
-- :ref:`Upload Files <rust-gridfs-upload>` describes 
-- :ref:`Retrieve File Information <rust-gridfs-retrieve>` describes
-- :ref:`Download Files <rust-gridfs-download>` describes
-- :ref:`Rename Files <rust-gridfs-rename>` describes
-- :ref:`Delete Files <rust-gridfs-delete>` describes
-- :ref:`Delete a GridFS Bucket <rust-gridfs-drop>` describes
+- :ref:`How GridFS Works <rust-gridfs-info>` describes how files are organized and stored
+  according to GridFS specifications
+
+- :ref:`Create a GridFS Bucket <rust-gridfs-create>` describes how to create a GridFS bucket
+  and configure options 
+
+- :ref:`Upload Files <rust-gridfs-upload>` describes how to upload a file to a
+  GridFS bucket by using an upload stream
+
+- :ref:`Download Files <rust-gridfs-download>` describes how to download a file from
+  a GridFS bucket by using a download stream
+
+- :ref:`Retrieve File Information <rust-gridfs-retrieve>` describes how to access
+  information about files in a GridFS bucket 
+
+- :ref:`Rename Files <rust-gridfs-rename>` describes how to rename a file in a GridFS bucket
+  
+- :ref:`Delete Files <rust-gridfs-delete>` describes how to delete files from a GridFS bucket
+  
+- :ref:`Delete a GridFS Bucket <rust-gridfs-drop>` describes how to delete a GridFS bucket
 
 .. _rust-gridfs-info:
 
@@ -41,26 +53,27 @@ How GridFS Works
 ----------------
 
 GridFS organizes files in a **bucket**, a group of MongoDB collections
-that contain the chunks of files and descriptive information.
-Buckets contain the following collections, named using the convention
+that contain the chunks of files and descriptive information. Buckets
+contain the following collections, named according to the convention
 defined in the GridFS specification:
 
 - The ``chunks`` collection stores the binary file chunks.
 - The ``files`` collection stores the file metadata.
 
-When you create a new GridFS bucket, the driver creates the ``chunks``
+When you create a new GridFS bucket, the {+driver-short+} creates the ``chunks``
 and ``files`` collections, prefixed with the default bucket name ``fs``, unless
 you specify a different name. The driver also creates an index on each
 collection to ensure efficient retrieval of files and related
-metadata. The driver only creates the GridFS bucket on the first write
-operation if it does not already exist. The driver only creates indexes if
+metadata. The driver creates the GridFS bucket on the first write
+operation only if it does not already exist. The driver creates indexes only if
 they do not exist and when the bucket is empty. For more information on
-GridFS indexes, see the server manual page on :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`.
+GridFS indexes, see the :manual:`GridFS Indexes </core/gridfs/#gridfs-indexes>`
+page in the Server manual.
 
-When storing files with GridFS, the driver splits the files into smaller
-pieces, each represented by a separate document in the ``chunks`` collection.
-It also creates a document in the ``files`` collection that contains
-a unique file id, file name, and other file metadata. You can upload the file from
+When storing files in a GridFS bucket, the {+driver-short+} splits the files into
+smaller pieces, each represented by a separate document in the ``chunks`` collection.
+The driver also creates a document in the ``files`` collection that contains
+a unique file ID, file name, and other file metadata. You can upload the file from
 memory or from a stream. The following diagram describes how GridFS splits
 files when uploading to a bucket:
 
@@ -155,48 +168,17 @@ GridFS bucket with a custom name:
 Upload Files
 ------------
 
-Use the ``openUploadStream()`` method from ``GridFSBucket`` to create an upload
-stream for a given file name. You can use the ``pipe()`` method to
-connect a Node.js ``fs`` read stream to the upload stream. The
-``openUploadStream()`` method allows you to specify configuration information
-such as file chunk size and other field/value pairs to store as metadata. Set
-these options as parameters of ``openUploadStream()`` as shown in the
-following code snippet:
+You can upload a file to a GridFS bucket by opening an upload stream and 
+writing your file to the stream. Call the ``open_upload_stream()`` method on
+your bucket instance to open the stream. Then, call the ``write_all()`` method
+with your file bytes as a parameter to upload the file.
+
+The following example uses an upload stream to upload a file called ``"example.txt"``
+to a GridFS bucket:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-upload
    :end-before: end-upload
-   :language: rust
-   :copyable:
-   :dedent:
-
-.. _rust-gridfs-retrieve:
-
-Retrieve File Information
--------------------------
-
-In this section, you can learn how to retrieve file metadata stored in the
-``files`` collection of the GridFS bucket. The metadata contains information
-about the file it refers to, including:
-
-- The ``_id`` of the file
-- The name of the file
-- The length/size of the file
-- The upload date and time
-- A ``metadata`` document in which you can store any other information
-
-Call the ``find()`` method on the ``GridFSBucket`` instance to retrieve
-files from a GridFS bucket. The method returns a ``FindCursor`` instance
-from which you can access the results.
-
-The following code example shows you how to retrieve and print file metadata
-from all your files in a GridFS bucket. Among the different ways that you can
-traverse the retrieved results from the ``FindCursor`` iterable, the
-following example uses the ``forEach()`` method to display the results:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
-   :start-after: start-retrieve
-   :end-before: end-retrieve
    :language: rust
    :copyable:
    :dedent:
@@ -206,13 +188,14 @@ following example uses the ``forEach()`` method to display the results:
 Download Files
 --------------
 
-You can download files from your MongoDB database by using the
-``openDownloadStreamByName()`` method from ``GridFSBucket`` to create a
-download stream.
+You can download a file from a GridFS bucket by opening a download stream and
+reading from the stream. Call the ``open_download_stream()`` method on
+your bucket instance, specifying the desired file's ``ObjectId`` value as a parameter.
+Then, call the ``read_to_end()`` method with a vector parameter to read and store the
+file bytes.
 
-The following example shows you how to download a file referenced
-by the file name, stored in the ``filename`` field, into your working
-directory:
+The following example uses an download stream to download a file with an ``ObjectID`` value
+of  ``3289`` from a GridFS bucket:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-download
@@ -223,27 +206,49 @@ directory:
 
 .. note::
 
-   If there are multiple documents with the same ``filename`` value,
-   GridFS will stream the most recent file with the given name (as
-   determined by the ``uploadDate`` field).
-
-
-.. note::
-
    The GridFS streaming API cannot load partial chunks. When a download
    stream needs to pull a chunk from MongoDB, it pulls the entire chunk
    into memory. The 255 kilobyte default chunk size is usually
    sufficient, but you can reduce the chunk size to reduce memory
    overhead.
 
+.. _rust-gridfs-retrieve:
+
+Retrieve File Information
+-------------------------
+
+You can retrieve information about the files stored in the ``files`` collection of
+the GridFS bucket. Each file is stored as an instance of the ``FilesCollectionDocument``
+type, which includes the following fields that represent file information:
+
+- ``_id``: the file ID
+- ``length``: the file size
+- ``chunk_size_bytes``: the size of the file's chunks
+- ``upload_date``: the file's upload date and time
+- ``filename``: the name of the file
+- ``metadata``: a document that stores user-specified metadata
+
+Call the ``find()`` method on a GridFS bucket instance to retrieve
+files from the bucket. The method returns a cursor instance
+from which you can access the results.
+
+The following example retrieves and prints the length of each file in a GridFS bucket:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
+   :start-after: start-retrieve
+   :end-before: end-retrieve
+   :language: rust
+   :copyable:
+   :dedent:
+
 .. _rust-gridfs-rename:
 
 Rename Files
 ------------
 
-Use the ``rename()`` method to update the name of a GridFS file in your
-bucket. You must specify the file to rename by its ``_id`` field
-rather than its file name.
+You can update the name of a GridFS file in your bucket by calling the ``rename()`` method
+on a bucket instance. Pass the target file's ``_id`` value and the new file name as
+parameters to the ``rename()`` method.
 
 .. note::
 
@@ -253,8 +258,8 @@ rather than its file name.
    want to rename, and pass each value in separate calls to the ``rename()``
    method.
 
-The following example shows how to update the ``filename`` field to
-"newFileName" by referencing a document's ``_id`` field:
+The following example updates the ``filename`` field of the file containing an ``_id`` value
+of ``3289`` to ``"new_file_name"``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-rename
@@ -268,8 +273,9 @@ The following example shows how to update the ``filename`` field to
 Delete Files
 ------------
 
-Use the ``delete()`` method to remove a file from your bucket. You must
-specify the file by its ``_id`` field rather than its file name.
+You can use the ``delete()`` method to remove a file from your bucket. To remove a
+file, call ``delete()`` on your bucket instance and pass the file's ``_id`` value
+as a parameter.
 
 .. note::
 
@@ -278,7 +284,7 @@ specify the file by its ``_id`` field rather than its file name.
    the ``_id`` field from the files you want to delete, and pass each value
    in separate calls to the ``delete()`` method.
 
-The following example shows you how to delete a file by referencing its ``_id`` field:
+The following example deletes the file in which the ``_id`` value is ``3289``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-delete-file
@@ -292,9 +298,11 @@ The following example shows you how to delete a file by referencing its ``_id`` 
 Delete a GridFS Bucket
 ----------------------
 
-Use the ``drop()`` method to remove a bucket's ``files`` and ``chunks``
-collections, which effectively deletes the bucket. The following
-example deletes a GridFS bucket:
+You can use the ``drop()`` method to remove a bucket's ``files`` and ``chunks``
+collections, which effectively deletes the bucket. To delete the bucket, call
+``drop()`` on your bucket instance.
+
+The following example deletes a GridFS bucket:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-delete-bucket

@@ -47,7 +47,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-retrieve
 
     // start-download
-    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
+    let id = ObjectId::from_str("3289").expect("Could not convert to ObjectId");
     let mut buf = Vec::new();
     let mut download_stream = bucket.open_download_stream(Bson::ObjectId(id)).await?;
     let result = download_stream.read_to_end(&mut buf).await?;
@@ -55,13 +55,13 @@ async fn main() -> mongodb::error::Result<()> {
     // end-download
 
     // start-rename
-    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
-    let new_name = "example2.0";
+    let id = ObjectId::from_str("3289").expect("Could not convert to ObjectId");
+    let new_name = "new_file_name";
     bucket.rename(Bson::ObjectId(id), &new_name).await?;
     // end-rename
 
     // start-delete-file
-    let id = ObjectId::from_str("655d130c21a8af70add487b0").expect("Could not convert to ObjectId");
+    let id = ObjectId::from_str("3289").expect("Could not convert to ObjectId");
     bucket.delete(Bson::ObjectId(id)).await?;
     // end-delete-file
 
