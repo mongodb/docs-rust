@@ -22,7 +22,7 @@ organization of the file storage.
 Use GridFS if the size of your file exceeds the BSON document size limit of
 16 MB. GridFS also helps you access files without loading the entire file into
 memory. For more detailed information on whether GridFS is suitable for your
-use case, see the :manual:`GridFS server manual page </core/gridfs>`.
+use case, see the :manual:`GridFS </core/gridfs>` page in the Server manual.
 
 This guide includes the following sections:
 
@@ -57,8 +57,8 @@ that contain the chunks of files and descriptive information. Buckets
 contain the following collections, named according to the convention
 defined in the GridFS specification:
 
-- The ``chunks`` collection stores the binary file chunks.
-- The ``files`` collection stores the file metadata.
+- ``chunks``, which stores the binary file chunks
+- ``files``, which stores the file metadata
 
 When you create a new GridFS bucket, the {+driver-short+} creates the ``chunks``
 and ``files`` collections, prefixed with the default bucket name ``fs``, unless
@@ -74,7 +74,7 @@ When storing files in a GridFS bucket, the {+driver-short+} splits the files int
 smaller pieces, each represented by a separate document in the ``chunks`` collection.
 The driver also creates a document in the ``files`` collection that contains
 a unique file ID, file name, and other file metadata. You can upload the file from
-memory or from a stream. The following diagram describes how GridFS splits
+from an upload stream. The following diagram describes how GridFS splits
 files when uploading to a bucket:
 
 .. figure:: /includes/figures/GridFS-upload.png
@@ -131,7 +131,7 @@ The following table describes the builder methods that you can use to set fields
      - | Specifies a bucket name, which is set to ``fs`` by default
        
    * - ``chunk_size_bytes()``
-     - Any 32-bit unsigned integer
+     - Any ``u32`` value
      - Specifies the chunk size, in bytes, used to break the file into chunks
 
    * - | ``write_concern()``
@@ -190,11 +190,11 @@ Download Files
 
 You can download a file from a GridFS bucket by opening a download stream and
 reading from the stream. Call the ``open_download_stream()`` method on
-your bucket instance, specifying the desired file's ``ObjectId`` value as a parameter.
+your bucket instance, specifying the desired file's ``_id`` value as a parameter.
 Then, call the ``read_to_end()`` method with a vector parameter to read and store the
 file bytes.
 
-The following example uses an download stream to download a file with an ``ObjectID`` value
+The following example uses an download stream to download a file with an ``_id`` value
 of  ``3289`` from a GridFS bucket:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
@@ -314,5 +314,20 @@ The following example deletes a GridFS bucket:
 Additional Resources
 --------------------
 
-- `MongoDB GridFS specification <https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst>`__
+To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide` guide.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types discussed in this
+guide, see the following API documentation:
+
+- `gridfs_bucket() <{+api+}/struct.Database.html#method.gridfs_bucket>`__
+- `GridFsBucketOptions <{+api+}/options/struct.GridFsBucketOptions.html>`__
+- `open_upload_stream() <{+api+}/gridfs/struct.GridFsBucket.html#method.open_upload_stream>`__
+- `open_download_stream() <{+api+}/gridfs/struct.GridFsBucket.html#method.open_download_stream>`__
+- `FilesCollectionDocument <{+api+}/gridfs/struct.FilesCollectionDocument.html>`__
+- `rename() <{+api+}/gridfs/struct.GridFsBucket.html#method.rename>`__
+- `delete() <{+api+}/gridfs/struct.GridFsBucket.html#method.delete>`__
+- `drop() <{+api+}/gridfs/struct.GridFsBucket.html#method.drop>`__
 
