@@ -135,7 +135,7 @@ The following table describes the builder methods that you can use to set fields
        
    * - ``chunk_size_bytes()``
      - Any ``u32`` value
-     - Specifies the chunk size, in bytes, used to break the file into chunks
+     - Specifies the chunk size, which is 255 KiB by default, used to break the file into chunks
 
    * - | ``write_concern()``
      - | ``WriteConcern::w``,
@@ -324,7 +324,7 @@ To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide` gu
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
+To learn more about any of the methods or types mentioned in this
 guide, see the following API documentation:
 
 - `gridfs_bucket() <{+api+}/struct.Database.html#method.gridfs_bucket>`__
