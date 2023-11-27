@@ -4,6 +4,13 @@
 GridFS
 ======
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: large files, storage, code example
+
 .. contents:: On this page
    :local:
    :backlinks: none
