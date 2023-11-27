@@ -47,6 +47,9 @@ This guide includes the following sections:
   
 - :ref:`Delete a GridFS Bucket <rust-gridfs-drop>` describes how to delete a GridFS bucket
 
+- :ref:`Additional Information <rust-gridfs-addtl-info>` provides links to resources and API documentation
+  for types and methods mentioned in this guide
+
 .. _rust-gridfs-info:
 
 How GridFS Works
@@ -311,8 +314,10 @@ The following example deletes a GridFS bucket:
    :copyable:
    :dedent:
 
-Additional Resources
---------------------
+.. _rust-gridfs-addtl-info:
+
+Additional Information
+----------------------
 
 To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide` guide.
 

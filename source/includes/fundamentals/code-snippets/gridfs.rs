@@ -31,7 +31,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     // start-upload
     let filename = "example.txt";
-    let file_bytes = fs::read(filename)?;
+    let file_bytes = fs::read(filename).await?;
     let mut upload_stream = bucket.open_upload_stream("example", None);
     upload_stream.write_all(&file_bytes[..]).await?;
     println!("Document uploaded with ID: {}", upload_stream.id());
@@ -42,7 +42,7 @@ async fn main() -> mongodb::error::Result<()> {
     let filter = doc! {};
     let mut cursor = bucket.find(filter, None).await?;
     while let Some(result) = cursor.try_next().await? {
-        println!("Length of {}: {}\n", result.length);
+        println!("File length: {}\n", result.length);
     };
     // end-retrieve
 
