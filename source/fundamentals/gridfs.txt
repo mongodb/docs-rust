@@ -163,8 +163,8 @@ The following table describes the builder methods that you can use to set fields
        | ``SelectionCriteria::Predicate``
      - | Specifies whether the driver compares numeric strings as numbers
 
-The following example specifies options for a ``GridFsBucketOptions`` instance to configure
-a custom bucket name and a five-second time limit for write operations:
+The following example specifies options in a ``GridFsBucketOptions`` instance to configure a custom
+bucket name and a five-second time limit for write operations:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-create-opts
@@ -250,7 +250,7 @@ The following example retrieves and prints the length of each file in a GridFS b
    :copyable:
    :dedent:
 
-.. note::
+.. tip::
 
    To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide`
    guide.
@@ -320,9 +320,9 @@ The following example deletes the file in which the value of the ``_id`` field i
 Delete a GridFS Bucket
 ----------------------
 
-You can use the ``drop()`` method to remove a bucket's ``files`` and ``chunks``
-collections, which effectively deletes the bucket. To delete the bucket, call
-``drop()`` on your bucket instance.
+You can use the ``drop()`` method to delete a bucket, which removes a bucket's
+``files`` and ``chunks`` collections. To delete the bucket, call ``drop()`` on
+your bucket instance.
 
 The following example deletes a GridFS bucket:
 
@@ -337,8 +337,6 @@ The following example deletes a GridFS bucket:
 
 Additional Information
 ----------------------
-
-
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
