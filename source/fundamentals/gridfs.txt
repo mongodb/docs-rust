@@ -35,7 +35,7 @@ To learn more about GridFS, navigate to the following sections in this guide:
 
 - :ref:`How GridFS Works <rust-gridfs-info>`
 
-- :ref:`Create a GridFS Bucket <rust-gridfs-create>`
+- :ref:`Reference a GridFS Bucket <rust-gridfs-create>`
 
 - :ref:`Upload Files <rust-gridfs-upload>`
   
@@ -253,6 +253,7 @@ The following example retrieves and prints the length of each file in a GridFS b
 .. tip::
 
    To learn more about the ``find()`` method, see the :ref:`rust-retrieve-guide`
+   guide. To learn more about retrieving data from a cursor, see the :ref:`rust-cursor-guide`
    guide.
 
 .. _rust-gridfs-rename:
