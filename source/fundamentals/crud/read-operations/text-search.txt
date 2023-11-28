@@ -29,6 +29,26 @@ A text search allows you to efficiently query fields with string values.
    feature. To learn more, see the :atlas:`Atlas Search documentation
    </atlas-search/>`.
 
+This guide includes the following sections:
+
+- :ref:`Sample Data for Examples <rust-text-sample-data>` presents
+  the sample data that is used by the text search examples
+
+- :ref:`Text Index <rust-text-index>` describes how to create a text
+  index on a string-valued field
+
+- :ref:`Text Index <rust-text-search>` describes how to perform text
+  searches with different search criteria
+
+- :ref:`Aggregation <rust-search-text-aggregation>` describes how to
+  perform text searches by using aggregation pipelines
+
+- :ref:`Additional Information <rust-crud-text-addtl-info>`
+  provides links to resources and API documentation for types
+  and methods mentioned in this guide
+
+.. _rust-text-sample-data:
+
 Sample Data for Examples
 ------------------------
 
@@ -53,6 +73,8 @@ dishes you can order at a restaurant:
    { "name": "Kale Tabbouleh", "description": "A bright, herb-based salad. A perfect starter for vegetarians and vegans." },
    { "name": "Garlic Butter Trout", "description": "Baked trout seasoned with garlic, lemon, dill, and, of course, butter. Serves 2." }
 
+.. _rust-text-index:
+
 Text Index
 ----------
 
@@ -70,6 +92,8 @@ in the following code:
    :dedent:
    :start-after: begin-idx
    :end-before: end-idx
+
+.. _rust-text-search:
 
 Text Search
 -----------
@@ -304,6 +328,8 @@ This example uses an aggregation to perform the following actions:
       Document({"name": String("Green Curry"), "score": Double(0.9166666666666667)})
       Document({"name": String("Kale Tabbouleh"), "score": Double(0.5625)})
       Document({"name": String("Shepherd’s Pie"), "score": Double(0.5555555555555556)})
+
+.. _rust-crud-text-addtl-info:
 
 Additional Information
 ----------------------

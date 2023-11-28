@@ -49,7 +49,6 @@ async fn main() -> mongodb::error::Result<()> {
         .build();
 
     let idx_res = my_coll.create_index(index, None).await?;
-    println!("Created index:\n{}", idx_res.index_name);
     // end-idx
 
     // begin-by-term
@@ -83,7 +82,12 @@ async fn main() -> mongodb::error::Result<()> {
     let filter = doc! { "$text": { "$search": "vegetarian" } };
 
     let sort = doc! { "score": { "$meta": "textScore" } };
-    let projection = doc! { "_id": 0, "name": 1, "score": { "$meta": "textScore" } };
+    let projection =
+        doc! { 
+        "_id": 0, 
+        "name": 1, 
+        "score": { "$meta": "textScore" } 
+    };
     let opts = FindOptions::builder().sort(sort).projection(projection).build();
 
     let doc_coll: Collection<Document> = my_coll.clone_with_type();
@@ -107,9 +111,14 @@ async fn main() -> mongodb::error::Result<()> {
     let match_stage = doc! { "$match": { "$text": { "$search": "vegetarian" } } };
     let sort_stage = doc! { "$sort": { "score": { "$meta": "textScore" } } };
     let proj_stage =
-        doc! { "$project": { "_id": 0, "name": 1, "score": { "$meta": "textScore" } } };
+        doc! { "$project": { 
+        "_id": 0, 
+        "name": 1, 
+        "score": { "$meta": "textScore" } 
+    } };
 
-    let mut cursor = my_coll.aggregate([match_stage, sort_stage, proj_stage], None).await?;
+    let pipeline = [match_stage, sort_stage, proj_stage];
+    let mut cursor = my_coll.aggregate(pipeline, None).await?;
     while let Some(doc) = cursor.try_next().await? {
         println!("{:?}", doc);
     }
