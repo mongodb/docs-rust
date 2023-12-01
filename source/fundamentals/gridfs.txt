@@ -265,27 +265,19 @@ You can update the name of a GridFS file in your bucket by calling the ``rename(
 on a bucket instance. Pass the target file's ``_id`` value and the new file name as
 parameters to the ``rename()`` method.
 
+.. note::
+   The ``rename()`` method only supports updating the name of one file at
+   a time. To rename multiple files, retrieve a list of files matching the
+   file name from the bucket, extract the ``_id`` field from the files you
+   want to rename, and pass each value in separate calls to the ``rename()``
+   method.
+
 The following example updates the ``filename`` field of the file containing an ``_id`` value
 of ``3289`` to ``"new_file_name"``:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
    :start-after: start-rename
    :end-before: end-rename
-   :language: rust
-   :copyable:
-   :dedent:
-
-The ``rename()`` method only supports updating the name of one file at a time. To rename multiple
-files, retrieve a list of files matching the file name from the bucket, extract the ``_id`` field
-from the files you want to rename, and pass each ``_id`` value in separate calls to the
-``rename()`` method.
-
-The following example updates the ``filename`` field of three files by passing each file's ``_id``
-value to ``rename()``:
-
-.. literalinclude:: /includes/fundamentals/code-snippets/gridfs.rs
-   :start-after: start-rename-many
-   :end-before: end-rename-many
    :language: rust
    :copyable:
    :dedent:

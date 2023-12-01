@@ -74,19 +74,6 @@ async fn main() -> mongodb::error::Result<()> {
     bucket.rename(Bson::ObjectId(id), &new_name).await?;
     // end-rename
 
-    // start-rename-many
-    let bucket = my_db.gridfs_bucket(None);
-    let id1 = ObjectId::from_str("3290").expect("Could not convert to ObjectId");
-    let id2 = ObjectId::from_str("3291").expect("Could not convert to ObjectId");
-    let id3 = ObjectId::from_str("3292").expect("Could not convert to ObjectId");
-
-    let new_name = "files_with_same_name";
-
-    bucket.rename(Bson::ObjectId(id1), &new_name).await?;
-    bucket.rename(Bson::ObjectId(id2), &new_name).await?;
-    bucket.rename(Bson::ObjectId(id3), &new_name).await?;
-    // end-rename-many
-
     // start-delete-file
     let bucket = my_db.gridfs_bucket(None);
     let id = ObjectId::from_str("3289").expect("Could not convert to ObjectId");
