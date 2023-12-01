@@ -1,6 +1,6 @@
 use mongodb::{
     bson::{ doc, Document }, 
-    options::{ChangeStreamOptions, FullDocumentType},
+    options::{ChangeStreamOptions, FullDocumentType, CreateCollectionOptions},
     Client, Collection
 };
 use futures_util::{
@@ -9,10 +9,10 @@ use futures_util::{
 use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Actor {
+struct Director {
     name: String,
-    starred: Vec,
-    oscars: u32,
+    movies: Vec,
+    oscar_noms: u32,
 }
 
 #[tokio::main]
@@ -20,19 +20,19 @@ async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
     let my_db = client.database("db");
-    let my_coll: Collection<Actor> = my_db.collection("actors");
+    let my_coll: Collection<Director> = my_db.collection("directors");
 
     // start-docs
     let docs = vec! [
-        Actor {
-            name: "Emma Stone".to_string(),
-            starred: vec! ["Poor Things".to_string(), "La La Land".to_string()],
-            oscars: 1,
+        Director {
+            name: "Todd Haynes".to_string(),
+            movies: vec! ["Far From Heaven".to_string(), "Carol".to_string()],
+            oscar_noms: 1,
         },
-        Actor {
-            name: "Ryan Gosling".to_string(),
-            starred: vec! ["Drive".to_string(), "La La Land".to_string()],
-            oscars: 0,
+        Director {
+            name: "Jane Campion".to_string(),
+            movies: vec! ["The Piano".to_string(), "Bright Star".to_string()],
+            oscar_noms: 5,
         }
     ];
     // end-docs
@@ -58,17 +58,37 @@ async fn main() -> mongodb::error::Result<()> {
     }
     // end-pipeline
 
-    // start-options
-    let full_doc = Some(FullDocumentType::UpdateLookup);
+    // start-create-coll
+    let opts = CreateCollectionOptions::builder()
+        .change_stream_pre_and_post_images(true)
+        .build();
+
+    let result = my_db.create_collection("directors", opts).await?;
+    // end-create-coll
+
+    // start-pre
+    let pre_image = Some(FullDocumentBeforeChangeType::Required);
     let opts = ChangeStreamOptions::builder()
-        .full_document(full_doc)
+        .full_document_before_change(pre_image)
         .build();
 
     let mut change_stream = my_coll.watch(None, opts).await?;
     while let Some(event) = change_stream.next().await.transpose()? {
-        println!("Operation performed: {:?}, document: {:?}", event.operation_type, event.full_document);
+        println!("Operation performed: {:?}, pre-image: {:?}", event.operation_type, event.full_document_before_change);
     }
-    // end-options
+    // end-pre
+
+    // start-post
+    let post_image = Some(FullDocumentType::WhenAvailable);
+    let opts = ChangeStreamOptions::builder()
+        .full_document(post_image)
+        .build();
+
+    let mut change_stream = my_coll.watch(None, opts).await?;
+    while let Some(event) = change_stream.next().await.transpose()? {
+        println!("Operation performed: {:?}, post-image: {:?}", event.operation_type, event.full_document);
+    }
+    // end-post
 
     Ok(())
 }

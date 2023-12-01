@@ -4,8 +4,6 @@
 Open Change Streams
 ===================
 
-.. default-domain:: mongodb
-
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -31,14 +29,27 @@ sections:
 - :ref:`<rust-change-stream-open>`
 - :ref:`<rust-change-stream-aggregation>`
 - :ref:`<rust-change-stream-configure-pre-post>`
-
-.. _rust-change-stream-open:
+- :ref:`<rust-change-stream-addtl-info>`
 
 Sample Data
 -----------
 
-The examples in this guide use the following sample documents from the ``actors``
-collection, which are modelled as structs:
+The examples in this guide monitor changes to the ``directors`` collection.
+Assume that this collection contains the following documents, which are modelled
+as structs:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
+   :language: rust
+   :dedent:
+   :start-after: start-docs
+   :end-before: end-docs
+
+.. tip::
+
+   To learn how to insert documents into a collection, see the :ref:`<rust-insert-guide>`
+   guide.
+
+.. _rust-change-stream-open:
 
 Open a Change Stream
 --------------------
@@ -70,8 +81,8 @@ changes in the connected MongoDB deployment.
 Example
 ~~~~~~~
 
-The following example opens a change stream on the ``actors`` collection
-and prints all change stream events as they occur:
+The following example opens a change stream on the ``directors`` collection
+and prints the operation type and modified document of each change event:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
    :language: rust
@@ -79,7 +90,7 @@ and prints all change stream events as they occur:
    :start-after: start-open
    :end-before: end-open
 
-If you perform a insert operation on the ``actors`` collection, the preceding code
+If you perform a insert operation on the ``directors`` collection, the preceding code
 produces the following output:
 
 .. code-block::
@@ -96,23 +107,25 @@ Apply Aggregation Operators to your Change Stream
 You can pass an aggregation pipeline as a parameter to the ``watch()`` method
 to specify which change events the change stream receives.
 
-To learn which aggregation operators your {+mdb-server+} version supports, see
+To learn which aggregation operators your MongoDB Server version supports, see
 :ref:`<change-stream-modify-output>`.
 
 Example
 ~~~~~~~
 
-The following code example shows how you can apply an aggregation pipeline to
-configure your change stream to receive change events for only insert and
+The following example creates an aggregation pipeline to filter for update
+operations. Then, the code passes the pipeline to the ``watch()`` method,
+configuring the change stream to only receive and print change events for
 update operations:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
-   :language: java
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
+   :language: rust
    :dedent:
-   :start-after: begin aggregationExample
-   :end-before: end aggregationExample
+   :start-after: start-pipeline
+   :end-before: end-pipeline
 
-An update operation on the collection produces the following output:
+If you update the document in which the ``name`` value is ``"Todd Haynes"`` in
+a separate program, the preceding code produces the following output:
 
 .. code-block::
    :copyable: false
@@ -124,59 +137,10 @@ An update operation on the collection produces the following output:
       ...
    }
 
-.. _rust-split-change-stream-events:
+.. tip::
 
-Split Large Change Stream Events
---------------------------------
-
-Starting in MongoDB 7.0, you can use the ``$changeStreamSplitLargeEvent``
-aggregation stage to split events that exceed 16 MB into smaller fragments.
-
-Use ``$changeStreamSplitLargeEvent`` only when strictly necessary. For
-example, use ``$changeStreamSplitLargeEvent`` if your application requires full
-document pre- or post-images, and generates events that exceed 16 MB.
-
-The ``$changeStreamSplitLargeEvent`` stage returns the fragments sequentially. You can
-access the fragments by using a change stream cursor. Each fragment
-includes a ``SplitEvent`` object containing the following fields:
-
-.. list-table::
-   :header-rows: 1
-   :widths: 35 65
-
-   * - Field
-     - Description
-
-   * - ``fragment``
-     - The index of the fragment, starting at ``1``
-
-   * - ``of``
-     - The total number of fragments that compose the split event
-
-The following example modifies your change stream by using the
-``$changeStreamSplitLargeEvent`` aggregation stage to split large events:
-
-.. code-block:: java
-
-   ChangeStreamIterable<Document> changeStream = collection.watch(
-         Arrays.asList(Document.parse("{ $changeStreamSplitLargeEvent: {} }")));
-
-.. note::
-
-   You can have only one ``$changeStreamSplitLargeEvent`` stage in your
-   aggregation pipeline, and it must be the last stage in the pipeline.
-
-You can call the ``getSplitEvent()`` method on your change stream cursor to access
-the ``SplitEvent`` as shown in the following example:
-
-.. code-block:: java
-
-   MongoChangeStreamCursor<ChangeStreamDocument<Document>> cursor = changeStream.cursor();
-   SplitEvent event = cursor.tryNext().getSplitEvent();
-
-For more information on the ``$changeStreamSplitLargeEvent`` aggregation stage,
-see the :manual:`$changeStreamSplitLargeEvent
-</reference/operator/aggregation/changeStreamSplitLargeEvent/>` server documentation.
+   To learn how to perform update operations, see the :ref:`<rust-change-guide>`
+   guide.
 
 .. _rust-change-stream-configure-pre-post:
 
@@ -203,13 +167,13 @@ must perform the following actions:
 
   .. tip::
 
-     To learn how to enable pre- and post-images on your deployment, see
+     To learn how to enable pre- and post-images on your deployment, see the
      :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
-     in the Server manual.
+     page in the Server manual.
 
      To learn how to instruct the driver to create a collection with pre-images
-     and post-images enabled, see the :ref:`<java-change-stream-pre-post-collection>`
-     section.
+     and post-images enabled, see the :ref:`<rust-change-stream-pre-post-collection>`
+     section of this page.
 
 - Configure your change stream to retrieve either or both the pre-images and
   post-images.
@@ -217,25 +181,38 @@ must perform the following actions:
   .. tip::
 
      To configure your change stream to record the pre-image in change
-     events, see the :ref:`<java-pre-image-example>`.
+     events, see the :ref:`<rust-pre-image-example>` on this page.
 
      To configure your change stream to record the post-image in change
-     events, see the :ref:`<java-post-image-example>`.
+     events, see the :ref:`<rust-post-image-example>` on this page.
 
 .. _rust-change-stream-pre-post-collection:
 
 Create a Collection with Pre-Image and Post-Images Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To use the driver to create a collection with the pre-image and post-image options
-enabled, specify an instance of  ``ChangeStreamPreAndPostImagesOptions``
-and call the ``createCollection()`` method as shown in the following example:
+To create a collection with the pre-image and post-image documents enabled,
+configure this option in a ``CreateCollectionOptions`` struct instance. To begin
+building a ``CreateCollectionOptions`` instance, call the ``CreateCollectionOptions::builder()``
+method.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
-   :language: java
+.. note:: Instantiating Options
+   
+   The {+driver-short+} implements the Builder design pattern for the
+   creation of many different types, including ``CreateCollectionOptions``. You
+   can use the ``builder()`` method to construct an instance of each type
+   by chaining option builder methods.
+
+When configuring your ``CreateCollectionOptions`` instance, you must use the
+``change_stream_pre_and_post_images()`` builder method. The following example
+uses this builder method to specify collection options and creates a
+collection for which pre- and post-images are available:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
+   :language: rust
    :dedent:
-   :start-after: begin createCollection
-   :end-before: end createCollection
+   :start-after: start-create-coll
+   :end-before: end-create-coll
 
 You can change the pre-image and post-image option in an existing collection
 by running the ``collMod`` command from the MongoDB Shell. To learn how to
@@ -253,23 +230,29 @@ in the Server manual.
 Pre-image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following code example shows how you can configure a change stream
-on the ``myColl`` collection to include the pre-image and output any
-change events:
+To configure a change stream that returns change events containing the pre-image,
+specify a ``ChangeStreamOptions`` struct instance. To begin building a ``ChangeStreamOptions``
+instance, call the ``ChangeStreamOptions::builder()`` method.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
-   :language: java
+When configuring your ``ChangeStreamOptions`` instance to return the pre-image document,
+you must use the ``full_document_before_change()`` builder method. The following example
+specifies change stream options and creates a change stream that returns pre-image
+documents:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
+   :language: rust
    :dedent:
-   :start-after: begin fullDocumentBeforeChangeExample
-   :end-before: end fullDocumentBeforeChangeExample
+   :start-after: start-pre
+   :end-before: end-pre
 
-The preceding example configures the change stream to use the
-``FullDocumentBeforeChange.REQUIRED`` option. This option configures the change
-stream to require pre-images for replace, update, and delete change
-events. If the pre-image is not available, the driver raises an error.
+The preceding example passes a value of ``FullDocumentBeforeChangeType::Required``
+to the ``full_document_before_change()`` builder method. This option configures the change
+stream to require pre-images for replace, update, and delete change events. If the pre-image
+is not available, the driver raises an error.
 
-Suppose you update the value of the ``amount`` field in a document from
-``150`` to ``2000``. This change event produces the following output:
+Suppose you update a document in which the value of ``name`` is ``"Jane Campion"``. If you
+add a value to this document's ``movies`` vector field, the change event produces the
+following output:
 
 .. code-block::
    :emphasize-lines: 7
@@ -285,33 +268,31 @@ Suppose you update the value of the ``amount`` field in a document from
       ...
    }
 
-For a list of options, see the `FullDocumentBeforeChange <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocumentBeforeChange.html>`__
-API documentation.
-
-.. _java-post-image-example:
+.. _rust-post-image-example:
 
 Post-image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following code example shows how you can configure a change stream
-on the ``myColl`` collection to include the pre-image and output any
-change events:
+To configure a change stream that returns change events containing the post-image,
+specify a ``ChangeStreamOptions`` struct instance. To begin building a ``ChangeStreamOptions``
+instance, call the ``ChangeStreamOptions::builder()`` method.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/change-streams/ChangeStreams.java
-   :language: java
+When configuring your ``ChangeStreamOptions`` instance to return the post-image document,
+you must use the ``full_document()`` builder method. The following example specifies change
+stream options and creates a change stream that returns post-image documents:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
+   :language: rust
    :dedent:
-   :start-after: begin fullDocumentExample
-   :end-before: end fullDocumentExample
+   :start-after: start-post
+   :end-before: end-post
 
-The preceding example configures the change stream to use the
-``FullDocument.WHEN_AVAILABLE`` option. This option configures the change
-stream to return the post-image of the modified document for replace and
-update change events, if it's available.
+The preceding example passes a value of ``FullDocument::WhenAvailable`` to the ``full_document()``
+builder method. This option configures the change stream to return post-images for replace, update,
+and delete change events if the post-image is available.
 
-Suppose you update the value of the ``color`` field in a document from
-``"purple"`` to ``"pink"``. The change event produces the following
-output:
-
+Suppose you update a document in which the value of ``name`` is ``"Todd Haynes"``. If you
+modify this document's ``oscar_noms`` field, the change event produces the following output:
 
 .. code-block::
    :emphasize-lines: 6-7
@@ -327,5 +308,20 @@ output:
       ...
    }
 
-For a list of options, see the `FullDocument <{+api+}/apidocs/mongodb-driver-core/com/mongodb/client/model/changestream/FullDocument.html>`__
-API documentation.
+.. _rust-change-stream-addtl-info:
+
+Additional Information
+----------------------
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types mentioned in this
+guide, see the following API documentation:
+
+- `watch() <{+api+}/struct.Collection.html#method.watch>`__
+- `ChangeStreamEvent <{+api+}/change_stream/event/struct.ChangeStreamEvent.html>`__
+- `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `ChangeStreamOptions <{+api+}/options/struct.ChangeStreamOptions.html>`__
+- `FullDocumentBeforeChangeType <{+api+}/options/enum.FullDocumentBeforeChangeType.html>`__
+- `FullDocumentType <{+api+}/options/enum.FullDocumentType.html>`__
