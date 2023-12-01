@@ -142,7 +142,7 @@ The following table describes the builder methods that you can use to set fields
        
    * - ``chunk_size_bytes()``
      - Any ``u32`` value
-     - Specifies the chunk size, which is 255 KB by default, used to break the file into chunks
+     - Specifies the chunk size used to break the file into chunks, which is 255 KB by default
 
    * - | ``write_concern()``
      - | ``WriteConcern::w``,
@@ -161,7 +161,8 @@ The following table describes the builder methods that you can use to set fields
    * - | ``selection_criteria()``
      - | ``SelectionCriteria::ReadPreference``,
        | ``SelectionCriteria::Predicate``
-     - | Specifies whether the driver compares numeric strings as numbers
+     - | Specifies which servers are suitable for a bucket operation, which is set to the database's selection
+       | criteria by default
 
 The following example specifies options in a ``GridFsBucketOptions`` instance to configure a custom
 bucket name and a five-second time limit for write operations:
