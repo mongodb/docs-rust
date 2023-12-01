@@ -16,7 +16,7 @@ use std::{
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri: &str = "<connection string>";
+    let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
     let my_db = client.database("db");
 
