@@ -90,13 +90,13 @@ and prints the operation type and modified document of each change event:
    :start-after: start-open
    :end-before: end-open
 
-If you perform a insert operation on the ``directors`` collection, the preceding code
-produces the following output:
+If you insert a document into the ``directors`` collection in which the ``name`` value
+is ``"Wes Anderson"``, the preceding code produces the following output:
 
 .. code-block::
    :copyable: false
 
-   Operation performed: Insert, document: Some(Actor { name: "Rachel McAdams", starred: ["Spotlight", "The Notebook"], oscars: 0 })
+   Operation performed: Insert, document: Some(Director { name: "Wes Anderson", movies: ["Asteroid City", "Moonrise Kingdom"], oscar_noms: 7 })
 
 
 .. _rust-change-stream-aggregation:
@@ -130,12 +130,7 @@ a separate program, the preceding code produces the following output:
 .. code-block::
    :copyable: false
 
-   Received a change: ChangeStreamDocument{
-      operationType=update,
-      resumeToken={"_data": "..."},
-      namespace=myDb.myColl,
-      ...
-   }
+   Operation performed: Update, document: None
 
 .. tip::
 
@@ -250,23 +245,13 @@ to the ``full_document_before_change()`` builder method. This option configures 
 stream to require pre-images for replace, update, and delete change events. If the pre-image
 is not available, the driver raises an error.
 
-Suppose you update a document in which the value of ``name`` is ``"Jane Campion"``. If you
-add a value to this document's ``movies`` vector field, the change event produces the
-following output:
+If you update a document in which the value of ``name`` is ``"Jane Campion"``, the change event
+produces the following output:
 
 .. code-block::
-   :emphasize-lines: 7
    :copyable: false
 
-   Received a change: ChangeStreamDocument{
-      operationType=update,
-      resumeToken={"_data": "..."},
-      namespace=myDb.myColl,
-      destinationNamespace=null,
-      fullDocument=null,
-      fullDocumentBeforeChange=Document{{_id=..., amount=150, ...}},
-      ...
-   }
+   Operation performed: Update, pre-image: Some(Director { name: "Jane Campion", movies: ["The Piano", "Bright Star"], oscar_noms: 5 })
 
 .. _rust-post-image-example:
 
@@ -295,18 +280,9 @@ Suppose you update a document in which the value of ``name`` is ``"Todd Haynes"`
 modify this document's ``oscar_noms`` field, the change event produces the following output:
 
 .. code-block::
-   :emphasize-lines: 6-7
    :copyable: false
 
-   Received a change: ChangeStreamDocument{
-      operationType=update,
-      resumeToken={"_data": "..."},
-      namespace=myDb.myColl,
-      destinationNamespace=null,
-      fullDocument=Document{{_id=..., color=purple, ...}},
-      updatedFields={"color": purple},
-      ...
-   }
+   Operation performed: Update, post-image: Some(Director { name: "Todd Haynes", movies: ["Far From Heaven", "Carol"], oscar_noms: 2 })
 
 .. _rust-change-stream-addtl-info:
 

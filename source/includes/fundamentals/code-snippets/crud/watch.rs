@@ -11,7 +11,7 @@ use serde::{ Deserialize, Serialize };
 #[derive(Serialize, Deserialize, Debug)]
 struct Director {
     name: String,
-    movies: Vec,
+    movies: Vec<String>,
     oscar_noms: u32,
 }
 
@@ -59,8 +59,9 @@ async fn main() -> mongodb::error::Result<()> {
     // end-pipeline
 
     // start-create-coll
+    let enable = ChangeStreamPreAndPostImages::builder().enabled(true).build();
     let opts = CreateCollectionOptions::builder()
-        .change_stream_pre_and_post_images(true)
+        .change_stream_pre_and_post_images(enable)
         .build();
 
     let result = my_db.create_collection("directors", opts).await?;
