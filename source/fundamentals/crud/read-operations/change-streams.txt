@@ -4,6 +4,13 @@
 Open Change Streams
 ===================
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: monitor, delta, code example 
+
 .. contents:: On this page
    :local:
    :backlinks: none
