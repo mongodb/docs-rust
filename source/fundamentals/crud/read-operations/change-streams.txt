@@ -14,8 +14,8 @@ Overview
 --------
 
 In this guide, you can learn how to use a **change stream** to monitor
-real-time changes to your database. A change stream is a MongoDB Server
-feature that allows your application to subscribe to data changes on a single
+real-time changes to your data. A change stream is a MongoDB Server feature
+that allows your application to subscribe to data changes on a single
 collection, database, or deployment.
 
 You can specify a set of aggregation operators to filter and transform the data
@@ -26,10 +26,13 @@ change.
 To learn how to open and configure a change stream, navigate to the following
 sections:
 
+- :ref:`<rust-change-stream-data>`
 - :ref:`<rust-change-stream-open>`
 - :ref:`<rust-change-stream-aggregation>`
 - :ref:`<rust-change-stream-configure-pre-post>`
 - :ref:`<rust-change-stream-addtl-info>`
+
+.. _rust-change-stream-data:
 
 Sample Data
 -----------
@@ -81,14 +84,21 @@ changes in the connected MongoDB deployment.
 Example
 ~~~~~~~
 
-The following example opens a change stream on the ``directors`` collection
-and prints the operation type and modified document of each change event:
+The following example opens a change stream on the ``directors`` collection.
+The code prints the operation type and modified document of each change event by
+accessing the ``operation_type`` and ``full_document`` fields of each ``ChangeStreamEvent``
+instance:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
    :language: rust
    :dedent:
    :start-after: start-open
    :end-before: end-open
+
+.. tip::
+
+   For a full list of ``ChangeStreamEvent`` struct fields, see `ChangeStreamEvent
+   <{+api+}/change_stream/event/struct.ChangeStreamEvent.html>`__ in the API documentation.
 
 If you insert a document into the ``directors`` collection in which the ``name`` value
 is ``"Wes Anderson"``, the preceding code produces the following output:
@@ -301,7 +311,6 @@ To learn more about any of the methods or types mentioned in this
 guide, see the following API documentation:
 
 - `watch() <{+api+}/struct.Collection.html#method.watch>`__
-- `ChangeStreamEvent <{+api+}/change_stream/event/struct.ChangeStreamEvent.html>`__
 - `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
 - `ChangeStreamOptions <{+api+}/options/struct.ChangeStreamOptions.html>`__
 - `FullDocumentBeforeChangeType <{+api+}/options/enum.FullDocumentBeforeChangeType.html>`__
