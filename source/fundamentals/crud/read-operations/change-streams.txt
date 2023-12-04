@@ -64,7 +64,7 @@ To open a change stream, call the ``watch()`` method on a ``Collection``,
 
    Standalone MongoDB deployments don't support change streams because
    the feature requires a replica set oplog. To learn more about the oplog,
-   see the :ref:`<replica-set-oplog>` Server manual page.
+   see the :ref:`<replica-set-oplog>` page in the Server manual.
 
 The object on which you call the ``watch()`` method on determines the scope of
 events that the change stream listens for.
@@ -164,9 +164,9 @@ must perform the following actions:
 
   .. tip::
 
-     To learn how to enable pre- and post-images on your deployment, see the
+     To learn how to enable pre- and post-images on your deployment, see
      :manual:`Change Streams with Document Pre- and Post-Images </changeStreams/#change-streams-with-document-pre--and-post-images>`
-     page in the Server manual.
+     in the Server manual.
 
      To learn how to instruct the driver to create a collection with pre-images
      and post-images enabled, see the :ref:`<rust-change-stream-pre-post-collection>`
@@ -220,7 +220,7 @@ in the Server manual.
 
    If you enabled pre-images or post-images on a collection, modifying
    these settings with ``collMod`` can cause existing change streams on
-   that collection to fail.
+   that collection to terminate.
 
 .. _rust-pre-image-example:
 
