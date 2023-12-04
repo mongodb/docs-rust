@@ -1,6 +1,6 @@
 use mongodb::{
     bson::{ doc, Document }, 
-    options::{ChangeStreamOptions, FullDocumentType, CreateCollectionOptions},
+    options::{ChangeStreamPreAndPostImages, ChangeStreamOptions, FullDocumentType, CreateCollectionOptions, FullDocumentBeforeChangeType},
     Client, Collection
 };
 use futures_util::{
@@ -43,7 +43,8 @@ async fn main() -> mongodb::error::Result<()> {
     let mut change_stream = my_coll.watch(None, None).await?;
 
     while let Some(event) = change_stream.next().await.transpose()? {
-        println!("Operation performed: {}, document: {}", event.operation_type, event.full_document);
+        println!("Operation performed: {:?}", event.operation_type);
+        println!("Document: {:?}", event.full_document);
     }
     // end-open
 
@@ -54,7 +55,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut update_change_stream = my_coll.watch(pipeline, None).await?;
     while let Some(event) = update_change_stream.next().await.transpose()? {
-        println!("Operation performed: {:?}, document: {:?}", event.operation_type, event.full_document);
+        println!("Update performed: {:?}", event.update_description);
     }
     // end-pipeline
 
@@ -75,7 +76,8 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut change_stream = my_coll.watch(None, opts).await?;
     while let Some(event) = change_stream.next().await.transpose()? {
-        println!("Operation performed: {:?}, pre-image: {:?}", event.operation_type, event.full_document_before_change);
+        println!("Operation performed: {:?}", event.operation_type);
+        println!("Pre-image: {:?}", event.full_document_before_change);
     }
     // end-pre
 
@@ -87,7 +89,8 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut change_stream = my_coll.watch(None, opts).await?;
     while let Some(event) = change_stream.next().await.transpose()? {
-        println!("Operation performed: {:?}, post-image: {:?}", event.operation_type, event.full_document);
+        println!("Operation performed: {:?}", event.operation_type);
+        println!("Post-image: {:?}", event.full_document);
     }
     // end-post
 
