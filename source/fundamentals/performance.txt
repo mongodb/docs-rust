@@ -79,7 +79,7 @@ and optimize performance.
    
    To learn more about configuring a connection pool, see
    :manual:`Tuning Your Connection Pool Settings
-   <tutorial/connection-pool-performance-tuning/>` in the Server manual.
+   </tutorial/connection-pool-performance-tuning/>` in the Server manual.
 
 The maximum size of each connection pool is set by the ``max_pool_size``
 option, which defaults to ``10``. If the number of in-use connections to
@@ -92,9 +92,9 @@ in your MongoDB topology for monitoring the server's state.
 For example, a client connected to a three-node replica set opens six
 monitoring sockets. If the application uses the default setting for
 ``max_pool_size`` and only queries the primary (default) node, then
-there can be at most ``16`` total connections in the connection pool. If the
+there can be at most 16 total connections in the connection pool. If the
 application uses a read preference to query the secondary nodes, those
-connection pools grow and there can be ``36`` total connections.
+connection pools grow and there can be 36 total connections.
 
 To support high numbers of concurrent MongoDB requests
 within one process, you can increase the value of the ``max_pool_size``
