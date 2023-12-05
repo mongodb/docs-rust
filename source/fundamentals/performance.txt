@@ -32,7 +32,7 @@ This guide includes the following sections:
 - :ref:`Client Lifecycle <rust-performance-client-lifecycle>` describes
   best practices for creating and managing a ``Client`` instance
 
-- :ref:`Connection Pool Management <rust-performance-pool>` describes
+- :ref:`Connection Pool <rust-performance-pool>` describes
   how connection pooling works in the driver
 
 - :ref:`Parallelism <rust-performance-parallelism>` provides sample code
@@ -66,8 +66,8 @@ by using the same client:
 
 .. _rust-performance-pool:
 
-Connection Pool Management
---------------------------
+Connection Pool
+---------------
 
 Every ``Client`` instance has a built-in connection pool for each server
 in your MongoDB topology. Connection pools open sockets on demand to
