@@ -79,7 +79,7 @@ a server reaches the value of ``max_pool_size``, the next request to
 that server will wait until a connection becomes available.
 
 In addition to the sockets needed to support your application's requests,
-each ``Client`` instance opens two additional sockets per server
+each ``Client`` instance opens two more sockets per server
 in your MongoDB topology for monitoring the server's state.
 For example, a client connected to a three-node replica set opens six
 monitoring sockets. If the application uses the default setting for
@@ -137,8 +137,8 @@ any ongoing operations by using this method. The driver closes these
 sockets only when the process completes.
 
 The default configuration for a ``Client`` works for most applications.
-You can create a client with default connection settings by using the
-following instantiation code:
+The following code shows how to create a client with default connection
+settings:
 
 .. code-block:: rust
    
