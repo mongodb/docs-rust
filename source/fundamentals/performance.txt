@@ -95,7 +95,15 @@ connection pools grow and there can be ``36`` total connections.
 
 To support high numbers of concurrent MongoDB requests
 within one process, you can increase the value of the ``max_pool_size``
-option.
+option. The following code demonstrates how to instantiate a ``Client``
+while specifying a value for ``max_pool_size``:
+
+.. code-block:: rust
+   
+   let mut client_options = ClientOptions::parse("<connection string>").await?;
+   client_options.max_pool_size = Some(20);
+
+   let client = Client::with_options(client_options)?;
 
 Connection pools are rate-limited. The ``max_connecting`` option
 determines the number of connections that the pool can create in
@@ -200,6 +208,7 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 - `Client() <{+api+}/struct.Client.html>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `spawn() <https://docs.rs/tokio/latest/tokio/task/fn.spawn.html>`__ in
   the ``tokio::task`` module
 - `tokio::runtime <https://docs.rs/tokio/latest/tokio/runtime/index.html>`__ module
