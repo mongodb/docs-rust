@@ -53,13 +53,11 @@ The examples in this guide use the following sample documents. Each
 document represents an item in a store's inventory and contains
 information about its categorization and unit price:
 
-.. code-block:: json
-   :copyable: false
-   
-   { "item": "candle", "category": "decor", "unit_price": 2.89 },
-   { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
-   { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
-   { "item": "watering can", "category": "garden", "unit_price": 11.99 }
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/retrieve.rs
+   :language: rust
+   :dedent:
+   :start-after: start-sample
+   :end-before: end-sample
 
 .. _rust-retrieve-find:
 

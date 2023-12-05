@@ -53,16 +53,22 @@ This guide includes the following sections:
 Sample Data for Examples
 ------------------------
 
-The examples in this guide use the following sample documents. Each
-document describes a fruit:
+The examples in this guide uses the following data stored in a struct:
 
-.. code-block:: json
-   :copyable: false
-   
-   { "name": "strawberry", "color": "red" },
-   { "name": "banana", "color": "yellow" },
-   { "name": "pomegranate", "color": "red" },
-   { "name": "pineapple", "color": "yellow" }
+.. code-block:: rust
+
+  #[derive(Serialize, Deserialize)]
+   struct Fruit {
+      name: String,
+      color: String
+   }
+
+   let strawberry = { "name": "strawberry", "color": "red" }
+   let banana = { "name": "banana", "color": "yellow" }
+   let pomegranate = { "name": "pomegranate", "color": "red" }
+   let pineapple = { "name": "pineapple", "color": "yellow" }
+
+  The data stored in the collection is the following:
 
 .. _rust-cursor-individual:
 

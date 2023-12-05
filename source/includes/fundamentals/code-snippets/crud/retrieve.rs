@@ -10,14 +10,41 @@ async fn main() -> mongodb::error::Result<()> {
     let client = Client::with_uri_str(uri).await?;
     let my_coll: Collection<Document> = client.database("db").collection("inventory");
 
-    let docs = vec![
-        doc! { "item": "candle", "category": "decor", "unit_price": 2.89 },
-        doc! { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
-        doc! { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
-        doc! { "item": "watering can", "category": "garden", "unit_price": 11.99 }
-    ];
+    // let docs = vec![
+    //     doc! { "item": "candle", "category": "decor", "unit_price": 2.89 },
+    //     doc! { "item": "blender", "category": "kitchen", "unit_price": 38.49 },
+    //     doc! { "item": "placemat", "category": "kitchen", "unit_price": 3.19 },
+    //     doc! { "item": "watering can", "category": "garden", "unit_price": 11.99 }
+    // ];
 
-    my_coll.insert_many(docs, None).await?;
+    // my_coll.insert_many(docs, None).await?;
+
+    // start-sample
+    let docs = vec! [
+        Inventory {
+            item: "candle".to_string(),
+            category: "decor".to_string(),
+            unit_price: 2.89,
+        },
+        Inventory {
+            item: "blender".to_string(),
+            category: "kitchen".to_string(),
+            unit_price: 38.49,
+        },
+        Inventory {
+            item: "placemat".to_string(),
+            category: "kitchen".to_string(),
+            unit_price: 3.19,
+        },
+        Inventory {
+            item: "watering can".to_string(),
+            category: "garden".to_string(),
+            unit_price: 11.99,
+        }
+    ];
+    // end-sample
+
+    let insert_many_result = my_coll.insert_many(docs, None).await?;
 
     // begin-find-many
     let opts = FindOptions::builder()
