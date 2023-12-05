@@ -71,7 +71,15 @@ Connection Pool
 
 Every ``Client`` instance has a built-in connection pool for each server
 in your MongoDB topology. Connection pools open sockets on demand to
-support concurrent requests to MongoDB in your application.
+support concurrent requests to MongoDB in your application. You can
+tune the connection pool to best fit the needs of your application
+and optimize performance.
+
+.. tip::
+   
+   To learn more about configuring a connection pool, see
+   :manual:`Tuning Your Connection Pool Settings
+   <tutorial/connection-pool-performance-tuning/>` in the Server manual.
 
 The maximum size of each connection pool is set by the ``max_pool_size``
 option, which defaults to ``10``. If the number of in-use connections to
@@ -87,11 +95,6 @@ monitoring sockets. If the application uses the default setting for
 there can be at most ``16`` total connections in the connection pool. If the
 application uses a read preference to query the secondary nodes, those
 connection pools grow and there can be ``36`` total connections.
-
-.. tip::
-
-   To learn more about read preference modes, see :manual:`Read
-   Preference </core/read-preference/>` in the Server manual.
 
 To support high numbers of concurrent MongoDB requests
 within one process, you can increase the value of the ``max_pool_size``
