@@ -14,7 +14,7 @@ Open Change Streams
 .. contents:: On this page
    :local:
    :backlinks: none
-   :depth: 1
+   :depth: 2
    :class: singlecol
 
 Overview
@@ -24,6 +24,13 @@ In this guide, you can learn how to use a **change stream** to monitor
 real-time changes to your data. A change stream is a MongoDB Server feature
 that allows your application to subscribe to data changes on a single
 collection, database, or deployment.
+
+You can open a change stream to help perform the following actions:
+
+- Enable devices to track and react to events, such as motion-detecting
+  cameras
+- Create an application that monitors changes in stock prices
+- Generate a log of employee activity for specific job positions
 
 You can specify a set of aggregation operators to filter and transform the data
 that your application receives. When connected to a MongoDB deployment v6.0 or later,
@@ -76,17 +83,26 @@ To open a change stream, call the ``watch()`` method on a ``Collection``,
    the feature requires a replica set oplog. To learn more about the oplog,
    see the :ref:`<replica-set-oplog>` page in the Server manual.
 
-The object on which you call the ``watch()`` method on determines the scope of
-events that the change stream listens for.
+The struct type on which you call the ``watch()`` method determines the scope of
+events that the change stream listens for. The following table describes the
+behavior of the ``watch()`` method based on its calling object:
 
-If you call ``watch()`` on a ``Collection`` instance, the change stream monitors
-a collection.
+.. list-table::
+   :header-rows: 1
+   :stub-columns: 1
+   :class: compatibility-large
 
-If you call ``watch()`` on a ``Database`` instance, the change stream monitors all
-collections in that database.
+   * - Struct Type
+     - Behavior of ``watch()``
 
-If you call ``watch()`` on a ``Client`` instance, the change stream monitors all
-changes in the connected MongoDB deployment.
+   * - ``Collection``
+     - | Monitors changes to the individual collection
+
+   * - ``Database``
+     - | Monitors changes to all collections in the database
+
+   * - ``Client``
+     - | Monitors all changes in the connected MongoDB deployment
 
 Example
 ~~~~~~~
@@ -163,9 +179,9 @@ Include Pre-images and Post-images
 
 You can configure the change event to contain or omit the following data:
 
-- The **pre-image**, a document that represents the version of the
+- **Pre-image**: a document that represents the version of the
   document before the operation, if it exists
-- The **post-image**, a document that represents the version of the
+- **Post-image**: a document that represents the version of the
   document after the operation, if it exists
 
 .. important::
@@ -190,7 +206,8 @@ must perform the following actions:
      section of this page.
 
 - Configure your change stream to retrieve either or both the pre-images and
-  post-images.
+  post-images. During this configuration, you can instruct the driver to require
+  pre- and post-images or to only include them when available.
 
   .. tip::
 
@@ -229,9 +246,9 @@ collection for which pre- and post-images are available:
    :end-before: end-create-coll
 
 You can change the pre-image and post-image option in an existing collection
-by running the ``collMod`` command from the MongoDB Shell. To learn how to
-perform this operation, see the entry on :manual:`collMod </reference/command/collMod/>`
-in the Server manual.
+by running the ``collMod`` command from the MongoDB Shell or from your application.
+To learn how to perform this operation, see the :ref:`<rust-run-command>` guide
+and the entry on :manual:`collMod </reference/command/collMod/>` in the Server manual.
 
 .. warning::
 
