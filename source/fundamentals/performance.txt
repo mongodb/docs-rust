@@ -84,7 +84,7 @@ and optimize performance.
 The maximum size of each connection pool is set by the ``max_pool_size``
 option, which defaults to ``10``. If the number of in-use connections to
 a server reaches the value of ``max_pool_size``, the next request to
-that server will wait until a connection becomes available.
+that server waits until a connection becomes available.
 
 In addition to the sockets needed to support your application's requests,
 each ``Client`` instance opens two more sockets per server
@@ -98,8 +98,8 @@ connection pools grow and there can be 36 total connections.
 
 To support high numbers of concurrent MongoDB requests
 within one process, you can increase the value of the ``max_pool_size``
-option. The following code demonstrates how to instantiate a ``Client``
-while specifying a value for ``max_pool_size``:
+option. The following code demonstrates how to specify a value for
+``max_pool_size`` when instantiating a ``Client``:
 
 .. code-block:: rust
    
@@ -114,23 +114,24 @@ parallel at any time. For example, if the value of ``max_connecting`` is
 ``2``, as is by default, the third request that attempts to concurrently
 check out a connection succeeds only when one of the following cases occurs:
 
-- The connection pool finishes creating a connection and there are fewer
-  than ``max_pool_size`` connections in the pool.
+- The connection pool finishes creating a connection and the number of
+  connections in the pool is less than the value of ``max_pool_size``.
 - An existing connection is checked back into the pool.
 - The driver's ability to reuse existing connections improves due to
-  rate-limits on connection creation.
+  rate limits on connection creation.
 
 You can set the minimum number of concurrent connections to
 each server with the ``min_pool_size`` option, which defaults to ``0``.
 The driver initializes the connection pool with this number of sockets. If
 sockets are closed and the total number of sockets, both in use and
-idle, to drop below the minimum, the connection pool opens more sockets until the
+idle, drops below the minimum, the connection pool opens more sockets until the
 minimum is reached.
 
 You can set the maximum amount of time that a connection can
 remain idle in the pool by setting the ``max_idle_time`` option.
-Once a connection has been idle for ``max_idle_time``, the connection
-pool removes and replaces it. This option defaults to ``0``, or no limit.
+Once a connection has been idle for the duration specified in
+``max_idle_time``, the connection pool removes and replaces that
+connection. This option defaults to ``0``, or no limit.
 
 When the ``Client::shutdown()`` method is called at any point in your
 application, the driver closes all idle sockets and closes all sockets
