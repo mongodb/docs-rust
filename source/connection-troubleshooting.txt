@@ -22,12 +22,12 @@ Connection Troubleshooting
          - :ref:`rust-operation-errors` for recommendations on how to handle
            different error types that the driver raises during operations
          - :ref:`Issues & Help <rust-issues-and-help>` page for
-           information about reporting bugs, contributing to the driver, and 
+           information about reporting bugs, contributing to the driver, and
            finding more resources
          - `MongoDB Community Forums <https://community.mongodb.com>`__ for
            questions, discussions, or general technical support
-   
-   .. 
+
+   ..
       TODO:
       - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
         {+driver-short+}
@@ -37,13 +37,13 @@ Connection Troubleshooting
 
        .. code-block:: none
           :copyable: false
-       
-          Error: Error { kind: ServerSelection { message: "Server selection timeout: 
-          No available servers. Topology: { Type: Unknown, Servers: [ { Address: 
-          127.0.0.1:27017, Type: Unknown, Error: Kind: I/O error: Connection refused 
-          (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source: 
+
+          Error: Error { kind: ServerSelection { message: "Server selection timeout:
+          No available servers. Topology: { Type: Unknown, Servers: [ { Address:
+          127.0.0.1:27017, Type: Unknown, Error: Kind: I/O error: Connection refused
+          (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source:
           None }
-   
+
    .. replacement:: check-connection-string-anchor
 
       .. _rust-troubleshooting-connection-string-port:
@@ -78,36 +78,34 @@ Connection Troubleshooting
 
       ``maxIdleTimeMS``
 
-   .. 
+   ..
       TODO To learn more about how connection pools work in the driver, see
       the :ref:`FAQ page <rust-faq-connection-pool>`.
-   
+
 
    .. replacement:: authentication-error-anchor
 
       .. _rust-troubleshooting-auth-error:
 
-   .. replacement:: authentication-error-anchor
+   .. replacement:: scram-failure-error
 
-      .. _scram-failure-error:
-            
-         .. code-block:: none
-            :copyable: false
-         
-             Error: Error { kind: Authentication { message: "SCRAM failure: bad auth : 
-             authentication failed" }, labels: {}, wire_version: None, source: Some(Error 
-             { kind: Command(CommandError { code: 8000, code_name: "AtlasError", message:
-             "bad auth : authentication failed", topology_version: None }),
-             labels: {}, wire_version: None, source: None }) }
+      .. code-block:: none
+         :copyable: false
+
+          Error: Error { kind: Authentication { message: "SCRAM failure: bad auth :
+          authentication failed" }, labels: {}, wire_version: None, source: Some(Error
+          { kind: Command(CommandError { code: 8000, code_name: "AtlasError", message:
+          "bad auth : authentication failed", topology_version: None }),
+          labels: {}, wire_version: None, source: None }) }
 
   .. replacement:: check-credentials-formatting-anchor
 
      .. _rust-troubleshooting-connection-string-auth:
 
   .. replacement:: learn-more-connection-string-admonition
-     
+
      .. tip::
-     
+
         For more information about connection strings,
         see the :ref:`rust-quick-start-connection-string` guide.
 
@@ -132,7 +130,7 @@ Connection Troubleshooting
 
      .. code-block:: rust
         :copyable: true
-     
+
         let uri = "mongodb://<username>:<password>@<hostname>:<port>/?authSource=users";
         let client = Client::with_uri_str(uri).await?;
 
@@ -144,6 +142,6 @@ Connection Troubleshooting
 
      .. code-block:: none
         :copyable: false
-     
-        Error: Error { kind: DnsResolve { message: "sample message. type: 
+
+        Error: Error { kind: DnsResolve { message: "sample message. type:
         SRV class: IN" }, labels: {}, wire_version: None, source: None }
