@@ -54,9 +54,11 @@ fixes:
   
   - You can set the ``max_connecting`` field in a ``ClientOptions``
     struct to specify how many connections you can establish in
-    parallel. To learn more about this option, see
-    :ref:`rust-performance-pool` in the Performance Considerations
-    guide.
+    parallel.
+    
+.. To learn more about this option, see
+.. :ref:`rust-performance-pool` in the Performance Considerations
+.. guide.
     
   - You can use the ``Client::warm_connection_pool()`` method to create
     new connections up to the number of connections specified in the
