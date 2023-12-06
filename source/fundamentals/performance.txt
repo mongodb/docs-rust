@@ -111,7 +111,7 @@ option. The following code demonstrates how to specify a value for
 Connection pools are rate-limited. The ``max_connecting`` option
 determines the number of connections that the pool can create in
 parallel at any time. For example, if the value of ``max_connecting`` is
-``2``, as is by default, the third request that attempts to concurrently
+``2``, the default value, the third request that attempts to concurrently
 check out a connection succeeds only when one of the following cases occurs:
 
 - The connection pool finishes creating a connection and the number of
