@@ -10,6 +10,8 @@ Connection Troubleshooting
    :depth: 2
    :class: singlecol
 
+ABC 
+
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-callout
@@ -78,7 +80,7 @@ Connection Troubleshooting
       ``maxIdleTimeMS``
 
    .. replacement:: connection-pools-learn-more
-      
+
       ..
          TODO To learn more about how connection pools work in the driver, see
          the :ref:`FAQ page <rust-faq-connection-pool>`.
@@ -112,7 +114,6 @@ Connection Troubleshooting
   .. replacement:: verify-authentication-mechanism-anchor
 
      .. _rust-troubleshooting-connection-auth-mechanism:
-
 
   .. replacement:: credentials-provider-alternative-method-description
 
