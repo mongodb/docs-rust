@@ -33,16 +33,16 @@ Connection Troubleshooting
         {+driver-short+}
 
 
-    .. replacement:: server-selection-timeout-error
+   .. replacement:: server-selection-timeout-error
 
-       .. code-block:: none
-          :copyable: false
+      .. code-block:: none
+         :copyable: false
 
-          Error: Error { kind: ServerSelection { message: "Server selection timeout:
-          No available servers. Topology: { Type: Unknown, Servers: [ { Address:
-          127.0.0.1:27017, Type: Unknown, Error: Kind: I/O error: Connection refused
-          (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source:
-          None }
+         Error: Error { kind: ServerSelection { message: "Server selection timeout:
+         No available servers. Topology: { Type: Unknown, Servers: [ { Address:
+         127.0.0.1:27017, Type: Unknown, Error: Kind: I/O error: Connection refused
+         (os error 61), labels: {} } ] }" }, labels: {}, wire_version: None, source:
+         None }
 
    .. replacement:: check-connection-string-anchor
 
@@ -78,10 +78,10 @@ Connection Troubleshooting
 
       ``maxIdleTimeMS``
 
-   ..
-      TODO To learn more about how connection pools work in the driver, see
-      the :ref:`FAQ page <rust-faq-connection-pool>`.
-
+   .. replacement:: connection-pools-learn-more
+      ..
+         TODO To learn more about how connection pools work in the driver, see
+         the :ref:`FAQ page <rust-faq-connection-pool>`.
 
    .. replacement:: authentication-error-anchor
 
