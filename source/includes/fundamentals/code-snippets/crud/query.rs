@@ -9,16 +9,42 @@ async fn main() -> mongodb::error::Result<()> {
     let client = Client::with_uri_str(uri).await?;
     let my_coll: Collection<Document> = client.database("db").collection("fruits");
 
-    let docs = vec![
-        //begin-sample-docs
-        doc! { "_id": 1, "name": "orange", "quantity": 7 },
-        doc! { "_id": 2, "name": "apple", "quantity": 4, "description": "Granny Smith" },
-        doc! { "_id": 3, "name": "banana", "quantity": 36 },
-        doc! { "_id": 4, "name": "pear", "quantity": 28, "vendors": ["A", "C" ] }
-        //end-sample-docs
+    type Fruits struct {
+        name  string
+        quantity number
+        description string
+        vendors [string]
+    };
+
+    //begin-sample-docs
+    let docs = vec! [
+        Fruit { 
+            _id: 1, 
+            name: "orange", 
+            quantity: 7 
+        },
+        Fruit { 
+            _id: 2, 
+            name: "apple", 
+            quantity: 4,
+            description: "Granny Smith" 
+        },
+        Fruit { 
+            _id: 3, 
+            name: "banana", 
+            quantity: 36 
+        },
+        Fruit { 
+            _id: 4, 
+            name: "pear", 
+            quantity: 28,
+            vendors: ["A", "C" ]
+        },
     ];
+    //end-sample-docs
+
     // Inserts sample documents into the collection
-    my_coll.insert_many(docs, None).await?;
+    let insert_many_result = my_coll.insert_many(docs, None).await?;
 
     //begin-literal
     let query = doc! { "name": "pear" };

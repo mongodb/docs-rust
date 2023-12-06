@@ -30,10 +30,25 @@ async fn main() -> mongodb::error::Result<()> {
 
     // begin-insert-many
     let my_coll: Collection<Document> = client.database("db").collection("books");
+
+    type Books struct {
+        title string
+        author string
+    };
+    
     let docs = vec![
-        doc! { "title": "Cat's Cradle", "author": "Kurt Vonnegut Jr." },
-        doc! { "title": "In Memory of Memory", "author": "Maria Stepanova" },
-        doc! { "title": "Pride and Prejudice", "author": "Jane Austen" }
+        Books {
+            title: "Cat's Cradle",
+            author: "Kurt Vonnegut Jr."
+        },
+        Books {
+            title: "In Memory of Memory",
+            author: "Maria Stepanova"
+        },
+        Books {
+            title: "Pride and Prejudice",
+            author: "Jane Austen"
+        }
     ];
 
     let insert_many_result = my_coll.insert_many(docs, None).await?;
