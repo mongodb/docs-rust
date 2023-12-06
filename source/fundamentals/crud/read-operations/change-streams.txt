@@ -164,8 +164,9 @@ produces the following output:
 .. code-block::
    :copyable: false
 
-   Update performed: Some(UpdateDescription { updated_fields: Document({"oscar_noms": Int64(2)}),
-   removed_fields: [], truncated_arrays: Some([]) })
+   Update performed: Some(UpdateDescription { updated_fields: 
+   Document({"oscar_noms": Int64(2)}), removed_fields: [],
+   truncated_arrays: Some([]) })
 
 .. tip::
 
@@ -288,8 +289,8 @@ produces the following output:
    :copyable: false
 
    Operation performed: Update
-   Pre-image: Some(Director { name: "Jane Campion", movies: ["The Piano", "Bright Star"],
-   oscar_noms: 5 })
+   Pre-image: Some(Director { name: "Jane Campion", movies: 
+   ["The Piano", "Bright Star"], oscar_noms: 5 })
 
 .. _rust-post-image-example:
 
