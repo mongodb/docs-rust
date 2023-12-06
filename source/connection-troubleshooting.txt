@@ -27,11 +27,10 @@ Connection Troubleshooting
          - `MongoDB Community Forums <https://community.mongodb.com>`__ for
            questions, discussions, or general technical support
 
-   ..
-      TODO:
-      - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
-        {+driver-short+}
-
+      ..
+         TODO:
+         - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
+           {+driver-short+}
 
    .. replacement:: server-selection-timeout-error
 
@@ -79,6 +78,7 @@ Connection Troubleshooting
       ``maxIdleTimeMS``
 
    .. replacement:: connection-pools-learn-more
+      
       ..
          TODO To learn more about how connection pools work in the driver, see
          the :ref:`FAQ page <rust-faq-connection-pool>`.
