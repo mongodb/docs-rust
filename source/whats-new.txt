@@ -66,9 +66,9 @@ fixes:
     predictable performance.
 
   - You can use the ``Client::shutdown()`` method to stop background
-    tasks and wait for handlers to drop. This method can be useful if
+    tasks and wait for handlers to drop. This method can be helpful if
     you use even handlers to reference external resources, as these
-    handlers might be used in a task even after the ``Client`` is
+    handlers might be used in tasks even after the ``Client`` is
     closed.
 
 .. _version-2.6:
