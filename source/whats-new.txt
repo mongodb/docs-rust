@@ -1,0 +1,102 @@
+.. _rust-whats-new:
+
+==========
+What's New
+==========
+
+.. facet::
+   :name: genre
+   :values: reference
+ 
+.. meta::
+   :keywords: update, new feature, deprecation
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. tip:: Release Notes
+   
+   To learn more about changes and updates between versions, you can
+   read the `release notes
+   <https://github.com/mongodb/mongo-rust-driver/releases>`__ published with
+   the driver source code on Github.
+
+Learn what's new in:
+
+* :ref:`Version 2.7 <version-2.7>`
+* :ref:`Version 2.6 <version-2.6>`
+
+.. _version-2.7:
+
+What's New in 2.7
+-----------------
+
+The 2.7 {+driver-short+} release includes the following improvements and
+fixes:
+
+- Adds the ``human_readable_serialization`` option to
+  ``CollectionOptions`` so that you can configure the driver to
+  serialize values given to CRUD methods as human readable. By default,
+  the value of ``human_readable_serialization`` is ``false``, and
+  changing the value to ``true`` might decrease the performance of
+  insert operations.
+
+- Adds the ``run_cursor_command()`` method to run a database command and
+  retrieve the response as a ``Cursor`` type.
+
+- Logging of SDAM events when using the ``tracing-unstable`` feature
+  flag.
+
+- Adds the following configurations for ``Client`` and connection management:
+  
+  - You can set the ``max_connecting`` field in a ``ClientOptions``
+    struct to specify how many connections you can establish in
+    parallel. To learn more about this option, see
+    :ref:`rust-performance-pool` in the Performance Considerations
+    guide.
+    
+  - You can use the ``Client::warm_connection_pool()`` method to create
+    new connections up to the number of connections specified in the
+    ``min_pool_size`` setting. Using this method can provide more
+    predictable performance.
+
+  - You can use the ``Client::shutdown()`` method to stop background
+    tasks and wait for handlers to drop. This method can be useful if
+    you use even handlers to reference external resources, as these
+    handlers might be used in a task even after the ``Client`` is
+    closed.
+
+.. _version-2.6:
+
+What's New in 2.6
+-----------------
+
+The 2.6 {+driver-short+} release includes the following features,
+improvements, and fixes:
+
+- Native support for AWS Identity and Access Management
+  (IAM) roles for service accounts, such as Elastic Kubernetes
+  Service (EKS) accounts.
+
+- Support for GCP-attached service accounts when using the Cloud Key
+  Management System (KMS).
+
+- Support for fetching on-demand CSFLE credentials from the Azure KMS.
+
+- Implementation of the ``FromStr`` trait for the ``Namespace`` struct.
+  This change allows you to parse a ``Namespace`` instance from a
+  string that includes database and collection names, such as
+  ``"testdb.testcollection"``.
+
+- Includes the ``server_id`` in a ``ConnectionInfo`` struct as an
+  ``i64`` type.
+
+- Removal of most type constraints on values referenced by a ``Cursor``.
+
+- Updates the ``libmongocrypt`` version to use FLE2 version 2.
+
+- Updates the wire version to ``21`` for the MongoDB Server
+  version 7.0 release.
