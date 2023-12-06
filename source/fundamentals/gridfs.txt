@@ -181,8 +181,21 @@ Upload Files
 
 You can upload a file to a GridFS bucket by opening an upload stream and 
 writing your file to the stream. Call the ``open_upload_stream()`` method on
-your bucket instance to open the stream. Then, call the ``write_all()`` method
-and pass your file bytes as a parameter to upload the file.
+your bucket instance to open the stream. This method returns an instance of
+``GridFsUploadStream`` to which you can write the file contents. To upload
+the file contents to the ``GridFsUploadStream``, call the ``write_all()`` method
+and pass your file bytes as a parameter.
+
+.. tip:: Import the Required Module
+   
+   The ``GridFsUploadStream`` struct implements the ``futures_io::AsyncWrite`` trait.
+   To use the ``AsyncWrite`` write methods, such as ``write_all()``, import the 
+   ``AsyncWriteExt`` module into your application file with the following use
+   declaration:
+
+   .. code-block:: rust
+
+      use futures_util::io::AsyncWriteExt;
 
 The following example uses an upload stream to upload a file called ``"example.txt"``
 to a GridFS bucket:
@@ -202,8 +215,20 @@ Download Files
 You can download a file from a GridFS bucket by opening a download stream and
 reading from the stream. Call the ``open_download_stream()`` method on
 your bucket instance, specifying the desired file's ``_id`` value as a parameter.
-Then, call the ``read_to_end()`` method and pass a vector parameter to read and store the
-file bytes.
+This method returns an instance ``GridFsDownloadStream`` from which you can access
+the file. To read the file from the ``GridFsDownloadStream``, call the ``read_to_end()``
+method and pass a vector as a parameter.
+
+.. tip:: Import the Required Module
+   
+   The ``GridFsDownloadStream`` struct implements the ``futures_io::AsyncRead`` trait.
+   To use the ``AsyncRead`` read methods, such as ``read_to_end()``, import the 
+   ``AsyncReadExt`` module into your application file with the following use
+   declaration:
+
+   .. code-block:: rust
+
+      use futures_util::io::AsyncReadExt;
 
 The following example uses a download stream to download a file with an ``_id`` value
 of  ``3289`` from a GridFS bucket:
