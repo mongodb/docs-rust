@@ -115,7 +115,7 @@ parallel at any time. For example, if the value of ``max_connecting`` is
 check out a connection succeeds only when one of the following cases occurs:
 
 - The connection pool finishes creating a connection and the number of
-  connections in the pool is less than the value of ``max_pool_size``.
+  connections in the pool is less than or equal to the value of ``max_pool_size``.
 - An existing connection is checked back into the pool.
 - The driver's ability to reuse existing connections improves due to
   rate limits on connection creation.
