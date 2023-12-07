@@ -164,9 +164,8 @@ produces the following output:
 .. code-block::
    :copyable: false
 
-   Update performed: Some(UpdateDescription { updated_fields: 
-   Document({"oscar_noms": Int64(2)}), removed_fields: [],
-   truncated_arrays: Some([]) })
+   Update performed: Some(UpdateDescription { updated_fields: Document({
+   "oscar_noms": Int64(2)}), removed_fields: [], truncated_arrays: Some([]) })
 
 .. tip::
 
@@ -175,7 +174,7 @@ produces the following output:
 
 .. _rust-change-stream-configure-pre-post:
 
-Include Pre-images and Post-images
+Include Pre-Images and Post-Images
 ----------------------------------
 
 You can configure the change event to contain or omit the following data:
@@ -259,7 +258,7 @@ and the entry on :manual:`collMod </reference/command/collMod/>` in the Server m
 
 .. _rust-pre-image-example:
 
-Pre-image Configuration Example
+Pre-Image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To configure a change stream that returns change events containing the pre-image,
@@ -282,19 +281,19 @@ to the ``full_document_before_change()`` builder method. This option configures 
 stream to require pre-images for replace, update, and delete change events. If the pre-image
 is not available, the driver raises an error.
 
-If you update a document in which the value of ``name`` is ``"Jane Campion"``, the change event
+If you update a document in which the ``name`` value is ``"Jane Campion"``, the change event
 produces the following output:
 
 .. code-block::
    :copyable: false
 
    Operation performed: Update
-   Pre-image: Some(Director { name: "Jane Campion", movies: 
-   ["The Piano", "Bright Star"], oscar_noms: 5 })
+   Pre-image: Some(Director { name: "Jane Campion", movies: ["The Piano", 
+   "Bright Star"], oscar_noms: 5 })
 
 .. _rust-post-image-example:
 
-Post-image Configuration Example
+Post-Image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To configure a change stream that returns change events containing the post-image,
