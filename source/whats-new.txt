@@ -34,10 +34,9 @@ The {+driver-short+} v2.7 release includes the following features,
 improvements, and fixes:
 
 - Adds the ``human_readable_serialization`` option to the
-  ``CollectionOptions`` struct. You can set this option to instruct the
+  ``CollectionOptions`` struct. This option instructs the
   driver to serialize values passed to CRUD methods as a human-readable
-  format. The default value of the ``human_readable_serialization``
-  option is ``false``.
+  format. The default value of this option is ``false``.
   
   .. warning::
   
@@ -45,7 +44,8 @@ improvements, and fixes:
      ``true``, your insert operations might run more slowly.
 
 - Adds the ``run_cursor_command()`` method to run a database command and
-  retrieve the response as a ``Cursor`` type.
+  retrieve the response as a ``Cursor`` type. To learn more, see the
+  :ref:`rust-run-command` guide.
 
 - Adds SDAM event logging when you use the ``tracing-unstable`` feature
   flag.
