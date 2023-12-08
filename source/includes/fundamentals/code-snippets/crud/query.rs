@@ -3,42 +3,61 @@ use bson::Document;
 use futures::TryStreamExt;
 use mongodb::{ bson::doc, Client, Collection };
 
+use serde::{ Deserialize, Serialize };
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Fruit {
+    _id: String,
+    name: String,
+    quantity: i32,
+    description: Option<String>,
+    vendors: Option<Vec<String>>
+}
+
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
-    let my_coll: Collection<Document> = client.database("db").collection("fruits");
+    let my_coll: Collection<Fruit> = client.database("db").collection("fruits");
 
-    type Fruits struct {
-        name  string
-        quantity number
-        description string
-        vendors [string]
-    };
+    #[derive(Debug)]
+    struct Fruit {
+        _id: String,
+        name: String,
+        quantity: i32,
+        description: Option<String>,
+        vendors: Option<Vec<String>>
+    }
 
     //begin-sample-docs
     let docs = vec! [
         Fruit { 
-            _id: 1, 
-            name: "orange", 
-            quantity: 7 
+            _id: 1.to_string(), 
+            name: "orange".to_string(), 
+            quantity: 7,
+            description: None,
+            vendors: None
         },
         Fruit { 
-            _id: 2, 
-            name: "apple", 
+            _id: 2.to_string(), 
+            name: "apple".to_string(), 
             quantity: 4,
-            description: "Granny Smith" 
+            description: Some("Granny Smith".to_string()),
+            vendors: None
         },
         Fruit { 
-            _id: 3, 
-            name: "banana", 
-            quantity: 36 
+            _id: 3.to_string(), 
+            name: "banana".to_string(), 
+            quantity: 36,
+            description: None,
+            vendors: None
         },
         Fruit { 
-            _id: 4, 
-            name: "pear", 
+            _id: 4.to_string(), 
+            name: "pear".to_string(), 
             quantity: 28,
-            vendors: ["A", "C" ]
+            description: None,
+            vendors: vec!["A".to_string(), "C".to_string() ].into()
         },
     ];
     //end-sample-docs

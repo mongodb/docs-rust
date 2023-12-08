@@ -1,20 +1,21 @@
-use bson::Document;
-use chrono::{ TimeZone, Utc };
 use futures::TryStreamExt;
-use mongodb::{ bson::doc, Client, Collection, options::{ FindOptions, FindOneOptions } };
+use mongodb::{ bson::doc, bson::Document, Client, Collection, options::{ FindOptions, FindOneOptions } };
 use std::env;
+
+use serde::{ Deserialize, Serialize };
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Inventory {
+    item: String,
+    category: String,
+    unit_price: f32
+}
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri = "mongodb+srv://admin:adminpassword@cluster0.ak0rruc.mongodb.net/?retryWrites=true&w=majority";
+    let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
-    let my_coll: Collection<Document> = client.database("db").collection("inventory");
-
-    type Inventory struct {
-        item  string
-        category string
-        unit_price number
-    };
+    let my_coll: Collection<Inventory> = client.database("db").collection("inventory");
 
     // start-sample
     let docs = vec! [
@@ -41,6 +42,7 @@ async fn main() -> mongodb::error::Result<()> {
     ];
     // end-sample
 
+    // Inserts sample documents into the collection
     let insert_many_result = my_coll.insert_many(docs, None).await?;
 
     // begin-find-many
@@ -58,7 +60,7 @@ async fn main() -> mongodb::error::Result<()> {
     ).await?;
 
     while let Some(result) = cursor.try_next().await? {
-        println!("{}", result);
+        println!("{:?}", result);
     };
     
     // end-find-many
@@ -85,7 +87,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut cursor = my_coll.aggregate(pipeline, None).await?;
     while let Some(result) = cursor.try_next().await? {
-        println!("{}", result);
+        println!("{:?}", result);
     };
     // end-agg
 

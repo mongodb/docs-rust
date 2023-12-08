@@ -55,20 +55,11 @@ Sample Data for Examples
 
 The examples in this guide uses the following data stored in a struct:
 
-.. code-block:: rust
-
-  #[derive(Serialize, Deserialize)]
-   struct Fruit {
-      name: String,
-      color: String
-   }
-
-   let strawberry = { "name": "strawberry", "color": "red" }
-   let banana = { "name": "banana", "color": "yellow" }
-   let pomegranate = { "name": "pomegranate", "color": "red" }
-   let pineapple = { "name": "pineapple", "color": "yellow" }
-
-  The data stored in the collection is the following:
+.. literalinclude:: /source/includes/fundamentals/code-snippets/crud/cursor.rs
+   :language: rust
+   :dedent:
+   :start-after: start-sample-data
+   :end-before: end-sample-data
 
 .. _rust-cursor-individual:
 
@@ -136,8 +127,8 @@ collection:
       :language: console
       :visible: false
 
-      Document({"_id": ObjectId("..."), "name": String("strawberry"), "color": String("red")})
-      Document({"_id": ObjectId("..."), "name": String("pomegranate"), "color": String("red")})
+      Fruit { name: "strawberry", color: "red" }
+      Fruit { name: "pomegranate", color: "red" }
 
 .. _rust-cursor-indiv-stream:
 
@@ -184,12 +175,12 @@ collection:
       :visible: false
 
       Output from next() iteration:
-      { "_id": ObjectId("..."), "name": "strawberry", "color": "red" }
-      { "_id": ObjectId("..."), "name": "pomegranate", "color": "red" }
-      
+      Fruit { name: "strawberry", color: "red" }
+      Fruit { name: "pomegranate", color: "red" }
+
       Output from try_next() iteration:
-      { "_id": ObjectId("..."), "name": "banana", "color": "yellow" }
-      { "_id": ObjectId("..."), "name": "pineapple", "color": "yellow" }
+      Fruit { name: "banana", color: "yellow" }
+      Fruit { name: "pineapple", color: "yellow" }
 
 .. _rust-cursor-array:
 
@@ -226,10 +217,10 @@ You can use the following methods to retrieve documents as an array:
       :visible: false
 
       Output from collect():
-      [Ok(Document({"_id": ObjectId("..."), "name": String("strawberry"), "color": String("red")})), Ok(Document({"_id": ObjectId("..."), "name": String("pomegranate"), "color": String("red")}))]
-      
+      [Ok(Fruit { name: "strawberry", color: "red" }), Ok(Fruit { name: "pomegranate", color: "red" })]
+
       Output from try_collect():
-      [Document({"_id": ObjectId("..."), "name": String("banana"), "color": String("yellow")}), Document({"_id": ObjectId("..."), "name": String("pineapple"), "color": String("yellow")})]
+      [Fruit { name: "banana", color: "yellow" }, Fruit { name: "pineapple", color: "yellow" }]
 
 .. warning:: Avoid Exceeding Application Memory Limits
 
