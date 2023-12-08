@@ -22,8 +22,8 @@ each version of the {+driver-long+}.
 
 Learn what's new in the following versions:
 
-* :ref:`Version 2.7 <version-2.7>`
-* :ref:`Version 2.6 <version-2.6>`
+* :ref:`Version 2.7 <rust-version-2.7>`
+* :ref:`Version 2.6 <rust-version-2.6>`
 
 .. _rust-version-2.7:
 
