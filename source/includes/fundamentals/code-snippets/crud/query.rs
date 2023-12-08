@@ -4,6 +4,7 @@ use mongodb::{ bson::{doc, Document}, Client, Collection };
 
 use serde::{ Deserialize, Serialize };
 
+// begin-data-struct
 #[derive(Serialize, Deserialize, Debug)]
 struct Fruit {
     _id: String,
@@ -14,6 +15,7 @@ struct Fruit {
     #[serde(skip_serializing_if = "Option::is_none")]
     vendors: Option<Vec<String>>
 }
+// end-data-struct
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {

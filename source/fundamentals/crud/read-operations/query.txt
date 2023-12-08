@@ -94,8 +94,22 @@ Sample Data
 The examples in this guide use the following sample documents. Each
 document represents a fruit in a store's inventory and contains
 information about its quantity. Some documents contain additional fields
-that describe the fruit or its vendors:
+that describe the fruit or its vendors.
 
+Note that the struct describing the data uses ``#[serde(skip_serializing_if =
+"Option::is_none")]`` commands to indicate that the data should be ignored if it is
+specified as ``None``. See the `serialize_with
+<https://serde.rs/field-attrs.html#serialize_with>`__ Serde attribute for more
+information.
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/query.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-data-struct
+   :end-before: end-data-struct
+
+The examples in the following sections query a collection of documents described by Fruit
+structs:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/query.rs
    :language: rust
