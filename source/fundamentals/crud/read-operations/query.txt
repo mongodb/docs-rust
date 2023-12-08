@@ -285,6 +285,7 @@ field:
    uses the ``#[serde(skip_serializing_if = "Option::is_none")]`` attribute on two of its
    fields. This attribute specifies that the field be ignored if its value is ``None``. This
    prevents a ``description`` value of ``None`` from being returned on an ``$exists`` query.
+   
    See the `serialize_with <https://serde.rs/field-attrs.html#serialize_with>`__ Serde
    attribute for more information.
 
