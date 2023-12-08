@@ -283,7 +283,7 @@ field:
 .. note::
    The :ref:`struct describing the documents<rust-query-sample-data>` uses ``#[serde(skip_serializing_if =
    "Option::is_none")]`` field attributes to specify that the data be ignored if it is
-   specified as ``None``. This prevents a description field of `None` from being returned on am ``$exists`` query.
+   specified as ``None``. This prevents a description field of ``None`` from being returned on am ``$exists`` query.
    See the `serialize_with
    <https://serde.rs/field-attrs.html#serialize_with>`__ Serde attribute for more
    information.
