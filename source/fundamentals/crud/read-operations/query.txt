@@ -96,12 +96,6 @@ document represents a fruit in a store's inventory and contains
 information about its quantity. Some documents contain additional fields
 that describe the fruit or its vendors.
 
-Note that the struct describing the data uses ``#[serde(skip_serializing_if =
-"Option::is_none")]`` commands to indicate that the data should be ignored if it is
-specified as ``None``. See the `serialize_with
-<https://serde.rs/field-attrs.html#serialize_with>`__ Serde attribute for more
-information.
-
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/query.rs
    :language: rust
    :dedent:
@@ -283,7 +277,16 @@ field:
       :language: json
       :visible: false
 
-      Fruit { _id: "2", name: "apple", quantity: 4, description: Some("Granny Smith"), vendors: None }
+      Fruit { _id: "2", name: "apple", quantity: 4, description: Some("Granny Smith"),
+      vendors: None }
+      
+.. note::
+   The :ref:`struct describing the documents<rust-query-sample-data>` uses ``#[serde(skip_serializing_if =
+   "Option::is_none")]`` field attributes to specify that the data be ignored if it is
+   specified as ``None``. This prevents a description field of `None` from being returned on am ``$exists`` query.
+   See the `serialize_with
+   <https://serde.rs/field-attrs.html#serialize_with>`__ Serde attribute for more
+   information.
 
 For a full list of element operators, see :manual:`Element
 Query Operators </reference/operator/query-element/>` in the Server manual.
