@@ -60,7 +60,7 @@ This guide includes the following sections:
 Sample Data for Examples
 ------------------------
 
-The examples in this guide uses the following data stored in a struct:
+The examples in this guide use the following data stored in a struct:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust

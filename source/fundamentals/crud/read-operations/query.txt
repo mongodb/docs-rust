@@ -102,8 +102,8 @@ that describe the fruit or its vendors.
    :start-after: begin-data-struct
    :end-before: end-data-struct
 
-The examples in the following sections query a collection of documents described by Fruit
-structs:
+The examples in the following sections query a collection of documents described by
+``Fruit`` structs:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/query.rs
    :language: rust
@@ -281,12 +281,12 @@ field:
       vendors: None }
       
 .. note::
-   The :ref:`struct describing the documents<rust-query-sample-data>` uses ``#[serde(skip_serializing_if =
-   "Option::is_none")]`` field attributes to specify that the data be ignored if it is
-   specified as ``None``. This prevents a description field of ``None`` from being returned on am ``$exists`` query.
-   See the `serialize_with
-   <https://serde.rs/field-attrs.html#serialize_with>`__ Serde attribute for more
-   information.
+   The :ref:`Fruit struct describing the documents<rust-query-sample-data>` in this guide
+   uses the ``#[serde(skip_serializing_if = "Option::is_none")]`` attribute on two of its
+   fields. This attribute specifies that the field be ignored if its value is ``None``. This
+   prevents a ``description`` value of ``None`` from being returned on an ``$exists`` query.
+   See the `serialize_with <https://serde.rs/field-attrs.html#serialize_with>`__ Serde
+   attribute for more information.
 
 For a full list of element operators, see :manual:`Element
 Query Operators </reference/operator/query-element/>` in the Server manual.
