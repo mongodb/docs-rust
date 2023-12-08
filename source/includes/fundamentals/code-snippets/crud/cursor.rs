@@ -18,7 +18,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let my_coll: Collection<Fruit> = client.database("db").collection("fruits");
 
-    // start-sample-data
+    //start-sample-data
     let docs = vec! [
         Fruit { 
             name: "strawberry".to_string(), 

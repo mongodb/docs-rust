@@ -269,15 +269,7 @@ field:
       :language: json
       :visible: false
 
-      Document({"_id": Int32(2), "name": String("apple"), "quantity":
-      Int32(4), "description": String("Granny Smith")})
-      ********************* DO NOT MERGE
-      I need to figure out how to get MongoDB to ignore "None" entries in Structs
-      Current results:
-      Fruit { _id: "1", name: "orange", quantity: 7, description: None, vendors: None }
       Fruit { _id: "2", name: "apple", quantity: 4, description: Some("Granny Smith"), vendors: None }
-      Fruit { _id: "3", name: "banana", quantity: 36, description: None, vendors: None }
-      Fruit { _id: "4", name: "pear", quantity: 28, description: None, vendors: Some(["A", "C"]) }
 
 For a full list of element operators, see :manual:`Element
 Query Operators </reference/operator/query-element/>` in the Server manual.

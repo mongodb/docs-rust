@@ -1,7 +1,6 @@
 use std::env;
-use bson::Document;
 use futures::TryStreamExt;
-use mongodb::{ bson::doc, Client, Collection };
+use mongodb::{ bson::{doc, Document}, Client, Collection };
 
 use serde::{ Deserialize, Serialize };
 
@@ -10,7 +9,9 @@ struct Fruit {
     _id: String,
     name: String,
     quantity: i32,
+    #[serde(skip_serializing_if = "Option::is_none")]
     description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     vendors: Option<Vec<String>>
 }
 
@@ -19,15 +20,6 @@ async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
     let my_coll: Collection<Fruit> = client.database("db").collection("fruits");
-
-    #[derive(Debug)]
-    struct Fruit {
-        _id: String,
-        name: String,
-        quantity: i32,
-        description: Option<String>,
-        vendors: Option<Vec<String>>
-    }
 
     //begin-sample-docs
     let docs = vec! [

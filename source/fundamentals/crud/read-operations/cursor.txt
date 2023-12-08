@@ -55,7 +55,7 @@ Sample Data for Examples
 
 The examples in this guide uses the following data stored in a struct:
 
-.. literalinclude:: /source/includes/fundamentals/code-snippets/crud/cursor.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/cursor.rs
    :language: rust
    :dedent:
    :start-after: start-sample-data

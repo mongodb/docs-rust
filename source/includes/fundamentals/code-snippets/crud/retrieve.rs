@@ -13,7 +13,7 @@ struct Inventory {
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri = "<connection string>";
+    let uri = "mongodb+srv://admin:adminpassword@cluster0.ak0rruc.mongodb.net/?retryWrites=true&w=majority";
     let client = Client::with_uri_str(uri).await?;
     let my_coll: Collection<Inventory> = client.database("db").collection("inventory");
 
