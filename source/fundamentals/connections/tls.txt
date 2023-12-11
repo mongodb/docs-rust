@@ -173,10 +173,10 @@ This example performs the following actions to create a ``TlsOptions``
 instance and a ``Client`` instance with TLS enabled:
 
 1. Creates variables to reference the certificate filepaths in
-   ``PathBuf`` instances
+   ``PathBuf`` instances.
 
 #. Instantiates a ``TlsOptions`` struct and sets the ``ca_file_path`` and
-   ``cert_key_file_path`` fields to the relevant filepaths
+   ``cert_key_file_path`` fields to the relevant filepaths.
 
 #. Passes the ``TlsOptions`` instance to the ``Enabled`` variant of the
    ``Tls`` enum.
@@ -203,10 +203,11 @@ following Server manual documentation:
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
-To learn more about the methods and types mentioned in this
+To learn more about any of the methods or types mentioned in this
 guide, see the following API documentation:
 
-- `ClientOptions <{+api+}/mongo/options#ClientOptions>`__
-- `SetTLSConfig() <{+api+}/mongo/options#ClientOptions.SetTLSConfig>`__
-- `tls package <https://pkg.go.dev/crypto/tls>`__
-- `x509 package <https://pkg.go.dev/crypto/x509>`__
+- `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
+- `Client <{+api+}/struct.Client.html>`__
+- `Tls <{+api+}/options/enum.Tls.html>`__
+- `TlsOptions <{+api+}/options/struct.TlsOptions.html>`__
+- `PathBuf <https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html>`__
