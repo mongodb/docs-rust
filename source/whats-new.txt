@@ -17,10 +17,8 @@ What's New
    :depth: 1
    :class: singlecol
 
-This page describes new features, improvements, and fixes introduced in
-each version of the {+driver-long+}.
-
-Learn what's new in the following versions:
+Learn about new features, improvements, and fixes introduced in the
+following versions of the {+driver-long+}:
 
 * :ref:`Version 2.7 <rust-version-2.7>`
 * :ref:`Version 2.6 <rust-version-2.6>`
@@ -52,19 +50,19 @@ improvements, and fixes:
 
 - Adds the following configurations for ``Client`` and connection management:
   
-  - The ``max_connecting`` option that you can set in a ``ClientOptions``
+  - ``max_connecting``: an option that you can set in a ``ClientOptions``
     struct to specify how many connections you can establish in
     parallel. To learn more about this option, see
     :ref:`rust-performance-pool` in the Performance Considerations
     guide.
     
-  - The ``Client::warm_connection_pool()`` method that you can use to create
+  - ``Client::warm_connection_pool()``: a method that you can use to create
     new connections in the connection pool to provide more
     predictable performance. When you use this method, the driver
     attempts to create connections up to the number specified in the
     ``min_pool_size`` setting.
 
-  - The ``Client::shutdown()`` method that you can use to stop background
+  - ``Client::shutdown()``: a method that you can use to stop background
     tasks and wait for handlers to drop. This method can be helpful if
     you use event handlers to reference external resources, as these
     handlers might be used in tasks even after the ``Client`` is
@@ -83,16 +81,16 @@ What's New in 2.6
 The {+driver-short+} v2.6 release includes the following features,
 improvements, and fixes:
 
-- Native support for AWS Identity and Access Management
+- Supports AWS Identity and Access Management
   (IAM) roles for service accounts, such as Elastic Kubernetes
   Service (EKS) accounts.
 
-- Support for GCP-attached service accounts when using the Cloud Key
+- Supports GCP-attached service accounts when using the Cloud Key
   Management System (KMS).
 
-- Support for fetching on-demand CSFLE credentials from the Azure KMS.
+- Supports fetching on-demand CSFLE credentials from the Azure KMS.
 
-- Implementation of the ``FromStr`` trait for the ``Namespace`` struct.
+- Implements the ``FromStr`` trait for the ``Namespace`` struct.
   This change allows you to parse a string that includes a database and
   collection name, such as ``"testdb.testcollection"`` into a
   ``Namespace`` instance.
@@ -100,7 +98,7 @@ improvements, and fixes:
 - Includes the ``server_id`` in a ``ConnectionInfo`` struct as an
   ``i64`` type.
 
-- Removal of most type constraints on values referenced by a ``Cursor``.
+- Removes most type constraints on values referenced by a ``Cursor``.
 
 - Updates the ``libmongocrypt`` version in the driver dependencies in
   order to use the Queryable Encryption feature with equality queries.
