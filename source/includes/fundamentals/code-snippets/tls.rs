@@ -7,7 +7,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mut client_options = ClientOptions::parse(uri).await?;
 
-    let ca_file = PathBuf::from(r"path to CA certificate");
+    let ca_file = PathBuf::from(r"<path to CA certificate>");
     let key_file = PathBuf::from(r"<path to client certificate>");
 
     let tls_opts = TlsOptions::builder()

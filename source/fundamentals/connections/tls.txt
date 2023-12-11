@@ -20,10 +20,11 @@ Enable and Configure TLS
 Overview
 --------
 
-In this guide, you can learn how to use the TLS protocol to secure 
-your connection to a MongoDB deployment. To configure your connection to
-use TLS, enable the TLS option and provide your certificates for
-validation when creating a client.
+In this guide, you can learn how to use the **TLS protocol** to secure 
+your connection to a MongoDB deployment. TLS is a cryptographic protocol
+that secures communication between your application and MongoDB. To
+configure your connection to use TLS, enable the TLS option and provide
+your certificates for validation when creating a client.
 
 This guide includes the following sections:
 
@@ -55,8 +56,9 @@ You can enable TLS on a connection to your MongoDB instance
 in one of the following ways:
 
 - Setting the ``tls`` option to ``true`` in your connection string
-- Passing an empty ``TlsOptions`` struct to the ``Enabled`` variant of the
-  ``Tls`` enum and creating a ``ClientOptions`` instance with those options
+- Setting the ``tls`` field of a ``ClientOptions`` instance to
+  the ``Tls::Enabled`` variant with an empty ``TlsOptions`` struct and
+  instantiating a ``Client`` with those options
 
 Select from the following :guilabel:`Connection String` and
 :guilabel:`ClientOptions` tabs to see a corresponding code sample:
@@ -92,7 +94,8 @@ Select from the following :guilabel:`Connection String` and
    the ``mongodb+srv`` prefix, TLS is enabled on your connection by
    default.
 
-For a full list of client options, see :ref:`rust-connection-options`.
+For a full list of client options, see the
+:ref:`rust-connection-options` guide.
 
 .. _rust-configure-tls-certificates:
 
@@ -101,7 +104,8 @@ Configure Certificates
 
 To successfully initiate a TLS request, your application must present 
 cryptographic certificates to prove its identity. Your application's
-certificates must be stored as PEM files to enable TLS when connecting.
+certificates must be stored as PEM files to enable TLS when connecting
+to a MongoDB deployment.
 
 .. important::
 
@@ -121,18 +125,18 @@ present to establish a TLS-enabled connection:
 
    * - Certificate Authority (CA)
      - One or more certificate authorities to
-       trust when making a TLS connection.
+       trust when making a TLS connection
 
    * - Client Certificate
      - A digital certificate that allows the server to verify the identity
-       of your application to establish an encrypted network connection.
+       of your application to establish an encrypted network connection
 
    * - Certificate Key
-     - The client certificate private key file. This key is often
-       included within the certificate file itself.
+     - The client certificate private key file, often
+       included within the certificate file itself
 
    * - Passphrase
-     - The password to decrypt the private client key if it is encrypted.
+     - The password to decrypt the private client key if it is encrypted
 
 .. _rust-client-tls-connect:
 
@@ -145,7 +149,8 @@ struct so that the server can validate them before the client connects.
 You must first convert your certificate filepaths to
 ``PathBuf`` types, so you must import this type from the ``std::path``
 module. Then, call the ``TlsOptions`` struct's builder functions
-to set fields to reference your certificate files.
+to set the ``ca_file_path`` and ``cert_key_file_path`` fields to the
+certificate filepaths.
 
 Within your ``TlsOptions`` instance, you can set optional
 fields to configure TLS on your connection. For **testing purposes**,
@@ -170,7 +175,7 @@ Example
 ~~~~~~~
 
 This example performs the following actions to create a ``TlsOptions``
-instance and a ``Client`` instance with TLS enabled:
+instance and a ``Client`` instance that is configured for TLS:
 
 1. Creates variables to reference the certificate filepaths in
    ``PathBuf`` instances.
