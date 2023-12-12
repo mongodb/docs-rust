@@ -298,8 +298,8 @@ in the compound index.
 .. tip:: Atlas Full Text Search
 
    Text indexes are different from Atlas full text search indexes. To
-   learn more about Atlas Search indexes, see the :atlas:`Atlas Search
-   documentation </atlas-search/>`.
+   learn more about Atlas Search indexes, see the :ref:`rust-atlas-search`
+   section on this page.
 
 Example
 ```````
@@ -329,10 +329,9 @@ The following code creates a text index on the ``body`` field in the
 Atlas Search Indexes
 ~~~~~~~~~~~~~~~~~~~~
 
-Atlas Search indexes allow you to use the Atlas Search feature to query data in
-an Atlas cluster. You can use Atlas Search to perform fast, full-text searches
-on collections. The search indexes specify the behavior of the search and which
-fields to index.
+Atlas Search indexes allow you to use MongoDB's Atlas Search feature, which performs
+fast, full-text searches on data stored in an Atlas cluster. The search indexes
+specify the behavior of the search and which fields to index.
 
 You can create an Atlas Search index on a single field or on multiple fields. Specify
 which fields to index in one of the following ways:
