@@ -41,9 +41,9 @@ improvements, and fixes:
   - `list_search_indexes() <https://docs.rs/mongodb/2.8.0/mongodb/struct.Collection.html#method.list_search_indexes>`__
 
 - Improves network connectivity and operation reliability.
-  The driver avoids retrying network connections for ``mongos`` backends that
-  have network connectivity issues. It also performs retries on a greater
-  range of of error types encountered.
+  The driver avoids retrying network connections for ``mongos`` backends
+  experiencing network connectivity issues. It also performs retries on a
+  greater range of error types encountered.
 
 To learn more about this release, see the
 `v2.8.0 Release Highlights
