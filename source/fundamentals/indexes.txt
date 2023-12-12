@@ -324,6 +324,182 @@ The following code creates a text index on the ``body`` field in the
       Created index:
       body_"text"
 
+.. _rust-atlas-search:
+
+Atlas Search Indexes
+~~~~~~~~~~~~~~~~~~~~
+
+Atlas Search indexes allow you to use the Atlas Search feature to query data in
+an Atlas cluster. You can use Atlas Search to perform fast, full-text searches
+on collections. The search indexes specify the behavior of the search and which
+fields to index.
+
+You can create an Atlas Search index on a single field or on multiple fields. Specify
+which fields to index in one of the following ways:
+
+- Use static mappings to specify the target fields
+- Use dynamic mappings to instruct Atlas Search to automatically index all
+  supported field types
+
+To enable static mappings, set the ``dynamic`` field of your index definition document
+to ``false``. Additionally, you must add the collection fields you want to index to the
+``fields`` field of your definition document. To enable dynamic mappings, set the ``dynamic``
+field of your index definition document to ``true``.
+
+.. tip:: 
+
+   To learn more about MongoDB Atlas Search, see the :atlas:`Atlas Search documentation
+   </atlas-search/>`.
+
+The examples in this section access the ``posts`` collection in the ``sample_training``
+database. These examples demonstrate the usage of the following Atlas Search index
+methods:
+
+- ``create_search_index()``
+- ``create_search_indexes()``
+- ``list_search_indexes()``
+- ``update_search_index()``
+- ``drop_search_index()``
+
+.. _rust-create-search-index:
+
+Create a Search Index
+`````````````````````
+
+To create an Atlas Search index, call the ``create_search_index()`` method on
+your collection. This method accepts the following parameters:
+
+- Index model, specified in a `SearchIndexModel <{+api+}/struct.SearchIndexModel.html>`__
+  instance
+- Index options, specified in a `CreateSearchIndexOptions <{+api+}/options/struct.CreateSearchIndexOptions.html>`__
+  instance
+
+The following example creates an Atlas Search index on the ``posts`` collection.
+The code instantiates a ``SearchIndexModel`` and uses the struct's builder methods
+to set the index name and definition. Then, the code passes the ``SearchIndexModel``
+instance to the ``create_search_index()`` method to create an index that dynamically
+indexes collection fields:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-atlas-create-one
+      :end-before: end-atlas-create-one
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created Atlas Search index:
+      "example_index"
+
+.. _rust-multiple-search-index:
+
+Create Multiple Search Indexes
+``````````````````````````````
+
+You can create multiple Atlas Search indexes at once by calling the ``create_search_indexes()``
+method on your collection. This method accepts the following parameters:
+
+- Index models for each index, specified in a vector of `SearchIndexModel <{+api+}/struct.SearchIndexModel.html>`__
+  instances
+- Index options, specified in a `CreateSearchIndexOptions <{+api+}/options/struct.CreateSearchIndexOptions.html>`__
+  instance
+
+The following example creates two Atlas Search indexes named ``"dynamic_index"`` and
+``"static_index"`` on the ``posts`` collection. The code specifies ``SearchIndexModel``
+instances for each index, defining the index names and definitions by using the struct's
+builder methods. Then, the code adds the ``SearchIndexModel`` instances to a vector and
+passes them to the ``create_search_indexes()`` method to create the indexes:
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-atlas-create-many
+      :end-before: end-atlas-create-many
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Created Atlas Search indexes:
+      ["dynamic_index", "static_index"]
+
+List Search Indexes
+```````````````````
+
+You can access information about your collection's Atlas Search indexes
+by calling the ``list_search_indexes()`` method on your collection. This
+method accepts the following parameters:
+
+- Name of the index to retrieve information about
+- Aggregation options, specified in an `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__
+  instance
+- Index options, specified in a `ListSearchIndexOptions <{+api+}/options/struct.ListSearchIndexOptions.html>`__
+  instance
+
+The following example accesses information about the Atlas Search indexes on
+the ``posts`` collection. The code calls the ``list_search_indexes()`` method
+and passes the method a value of ``None`` for each parameter, which instructs
+the driver to return information about all Atlas Search indexes without
+configuring options. Then, the code iterates through the indexes and prints their
+information:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-atlas-list
+   :end-before: end-atlas-list
+   :language: rust
+   :dedent:
+
+Update a Search Index
+`````````````````````
+
+You can update an Atlas Search index by calling the ``update_search_index()``
+method on your collection. This method accepts the following parameters:
+
+- Name of the index to update
+- Modified index definition document
+- Index options, specified in an `UpdateSearchIndexOptions <{+api+}/options/struct.UpdateSearchIndexOptions.html>`__
+  instance
+
+The following example updates the Atlas Search index named ``"static_index"``
+created in the :ref:`rust-multiple-search-index` example on this page. The code
+creates a new index definition document that instructs the index to use dynamic
+mappings instead of static mappings. Then, the code calls the ``update_search_index()``
+method to update the index:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-atlas-update
+   :end-before: end-atlas-update
+   :language: rust
+   :dedent:
+
+Delete a Search Index
+`````````````````````
+
+You can delete an Atlas Search index by calling the ``delete_search_index()``
+method on your collection. This method accepts the following parameters:
+
+- Name of the index to delete
+- Index options, specified in a `DropSearchIndexOptions <{+api+}/options/struct.DropSearchIndexOptions.html>`__
+  instance
+
+The following example deletes the Atlas Search index named ``"example_index"``
+created in the :ref:`rust-create-search-index` example on this page. The code
+passes the index name to the ``delete_search_index()`` method to delete the index:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-atlas-drop
+   :end-before: end-atlas-drop
+   :language: rust
+   :dedent:
+   
 .. _golang-geo-indexes:
 
 Geospatial Indexes
@@ -472,5 +648,10 @@ guide, see the following API documentation:
 - `IndexOptions <{+api+}/options/struct.IndexOptions.html>`__
 - `ClusteredIndex <{+api+}/options/struct.ClusteredIndex.html>`__
 - `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
+- `create_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
+- `create_search_indexes() <{+api+}/struct.Collection.html#method.create_search_indexes>`__
+- `list_search_indexes() <{+api+}/struct.Collection.html#method.list_search_indexes>`__
+- `update_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
+- `drop_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
 - `drop_index() <{+api+}/struct.Collection.html#method.drop_index>`__
 - `drop_indexes() <{+api+}/struct.Collection.html#method.drop_indexes>`__

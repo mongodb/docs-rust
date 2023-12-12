@@ -3,8 +3,10 @@ use mongodb::{
     Client,
     Collection,
     IndexModel,
+    SearchIndexModel,
     options::{ ClientOptions, ClusteredIndex, CreateCollectionOptions, IndexOptions },
 };
+use futures::TryStreamExt;
 use std::env;
 
 #[tokio::main]
@@ -66,6 +68,54 @@ async fn main() -> mongodb::error::Result<()> {
     let idx = my_coll.create_index(index, None).await?;
     println!("Created index:\n{}", idx.index_name);
     // end-text
+
+    let my_coll: Collection<Document> = client.database("sample_training").collection("posts");
+
+    // begin-atlas-create-one
+    let idx_model = SearchIndexModel::builder()
+        .definition(doc! { "mappings": doc! {"dynamic": true} })
+        .name("example_index".to_string())
+        .build();
+
+    let result = my_coll.create_search_index(idx_model, None).await?;
+    println!("Created Atlas search index:\n{}", result);
+    // end-atlas-create-one
+
+    // begin-atlas-create-many
+    let model1 = SearchIndexModel::builder()
+        .definition(doc! { "mappings": doc! {"dynamic": true} })
+        .name("dynamic_index".to_string())
+        .build();
+
+    let model2 = SearchIndexModel::builder()
+        .definition(doc! {"mappings": doc! { "dynamic": false, "fields": {
+            "title": {"type": "string"},
+        }}})
+        .name("static_index".to_string())
+        .build();
+
+    let models = vec! [model1, model2];
+    let result = my_coll.create_search_indexes(models, None).await?;
+    println!("Created Atlas search indexes:\n{:?}", result);
+    // end-atlas-create-many
+
+    // begin-atlas-list
+    let mut cursor = my_coll.list_search_indexes(None, None, None).await?;
+    while let Some(index) = cursor.try_next().await? {
+        println!("{}\n", index);
+    }
+    // end-atlas-list
+
+    // begin-atlas-update
+    let name = "static_index";
+    let definition = doc! { "mappings": doc! {"dynamic": true} };
+    my_coll.update_search_index(name, definition, None).await?;
+    // end-atlas-update
+
+    // begin-atlas-drop
+    let name = "static_index";
+    my_coll.drop_search_index(name, None).await?;
+    // end-atlas-drop
 
     let my_coll: Collection<Document> = client.database("sample_mflix").collection("theaters");
     // begin-geo
