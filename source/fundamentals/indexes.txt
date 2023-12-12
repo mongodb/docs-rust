@@ -4,6 +4,13 @@
 Indexes
 =======
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: code example, 
+
 .. contents:: On this page
    :local:
    :backlinks: none

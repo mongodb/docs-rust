@@ -89,8 +89,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let model2 = SearchIndexModel::builder()
         .definition(doc! {"mappings": doc! { "dynamic": false, "fields": {
-            "title": {"type": "string"},
-        }}})
+            "title": {"type": "string"}}}})
         .name("static_index".to_string())
         .build();
 
