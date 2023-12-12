@@ -17,6 +17,10 @@ Indexes
    :depth: 2
    :class: singlecol
 
+.. toctree::
+
+   /indexes/atlas-search-indexes
+
 Overview
 --------
 
