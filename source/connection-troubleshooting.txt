@@ -10,8 +10,6 @@ Connection Troubleshooting
    :depth: 2
    :class: singlecol
 
-ABC 
-
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-callout
