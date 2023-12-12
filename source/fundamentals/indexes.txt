@@ -446,10 +446,9 @@ method accepts the following parameters:
 
 The following example accesses information about the Atlas Search indexes on
 the ``posts`` collection. The code calls the ``list_search_indexes()`` method
-and passes the method a value of ``None`` for each parameter, which instructs
-the driver to return information about all Atlas Search indexes without
-configuring options. Then, the code iterates through the indexes and prints their
-information:
+and passes a value of ``None`` for each parameter, which instructs the driver
+to return information about all Atlas Search indexes without configuring options.
+Then, the code iterates through the indexes and prints their information:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
    :start-after: begin-atlas-list

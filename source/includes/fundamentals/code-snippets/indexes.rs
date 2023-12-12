@@ -78,7 +78,7 @@ async fn main() -> mongodb::error::Result<()> {
         .build();
 
     let result = my_coll.create_search_index(idx_model, None).await?;
-    println!("Created Atlas search index:\n{}", result);
+    println!("Created Atlas Search index:\n{}", result);
     // end-atlas-create-one
 
     // begin-atlas-create-many
@@ -96,7 +96,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let models = vec! [model1, model2];
     let result = my_coll.create_search_indexes(models, None).await?;
-    println!("Created Atlas search indexes:\n{:?}", result);
+    println!("Created Atlas Search indexes:\n{:?}", result);
     // end-atlas-create-many
 
     // begin-atlas-list
