@@ -25,9 +25,7 @@ allow you to use MongoDB's Atlas Search feature, which performs fast, full-text 
 on data stored in an Atlas cluster. The search indexes specify the behavior of the search
 and which fields to index.
 
-The examples in this guide access the ``posts`` collection in the ``sample_training``
-database. For examples and information about each Atlas Search index method, navigate to
-the following sections:
+This guide includes the following sections:
 
 - :ref:`rust-create-search-index`
 - :ref:`rust-create-search-indexes`
@@ -35,16 +33,16 @@ the following sections:
 - :ref:`rust-update-search-index`
 - :ref:`rust-drop-search-index`
 
+.. note:: 
+
+   The examples in this guide access the ``posts`` collection in the ``sample_training``
+   database, which is one of the Atlas sample datasets. For instructions on importing
+   the Atlas sample data, see the :atlas:`Load Sample Data </sample-data>` page.
+
 .. _rust-create-search-index:
 
 Create a Search Index
 ---------------------
-
-To create an Atlas Search index, call the ``create_search_index()`` method on
-your collection. This method accepts the following parameters:
-
-- Index model, specified in a ``SearchIndexModel`` instance
-- Index options, specified in a ``CreateSearchIndexOptions`` instance
 
 You can create an Atlas Search index on a single field or on multiple fields. Specify
 which fields to index in one of the following ways:
@@ -62,6 +60,12 @@ field of your index definition document to ``true``.
 
    To learn more about Atlas Search field mappings, see the :atlas:`Define Field Mapping
    </atlas-search/define-field-mappings/>` page in the Atlas documentation.
+
+To create an Atlas Search index, call the ``create_search_index()`` method on
+your collection. This method accepts the following parameters:
+
+- Index model, specified in a ``SearchIndexModel`` instance
+- Index options, specified in a ``CreateSearchIndexOptions`` instance
 
 Example
 ~~~~~~~
