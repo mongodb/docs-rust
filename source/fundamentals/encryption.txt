@@ -28,9 +28,8 @@ and query documents with encrypted fields.
 Because the driver encrypts the data before sending it to MongoDB, only
 your configured applications can decrypt the data. Only applications
 that have access to your encryption keys can access the decrypted,
-plaintext data. If there is unrestricted access to the database,
-a potential attacker would only be able to see encrypted, ciphertext
-data.
+plaintext data. In the case of a security breach, a potential attacker
+could only see encrypted, ciphertext data.
 
 By implementing in-use encryption, you can avoid exposing the
 following sensitive types of data:
@@ -55,7 +54,7 @@ dependency. To learn more about using in-use encryption in the
 .. _rust-qe:
 
 Queryable Encryption
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Queryable Encryption (QE) is the next-generation in-use encryption feature,
 introduced in MongoDB Server version 6.0 and generally available (GA) in
@@ -73,7 +72,7 @@ Server manual.
 .. _rust-csfle:
 
 Client-side Field Level Encryption
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 Client-side Field Level Encryption (CSFLE) was introduced in MongoDB
 Server version 4.2 and supports searching encrypted fields for equality.
