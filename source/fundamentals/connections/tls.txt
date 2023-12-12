@@ -104,8 +104,9 @@ Configure Certificates
 
 To successfully initiate a TLS request, your application must present 
 cryptographic certificates to prove its identity. Your application's
-certificates must be stored as PEM files to enable TLS when connecting
-to a MongoDB deployment.
+certificates must be stored as Privacy Enhanced Mail (PEM) files to
+enable TLS when connecting to a MongoDB deployment. The PEM file format
+is a container format for cryptographic certificates.
 
 .. important::
 
