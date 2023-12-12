@@ -19,9 +19,4 @@ Fundamentals section:
 - :ref:`Optimize Driver Performance <rust-performance>`
 - :ref:`Configure Asynchronous and Synchronous Runtimes <rust-runtimes>`
 - :ref:`Monitor Driver Events <rust-monitoring>`
-
-..
-  - :atlas:`Connect to MongoDB Atlas from AWS Lambda </manage-connections-aws-lambda/>`
-  - :ref:`Store and Retrieve Large Files by Using GridFS <rust-gridfs>`
-  - :ref:`Encrypt Fields <rust-fle>`
-  - :ref:`Query and Write Geospatial Data <rust-geo>`
+- :ref:`In-Use Encryption <rust-encryption>`

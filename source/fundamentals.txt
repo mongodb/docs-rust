@@ -28,9 +28,9 @@ Fundamentals
    /fundamentals/collations
    /fundamentals/geo
    /fundamentals/gridfs
+   /fundamentals/encryption
 
 ..
    Connect to MongoDB Atlas from AWS Lambda <https://www.mongodb.com/docs/atlas/manage-connections-aws-lambda/>
-   /fundamentals/encrypt-fields
   
 .. include:: /includes/fundamentals-sections.rst
