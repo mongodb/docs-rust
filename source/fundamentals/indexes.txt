@@ -9,7 +9,7 @@ Indexes
    :values: reference
 
 .. meta::
-   :keywords: code example, 
+   :keywords: code example, search performance
 
 .. contents:: On this page
    :local:
