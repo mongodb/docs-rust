@@ -305,8 +305,8 @@ in the compound index.
 .. tip:: Atlas Full Text Search
 
    Text indexes are different from Atlas full text search indexes. To
-   learn more about Atlas Search indexes, see the :ref:`rust-atlas-search`
-   section on this page.
+   learn more about Atlas Search indexes, see the :ref:`rust-atlas-search-indexes`
+   guide.
 
 Example
 ```````
@@ -479,10 +479,5 @@ guide, see the following API documentation:
 - `IndexOptions <{+api+}/options/struct.IndexOptions.html>`__
 - `ClusteredIndex <{+api+}/options/struct.ClusteredIndex.html>`__
 - `CreateCollectionOptions <{+api+}/options/struct.CreateCollectionOptions.html>`__
-- `create_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
-- `create_search_indexes() <{+api+}/struct.Collection.html#method.create_search_indexes>`__
-- `list_search_indexes() <{+api+}/struct.Collection.html#method.list_search_indexes>`__
-- `update_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
-- `drop_search_index() <{+api+}/struct.Collection.html#method.create_search_index>`__
 - `drop_index() <{+api+}/struct.Collection.html#method.drop_index>`__
 - `drop_indexes() <{+api+}/struct.Collection.html#method.drop_indexes>`__
