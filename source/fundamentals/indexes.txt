@@ -19,7 +19,7 @@ Indexes
 
 .. toctree::
 
-   /indexes/atlas-search-indexes
+   /fundamentals/indexes/atlas-search-indexes
 
 Overview
 --------
