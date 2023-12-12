@@ -28,8 +28,8 @@ and query documents with encrypted fields.
 Because the driver encrypts the data before sending it to MongoDB, only
 your configured applications can decrypt the data. Only applications
 that have access to your encryption keys can access the decrypted,
-plaintext data. In the case of a security breach, a potential attacker
-could only see encrypted, ciphertext data.
+plaintext data. In the event of a security breach, a potential attacker
+sees only encrypted, ciphertext data.
 
 By implementing in-use encryption, you can avoid exposing the
 following sensitive types of data:
