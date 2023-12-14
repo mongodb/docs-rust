@@ -71,6 +71,21 @@ async fn main() -> mongodb::error::Result<()> {
 
     let my_coll: Collection<Document> = client.database("sample_training").collection("posts");
 
+    // begin-atlas-model
+    let def = doc! { "mappings": doc! {
+        "dynamic": false,
+        "fields": {
+            "body": {"type": "string"},
+            "date": {"type": "date"} 
+        }
+    }};
+
+    let idx_model = SearchIndexModel::builder()
+        .definition(def)
+        .name("example_index".to_string())
+        .build();
+    // end-atlas-model
+
     // begin-atlas-create-one
     let idx_model = SearchIndexModel::builder()
         .definition(doc! { "mappings": doc! {"dynamic": true} })
@@ -82,18 +97,18 @@ async fn main() -> mongodb::error::Result<()> {
     // end-atlas-create-one
 
     // begin-atlas-create-many
-    let model1 = SearchIndexModel::builder()
+    let dyn_idx = SearchIndexModel::builder()
         .definition(doc! { "mappings": doc! {"dynamic": true} })
         .name("dynamic_index".to_string())
         .build();
 
-    let model2 = SearchIndexModel::builder()
+    let static_idx = SearchIndexModel::builder()
         .definition(doc! {"mappings": doc! { "dynamic": false, "fields": {
             "title": {"type": "string"}}}})
         .name("static_index".to_string())
         .build();
 
-    let models = vec! [model1, model2];
+    let models = vec! [dyn_idx, static_idx];
     let result = my_coll.create_search_indexes(models, None).await?;
     println!("Created Atlas Search indexes:\n{:?}", result);
     // end-atlas-create-many

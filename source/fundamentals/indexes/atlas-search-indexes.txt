@@ -21,12 +21,14 @@ Overview
 --------
 
 In this guide, you can learn how to create and manage **Atlas Search indexes**. These indexes
-allow you to use MongoDB's Atlas Search feature, which performs fast, full-text searches
-on data stored in an Atlas cluster. The search indexes specify the behavior of the search
-and which fields to index.
+allow you to use MongoDB's Atlas Search feature to perform fast, full-text searches
+on data stored in an Atlas cluster. The Atlas Search index configures the behavior of Atlas
+Search by specifying which fields to index, how these fields are indexed, and other optional
+settings.
 
-This guide includes the following sections:
+This guide explains how to perform the following actions to manage your Atlas Search indexes:
 
+- :ref:`rust-create-model`
 - :ref:`rust-create-search-index`
 - :ref:`rust-create-search-indexes`
 - :ref:`rust-list-search-index`
@@ -37,31 +39,60 @@ This guide includes the following sections:
 
    The examples in this guide access the ``posts`` collection in the ``sample_training``
    database, which is one of the Atlas sample datasets. For instructions on importing
-   the Atlas sample data, see the :atlas:`Load Sample Data </sample-data>` page.
+   the Atlas sample data, see :atlas:`Load Sample Data </sample-data>` in the Atlas
+   documentation.
+
+.. _rust-create-model:
+
+Create a Search Index Model
+---------------------------
+
+Before creating an Atlas Search index, you must build a ``SearchIndexModel`` instance
+that sets your index specifications. To begin building a ``SearchIndexModel`` instance,
+call the ``SearchIndexModel::builder()`` method.
+
+.. note:: Instantiating Options
+   
+   The {+driver-short+} implements the Builder design pattern for the
+   creation of many different types, including ``SearchIndexModel``. You
+   can use the ``builder()`` method to construct an instance of each type
+   by chaining option builder methods.
+
+The {+driver-short+} provides the following ``SearchIndexModel`` builder methods:
+
+- ``definition()``, which accepts a BSON document parameter and sets your index definition
+- ``name()``, which accepts a string parameter and sets your index name 
+
+The BSON document that you pass to the ``definition()`` builder method must include
+the ``mappings`` field. To automatically index all supported fields in your collection,
+enable dynamic mappings by setting the ``mappings.dynamic`` nested field to ``true``. To
+index only certain specified fields, enable static mappings by setting the ``mappings.dynamic``
+nested field to ``false`` and including a list of target fields.
+
+.. tip:: Atlas Search Field Mappings
+
+   To learn more about Atlas Search field mappings, see :atlas:`Define Field Mapping
+   </atlas-search/define-field-mappings/>` in the Atlas documentation.
+
+Example
+~~~~~~~
+
+The following example creates instructions for a index named ``example_index`` in a
+``SearchIndexModel`` instance. The code instructs Atlas Search to index only the ``body``
+and ``date`` fields by enabling static mappings:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
+   :start-after: begin-atlas-model
+   :end-before: end-atlas-model
+   :language: rust
+   :dedent:
 
 .. _rust-create-search-index:
 
 Create a Search Index
 ---------------------
 
-You can create an Atlas Search index on a single field or on multiple fields. Specify
-which fields to index in one of the following ways:
-
-- Use static mappings to specify the target fields
-- Use dynamic mappings to instruct Atlas Search to automatically index all
-  supported field types
-
-To enable static mappings, set the ``dynamic`` field of your index definition document
-to ``false``. Additionally, you must add the collection fields you want to index to the
-``fields`` field of your definition document. To enable dynamic mappings, set the ``dynamic``
-field of your index definition document to ``true``.
-
-.. tip:: 
-
-   To learn more about Atlas Search field mappings, see the :atlas:`Define Field Mapping
-   </atlas-search/define-field-mappings/>` page in the Atlas documentation.
-
-To create an Atlas Search index, call the ``create_search_index()`` method on
+You can create an Atlas Search index by calling the ``create_search_index()`` method on
 your collection. This method accepts the following parameters:
 
 - Index model, specified in a ``SearchIndexModel`` instance
@@ -73,8 +104,7 @@ Example
 The following example creates an Atlas Search index on the ``posts`` collection.
 The code instantiates a ``SearchIndexModel`` and uses the struct's builder methods
 to set the index name and definition. Then, the code passes the ``SearchIndexModel``
-instance to the ``create_search_index()`` method to create an index that dynamically
-indexes collection fields:
+instance to the ``create_search_index()`` method to dynamically index collection fields:
 
 .. io-code-block::
    :copyable: true
@@ -100,14 +130,14 @@ Create Multiple Search Indexes
 You can create multiple Atlas Search indexes at once by calling the ``create_search_indexes()``
 method on your collection. This method accepts the following parameters:
 
-- Index models for each index, specified in a vector of ``SearchIndexModel`` instances
+- List of index models, specified as a vector of ``SearchIndexModel`` instances
 - Index options, specified in a ``CreateSearchIndexOptions`` instance
 
 Example
 ~~~~~~~
 
-The following example creates two Atlas Search indexes named ``"dynamic_index"`` and
-``"static_index"`` on the ``posts`` collection. The code specifies ``SearchIndexModel``
+The following example creates two Atlas Search indexes named ``dynamic_index`` and
+``static_index`` on the ``posts`` collection. The code specifies ``SearchIndexModel``
 instances for each index, defining the index names and definitions by using the struct's
 builder methods. Then, the code passes these models as a vector to the ``create_search_indexes()``
 method and creates the indexes:
@@ -133,8 +163,8 @@ method and creates the indexes:
 List Search Indexes
 -------------------
 
-You can access information about your collection's Atlas Search indexes
-by calling the ``list_search_indexes()`` method on your collection. This
+You can access information about a collection's existing Atlas Search indexes
+by calling the ``list_search_indexes()`` method on the collection. This
 method accepts the following parameters:
 
 - Name of the index to retrieve information about
@@ -144,17 +174,31 @@ method accepts the following parameters:
 Example
 ~~~~~~~
 
-The following example accesses information about the Atlas Search indexes on
-the ``posts`` collection. The code calls the ``list_search_indexes()`` method
-and passes a value of ``None`` for each parameter, which instructs the driver
-to return information about all Atlas Search indexes without configuring options.
-Then, the code iterates through the indexes and prints their information:
+The following example accesses information about the Atlas Search indexes created
+in the :ref:`rust-create-search-indexes` section of this page. The code calls the
+``list_search_indexes()`` method and passes a value of ``None`` for each parameter,
+which instructs the driver to return information about all Atlas Search indexes with
+default options. Then, the code outputs the search indexes:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
-   :start-after: begin-atlas-list
-   :end-before: end-atlas-list
-   :language: rust
-   :dedent:
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/indexes.rs
+      :start-after: begin-atlas-list
+      :end-before: end-atlas-list
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      { "id": "...", "name": "dynamic_index", "status": "READY", "queryable": true, "latestDefinitionVersion": {...},
+      "latestDefinition": { "mappings": { "dynamic": true } }, "statusDetail": [...] }
+
+      { "id": "...", "name": "static_index", "status": "READY", "queryable": true, "latestDefinitionVersion": {...},
+      "latestDefinition": { "mappings": { "dynamic": false, "fields": { "title": { "type": "string" } } } },
+      "statusDetail": [...] }
 
 .. tip:: 
 
@@ -175,7 +219,7 @@ method on your collection. This method accepts the following parameters:
 Example
 ~~~~~~~
 
-The following example updates the Atlas Search index named ``"static_index"``
+The following example updates the Atlas Search index named ``static_index``
 created in the :ref:`rust-create-search-indexes` section of this page. The code
 creates a new index definition document that instructs the index to use dynamic
 mappings instead of static mappings. Then, the code calls the ``update_search_index()``
@@ -201,7 +245,7 @@ method on your collection. This method accepts the following parameters:
 Example
 ~~~~~~~
 
-The following example deletes the Atlas Search index named ``"example_index"``
+The following example deletes the Atlas Search index named ``example_index``
 created in the :ref:`rust-create-search-index` section of this page. The code
 passes the index name to the ``delete_search_index()`` method to delete the index:
 
