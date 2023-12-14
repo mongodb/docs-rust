@@ -1,12 +1,9 @@
-use bson::{ Document, doc };
-use mongodb::{
-    Client,
-    Collection,
-    IndexModel,
-    SearchIndexModel,
-    options::{ ClientOptions, ClusteredIndex, CreateCollectionOptions, IndexOptions },
-};
+use bson::{doc, Document};
 use futures::TryStreamExt;
+use mongodb::{
+    options::{ClientOptions, ClusteredIndex, CreateCollectionOptions, IndexOptions},
+    Client, Collection, IndexModel, SearchIndexModel,
+};
 use std::env;
 
 #[tokio::main]
@@ -16,9 +13,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let my_coll: Collection<Document> = client.database("sample_training").collection("zips");
     // begin-single-field
-    let index = IndexModel::builder()
-        .keys(doc! { "city": 1 })
-        .build();
+    let index = IndexModel::builder().keys(doc! { "city": 1 }).build();
 
     let idx = my_coll.create_index(index, None).await?;
     println!("Created index:\n{}", idx.index_name);
@@ -36,9 +31,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let my_coll: Collection<Document> = client.database("sample_training").collection("posts");
     // begin-multikey
-    let index = IndexModel::builder()
-        .keys(doc! { "tags": 1 })
-        .build();
+    let index = IndexModel::builder().keys(doc! { "tags": 1 }).build();
 
     let idx = my_coll.create_index(index, None).await?;
     println!("Created index:\n{}", idx.index_name);
@@ -76,7 +69,7 @@ async fn main() -> mongodb::error::Result<()> {
         "dynamic": false,
         "fields": {
             "body": {"type": "string"},
-            "date": {"type": "date"} 
+            "date": {"type": "date"}
         }
     }};
 
@@ -104,11 +97,11 @@ async fn main() -> mongodb::error::Result<()> {
 
     let static_idx = SearchIndexModel::builder()
         .definition(doc! {"mappings": doc! { "dynamic": false, "fields": {
-            "title": {"type": "string"}}}})
+        "title": {"type": "string"}}}})
         .name("static_index".to_string())
         .build();
 
-    let models = vec! [dyn_idx, static_idx];
+    let models = vec![dyn_idx, static_idx];
     let result = my_coll.create_search_indexes(models, None).await?;
     println!("Created Atlas Search indexes:\n{:?}", result);
     // end-atlas-create-many
