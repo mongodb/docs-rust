@@ -72,7 +72,7 @@ nested field to ``false`` and including a list of fields you want to index.
 
 .. tip:: Atlas Search Field Mappings
 
-   To learn more about Atlas Search field mappings, see :atlas:`Define Field Mapping
+   To learn more about Atlas Search field mappings, see :atlas:`Define Field Mappings
    </atlas-search/define-field-mappings/>` in the Atlas documentation.
 
 Example
