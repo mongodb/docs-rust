@@ -22,7 +22,7 @@ Overview
 
 In this guide, you can learn how to create and manage **Atlas Search indexes**. These indexes
 allow you to use MongoDB's Atlas Search feature to perform fast, full-text searches
-on data stored in an Atlas cluster. The Atlas Search index configures the behavior of Atlas
+on data stored in an Atlas cluster. An Atlas Search index configures the behavior of Atlas
 Search by specifying which fields to index, how these fields are indexed, and other optional
 settings.
 
@@ -47,11 +47,11 @@ This guide explains how to perform the following actions to manage your Atlas Se
 Create a Search Index Model
 ---------------------------
 
-Before creating an Atlas Search index, you must build a ``SearchIndexModel`` instance
+To create an Atlas Search index, you must first build a ``SearchIndexModel`` instance
 that sets your index specifications. To begin building a ``SearchIndexModel`` instance,
 call the ``SearchIndexModel::builder()`` method.
 
-.. note:: Instantiating Options
+.. note:: Instantiating Models
    
    The {+driver-short+} implements the Builder design pattern for the
    creation of many different types, including ``SearchIndexModel``. You
@@ -66,8 +66,8 @@ The {+driver-short+} provides the following ``SearchIndexModel`` builder methods
 The BSON document that you pass to the ``definition()`` builder method must include
 the ``mappings`` field. To automatically index all supported fields in your collection,
 enable dynamic mappings by setting the ``mappings.dynamic`` nested field to ``true``. To
-index only certain specified fields, enable static mappings by setting the ``mappings.dynamic``
-nested field to ``false`` and including a list of target fields.
+index only specified fields, enable static mappings by setting the ``mappings.dynamic``
+nested field to ``false`` and including a list of fields you want to index.
 
 .. tip:: Atlas Search Field Mappings
 
@@ -77,9 +77,9 @@ nested field to ``false`` and including a list of target fields.
 Example
 ~~~~~~~
 
-The following example creates instructions for a index named ``example_index`` in a
-``SearchIndexModel`` instance. The code instructs Atlas Search to index only the ``body``
-and ``date`` fields by enabling static mappings:
+The following example creates specifications for a index named ``example_index`` in a
+``SearchIndexModel`` instance. The code sets a static mapping to index only the ``body``
+and ``date`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes.rs
    :start-after: begin-atlas-model
@@ -92,8 +92,8 @@ and ``date`` fields by enabling static mappings:
 Create a Search Index
 ---------------------
 
-You can create an Atlas Search index by calling the ``create_search_index()`` method on
-your collection. This method accepts the following parameters:
+You can create an Atlas Search index on a collection by calling the ``create_search_index()``
+method on a ``Collection`` instance. This method accepts the following parameters:
 
 - Index model, specified in a ``SearchIndexModel`` instance
 - Index options, specified in a ``CreateSearchIndexOptions`` instance
@@ -102,9 +102,9 @@ Example
 ~~~~~~~
 
 The following example creates an Atlas Search index on the ``posts`` collection.
-The code instantiates a ``SearchIndexModel`` and uses the struct's builder methods
-to set the index name and definition. Then, the code passes the ``SearchIndexModel``
-instance to the ``create_search_index()`` method to dynamically index collection fields:
+The code creates a ``SearchIndexModel`` that sets the index name and enables dynamic
+mapping. Then, the code passes the ``SearchIndexModel`` instance to the ``create_search_index()``
+method to create the Atlas Search index:
 
 .. io-code-block::
    :copyable: true
@@ -128,7 +128,7 @@ Create Multiple Search Indexes
 ------------------------------
 
 You can create multiple Atlas Search indexes at once by calling the ``create_search_indexes()``
-method on your collection. This method accepts the following parameters:
+method on a ``Collection`` instance. This method accepts the following parameters:
 
 - List of index models, specified as a vector of ``SearchIndexModel`` instances
 - Index options, specified in a ``CreateSearchIndexOptions`` instance
@@ -137,10 +137,10 @@ Example
 ~~~~~~~
 
 The following example creates two Atlas Search indexes named ``dynamic_index`` and
-``static_index`` on the ``posts`` collection. The code specifies ``SearchIndexModel``
-instances for each index, defining the index names and definitions by using the struct's
-builder methods. Then, the code passes these models as a vector to the ``create_search_indexes()``
-method and creates the indexes:
+``static_index`` on the ``posts`` collection. The code creates ``SearchIndexModel``
+instances for each index that specify the index names and definitions. Then, the code
+passes these models as a vector to the ``create_search_indexes()`` method and creates
+the indexes:
 
 .. io-code-block::
    :copyable: true
@@ -210,7 +210,7 @@ Update a Search Index
 ---------------------
 
 You can update an Atlas Search index by calling the ``update_search_index()``
-method on your collection. This method accepts the following parameters:
+method on a ``Collection`` instance. This method accepts the following parameters:
 
 - Name of the index to update
 - Modified index definition document
@@ -237,7 +237,7 @@ Delete a Search Index
 ---------------------
 
 You can delete an Atlas Search index by calling the ``delete_search_index()``
-method on your collection. This method accepts the following parameters:
+method on a ``Collection`` instance. This method accepts the following parameters:
 
 - Name of the index to delete
 - Index options, specified in a ``DropSearchIndexOptions`` instance
