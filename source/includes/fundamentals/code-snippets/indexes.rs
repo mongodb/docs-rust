@@ -127,7 +127,7 @@ async fn main() -> mongodb::error::Result<()> {
     // end-atlas-update
 
     // begin-atlas-drop
-    let name = "static_index";
+    let name = "example_index";
     my_coll.drop_search_index(name, None).await?;
     // end-atlas-drop
 
