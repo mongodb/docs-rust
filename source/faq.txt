@@ -71,7 +71,7 @@ the method exists for your specified data type but its trait bounds are not
 satisfied. For example, the driver might raise the following error message when
 you call the ``try_next()`` method on a ``Cursor`` instance:
 
-.. code-block:: rust
+.. code-block:: none
    :copyable: false
 
    error[E0599]: the method `try_next` exists for struct `mongodb::Cursor<T>`,
@@ -89,8 +89,8 @@ You can use a ``where`` clause to apply the required trait bounds.
 
 For more information about trait bounds, see the following resources:
 
-- :community-forum:`Cursor<T> trait bounds <t/rust-driver-help-writing-a-generic-find-method/168846>`
-  question in the Community Forums
+- :community-forum:`Cursor trait bounds question <t/rust-driver-help-writing-a-generic-find-method/168846>`
+  in the Community Forums
 - `Bounds <https://doc.rust-lang.org/rust-by-example/generics/bounds.html>`__ in the
   Rust language documentation
 - `Where clauses <https://doc.rust-lang.org/rust-by-example/generics/where.html>`__
