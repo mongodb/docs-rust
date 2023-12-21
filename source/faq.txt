@@ -54,7 +54,7 @@ How Do I Fix the "Trait bounds were not satisfied" Error?
 
 Trait bounds allow methods to restrict which types they accept as parameters
 and what functionality those types must implement. For example, if you define
-a method that accepts a generic type parameter and prints its value, that parameter
+a method that accepts a generic type parameter and prints its value, the parameter
 must implement the ``Display`` trait for printing purposes. The following example
 defines the ``printer`` method and specifies that the method's parameter must
 implement ``Display``: 
