@@ -32,8 +32,8 @@ If you have trouble connecting to a MongoDB deployment, see the
 
 .. _rust-faq-connection-pool:
 
-How Does Connection Pooling Work in the {+driver-short+}?
----------------------------------------------------------
+How Does Connection Pooling Work in the Rust Driver?
+----------------------------------------------------
 
 Each server in your MongoDB topology has a corresponding ``Client`` instance,
 which manages the server's connection pool. Connection pools open sockets on
@@ -52,12 +52,12 @@ section of the Performance Considerations guide.
 How Do I Fix the "Trait bounds were not satisfied" Error?
 ---------------------------------------------------------
 
-Trait bounds provide a way for methods to restrict which types they
-accept as parameters and what functionality those types must implement. 
-For example, if you define a method that accepts a generic type parameter
-and prints its value, that parameter must implement the ``Display`` trait
-for printing purposes. The following example defines the ``printer`` method
-and specifies that the method's parameter must implement ``Display``: 
+Trait bounds allow methods to restrict which types they accept as parameters
+and what functionality those types must implement. For example, if you define
+a method that accepts a generic type parameter and prints its value, that parameter
+must implement the ``Display`` trait for printing purposes. The following example
+defines the ``printer`` method and specifies that the method's parameter must
+implement ``Display``: 
 
 .. code-block:: rust
    :copyable: true
@@ -66,7 +66,7 @@ and specifies that the method's parameter must implement ``Display``:
       println!("{}", t);
    }
 
-When calling a method on a data type, you may encounter an error stating that
+When calling a method on a data type, you might encounter an error stating that
 the method exists for your specified data type but its trait bounds are not
 satisfied. For example, the driver might raise the following error message when
 you call the ``try_next()`` method on a ``Cursor`` instance:
