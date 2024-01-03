@@ -24,7 +24,7 @@ On this page, you can find frequently asked questions and their corresponding an
    If you can't find an answer to your question on this page, see the
    :ref:`rust-issues-and-help` page for information on how to report issues.
 
-Why do I Get Errors While Connecting to MongoDB?
+Why Do I Get Errors While Connecting to MongoDB?
 ------------------------------------------------
 
 If you have trouble connecting to a MongoDB deployment, see the
@@ -82,7 +82,7 @@ parameterized with the ``Vegetable`` type:
 .. code-block:: rust
    :copyable: true
 
-   let my_coll: Collection<Actor> = client.database("db").collection("actors");
+   let my_coll: Collection<Vegetable> = client.database("db").collection("vegetables");
 
 For more information about converting between BSON and Rust types, see the
 :ref:`rust-serialization` guide and the :website:`Structuring Data with Serde in Rust
@@ -225,10 +225,9 @@ method. This method returns an ``Option`` that wraps either an empty value, if n
 concern exists, or a ``ReadConcern`` value.
 
 To access the result of ``read_concern()``, you can use the same ``match`` syntax as shown
-in the preceding example. When using ``match``, replace the ``Ok(T)`` and ``Err(E)`` enum variants
-with ``None`` and ``Some(T)``. Additionally, you can use the ``if let`` syntax to process only
-the ``Some(T)`` variant. The following code unwraps and prints the nonempty ``read_concern()``
-return value, if it exists:
+in the preceding example to process the ``None`` and ``Some(T)`` variants. Alternatively, you
+can use the ``if let`` syntax to process only the ``Some(T)`` variant. The following code unwraps
+and prints the nonempty ``read_concern()`` return value, if it exists:
 
 .. code-block:: rust
    :copyable: true
