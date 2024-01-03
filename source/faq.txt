@@ -221,11 +221,14 @@ result:
    }
 
 Some {+driver-short+} methods return an ``Option`` type, such as the ``read_concern()``
-method. ``Option`` wraps either an empty value, if no read concern exists, or a ``ReadConcern``
-value.
+method. This method returns an ``Option`` that wraps either an empty value, if no read
+concern exists, or a ``ReadConcern`` value.
 
-To access the result of ``read_concern()``, you can use the ``if let`` syntax. The following code
-unwraps and prints the nonempty ``read_concern()`` return value, if it exists:
+To access the result of ``read_concern()``, you can use the same ``match`` syntax as shown
+in the preceding example. When using ``match``, replace the ``Ok(T)`` and ``Err(E)`` enum variants
+with ``None`` and ``Some(T)``. Additionally, you can use the ``if let`` syntax to process only
+the ``Some(T)`` variant. The following code unwraps and prints the nonempty ``read_concern()``
+return value, if it exists:
 
 .. code-block:: rust
    :copyable: true
