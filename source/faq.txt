@@ -21,11 +21,11 @@ On this page, you can find frequently asked questions and their corresponding an
 
 .. tip::
 
-   If you can't find an answer to your problem on this page, see the
-   :ref:`rust-issues-and-help` page for next steps and more resources.
+   If you can't find an answer to your question on this page, see the
+   :ref:`rust-issues-and-help` page for information on how to report issues.
 
-Why Am I Getting Errors While Connecting to MongoDB?
-----------------------------------------------------
+Why do I Get Errors While Connecting to MongoDB?
+------------------------------------------------
 
 If you have trouble connecting to a MongoDB deployment, see the
 :ref:`rust-connection-troubleshooting` guide for possible solutions.
@@ -35,9 +35,10 @@ If you have trouble connecting to a MongoDB deployment, see the
 How Does Connection Pooling Work in the Rust Driver?
 ----------------------------------------------------
 
-Each server in your MongoDB topology has a corresponding ``Client`` instance,
-which manages the server's connection pool. Connection pools open sockets on
-demand to support concurrent operations in your multi-threaded application.
+Each server in your MongoDB cluster maintains a connection pool. You can access or
+manage the behavior of the connection pool by using an instance of a `Client
+<{+api+}/struct.Client.html>`__. Connection pools open sockets on demand to support
+concurrent operations in your multi-threaded application.
 
 You can configure the following connection pool features:
 
@@ -49,15 +50,53 @@ You can configure the following connection pool features:
 For more information about connection pooling, see the :ref:`rust-performance-pool`
 section of the Performance Considerations guide.
 
-How Do I Fix the "Trait bounds were not satisfied" Error?
----------------------------------------------------------
+How Do I Convert Between BSON and Rust Types?
+---------------------------------------------
+
+The {+driver-short+} and the BSON library use the Serde framework to perform
+conversions between custom Rust types and BSON. You can install the ``serde``
+crate to access the functionality of the Serde framework. For instructions
+on installing this crate, see `serde <https://crates.io/crates/serde>`__ in the
+crates registry.
+
+After you add the crate to your application, you can model the documents in a collection
+by using a custom type instead of a BSON document. The following example includes a ``derive``
+statement before the ``Vegetable`` struct definition, which instructs the driver to
+perform the following actions when needed:
+
+- Serialize the struct, which converts the struct to BSON
+- Deserialize BSON, which converts BSON data to your struct
+
+.. code-block:: rust
+   :copyable: true
+
+   #[derive(Serialize, Deserialize)]
+   struct Vegetable {
+      // Add struct fields here
+   }
+
+You can then create a ``Collection`` instance with your custom struct type as its
+generic type parameter. The following example instantiates the ``my_coll`` collection
+parameterized with the ``Vegetable`` type:
+
+.. code-block:: rust
+   :copyable: true
+
+   let my_coll: Collection<Actor> = client.database("db").collection("actors");
+
+For more information about converting between BSON and Rust types, see the
+:ref:`rust-serialization` guide and the :website:`Structuring Data with Serde in Rust
+</developer/languages/rust/serde-improvements/>` MongoDB Developer Center article.
+
+How Do I Fix Unsatisfied Trait Bounds Errors?
+---------------------------------------------
 
 Trait bounds allow methods to restrict which types they accept as parameters
 and what functionality those types must implement. For example, if you define
 a method that accepts a generic type parameter and prints its value, the parameter
 must implement the ``Display`` trait for printing purposes. The following example
-defines the ``printer`` method and specifies that the method's parameter must
-implement ``Display``: 
+defines the ``printer()`` method and specifies that its parameter must implement
+``Display``: 
 
 .. code-block:: rust
    :copyable: true
@@ -67,9 +106,9 @@ implement ``Display``:
    }
 
 When calling a method on a data type, you might encounter an error stating that
-the method exists for your specified data type but its trait bounds are not
-satisfied. For example, the driver might raise the following error message when
-you call the ``try_next()`` method on a ``Cursor`` instance:
+the method's trait bounds are not satisfied. For example, the driver might raise
+the following error message when you call the ``try_next()`` method on a ``Cursor``
+instance:
 
 .. code-block:: none
    :copyable: false
@@ -77,15 +116,50 @@ you call the ``try_next()`` method on a ``Cursor`` instance:
    error[E0599]: the method `try_next` exists for struct `mongodb::Cursor<T>`,
    but its trait bounds were not satisfied
 
-The ``Cursor<T>`` type implements the ``Stream`` trait and has access to the
-``TryStreamExt`` methods, including ``try_next()``. However, ``Cursor<T>`` only
-implements ``Stream`` if the trait bounds for ``T`` are satisfied. Namely, ``T``
+The ``Cursor<T>`` type only implements the ``Stream`` trait, which is required to access
+the ``try_next()`` method, if the trait bounds for ``T`` are satisfied. Namely, ``T``
 must implement the ``DeserializeOwned`` trait, as specified in the `Cursor
-<{+api+}/struct.Cursor.html/>`__ API documentation.
+<{+api+}/struct.Cursor.html>`__ API documentation. The following example replicates the
+preceding error message by defining a custom ``Actor`` struct to model documents in the
+``actors`` collection. However, this struct does not implement the ``DeserializeOwned`` trait,
+and using the ``try_next()`` method to iterate over ``Actor`` instances causes an error:
 
-To resolve the preceding error, identify the data type over which the cursor 
+.. code-block:: rust
+   :copyable: true
+
+   struct Actor {
+      name: String,
+   }
+
+   // Add setup code here 
+
+   let my_coll: Collection<Actor> = client.database("db").collection("actors");
+   let mut cursor = my_coll.find(None, None).await?;
+   while let Some(result) = cursor.try_next().await? {
+        println!("{:?}", result);
+    };
+
+To resolve the trait bounds error, identify the data type over which the cursor 
 iterates and ensure that this data type implements the ``DeserializeOwned`` trait.
-You can use a ``where`` clause to apply the required trait bounds.
+You can use a ``derive`` statement to apply the required trait bound. 
+
+.. note:: Deserialize and DeserializeOwned Traits
+
+   The ``serde`` crate provides derive macros to generate the implementation of
+   certain traits, including the ``Deserialize`` trait. However, this crate does not
+   offer a derive macro for the ``DeserializeOwned`` trait. Data types that implement
+   ``Deserialize`` without lifetime restrictions automatically implement ``DeserializeOwned``,
+   so you can implement ``Deserialize`` to fulfill the ``DeserializeOwned`` trait bound.
+
+The following example adjusts the ``Actor`` struct definition to implement ``Deserialize``:
+
+.. code-block:: rust
+   :copyable: true
+
+   #[derive(Deserialize)]
+   struct Actor {
+      name: String,
+   }
 
 For more information about trait bounds, see the following resources:
 
@@ -93,68 +167,77 @@ For more information about trait bounds, see the following resources:
   in the Community Forums
 - `Bounds <https://doc.rust-lang.org/rust-by-example/generics/bounds.html>`__ in the
   Rust language documentation
-- `Where clauses <https://doc.rust-lang.org/rust-by-example/generics/where.html>`__
+- `Derive <https://doc.rust-lang.org/rust-by-example/trait/derive.html>`__
   in the Rust language documentation
 
-How Do I Convert Between BSON and Rust Types?
----------------------------------------------
+How Do I Process a Value Wrapped in a Result or Option Enum?
+------------------------------------------------------------
 
-The {+driver-short+} and the BSON library use the Serde framework to perform
-conversions between custom Rust types, like structs and enums, and BSON. You can
-install the ``serde`` crate to access the functionality of the Serde framework.
-For instructions on installing this crate, see `serde <https://crates.io/crates/serde>`__
-at the ``crates.io`` crate registry.
+Rust provides the ``Result`` and ``Option`` enums as safeguards for your application
+code. Many methods offered by the {+driver-short+} return values wrapped in one of these
+two types. 
 
-After installing the ``serde`` crate, you can model the documents in a collection
-by using a custom type instead of a BSON document. Add the following ``derive``
-statement before your custom struct definition to allow for serialization, or conversion
-to BSON, and deserialization, or conversion to the struct type:
+The ``Result`` enum can return the following variants:
 
-.. code-block:: rust
-   :copyable: true
+- ``Ok(T)``, which wraps the value of the result of the operation
+- ``Err(E)``, which wraps an error value if the operation is unsuccessful
+  
+The ``Option`` enum can return the following variants:
 
-   #[derive(Serialize, Deserialize)]
+- ``None``, which represents an empty value returned by an operation
+- ``Some(T)``, which wraps a nonempty return value
 
-You can then instantiate a ``Collection`` instance with your custom struct type as its
-generic type parameter.
+For example, the ``insert_one()`` method returns a ``Result`` type to wrap either a successful
+response or an error.
 
-For more information about converting between BSON and Rust types, see the
-:ref:`rust-serialization` guide and the :website:`Structuring Data with Serde in Rust
-</developer/languages/rust/serde-improvements/>` MongoDB Developer Center article.
-
-How Do I Process Values Wrapped in ``Result`` and ``Option`` Enums?
--------------------------------------------------------------------
-
-The Rust language provides the ``Result`` and ``Option`` enums as safeguards for
-your application code. Many methods provided by the {+driver-short+} return values
-wrapped in one of these two types. The ``Result`` enum has an ``Ok(T)`` and an ``Err(E)``
-variant, and it wraps the return values of methods that can output either a valid or
-an error result. The ``Option`` enum has a ``None`` and a ``Some(T)`` variant, and it
-wraps the return values of methods that can output either no value or some value.
-
-For example, when you use the ``insert_one()`` method to insert a document into a
-collection, the insert operation might not succeed. For this reason, the method returns
-a ``Result<InsertOneResult>`` type. You can use the ``?`` operator to instruct the driver
-to either unwrap the ``InsertOneResult`` if it's valid or return an error if the operation
-does not succeed. The following code demonstrates the syntax for using the ``?`` operator
-while handling an insert operation result:
+To access the result of ``insert_one()``, you can use the ``?`` operator to unwrap its
+return value. If the operation is successful, the ``?`` operator unwraps the ``InsertOneResult``
+value and assigns it to the ``insert_one_result`` variable. If the operation is unsuccessful, 
+the ``?`` operator unwraps and returns the error value. The following code demonstrates the
+syntax for using the ``?`` operator while handling an insert operation result:
 
 .. code-block:: rust
    :copyable: true
 
    let insert_one_result = my_coll.insert_one(doc, None).await?;
 
-If the preceding insert operation runs successfully, the ``insert_one_result`` variable
-has a value of type ``InsertOneResult``. If the operation is unsuccessful, the code
-returns an error.
-
 Alternatively, you can create custom logic for handling the ``InsertOneResult`` value
 depending on whether ``insert_one()`` returns the value wrapped in the ``Ok`` or the ``Err``
-variant.
+variant. The following code uses the ``match`` keyword to process the ``insert_one()``
+result:
+
+.. code-block:: rust
+   :copyable: true
+
+   let insert_one_result = my_coll.insert_one(doc, None).await;
+
+   match insert_one_result {
+      Ok(val) => {
+        println!("Document inserted with ID: {}", val.inserted_id);
+      },
+      Err(err) => {
+        println!("Operation not successful");
+      }
+   }
+
+Some {+driver-short+} methods return an ``Option`` type, such as the ``read_concern()``
+method. ``Option`` wraps either an empty value, if no read concern exists, or a ``ReadConcern``
+value.
+
+To access the result of ``read_concern()``, you can use the ``if let`` syntax. The following code
+unwraps and prints the nonempty ``read_concern()`` return value, if it exists:
+
+.. code-block:: rust
+   :copyable: true
+
+   if let Some(rc) = my_coll.read_concern() {
+      println!("Read concern: {:?}", rc);
+   }
 
 For more information about the ``Result`` and ``Option`` enums, see the following
 resources in the Rust language documentation:
 
-- `Result <https://doc.rust-lang.org/nightly/core/result/index.html>`__
-- `Option <https://doc.rust-lang.org/nightly/core/option/index.html>`__
+- `Result <https://doc.rust-lang.org/std/result/enum.Result.html>`__
+- `Option <https://doc.rust-lang.org/std/option/enum.Option.html>`__
 - `? Operator <https://doc.rust-lang.org/rust-by-example/std/result/question_mark.html>`__
+- `If Let <https://doc.rust-lang.org/book/ch06-03-if-let.html>`__
