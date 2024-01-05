@@ -54,14 +54,14 @@ How Do I Convert Between BSON and Rust Types?
 ---------------------------------------------
 
 The {+driver-short+} and the BSON library use the Serde framework to perform
-conversions between custom Rust types and BSON. You can install the ``serde``
-crate to access the functionality of the Serde framework. For instructions
-on installing this crate, see `serde <https://crates.io/crates/serde>`__ in the
-crates registry.
+conversions between custom Rust types and BSON. You can add the ``serde``
+crate to your ``Cargo.toml`` file to access the functionality of the Serde framework.
+For instructions on adding this crate, see `serde <https://crates.io/crates/serde>`__
+in the crates registry.
 
 After you add the crate to your application, you can model the documents in a collection
-by using a custom type instead of a BSON document. The following example includes a ``derive``
-statement before the ``Vegetable`` struct definition, which instructs the driver to
+by using a custom type instead of a BSON document. The following example includes the ``derive``
+attribute before the ``Vegetable`` struct definition, which instructs the driver to
 perform the following actions when needed:
 
 - Serialize the struct, which converts the struct to BSON
@@ -76,8 +76,8 @@ perform the following actions when needed:
    }
 
 You can then create a ``Collection`` instance with your custom struct type as its
-generic type parameter. The following example instantiates the ``my_coll`` collection
-parameterized with the ``Vegetable`` type:
+generic type parameter. The following example assigns a ``Collection`` instance
+parameterized with the ``Vegetable`` type to the ``my_coll`` variable:
 
 .. code-block:: rust
    :copyable: true
@@ -141,7 +141,7 @@ and using the ``try_next()`` method to iterate over ``Actor`` instances causes a
 
 To resolve the trait bounds error, identify the data type over which the cursor 
 iterates and ensure that this data type implements the ``DeserializeOwned`` trait.
-You can use a ``derive`` statement to apply the required trait bound. 
+You can use the ``derive`` attribute to apply the required trait bound. 
 
 .. note:: Deserialize and DeserializeOwned Traits
 
@@ -179,32 +179,26 @@ two types.
 
 The ``Result`` enum can return the following variants:
 
-- ``Ok(T)``, which wraps the value of the result of the operation
-- ``Err(E)``, which wraps an error value if the operation is unsuccessful
-  
-The ``Option`` enum can return the following variants:
-
-- ``None``, which represents an empty value returned by an operation
-- ``Some(T)``, which wraps a nonempty return value
+- ``Ok(T)``: wraps the value of the result of the operation
+- ``Err(E)``: wraps an error value if the operation is unsuccessful
 
 For example, the ``insert_one()`` method returns a ``Result`` type to wrap either a successful
 response or an error.
 
-To access the result of ``insert_one()``, you can use the ``?`` operator to unwrap its
-return value. If the operation is successful, the ``?`` operator unwraps the ``InsertOneResult``
-value and assigns it to the ``insert_one_result`` variable. If the operation is unsuccessful, 
-the ``?`` operator unwraps and returns the error value. The following code demonstrates the
-syntax for using the ``?`` operator while handling an insert operation result:
+To access the unwrapped result of ``insert_one()``, use the ``?`` operator. If the operation is
+successful, the method returns the ``Ok(InsertOneResult)`` enum variant. In this case, the ``?``
+operator unwraps the ``InsertOneResult`` value and assigns it to the ``insert_one_result`` variable.
+If the operation is unsuccessful, the method returns the ``Err(E)`` enum variant, and the ``?`` operator
+unwraps and returns the error value. The following code demonstrates the syntax for using the ``?``
+operator while handling an insert operation result:
 
 .. code-block:: rust
    :copyable: true
 
    let insert_one_result = my_coll.insert_one(doc, None).await?;
 
-Alternatively, you can create custom logic for handling the ``InsertOneResult`` value
-depending on whether ``insert_one()`` returns the value wrapped in the ``Ok`` or the ``Err``
-variant. The following code uses the ``match`` keyword to process the ``insert_one()``
-result:
+Alternatively, you can create a conditional to handle the unwrapped values of ``InsertOneResult``.
+The following code uses the ``match`` keyword to process the ``insert_one()`` result:
 
 .. code-block:: rust
    :copyable: true
@@ -220,6 +214,11 @@ result:
       }
    }
 
+The ``Option`` enum can return the following variants:
+
+- ``None``: represents an empty value returned by an operation
+- ``Some(T)``: wraps a non-empty return value
+
 Some {+driver-short+} methods return an ``Option`` type, such as the ``read_concern()``
 method. This method returns an ``Option`` that wraps either an empty value, if no read
 concern exists, or a ``ReadConcern`` value.
@@ -227,7 +226,7 @@ concern exists, or a ``ReadConcern`` value.
 To access the result of ``read_concern()``, you can use the same ``match`` syntax as shown
 in the preceding example to process the ``None`` and ``Some(T)`` variants. Alternatively, you
 can use the ``if let`` syntax to process only the ``Some(T)`` variant. The following code unwraps
-and prints the nonempty ``read_concern()`` return value, if it exists:
+and prints the non-empty ``read_concern()`` return value, if it exists:
 
 .. code-block:: rust
    :copyable: true
@@ -242,4 +241,4 @@ resources in the Rust language documentation:
 - `Result <https://doc.rust-lang.org/std/result/enum.Result.html>`__
 - `Option <https://doc.rust-lang.org/std/option/enum.Option.html>`__
 - `? Operator <https://doc.rust-lang.org/rust-by-example/std/result/question_mark.html>`__
-- `If Let <https://doc.rust-lang.org/book/ch06-03-if-let.html>`__
+- Control Flow with `if let <https://doc.rust-lang.org/book/ch06-03-if-let.html>`__
