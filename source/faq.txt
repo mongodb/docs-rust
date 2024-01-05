@@ -186,11 +186,11 @@ For example, the ``insert_one()`` method returns a ``Result`` type to wrap eithe
 response or an error.
 
 To access the unwrapped result of ``insert_one()``, use the ``?`` operator. If the operation is
-successful, the method returns the ``Ok(InsertOneResult)`` enum variant. In this case, the ``?``
-operator unwraps the ``InsertOneResult`` value and assigns it to the ``insert_one_result`` variable.
-If the operation is unsuccessful, the method returns the ``Err(E)`` enum variant, and the ``?`` operator
-unwraps and returns the error value. The following code demonstrates the syntax for using the ``?``
-operator while handling an insert operation result:
+successful, the method returns the ``Ok(InsertOneResult)`` variant of the ``Result`` enum. In this
+case, the ``?`` operator unwraps the ``InsertOneResult`` value and assigns it to the ``insert_one_result``
+variable. If the operation is unsuccessful, the method returns the ``Err(E)`` enum variant, and the
+``?`` operator unwraps and returns the error value. The following code demonstrates the syntax for
+using the ``?`` operator while handling an insert operation result:
 
 .. code-block:: rust
    :copyable: true
