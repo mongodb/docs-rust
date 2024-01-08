@@ -6,7 +6,7 @@ use mongodb::{
 
 fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
-    let mut client_options = ClientOptions::parse_async(uri)?;
+    let mut client_options = ClientOptions::parse(uri)?;
 
     // start-stable-api
     let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
