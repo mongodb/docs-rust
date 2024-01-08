@@ -82,13 +82,20 @@ settings:
    let client = Client::with_uri_str("<connection string>").await?;
 
 Alternatively, you can tune the connection pool to best fit the needs of your
-application and optimize performance.
+application and optimize performance. For more information on how to customize
+your connection settings, see the following subsections of this guide:
+
+- :ref:`rust-max-pool`
+- :ref:`rust-concurrent-connections`
+- :ref:`rust-max-idle`
 
 .. tip::
    
    To learn more about configuring a connection pool, see
    :manual:`Tuning Your Connection Pool Settings
    </tutorial/connection-pool-performance-tuning/>` in the Server manual.
+
+.. _rust-max-pool:
 
 Configure Maximum Pool Size
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,6 +126,8 @@ option. The following code demonstrates how to specify a value for
    client_options.max_pool_size = Some(20);
 
    let client = Client::with_options(client_options)?;
+
+.. _rust-concurrent-connections:
 
 Configure Concurrent Connection Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -152,6 +161,8 @@ instantiating a ``Client``:
    client_options.min_pool_size = Some(1);
 
    let client = Client::with_options(client_options)?;
+
+.. _rust-max-idle:
 
 Configure Maximum Idle Time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
