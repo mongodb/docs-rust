@@ -26,11 +26,9 @@ Connection Troubleshooting
            finding more resources
          - `MongoDB Community Forums <https://community.mongodb.com>`__ for
            questions, discussions, or general technical support
-
-      ..
-         TODO:
-         - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` for the
-           {+driver-short+}
+         - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` section for
+           common questions and corresponding answers about the
+           {+driver-short+}.
 
    .. replacement:: server-selection-timeout-error
 
@@ -79,9 +77,9 @@ Connection Troubleshooting
 
    .. replacement:: connection-pools-learn-more
 
-      ..
-         TODO To learn more about how connection pools work in the driver, see
-         the :ref:`FAQ page <rust-faq-connection-pool>`.
+      To learn more about how connection pools work in the driver, see
+      the related :ref:`question and answer <rust-faq-connection-pool>` on
+      the FAQ page.
 
    .. replacement:: authentication-error-anchor
 
@@ -115,7 +113,8 @@ Connection Troubleshooting
 
   .. replacement:: credentials-provider-alternative-method-description
 
-     TODO
+     Alternatively, you can specify your authentication credentials in a
+     ``Credential`` struct.
 
   .. replacement:: authentication-guide-reference
 
