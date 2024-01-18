@@ -10,6 +10,10 @@ Connection Troubleshooting
    :depth: 2
    :class: singlecol
 
+.. facet::
+   :name: genre
+   :values: reference
+
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-callout
