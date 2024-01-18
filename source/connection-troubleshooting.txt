@@ -35,7 +35,7 @@ Connection Troubleshooting
            questions, discussions, or general technical support
          - The :ref:`Frequently Asked Questions (FAQ) <rust-faq>` section for
            common questions and corresponding answers about the
-           {+driver-short+}.
+           {+driver-short+}
 
    .. replacement:: server-selection-timeout-error
 
