@@ -14,6 +14,9 @@ Connection Troubleshooting
    :name: genre
    :values: reference
 
+.. meta::
+  :keyworrds: code example, disconnected, deployment
+
 .. sharedinclude:: dbx/connection-troubleshooting.rst
 
    .. replacement:: non-connection-issue-callout
