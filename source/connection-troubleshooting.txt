@@ -78,8 +78,8 @@ Connection Troubleshooting
    .. replacement:: connection-pools-learn-more
 
       To learn more about how connection pools work in the driver, see
-      the related :ref:`question and answer <rust-faq-connection-pool>` on
-      the FAQ page.
+      :ref:`How Does Connection Pooling Work in the Rust Driver?  <rust-faq-connection-pool>`
+      on the FAQ page.
 
    .. replacement:: authentication-error-anchor
 
