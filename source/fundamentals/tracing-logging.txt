@@ -89,7 +89,7 @@ To specify the logging component and severity level, you can set the
 ``RUST_LOG`` environment variable when you compile and run your
 application. Specify the logging component by setting the value of
 ``RUST_LOG`` to one of the targets provided in the preceding table and
-specifying a severity level.
+including a severity level.
 
 The following code shows a command to execute a program that records
 connection events at the ``debug`` level:
