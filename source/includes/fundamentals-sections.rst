@@ -19,7 +19,7 @@ Fundamentals section:
 - :ref:`Optimize Driver Performance <rust-performance>`
 - :ref:`Configure Asynchronous and Synchronous Runtimes <rust-runtimes>`
 - :ref:`Monitor Driver Events <rust-monitoring>`
-- :ref:`Query and Write Geospatial Data <rust-geo>`
+- :ref:`Query and Write Geospatial Data <rust-geo-guide>`
 - :ref:`Store and Retrieve Large Files by Using GridFS <rust-gridfs>`
 
 ..
