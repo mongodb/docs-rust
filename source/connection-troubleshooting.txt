@@ -97,11 +97,11 @@ Connection Troubleshooting
       .. code-block:: none
          :copyable: false
 
-          Error: Error { kind: Authentication { message: "SCRAM failure: bad auth :
-          authentication failed" }, labels: {}, wire_version: None, source: Some(Error
-          { kind: Command(CommandError { code: 8000, code_name: "AtlasError", message:
-          "bad auth : authentication failed", topology_version: None }),
-          labels: {}, wire_version: None, source: None }) }
+         Error: Error { kind: Authentication { message: "SCRAM failure: bad auth :
+         authentication failed" }, labels: {}, wire_version: None, source: Some(Error
+         { kind: Command(CommandError { code: 8000, code_name: "AtlasError", message:
+         "bad auth : authentication failed", topology_version: None }),
+         labels: {}, wire_version: None, source: None }) }
 
   .. replacement:: check-credentials-formatting-anchor
 
