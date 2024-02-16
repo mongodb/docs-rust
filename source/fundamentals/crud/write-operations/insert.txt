@@ -55,11 +55,11 @@ document as an ``ObjectId`` type when you insert data into a
 collection.
 
 If you prefer to set custom values, you can assign the values in
-the ``_id`` field of documents passed to your insert operation.
+the ``_id`` fields of documents passed to your insert operation.
 
 .. important:: Duplicate _id Values
 
-   If you attempt to perform a write operation for documents that
+   If you attempt to insert documents that
    include duplicate ``_id`` values, these values violate unique
    index constraints and cause the write operation to fail.
 

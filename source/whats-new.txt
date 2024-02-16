@@ -38,7 +38,7 @@ improvements, and fixes:
 - Improves network connectivity and operation reliability by implementing the
   following behaviors:
 
-  - Performs retries on a greater range of error types it
+  - Performs retries on a greater range of error types that the driver
     encounters.
 
   - Avoids retries for ``mongos`` instances experiencing
