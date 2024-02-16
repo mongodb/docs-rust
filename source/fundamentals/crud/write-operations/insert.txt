@@ -52,8 +52,8 @@ The _id Field
 In MongoDB, each document *must* contain a unique ``_id`` field.
 MongoDB allows you to manage this field in the following ways:
 
-- Manage this field yourself, ensuring that each ``_id`` value you set
-  is unique. 
+- Manually create values for this field in your application, ensuring
+  that each ``_id`` value you set is unique. 
 - Let the driver automatically generate unique ``ObjectId`` values. The
   driver generates a unique ``ObjectId`` value for each document if you do
   not specify a value for the ``_id`` field when performing an insert.
