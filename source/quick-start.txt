@@ -1,8 +1,8 @@
 .. _rust-quickstart:
 
-================
-Rust Quick Start
-================
+=======================
+Rust Driver Quick Start
+=======================
 
 .. contents:: On this page
    :local:
