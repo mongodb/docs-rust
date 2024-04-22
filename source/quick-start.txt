@@ -1,8 +1,8 @@
 .. _rust-quickstart:
 
-===========
-Quick Start
-===========
+================
+Rust Quick Start
+================
 
 .. contents:: On this page
    :local:
