@@ -10,6 +10,13 @@ Rust Quick Start
    :depth: 1
    :class: singlecol
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
+.. meta::
+   :keywords: get started, tutorial, code example
+
 Overview
 --------
 
