@@ -75,7 +75,7 @@ To construct an ``InsertOneModel``, specify the following struct fields:
      - Description
 
    * - ``namespace`` 
-     - | The namespace on which the insert should be performed.
+     - | The namespace on which the insert is performed.
        | Type: ``Namespace``
 
    * - ``document`` 
@@ -116,7 +116,7 @@ To construct a ``ReplaceOneModel``, specify the following struct fields:
      - Description
 
    * - ``namespace`` 
-     - | The namespace on which the operation should be performed.
+     - | The namespace on which the operation is performed.
        | Type: ``Namespace``
 
    * - ``filter`` 
@@ -139,7 +139,7 @@ To construct a ``ReplaceOneModel``, specify the following struct fields:
        | Type: ``Bson``
 
    * - ``upsert`` 
-     - | (Optional) Whether a new document should be created if no document matches the filter.
+     - | (Optional) Whether a new document is created if no document matches the filter.
        | By default, this field is set to ``false``.
        | Type: ``bool``
 
@@ -179,11 +179,11 @@ To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the follow
      - Description
 
    * - ``namespace`` 
-     - | The namespace on which the operation should be performed.
+     - | The namespace on which the operation is performed.
        | Type: ``Namespace``
 
    * - ``filter`` 
-     - | The filter that matches the document(s) you want to update. When specified in an ``UpdateOneModel``,
+     - | The filter that matches one or more documents you want to update. When specified in an ``UpdateOneModel``,
        | only the first matching document will be updated. When specified in an ``UpdateManyModel``, all
        | matching documents will be updated.
        | Type: ``Document``
@@ -208,7 +208,7 @@ To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the follow
        | Type: ``Bson``
 
    * - ``upsert`` 
-     - | (Optional) Whether a new document should be created if no document matches the filter.
+     - | (Optional) Whether a new document is created if no document matches the filter.
        | By default, this field is set to ``false``.
        | Type: ``bool``
 
@@ -249,11 +249,11 @@ To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the followin
      - Description
 
    * - ``namespace`` 
-     - | The namespace on which the operation should be performed.
+     - | The namespace on which the operation is performed.
        | Type: ``Namespace``
 
    * - ``filter`` 
-     - | The filter that matches the document(s) you want to delete. When specified in a ``DeleteOneModel``,
+     - | The filter that matches one or more documents you want to delete. When specified in a ``DeleteOneModel``,
        | only the first matching document will be deleted. When specified in a ``DeleteManyModel``, all
        | matching documents will be deleted.
        | Type: ``Document``
@@ -310,7 +310,7 @@ The ``BulkWriteOptions`` struct contains the following fields:
      - ``true``
 
    * - ``bypass_document_validation``
-     - | Whether document-level validation should be bypassed.
+     - | Whether document-level validation is bypassed.
        | Type: ``bool``
      - ``false``
 
