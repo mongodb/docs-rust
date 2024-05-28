@@ -1,4 +1,4 @@
-.. _rust-bulk:
+.. _rust-bulk-guide:
 
 ===============
 Bulk Operations
@@ -16,8 +16,8 @@ Overview
 In this guide, you can learn how to use **bulk operations**.
 
 Bulk operations perform multiple write operations against a namespace
-or several namespaces. Instead of making a call for each operation to the database,
-bulk operations perform multiple operations with one call to the database.
+or several namespaces. Instead of making a call to the database for each operation,
+bulk operations perform multiple operations with one database call.
 
 This guide includes the following sections:
 
