@@ -27,6 +27,14 @@ This guide includes the following sections:
 - :ref:`bulk-mixed-namespaces`
 - :ref:`bulk-addtl-info`
 
+.. important::
+
+  To perform bulk write operations, ensure that your application meets the
+  following requirements:
+
+  - You are connected to MongoDB Server version 8.0 or later.
+  - You are using {+driver-short+} version 3.0 or later.
+
 .. _bulk-sample-data:
 
 Sample Data
