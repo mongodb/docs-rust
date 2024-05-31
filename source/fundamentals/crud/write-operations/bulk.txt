@@ -15,8 +15,8 @@ Overview
 
 In this guide, you can learn how to use **bulk operations**.
 
-Bulk operations perform multiple write operations against a namespace
-or several namespaces. Instead of making a call to the database for each operation,
+Bulk operations perform multiple write operations against one or more
+namespaces. Instead of making a call to the database for each operation,
 bulk operations perform multiple operations with one database call.
 
 This guide includes the following sections:

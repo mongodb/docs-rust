@@ -30,6 +30,11 @@ async fn main() -> mongodb::error::Result<()> {
             edible: true
         },
         Mushroom { 
+            name: "oyster".to_string(), 
+            color: "white".to_string(),
+            edible: true
+        },
+        Mushroom { 
             name: "fly agaric".to_string(), 
             color: "red".to_string(),
             edible: false
@@ -45,11 +50,15 @@ async fn main() -> mongodb::error::Result<()> {
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { name: "lion's mane".to_string(), color: "white".to_string(), edible: true })
+            .document(Mushroom {
+                name: "lion's mane".to_string(), color: "white".to_string(), edible: true 
+            })
             .build();
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { name: "angel wing".to_string(), color: "white".to_string(), edible: false })
+            .document(Mushroom {
+                name: "angel wing".to_string(), color: "white".to_string(), edible: false
+            })
             .build();
     ];
 
@@ -64,12 +73,16 @@ async fn main() -> mongodb::error::Result<()> {
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "portobello" })
-            .document(Mushroom { name: "cremini".to_string(), color: "brown".to_string(), edible: true })
+            .document(Mushroom {
+                name: "cremini".to_string(), color: "brown".to_string(), edible: true
+            })
             .build();
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "oyster" })
-            .document(Mushroom { name: "golden oyster".to_string(), color: "yellow".to_string(), edible: true })
+            .document(Mushroom {
+                name: "golden oyster".to_string(), color: "yellow".to_string(), edible: true
+            })
             .upsert(true)
             .build();
     ];
@@ -127,7 +140,9 @@ async fn main() -> mongodb::error::Result<()> {
             .build();
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { name: "reishi".to_string(), color: "red/brown".to_string(), edible: true })
+            .document(Mushroom { 
+                name: "reishi".to_string(), color: "red/brown".to_string(), edible: true 
+            })
             .build();
     ];
 
@@ -142,11 +157,15 @@ async fn main() -> mongodb::error::Result<()> {
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { name: "shiitake".to_string(), color: "brown".to_string(), edible: true })
+            .document(Mushroom { 
+                name: "shiitake".to_string(), color: "brown".to_string(), edible: true 
+            })
             .build();
         InsertOneModel::builder()
             .namespace(students.namespace())
-            .document(Student { name: "Alex Johnson".to_string(), age: 8 })
+            .document(Student 
+                { name: "Alex Johnson".to_string(), age: 8 
+            })
             .build();
     ];
 
