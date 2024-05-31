@@ -15,7 +15,7 @@ async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
     let client = Client::with_uri_str(uri).await?;
 
-    let my_coll: Collection<Document> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     // begin-sample-data
     let docs = vec! [
@@ -37,16 +37,18 @@ async fn main() -> mongodb::error::Result<()> {
     ];
     // end-sample-data
 
-    let insert_many_result = my_coll.insert_many(docs, None).await?;
+    let insert_many_result = mushrooms.insert_many(docs, None).await?;
 
     // begin-insert
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+
     let models = vec![
         InsertOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .document(Mushroom { name: "lion's mane".to_string(), color: "white".to_string(), edible: true })
             .build();
         InsertOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .document(Mushroom { name: "angel wing".to_string(), color: "white".to_string(), edible: false })
             .build();
     ];
@@ -56,14 +58,16 @@ async fn main() -> mongodb::error::Result<()> {
     // end-insert
 
     // begin-replace
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+
     let models = vec![
         ReplaceOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "name": "portobello" })
             .document(Mushroom { name: "cremini".to_string(), color: "brown".to_string(), edible: true })
             .build();
         ReplaceOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "name": "oyster" })
             .document(Mushroom { name: "golden oyster".to_string(), color: "yellow".to_string(), edible: true })
             .upsert(true)
@@ -75,15 +79,17 @@ async fn main() -> mongodb::error::Result<()> {
     // end-replace
 
     // begin-update
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+
     let models = vec![
         UpdateOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "name": "fly agaric" })
             .update(doc! { "$set": { "name": "fly amanita" } })
             .upsert(true)
             .build();
         UpdateManyModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "color": "yellow" })
             .update(doc! { "$set": { "color": "yellow/orange" } })
             .build();
@@ -94,13 +100,15 @@ async fn main() -> mongodb::error::Result<()> {
     // end-update
 
     // begin-delete
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+
     let models = vec![
         DeleteOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "color": "red" })
             .build();
         DeleteManyModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "edible": true })
             .build();
     ];
@@ -110,13 +118,15 @@ async fn main() -> mongodb::error::Result<()> {
     // end-delete
 
     // begin-options
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+
     let models = vec![
         DeleteOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .filter(doc! { "color": "purple" })
             .build();
         InsertOneModel::builder()
-            .namespace(my_coll.namespace())
+            .namespace(mushrooms.namespace())
             .document(Mushroom { name: "reishi".to_string(), color: "red/brown".to_string(), edible: true })
             .build();
     ];
@@ -141,6 +151,7 @@ async fn main() -> mongodb::error::Result<()> {
     ];
 
     let result = client.bulk_write(models).await?;
+    println!("Inserted documents: {}", result.inserted_count);
     // end-mixed-namespaces
 
     Ok(())

@@ -412,11 +412,19 @@ you can perform bulk writes on multiple namespaces in a single method call.
 The following example inserts one document into the ``db.mushrooms`` namespace and one document into
 the ``people.students`` namespace:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-mixed-namespaces
-   :end-before: end-mixed-namespaces
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-mixed-namespaces
+      :end-before: end-mixed-namespaces
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Inserted documents: 2
 
 .. _bulk-addtl-info:
 
