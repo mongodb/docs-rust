@@ -109,5 +109,39 @@ async fn main() -> mongodb::error::Result<()> {
     println!("Deleted documents: {}", result.deleted_count);
     // end-delete
 
+    // begin-options
+    let models = vec![
+        DeleteOneModel::builder()
+            .namespace(my_coll.namespace())
+            .filter(doc! { "color": "purple" })
+            .build();
+        InsertOneModel::builder()
+            .namespace(my_coll.namespace())
+            .document(Mushroom { name: "reishi".to_string(), color: "red/brown".to_string(), edible: true })
+            .build();
+    ];
+
+    let result = client.bulk_write(models).ordered(false).await?;
+    println!("Inserted documents: {}\nDeleted documents: {}", result.inserted_count, result.deleted_count);
+    // end-options
+
+    // begin-mixed-namespaces
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let students: Collection<Student> = client.database("people").collection("students");
+
+    let models = vec![
+        InsertOneModel::builder()
+            .namespace(mushrooms.namespace())
+            .document(Mushroom { name: "shiitake".to_string(), color: "brown".to_string(), edible: true })
+            .build();
+        InsertOneModel::builder()
+            .namespace(students.namespace())
+            .document(Student { name: "Alex Johnson".to_string(), age: 8 })
+            .build();
+    ];
+
+    let result = client.bulk_write(models).await?;
+    // end-mixed-namespaces
+
     Ok(())
 }

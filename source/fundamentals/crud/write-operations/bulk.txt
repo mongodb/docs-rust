@@ -33,7 +33,8 @@ Sample Data
 -----------
 
 The examples in this guide use the following sample documents, which
-store information about different types of mushrooms:
+are modeled as ``Mushroom`` structs and stored in the ``db.mushrooms``
+namespace:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
    :language: rust
@@ -56,6 +57,13 @@ by defining their corresponding ``WriteModel`` struct types:
 - :ref:`Bulk replace operations <bulk-replace-operation>`
 - :ref:`Bulk update operations <bulk-update-operation>`
 - :ref:`Bulk delete operations <bulk-delete-operation>`
+
+.. tip::
+
+  You can also perform multiple types of write operations in a single ``bulk_write()``
+  method call. For an example that passes a ``DeleteOneModel`` and an ``InsertOneModel`` to
+  the same ``bulk_write()`` call, see the :ref:`Modify Behavior example <bulk-opts-example>`
+  on this page.
 
 .. _bulk-insert-operation:
 
@@ -290,7 +298,9 @@ This example performs the following actions:
 Modify Behavior
 ---------------
 
-You can modify the behavior of the ``bulk_write()`` method in a ``BulkWriteOptions`` instance.
+You can modify the behavior of the ``bulk_write()`` method by setting ``BulkWriteOptions`` field
+values. To set these struct fields, chain the fields' corresponding methods to the ``bulk_write()``
+method.
 
 The ``BulkWriteOptions`` struct contains the following fields:
 
@@ -331,15 +341,41 @@ The ``BulkWriteOptions`` struct contains the following fields:
        | Type: ``WriteConcern``
      - Inherits the namespace's write concern
 
+.. _bulk-opts-example:
+
 Example
 ~~~~~~~
+
+The following example sets the ``ordered`` field to ``false`` by chaining the ``ordered()`` method
+to the ``bulk_write()`` method: 
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-options
+   :end-before: end-options
+
+Since the filter specified in the ``DeleteOneModel`` does not match any documents, the code
+performs only an insert operation. If you do not set the ``ordered`` field to ``false``, the bulk
+operation will not attempt any subsequent operations after the unsuccessful delete and will not
+insert the specified document.
 
 .. _bulk-mixed-namespaces:
 
 Write to Mixed Namespaces
 -------------------------
 
-You can perform bulk operations on different namespaces in a single method call.
+The preceding examples on this page perform bulk operations on the ``db.mushrooms`` namespace. However,
+you can perform bulk writes on multiple namespaces in a single method call.
+
+The following example inserts one document into the ``db.mushrooms`` namespace and one document into
+the ``people.students`` namespace:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-mixed-namespaces
+   :end-before: end-mixed-namespaces
 
 .. _bulk-addtl-info:
 
@@ -349,10 +385,11 @@ Additional Information
 To learn more about bulk operations, see :manual:`Bulk Write Operations </core/bulk-write-operations/>`
 in the Server manual.
 
-API Documentation
-~~~~~~~~~~~~~~~~~
+.. TODO: add API links once they exist
+    API Documentation
+    ~~~~~~~~~~~~~~~~~
 
-To learn more about any of the methods or types discussed in this
-guide, see the following API documentation:
+    To learn more about any of the methods or types discussed in this
+    guide, see the following API documentation:
 
 
