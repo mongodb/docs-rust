@@ -97,7 +97,7 @@ async fn main() -> mongodb::error::Result<()> {
     let models = vec![
         DeleteOneModel::builder()
             .namespace(my_coll.namespace())
-            .filter(doc! { "color": "brown" })
+            .filter(doc! { "color": "red" })
             .build();
         DeleteManyModel::builder()
             .namespace(my_coll.namespace())

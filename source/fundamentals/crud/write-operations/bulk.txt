@@ -100,11 +100,19 @@ This example performs the following actions:
 - Passes the array of models to the ``bulk_write()`` method.
 - Prints the number of inserted documents.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-insert
-   :end-before: end-insert
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-insert
+      :end-before: end-insert
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Inserted documents: 2
 
 .. _bulk-replace-operation:
 
@@ -161,11 +169,19 @@ This example performs the following actions:
 - Passes the array of models to the ``bulk_write()`` method.
 - Prints the number of modified documents.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-replace
-   :end-before: end-replace
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-replace
+      :end-before: end-replace
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Modified documents: 2
 
 .. _bulk-update-operation:
 
@@ -231,11 +247,19 @@ This example performs the following actions:
 - Passes the array of models to the ``bulk_write()`` method.
 - Prints the number of modified documents.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-update
-   :end-before: end-update
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-update
+      :end-before: end-update
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Modified documents: 2
 
 .. _bulk-delete-operation:
 
@@ -287,11 +311,19 @@ This example performs the following actions:
 - Passes the array of models to the ``bulk_write()`` method.
 - Prints the number of deleted documents.
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-delete
-   :end-before: end-delete
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-delete
+      :end-before: end-delete
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Deleted documents: 3
 
 .. _bulk-modify-behavior:
 
@@ -349,11 +381,20 @@ Example
 The following example sets the ``ordered`` field to ``false`` by chaining the ``ordered()`` method
 to the ``bulk_write()`` method: 
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
-   :language: rust
-   :dedent:
-   :start-after: begin-options
-   :end-before: end-options
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-options
+      :end-before: end-options
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Inserted documents: 1
+      Deleted documents: 0
 
 Since the filter specified in the ``DeleteOneModel`` does not match any documents, the code
 performs only an insert operation. If you do not set the ``ordered`` field to ``false``, the bulk
