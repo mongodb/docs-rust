@@ -1,7 +1,13 @@
-use futures::{ StreamExt, TryStreamExt };
-use mongodb::{ bson::doc, bson::Document, Client, Collection, error::Result, options::{ FindOptions, CursorType } };
+use futures::{StreamExt, TryStreamExt};
+use mongodb::{
+    bson::doc,
+    bson::Document,
+    error::Result,
+    options::{CursorType, FindOptions},
+    Client, Collection,
+};
 
-use serde::{ Deserialize, Serialize };
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Mushroom {
@@ -18,26 +24,26 @@ async fn main() -> mongodb::error::Result<()> {
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     // begin-sample-data
-    let docs = vec! [
-        Mushroom { 
-            name: "portobello".to_string(), 
+    let docs = vec![
+        Mushroom {
+            name: "portobello".to_string(),
             color: "brown".to_string(),
-            edible: true
+            edible: true,
         },
-        Mushroom { 
-            name: "chanterelle".to_string(), 
+        Mushroom {
+            name: "chanterelle".to_string(),
             color: "yellow".to_string(),
-            edible: true
+            edible: true,
         },
-        Mushroom { 
-            name: "oyster".to_string(), 
+        Mushroom {
+            name: "oyster".to_string(),
             color: "white".to_string(),
-            edible: true
+            edible: true,
         },
-        Mushroom { 
-            name: "fly agaric".to_string(), 
+        Mushroom {
+            name: "fly agaric".to_string(),
             color: "red".to_string(),
-            edible: false
+            edible: false,
         },
     ];
     // end-sample-data
@@ -51,15 +57,19 @@ async fn main() -> mongodb::error::Result<()> {
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
             .document(Mushroom {
-                name: "lion's mane".to_string(), color: "white".to_string(), edible: true 
+                name: "lion's mane".to_string(),
+                color: "white".to_string(),
+                edible: true
             })
             .build();
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
             .document(Mushroom {
-                name: "angel wing".to_string(), color: "white".to_string(), edible: false
+                name: "angel wing".to_string(),
+                color: "white".to_string(),
+                edible: false
             })
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).await?;
@@ -74,17 +84,21 @@ async fn main() -> mongodb::error::Result<()> {
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "portobello" })
             .document(Mushroom {
-                name: "cremini".to_string(), color: "brown".to_string(), edible: true
+                name: "cremini".to_string(),
+                color: "brown".to_string(),
+                edible: true
             })
             .build();
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "oyster" })
             .document(Mushroom {
-                name: "golden oyster".to_string(), color: "yellow".to_string(), edible: true
+                name: "golden oyster".to_string(),
+                color: "yellow".to_string(),
+                edible: true
             })
             .upsert(true)
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).await?;
@@ -105,7 +119,7 @@ async fn main() -> mongodb::error::Result<()> {
             .namespace(mushrooms.namespace())
             .filter(doc! { "color": "yellow" })
             .update(doc! { "$set": { "color": "yellow/orange" } })
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).await?;
@@ -123,7 +137,7 @@ async fn main() -> mongodb::error::Result<()> {
         DeleteManyModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "edible": true })
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).await?;
@@ -140,14 +154,19 @@ async fn main() -> mongodb::error::Result<()> {
             .build();
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { 
-                name: "reishi".to_string(), color: "red/brown".to_string(), edible: true 
+            .document(Mushroom {
+                name: "reishi".to_string(),
+                color: "red/brown".to_string(),
+                edible: true
             })
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).ordered(false).await?;
-    println!("Inserted documents: {}\nDeleted documents: {}", result.inserted_count, result.deleted_count);
+    println!(
+        "Inserted documents: {}\nDeleted documents: {}",
+        result.inserted_count, result.deleted_count
+    );
     // end-options
 
     // begin-mixed-namespaces
@@ -157,16 +176,19 @@ async fn main() -> mongodb::error::Result<()> {
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom { 
-                name: "shiitake".to_string(), color: "brown".to_string(), edible: true 
+            .document(Mushroom {
+                name: "shiitake".to_string(),
+                color: "brown".to_string(),
+                edible: true
             })
             .build();
         InsertOneModel::builder()
             .namespace(students.namespace())
-            .document(Student 
-                { name: "Alex Johnson".to_string(), age: 8 
+            .document(Student {
+                name: "Alex Johnson".to_string(),
+                age: 8
             })
-            .build();
+            .build()
     ];
 
     let result = client.bulk_write(models).await?;
