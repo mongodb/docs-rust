@@ -1,20 +1,8 @@
-use futures::{StreamExt, TryStreamExt};
 use mongodb::{
-    bson::doc,
-    bson::Document,
-    error::Result,
-    options::{CursorType, FindOptions},
+    bson::{doc, Document},
     Client, Collection,
+    options::{InsertOneModel, ReplaceOneModel, UpdateOneModel, UpdateManyModel, DeleteOneModel, DeleteManyModel, WriteModel},
 };
-
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize, Debug)]
-struct Mushroom {
-    name: String,
-    color: String,
-    edible: bool,
-}
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
@@ -23,53 +11,31 @@ async fn main() -> mongodb::error::Result<()> {
 
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
+    mushrooms.drop().await?;
+
     // begin-sample-data
     let docs = vec![
-        Mushroom {
-            name: "portobello".to_string(),
-            color: "brown".to_string(),
-            edible: true,
-        },
-        Mushroom {
-            name: "chanterelle".to_string(),
-            color: "yellow".to_string(),
-            edible: true,
-        },
-        Mushroom {
-            name: "oyster".to_string(),
-            color: "white".to_string(),
-            edible: true,
-        },
-        Mushroom {
-            name: "fly agaric".to_string(),
-            color: "red".to_string(),
-            edible: false,
-        },
+        doc! {"name" : "portobello", "color" : "brown", "edible" : true },
+        doc! {"name" : "chanterelle", "color" : "yellow", "edible" : true },
+        doc! {"name" : "oyster", "color" : "white", "edible" : true },
+        doc! {"name" : "fly agaric", "color" : "red", "edible" : false },
     ];
     // end-sample-data
 
-    let insert_many_result = mushrooms.insert_many(docs, None).await?;
+    let _insert_many_result = mushrooms.insert_many(docs).await?;
 
     // begin-insert
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom {
-                name: "lion's mane".to_string(),
-                color: "white".to_string(),
-                edible: true
-            })
-            .build();
+            .document(doc! { "name": "lion's mane", "color": "white", "edible": true })
+            .build(),
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom {
-                name: "angel wing".to_string(),
-                color: "white".to_string(),
-                edible: false
-            })
-            .build()
+            .document(doc! { "name": "angel wing", "color": "white", "edible": false })
+            .build(),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -77,28 +43,20 @@ async fn main() -> mongodb::error::Result<()> {
     // end-insert
 
     // begin-replace
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "portobello" })
-            .document(Mushroom {
-                name: "cremini".to_string(),
-                color: "brown".to_string(),
-                edible: true
-            })
-            .build();
+            .replacement(doc! { "name": "cremini", "color": "brown", "edible": true })
+            .build(),
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "oyster" })
-            .document(Mushroom {
-                name: "golden oyster".to_string(),
-                color: "yellow".to_string(),
-                edible: true
-            })
+            .replacement(doc! { "name": "golden oyster", "color": "yellow", "edible": true })
             .upsert(true)
-            .build()
+            .build(),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -106,20 +64,20 @@ async fn main() -> mongodb::error::Result<()> {
     // end-replace
 
     // begin-update
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        UpdateOneModel::builder()
+        WriteModel::UpdateOne(UpdateOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "fly agaric" })
             .update(doc! { "$set": { "name": "fly amanita" } })
             .upsert(true)
-            .build();
-        UpdateManyModel::builder()
+            .build()),
+        WriteModel::UpdateMany(UpdateManyModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "color": "yellow" })
             .update(doc! { "$set": { "color": "yellow/orange" } })
-            .build()
+            .build()),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -127,17 +85,17 @@ async fn main() -> mongodb::error::Result<()> {
     // end-update
 
     // begin-delete
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        DeleteOneModel::builder()
+        WriteModel::DeleteOne(DeleteOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "color": "red" })
-            .build();
-        DeleteManyModel::builder()
+            .build()),
+        WriteModel::DeleteMany(DeleteManyModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "edible": true })
-            .build()
+            .build()),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -145,21 +103,17 @@ async fn main() -> mongodb::error::Result<()> {
     // end-delete
 
     // begin-options
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        DeleteOneModel::builder()
+        WriteModel::DeleteOne(DeleteOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "color": "purple" })
-            .build();
-        InsertOneModel::builder()
+            .build()),
+        WriteModel::InsertOne(InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom {
-                name: "reishi".to_string(),
-                color: "red/brown".to_string(),
-                edible: true
-            })
-            .build()
+            .document(doc! { "name": "reishi", "color": "red/brown", "edible": true })
+            .build()),
     ];
 
     let result = client.bulk_write(models).ordered(false).await?;
@@ -170,25 +124,18 @@ async fn main() -> mongodb::error::Result<()> {
     // end-options
 
     // begin-mixed-namespaces
-    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
-    let students: Collection<Student> = client.database("people").collection("students");
+    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
+    let students: Collection<Document> = client.database("people").collection("students");
 
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(Mushroom {
-                name: "shiitake".to_string(),
-                color: "brown".to_string(),
-                edible: true
-            })
-            .build();
+            .document(doc! { "name": "shiitake", "color": "brown", "edible": true })
+            .build(),
         InsertOneModel::builder()
             .namespace(students.namespace())
-            .document(Student {
-                name: "Alex Johnson".to_string(),
-                age: 8
-            })
-            .build()
+            .document(doc! { "name": "Alex Johnson", "age": 8 })
+            .build(),
     ];
 
     let result = client.bulk_write(models).await?;
