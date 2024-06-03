@@ -22,13 +22,12 @@ async fn main() -> mongodb::error::Result<()> {
                }
             }
         };
-    let validation_opts = CreateCollectionOptions::builder()
+
+    db.create_collection("survey_answers")
         .validator(validator)
         .validation_action(Some(ValidationAction::Error))
         .validation_level(Some(ValidationLevel::Moderate))
-        .build();
-
-    db.create_collection("survey_answers", validation_opts).await?;
+        .await?;
     // end-schema-validation
 
     Ok(())

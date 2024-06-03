@@ -27,11 +27,9 @@ async fn main() -> mongodb::error::Result<()> {
     // start-create-opts
     let wc = WriteConcern::builder().w_timeout(Duration::new(5, 0)).build();
     
-    let opts = GridFsBucketOptions::builder()
+    let bucket_with_opts = my_db.gridfs_bucket()
         .bucket_name("my_bucket".to_string())
-        .write_concern(wc)
-        .build();
-    let bucket_with_opts = my_db.gridfs_bucket(opts);
+        .write_concern(wc);
     // end-create-opts
 
     // start-upload
