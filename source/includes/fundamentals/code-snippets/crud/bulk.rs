@@ -124,17 +124,17 @@ async fn main() -> mongodb::error::Result<()> {
     // end-options
 
     // begin-mixed-namespaces
-    let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
-    let students: Collection<Document> = client.database("people").collection("students");
+    let sweet: Collection<Document> = client.database("ingredients").collection("sweet");
+    let dessert: Collection<Document> = client.database("meals").collection("dessert");
 
     let models = vec![
         InsertOneModel::builder()
-            .namespace(mushrooms.namespace())
-            .document(doc! { "name": "shiitake", "color": "brown", "edible": true })
+            .namespace(sweet.namespace())
+            .document(doc! { "name": "brown sugar", "price": 3.99 })
             .build(),
         InsertOneModel::builder()
-            .namespace(students.namespace())
-            .document(doc! { "name": "Alex Johnson", "age": 8 })
+            .namespace(dessert.namespace())
+            .document(doc! { "name": "banana bread", "cook_time": 75 })
             .build(),
     ];
 

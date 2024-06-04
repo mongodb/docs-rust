@@ -13,36 +13,40 @@ Bulk Operations
 Overview
 --------
 
-In this guide, you can learn how to use **bulk operations**.
+In this guide, you can learn how to perform **bulk operations**.
 
 Bulk operations perform multiple write operations against one or more
-namespaces. Instead of making a call to the database for each operation,
-bulk operations perform multiple operations with one database call.
+namespaces, which refer to a database name and a collection name in
+``<database>.<collection>`` form. Since the bulk operation method is in 
+the ``Client`` class, you can perform bulk operations against any namespace
+in your cluster. 
+
+Instead of making a call to the database for each operation, bulk operations
+perform multiple operations within one call to the database.
 
 This guide includes the following sections:
 
-- :ref:`bulk-sample-data`
-- :ref:`bulk-operation-types`
-- :ref:`bulk-modify-behavior`
-- :ref:`bulk-mixed-namespaces`
-- :ref:`bulk-addtl-info`
+- :ref:`rust-bulk-sample-data`
+- :ref:`rust-bulk-operation-types`
+- :ref:`rust-bulk-modify-behavior`
+- :ref:`rust-bulk-mixed-namespaces`
+- :ref:`rust-bulk-addtl-info`
 
 .. important::
 
-  To perform bulk write operations, ensure that your application meets the
-  following requirements:
+   To perform bulk write operations, ensure that your application meets the
+   following requirements:
 
-  - You are connected to MongoDB Server version 8.0 or later.
-  - You are using {+driver-short+} version 3.0 or later.
+   - You are connected to MongoDB Server version 8.0 or later.
+   - You are using {+driver-short+} version 3.0 or later.
 
-.. _bulk-sample-data:
+.. _rust-bulk-sample-data:
 
 Sample Data
 -----------
 
 The examples in this guide use the following sample documents, which
-are modeled as ``Mushroom`` structs and stored in the ``db.mushrooms``
-namespace:
+are stored in the ``mushrooms`` collection in the ``db`` database:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
    :language: rust
@@ -50,7 +54,7 @@ namespace:
    :start-after: begin-sample-data
    :end-before: end-sample-data
 
-.. _bulk-operation-types:
+.. _rust-bulk-operation-types:
 
 Bulk Operation Types
 --------------------
@@ -61,19 +65,19 @@ To perform a bulk write operation, pass an array of ``WriteModel`` struct instan
 In this section, you can learn how to perform the following bulk write operations
 by defining their corresponding ``WriteModel`` struct types:
 
-- :ref:`Bulk insert operations <bulk-insert-operation>`
-- :ref:`Bulk replace operations <bulk-replace-operation>`
-- :ref:`Bulk update operations <bulk-update-operation>`
-- :ref:`Bulk delete operations <bulk-delete-operation>`
+- :ref:`Bulk insert operations <rust-bulk-insert-operation>`
+- :ref:`Bulk replace operations <rust-bulk-replace-operation>`
+- :ref:`Bulk update operations <rust-bulk-update-operation>`
+- :ref:`Bulk delete operations <rust-bulk-delete-operation>`
 
 .. tip::
 
-  You can also perform multiple types of write operations in a single ``bulk_write()``
-  method call. For an example that passes a ``DeleteOneModel`` and an ``InsertOneModel`` to
-  the same ``bulk_write()`` call, see the :ref:`Modify Behavior example <bulk-opts-example>`
-  on this page.
+   You can also perform multiple types of write operations in a single ``bulk_write()``
+   method call. To view an example that passes a ``DeleteOneModel`` and an ``InsertOneModel`` to
+   the same ``bulk_write()`` call, see the :ref:`Modify Behavior example <rust-bulk-opts-example>`
+   on this page.
 
-.. _bulk-insert-operation:
+.. _rust-bulk-insert-operation:
 
 Insert
 ~~~~~~
@@ -122,7 +126,7 @@ This example performs the following actions:
 
       Inserted documents: 2
 
-.. _bulk-replace-operation:
+.. _rust-bulk-replace-operation:
 
 Replace
 ~~~~~~~
@@ -153,13 +157,12 @@ To construct a ``ReplaceOneModel``, specify the following struct fields:
 
    * - ``collation`` 
      - | (Optional) The collation to use when sorting results. To learn more about collations,
-       | see the :ref:`rust-collations` guide.
+         see the :ref:`rust-collations` guide.
        | Type: ``Document``
 
    * - ``hint`` 
      - | (Optional) The index to use for the operation. To learn more about
-       | indexes, see :manual:`Indexes </indexes/>` in the Server
-       | manual.
+         indexes, see the :ref:`rust-indexes` guide.
        | Type: ``Bson``
 
    * - ``upsert`` 
@@ -191,7 +194,7 @@ This example performs the following actions:
 
       Modified documents: 2
 
-.. _bulk-update-operation:
+.. _rust-bulk-update-operation:
 
 Update
 ~~~~~~
@@ -216,8 +219,8 @@ To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the follow
 
    * - ``filter`` 
      - | The filter that matches one or more documents you want to update. When specified in an ``UpdateOneModel``,
-       | only the first matching document will be updated. When specified in an ``UpdateManyModel``, all
-       | matching documents will be updated.
+         only the first matching document will be updated. When specified in an ``UpdateManyModel``, all
+         matching documents will be updated.
        | Type: ``Document``
 
    * - ``update`` 
@@ -225,23 +228,24 @@ To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the follow
        | Type: ``UpdateModifications``
 
    * - ``array_filters`` 
-     - | (Optional) A set of filters specifying which array elements an update applies to.
+     - | (Optional) A set of filters specifying which array elements an update applies to if you are updating an
+         array-valued field.
        | Type: ``Array``
 
    * - ``collation`` 
      - | (Optional) The collation to use when sorting results. To learn more about collations,
-       | see the :ref:`rust-collations` guide.
+         see the :ref:`rust-collations` guide.
        | Type: ``Document``
 
    * - ``hint`` 
      - | (Optional) The index to use for the operation. To learn more about
-       | indexes, see :manual:`Indexes </indexes/>` in the Server
-       | manual.
+         indexes, see :manual:`Indexes </indexes/>` in the Server
+         manual.
        | Type: ``Bson``
 
    * - ``upsert`` 
      - | (Optional) Whether a new document is created if no document matches the filter.
-       | By default, this field is set to ``false``.
+         By default, this field is set to ``false``.
        | Type: ``bool``
 
 Example
@@ -269,7 +273,7 @@ This example performs the following actions:
 
       Modified documents: 2
 
-.. _bulk-delete-operation:
+.. _rust-bulk-delete-operation:
 
 Delete
 ~~~~~~
@@ -294,19 +298,19 @@ To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the followin
 
    * - ``filter`` 
      - | The filter that matches one or more documents you want to delete. When specified in a ``DeleteOneModel``,
-       | only the first matching document will be deleted. When specified in a ``DeleteManyModel``, all
-       | matching documents will be deleted.
+         only the first matching document will be deleted. When specified in a ``DeleteManyModel``, all
+         matching documents will be deleted.
        | Type: ``Document``
 
    * - ``collation`` 
      - | (Optional) The collation to use when sorting results. To learn more about collations,
-       | see the :ref:`rust-collations` guide.
+         see the :ref:`rust-collations` guide.
        | Type: ``Document``
 
    * - ``hint`` 
      - | (Optional) The index to use for the operation. To learn more about
-       | indexes, see :manual:`Indexes </indexes/>` in the Server
-       | manual.
+         indexes, see :manual:`Indexes </indexes/>` in the Server
+         manual.
        | Type: ``Bson``
 
 Example
@@ -333,7 +337,7 @@ This example performs the following actions:
 
       Deleted documents: 3
 
-.. _bulk-modify-behavior:
+.. _rust-bulk-modify-behavior:
 
 Modify Behavior
 ---------------
@@ -366,13 +370,13 @@ The ``BulkWriteOptions`` struct contains the following fields:
 
    * - ``comment``
      - | An arbitrary comment to help trace the operation through the database profiler, currentOp,
-       | and logs.
+         and logs.
        | Type: ``Bson``
      - ``None``
 
    * - ``let_vars``
      - | A map of parameter names and values to apply to all operations within the bulk write.
-       | Values must be constant or closed expressions that do not reference document fields.
+         Values must be constant or closed expressions that do not reference document fields.
        | Type: ``Document``
      - ``None``
 
@@ -381,7 +385,7 @@ The ``BulkWriteOptions`` struct contains the following fields:
        | Type: ``WriteConcern``
      - Inherits the namespace's write concern
 
-.. _bulk-opts-example:
+.. _rust-bulk-opts-example:
 
 Example
 ~~~~~~~
@@ -409,7 +413,7 @@ performs only an insert operation. If you do not set the ``ordered`` field to ``
 operation will not attempt any subsequent operations after the unsuccessful delete and will not
 insert the specified document.
 
-.. _bulk-mixed-namespaces:
+.. _rust-bulk-mixed-namespaces:
 
 Write to Mixed Namespaces
 -------------------------
@@ -417,8 +421,8 @@ Write to Mixed Namespaces
 The preceding examples on this page perform bulk operations on the ``db.mushrooms`` namespace. However,
 you can perform bulk writes on multiple namespaces in a single method call.
 
-The following example inserts one document into the ``db.mushrooms`` namespace and one document into
-the ``people.students`` namespace:
+The following example inserts one document into the ``ingredients.sweet`` namespace and one document into
+the ``meals.dessert`` namespace:
 
 .. io-code-block::
 
@@ -434,7 +438,7 @@ the ``people.students`` namespace:
 
       Inserted documents: 2
 
-.. _bulk-addtl-info:
+.. _rust-bulk-addtl-info:
 
 Additional Information
 ----------------------
