@@ -335,7 +335,7 @@ This example performs the following actions:
       :language: console
       :visible: false
 
-      Deleted documents: 3
+      Deleted documents: 4
 
 .. _rust-bulk-modify-behavior:
 
