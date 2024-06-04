@@ -54,8 +54,7 @@ Implement Schema Validation
 ---------------------------
 
 You can implement schema validation by passing your schema and related options
-to option ``CreateCollectionOptions``. Set these fields to the ``create_collection()``
-method. 
+to the ``CreateCollectionOptions`` option methods.
 
 .. note:: Setting Options
    
@@ -64,11 +63,8 @@ method.
    version of the driver, you must construct a ``CreateCollectionOptions`` instance by chaining
    option builder methods to the ``builder()`` method.
 
-The following table describes the methods that you can use to set ``GridFsBucketOptions``
-fields:
-
-Call the following ``CreateCollectionOptions::builder()`` functions to specify
-the validation options for the new collection:
+Call the following ``CreateCollectionOptions`` methods to specify the validation
+options for the new collection:
 
 .. list-table::
    :widths: 30 70

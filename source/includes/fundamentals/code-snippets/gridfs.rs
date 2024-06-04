@@ -27,16 +27,18 @@ async fn main() -> mongodb::error::Result<()> {
     // start-create-opts
     let wc = WriteConcern::builder().w_timeout(Duration::new(5, 0)).build();
     
-    let bucket_with_opts = my_db.gridfs_bucket()
+    let opts = GridFsBucketOptions::builder()
         .bucket_name("my_bucket".to_string())
-        .write_concern(wc);
+        .write_concern(wc)
+        .build();
+    let bucket_with_opts = my_db.gridfs_bucket(opts);
     // end-create-opts
 
     // start-upload
     let bucket = my_db.gridfs_bucket(None);
     let file_bytes = fs::read("example.txt").await?;
 
-    let mut upload_stream = bucket.open_upload_stream("example", None);
+    let mut upload_stream = bucket.open_upload_stream("example").await?;
     upload_stream.write_all(&file_bytes[..]).await?;
 
     println!("Document uploaded with ID: {}", upload_stream.id());
@@ -46,7 +48,7 @@ async fn main() -> mongodb::error::Result<()> {
     // start-retrieve 
     let bucket = my_db.gridfs_bucket(None);
     let filter = doc! {};
-    let mut cursor = bucket.find(filter, None).await?;
+    let mut cursor = bucket.find(filter).await?;
 
     while let Some(result) = cursor.try_next().await? {
         println!("File length: {}\n", result.length);
@@ -69,7 +71,7 @@ async fn main() -> mongodb::error::Result<()> {
     let id = ObjectId::from_str("3289").expect("Could not convert to ObjectId");
     let new_name = "new_file_name";
 
-    bucket.rename(Bson::ObjectId(id), &new_name).await?;
+    bucket.rename(Bson::ObjectId(id), new_name).await?;
     // end-rename
 
     // start-delete-file

@@ -1,5 +1,10 @@
 use bson::{ Document };
-use mongodb::{ bson::doc, options::{ CollectionOptions, WriteConcern }, Client, Collection };
+use mongodb::{
+    bson::doc,
+    options::{ CollectionOptions, WriteConcern, ValidationAction, ValidationLevel },
+    Client,
+    Collection
+};
 use std::env;
 
 #[tokio::main]
@@ -25,8 +30,8 @@ async fn main() -> mongodb::error::Result<()> {
 
     db.create_collection("survey_answers")
         .validator(validator)
-        .validation_action(Some(ValidationAction::Error))
-        .validation_level(Some(ValidationLevel::Moderate))
+        .validation_action(ValidationAction::Error)
+        .validation_level(ValidationLevel::Moderate)
         .await?;
     // end-schema-validation
 
