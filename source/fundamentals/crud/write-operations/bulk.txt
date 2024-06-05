@@ -19,7 +19,7 @@ perform **bulk operations**.
 Bulk operations perform multiple write operations against one or more
 **namespaces**. A namespace is a combination of the database name and
 the collection name, in the format ``<database>.<collection>``. Since
-you perform bulk operations on a the ``Client`` instance, you can perform
+you perform bulk operations on a ``Client`` instance, you can perform
 bulk operations against any namespace in the cluster accessed by your client.
 
 You can perform bulk operations to reduce the number of calls to the
@@ -29,7 +29,7 @@ perform multiple operations within one action.
 This guide includes the following sections:
 
 - :ref:`rust-bulk-sample-data` presents the sample data that is used by the
-   bulk operation examples
+  bulk operation examples
 - :ref:`rust-bulk-operation-types` describes how to use ``WriteModel`` types to
   perform bulk insert, replace, update, and delete operations
 - :ref:`rust-bulk-modify-behavior` describes how to modify the default behavior of
