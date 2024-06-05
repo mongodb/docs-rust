@@ -137,8 +137,9 @@ is ``"Wes Anderson"``, the preceding code produces the following output:
 Apply Aggregation Operators to your Change Stream
 -------------------------------------------------
 
-You can pass an aggregation pipeline as a parameter to the ``watch()`` method
-to specify which change events the change stream receives.
+You can chain the ``pipeline()`` method to the ``watch()`` method
+to specify which change events the change stream receives. Pass an
+aggregation pipeline as a parameter to ``pipeline()``.
 
 To learn which aggregation operators your MongoDB Server version supports, see
 :ref:`<change-stream-modify-output>` in the Server manual.
@@ -147,7 +148,7 @@ Example
 ~~~~~~~
 
 The following example creates an aggregation pipeline to filter for update
-operations. Then, the code passes the pipeline to the ``watch()`` method,
+operations. Then, the code passes the pipeline to the ``pipeline()`` method,
 configuring the change stream to only receive and print change events for
 update operations:
 
@@ -222,21 +223,9 @@ must perform the following actions:
 Create a Collection with Pre-Image and Post-Images Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To create a collection with the pre-image and post-image documents enabled,
-configure this option in a ``CreateCollectionOptions`` struct instance. To begin
-building a ``CreateCollectionOptions`` instance, call the ``CreateCollectionOptions::builder()``
-method.
-
-.. note:: Instantiating Options
-   
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of many different types, including ``CreateCollectionOptions``. You
-   can use the ``builder()`` method to construct an instance of each type
-   by chaining option builder methods.
-
-When configuring your ``CreateCollectionOptions`` instance, you must use the
-``change_stream_pre_and_post_images()`` builder method. The following example
-uses this builder method to specify collection options and creates a
+To enable pre-image and post-image documents for your collection, you must use
+the ``change_stream_pre_and_post_images()`` option method. The following example
+uses this option method to specify collection options and creates a
 collection for which pre- and post-images are available:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
