@@ -97,9 +97,8 @@ Modify Find and Delete Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can optionally modify the behavior of the ``find_one_and_delete()``
-method by passing a ``FineOneAndDeleteOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` for
-the options parameter.
+method by chaining option methods to ``find_one_and_delete()``. These
+option methods set ``FineOneAndDeleteOptions`` struct fields.
 
 The following table describes the options available in
 ``FineOneAndDeleteOptions``:
@@ -175,13 +174,16 @@ The following table describes the options available in
 
 .. TODO add links to guides for relevant options
 
-The {+driver-short+} implements the Builder design pattern for the
-creation of a ``FindOneAndDeleteOptions`` instance. You can use the
-type's ``builder()`` method to construct an options instance by
-chaining option builder functions one at a time.
+.. note:: Setting Options
+   
+   Beginning in {+driver-short+} v3.0, you can set ``FineOneAndDeleteOptions`` fields by
+   chaining option methods directly to the ``find_one_and_delete()`` method call. If you're
+   using an earlier version of the driver, you must construct a ``FineOneAndDeleteOptions``
+   instance by chaining option builder methods to the ``builder()`` method. Then, pass your
+   options instance as a parameter to ``find_one_and_delete()``.
 
-The following code shows how to construct a ``FindOneAndDeleteOptions``
-instance and pass it to the ``find_one_and_delete()`` method:
+The following code shows how to set the ``comment`` field by chaining
+the ``comment()`` method to the ``find_one_and_delete()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/compound.rs
    :start-after: begin-find-delete-options
@@ -236,12 +238,11 @@ Modify Find and Update Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can optionally modify the behavior of the ``find_one_and_update()``
-method by passing a ``FindOneAndUpdateOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` for
-the options parameter.
+method by chaining option methods to ``find_one_and_update()``. These
+option methods set ``FineOneAndUpdateOptions`` struct fields.
 
 The following table describes the options available in
-``FineOneAndDeleteOptions``:
+``FineOneAndUpdateOptions``:
 
 .. list-table::
    :widths: 30 70
@@ -343,13 +344,8 @@ The following table describes the options available in
 .. TODO add link to array updates page under option
 .. TODO add links to guides for relevant options
 
-The {+driver-short+} implements the Builder design pattern for the
-creation of a ``FindOneAndUpdateOptions`` instance. You can use the
-type's ``builder()`` method to construct an options instance by
-chaining option builder methods one at a time.
-
-The following code shows how to construct a ``FindOneAndUpdateOptions``
-instance and pass it to the ``find_one_and_update()`` method:
+The following code shows how to set the ``comment`` field by chaining
+the ``comment()`` method to the ``find_one_and_update()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/compound.rs
    :start-after: begin-find-update-options
@@ -361,15 +357,15 @@ instance and pass it to the ``find_one_and_update()`` method:
 Find and Update Example
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-This example shows how to call the ``find_one_and_update()`` method with the
-following parameters:
+This example shows how to perform the following actions:
 
-- A query filter that matches a document where the value of ``school``
-  is ``"Aurora High School"``
-- An update document that sets the ``school`` field to ``"Durango High School"``
-  and increments the ``age`` field by ``1``
-- A ``FindOneAndUpdateOptions`` instance that returns the document
-  *after* the update
+- Call the ``find_one_and_update()`` method
+- Pass a query filter to ``find_one_and_update()`` that matches a document where the
+  value of ``school`` is ``"Aurora High School"``
+- Pass an update document to ``find_one_and_update()`` that sets the ``school`` field to
+  ``"Durango High School"`` and increments the ``age`` field by ``1``
+- Chain the ``return_document()`` method to ``find_one_and_update()`` to return
+  the matched document *after* the update
 
 .. io-code-block::
    :copyable: true
@@ -411,12 +407,11 @@ Modify Find and Replace Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can optionally modify the behavior of the ``find_one_and_replace()``
-method by passing a ``FindOneAndReplaceOptions`` instance as a parameter.
-To use default values for each setting, specify the value ``None`` for
-the options parameter.
+method by chaining option methods to ``find_one_and_replace()``. These
+option methods set ``FineOneAndReplaceOptions`` struct fields.
 
 The following table describes the options available in
-``FindOneAndReplaceOptions``:
+``FineOneAndReplaceOptions``:
 
 .. list-table::
    :widths: 30 70
@@ -511,14 +506,9 @@ The following table describes the options available in
 
 .. TODO add link to array updates page under option
 .. TODO add links to guides for relevant options
-   
-The {+driver-short+} implements the Builder design pattern for the
-creation of a ``FindOneAndReplaceOptions`` instance. You can use the
-type's ``builder()`` method to construct an options instance by
-chaining option builder functions one at a time.
 
-The following code shows how to construct a ``FindOneAndReplaceOptions``
-instance and pass it to the ``find_one_and_replace()`` method:
+The following code shows how to set the ``comment`` field by chaining
+the ``comment()`` method to the ``find_one_and_replace()`` method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/compound.rs
    :start-after: begin-find-replace-options
@@ -530,15 +520,17 @@ instance and pass it to the ``find_one_and_replace()`` method:
 Find and Replace Example
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example shows how to call the ``find_one_and_replace()`` method with the
-following parameters:
+This example performs the following actions:
 
-- A query filter that matches a document where the value of ``name``
-  includes the string ``"Johnson"``
-- A replacement document that describes a new student
-- A ``FindOneAndReplaceOptions`` instance that returns the document
-  after replacement and projects only the ``name`` and ``school`` fields
-  in the output
+- Calls the ``find_one_and_replace()`` method
+- Passes a query filter to ``find_one_and_replace()`` that matches a document
+  where the value of ``name`` includes the string ``"Johnson"``
+- Passes a replacement document to ``find_one_and_replace()`` that describes a new
+  student
+- Chains the ``return_document()`` method to ``find_one_and_replace()`` to return the document
+  after replacement
+- Chains the ``projection()`` method to ``find_one_and_replace()``to project only the ``name``
+  and ``school`` fields in the output
 
 .. io-code-block::
    :copyable: true

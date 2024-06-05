@@ -107,27 +107,17 @@ document into the ``books`` collection:
 Modify insert_one Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can modify the behavior of the delete operation methods by chaining
-option methods to ``delete_one()`` and ``delete_many()``. These option
-methods set ``DeleteOptions`` struct fields.
+You can modify the behavior of the ``insert_one()`` method by chaining
+option methods to ``insert_one()``. These option methods set ``InsertOneOptions``
+struct fields.
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``DeleteOptions`` fields by
-   chaining option methods directly to the delete method call. If you're
-   using an earlier version of the driver, you must construct an ``DeleteOptions``
+   Beginning in {+driver-short+} v3.0, you can set ``InsertOneOptions`` fields by
+   chaining option methods directly to the ``insert_one()`` method call. If you're
+   using an earlier version of the driver, you must construct an ``InsertOneOptions``
    instance by chaining option builder methods to the ``builder()`` method. Then, pass your
-   options instance as a parameter to ``delete_one()`` or ``delete_many()``.
-
-You can modify the behavior of the ``insert_one()`` method by
-constructing and passing an ``InsertOneOptions`` struct. 
-
-.. note:: Instantiating Options
-   
-   The {+driver-short+} implements the Builder design pattern for the
-   creation of many different types, including ``InsertOneOptions``.
-   You can use each type's ``builder()`` method to construct an options
-   instance by chaining option builder functions one at a time.
+   options instance as a parameter to ``insert_one()``.
 
 The following table describes the options available in ``InsertOneOptions``:
 
@@ -167,8 +157,9 @@ The following table describes the options available in ``InsertOneOptions``:
 
 .. _rust-insertone-bypass-validation-ex:
 
-The following code shows how to construct an ``InsertOneOptions``
-instance:
+The following code shows how to set the ``bypass_document_validation`` field
+by chaining the ``bypass_document_validation()`` method to the ``insert_one()``
+method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/insert.rs
    :start-after: begin-one-options
@@ -218,10 +209,11 @@ multiple documents into the ``books`` collection:
 Modify insert_many Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can modify the behavior of the ``insert_many()`` method by
-constructing and passing an ``InsertManyOptions`` struct. The
-following table describes the options available in
-``InsertManyOptions``:
+You can modify the behavior of the ``insert_many()`` method by chaining
+option methods to ``insert_many()``. These option methods set ``InsertManyOptions``
+struct fields.
+
+The following table describes the options available in ``InsertManyOptions``:
 
 .. list-table::
    :header-rows: 1
@@ -268,8 +260,9 @@ following table describes the options available in
        | Type: ``Bson``
        | Default: ``None``
 
-The following code shows how to construct an ``InsertManyOptions``
-instance:
+The following code shows how to set the ``comment`` field by
+chaining the ``comment()`` method to the ``insert_many()``
+method:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/insert.rs
    :start-after: begin-many-options
@@ -295,7 +288,7 @@ collection:
    { "_id": 3, "title": "Goodnight Moon" }
 
 When you attempt to insert these documents, the result depends on the
-value of the ``ordered`` option in your ``InsertManyOptions``:
+``ordered`` value passed to the ``ordered()`` option method:
 
 - If ``ordered`` is ``true`` (the default value), the driver throws a
   ``BulkWriteError`` when it attempts to insert the document with the

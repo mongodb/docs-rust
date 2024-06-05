@@ -18,7 +18,7 @@ fn main() -> mongodb::error::Result<()> {
        ]
     };
 
-    let result = my_coll.delete_many(filter, None)?;
+    let result = my_coll.delete_many(filter)?;
 
     println!("Deleted documents: {}", result.deleted_count);
 

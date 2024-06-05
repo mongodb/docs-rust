@@ -12,10 +12,10 @@ fn main() -> mongodb::error::Result<()> {
         .database("sample_restaurants")
         .collection("restaurants");
 
-    let ct = my_coll.estimated_document_count(None)?;
+    let ct = my_coll.estimated_document_count()?;
     println!("Number of documents: {}", ct);
 
-    let ct = my_coll.count_documents(doc! { "name": doc! { "$regex": "Sunset" } }, None)?;
+    let ct = my_coll.count_documents(doc! { "name": doc! { "$regex": "Sunset" } })?;
     println!("Number of matching documents: {}", ct);
 
     Ok(())
