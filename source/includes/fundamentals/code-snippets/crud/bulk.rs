@@ -1,7 +1,10 @@
 use mongodb::{
     bson::{doc, Document},
+    options::{
+        DeleteManyModel, DeleteOneModel, InsertOneModel, ReplaceOneModel, UpdateManyModel,
+        UpdateOneModel, WriteModel,
+    },
     Client, Collection,
-    options::{InsertOneModel, ReplaceOneModel, UpdateOneModel, UpdateManyModel, DeleteOneModel, DeleteManyModel, WriteModel},
 };
 
 #[tokio::main]
@@ -30,11 +33,19 @@ async fn main() -> mongodb::error::Result<()> {
     let models = vec![
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(doc! { "name": "lion's mane", "color": "white", "edible": true })
+            .document(doc! {
+                "name": "lion's mane",
+                "color": "white",
+                "edible": true
+            })
             .build(),
         InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(doc! { "name": "angel wing", "color": "white", "edible": false })
+            .document(doc! {
+                "name": "angel wing",
+                "color": "white",
+                "edible": false
+            })
             .build(),
     ];
 
@@ -49,12 +60,20 @@ async fn main() -> mongodb::error::Result<()> {
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "portobello" })
-            .replacement(doc! { "name": "cremini", "color": "brown", "edible": true })
+            .replacement(doc! {
+                "name": "cremini",
+                "color": "brown",
+                "edible": true
+            })
             .build(),
         ReplaceOneModel::builder()
             .namespace(mushrooms.namespace())
             .filter(doc! { "name": "oyster" })
-            .replacement(doc! { "name": "golden oyster", "color": "yellow", "edible": true })
+            .replacement(doc! {
+                "name": "golden oyster",
+                "color": "yellow",
+                "edible": true
+            })
             .upsert(true)
             .build(),
     ];
@@ -67,17 +86,21 @@ async fn main() -> mongodb::error::Result<()> {
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        WriteModel::UpdateOne(UpdateOneModel::builder()
-            .namespace(mushrooms.namespace())
-            .filter(doc! { "name": "fly agaric" })
-            .update(doc! { "$set": { "name": "fly amanita" } })
-            .upsert(true)
-            .build()),
-        WriteModel::UpdateMany(UpdateManyModel::builder()
-            .namespace(mushrooms.namespace())
-            .filter(doc! { "color": "yellow" })
-            .update(doc! { "$set": { "color": "yellow/orange" } })
-            .build()),
+        WriteModel::UpdateOne(
+            UpdateOneModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "name": "fly agaric" })
+                .update(doc! { "$set": { "name": "fly amanita" } })
+                .upsert(true)
+                .build(),
+        ),
+        WriteModel::UpdateMany(
+            UpdateManyModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "color": "yellow" })
+                .update(doc! { "$set": { "color": "yellow/orange" } })
+                .build(),
+        ),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -88,14 +111,18 @@ async fn main() -> mongodb::error::Result<()> {
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        WriteModel::DeleteOne(DeleteOneModel::builder()
-            .namespace(mushrooms.namespace())
-            .filter(doc! { "color": "red" })
-            .build()),
-        WriteModel::DeleteMany(DeleteManyModel::builder()
-            .namespace(mushrooms.namespace())
-            .filter(doc! { "edible": true })
-            .build()),
+        WriteModel::DeleteOne(
+            DeleteOneModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "color": "red" })
+                .build(),
+        ),
+        WriteModel::DeleteMany(
+            DeleteManyModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "edible": true })
+                .build(),
+        ),
     ];
 
     let result = client.bulk_write(models).await?;
@@ -106,13 +133,19 @@ async fn main() -> mongodb::error::Result<()> {
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
     let models = vec![
-        WriteModel::DeleteOne(DeleteOneModel::builder()
+        WriteModel::UpdateOne(UpdateOneModel::builder()
             .namespace(mushrooms.namespace())
-            .filter(doc! { "color": "purple" })
+            .filter(doc! { "name": "portobello" })
+            .update(doc! { "$set": { "_id": 123 } })
+            .upsert(true)
             .build()),
         WriteModel::InsertOne(InsertOneModel::builder()
             .namespace(mushrooms.namespace())
-            .document(doc! { "name": "reishi", "color": "red/brown", "edible": true })
+            .document(doc! {
+                "name": "reishi",
+                "color": "red/brown",
+                "edible": true
+            })
             .build()),
     ];
 
@@ -124,8 +157,12 @@ async fn main() -> mongodb::error::Result<()> {
     // end-options
 
     // begin-mixed-namespaces
-    let sweet: Collection<Document> = client.database("ingredients").collection("sweet");
-    let dessert: Collection<Document> = client.database("meals").collection("dessert");
+    let sweet: Collection<Document> = client
+        .database("ingredients")
+        .collection("sweet");
+    let dessert: Collection<Document> = client
+        .database("meals")
+        .collection("dessert");
 
     let models = vec![
         InsertOneModel::builder()

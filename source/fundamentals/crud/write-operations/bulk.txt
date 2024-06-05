@@ -13,24 +13,31 @@ Bulk Operations
 Overview
 --------
 
-In this guide, you can learn how to perform **bulk operations**.
+In this guide, you can learn how to use the {+driver-short+} to
+perform **bulk operations**.
 
 Bulk operations perform multiple write operations against one or more
-namespaces, which refer to a database name and a collection name in
-``<database>.<collection>`` form. Since the bulk operation method is in 
-the ``Client`` class, you can perform bulk operations against any namespace
-in your cluster. 
+**namespaces**. A namespace is a combination of the database name and
+the collection name, in the format ``<database>.<collection>``. Since
+you perform bulk operations on a the ``Client`` instance, you can perform
+bulk operations against any namespace in the cluster accessed by your client.
 
-Instead of making a call to the database for each operation, bulk operations
-perform multiple operations within one call to the database.
+You can perform bulk operations to reduce the number of calls to the
+server. Instead of sending a request for each operation, bulk operations
+perform multiple operations within one action.
 
 This guide includes the following sections:
 
-- :ref:`rust-bulk-sample-data`
-- :ref:`rust-bulk-operation-types`
-- :ref:`rust-bulk-modify-behavior`
-- :ref:`rust-bulk-mixed-namespaces`
-- :ref:`rust-bulk-addtl-info`
+- :ref:`rust-bulk-sample-data` presents the sample data that is used by the
+   bulk operation examples
+- :ref:`rust-bulk-operation-types` describes how to use ``WriteModel`` types to
+  perform bulk insert, replace, update, and delete operations
+- :ref:`rust-bulk-modify-behavior` describes how to modify the default behavior of
+  the ``bulk_write()`` method
+- :ref:`rust-bulk-mixed-namespaces` describes how to perform a bulk operation on
+  multiple namespaces in one method call
+- :ref:`rust-bulk-addtl-info` provides links to resources and API documentation for
+  types and methods mentioned in this guide
 
 .. important::
 
@@ -73,9 +80,9 @@ by defining their corresponding ``WriteModel`` struct types:
 .. tip::
 
    You can also perform multiple types of write operations in a single ``bulk_write()``
-   method call. To view an example that passes a ``DeleteOneModel`` and an ``InsertOneModel`` to
+   method call. To view an example that passes an ``UpdateOneModel`` and an ``InsertOneModel`` to
    the same ``bulk_write()`` call, see the :ref:`Modify Behavior example <rust-bulk-opts-example>`
-   on this page.
+   in this guide.
 
 .. _rust-bulk-insert-operation:
 
@@ -83,7 +90,7 @@ Insert
 ~~~~~~
 
 To perform a bulk insert operation, create an ``InsertOneModel`` instance for each document
-you want to insert.
+you want to insert. Then, pass a list of models to the ``bulk_write()`` method.
 
 To construct an ``InsertOneModel``, specify the following struct fields:
 
@@ -132,7 +139,7 @@ Replace
 ~~~~~~~
 
 To perform a bulk replace operation, create a ``ReplaceOneModel`` instance for each document
-you want to replace.
+you want to replace. Then, pass a list of models to the ``bulk_write()`` method.
 
 To construct a ``ReplaceOneModel``, specify the following struct fields:
 
@@ -200,9 +207,9 @@ Update
 ~~~~~~
 
 To perform a bulk update operation, create an ``UpdateOneModel`` or ``UpdateManyModel``
-instance for each update you want to make. An ``UpdateOneModel`` updates only one
-document that matches a filter, while an ``UpdateManyModel`` updates all documents that match
-a filter.
+instance for each update you want to make. Then, pass a list of models to the ``bulk_write()`` method.
+An ``UpdateOneModel`` updates only one document that matches a filter, while an ``UpdateManyModel``
+updates all documents that match a filter.
 
 To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the following struct fields:
 
@@ -279,9 +286,9 @@ Delete
 ~~~~~~
 
 To perform a bulk delete operation, create a ``DeleteOneModel`` or ``DeleteManyModel``
-instance for each delete operation. A ``DeleteOneModel`` deletes only one document
-that matches a filter, while a ``DeleteManyModel`` deletes all documents that match
-a filter.
+instance for each delete operation. Then, pass a list of models to the ``bulk_write()`` method.
+A ``DeleteOneModel`` deletes only one document that matches a filter, while a ``DeleteManyModel``
+deletes all documents that match a filter.
 
 To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the following struct fields:
 
@@ -315,6 +322,7 @@ To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the followin
 
 Example
 ```````
+
 This example performs the following actions:
 
 - Specifies a ``DeleteOneModel`` and a ``DeleteManyModel`` instance in an array. These models
@@ -405,13 +413,17 @@ to the ``bulk_write()`` method:
       :language: console
       :visible: false
 
-      Inserted documents: 1
-      Deleted documents: 0
+      Error: Error { kind: BulkWrite(BulkWriteError { write_concern_errors: [], write_errors:
+      {0: WriteError { code: 66, code_name: None, message: "Plan executor error during update ::
+      caused by :: Performing an update on the path '_id' would modify the immutable field '_id'",
+      details: None }}, partial_result: Some(Summary(SummaryBulkWriteResult { inserted_count: 1,
+      matched_count: 0, modified_count: 0, upserted_count: 0, deleted_count: 0 })) }),
+      labels: ... }
 
-Since the filter specified in the ``DeleteOneModel`` does not match any documents, the code
-performs only an insert operation. If you do not set the ``ordered`` field to ``false``, the bulk
-operation will not attempt any subsequent operations after the unsuccessful delete and will not
-insert the specified document.
+The ``_id`` field is immutable and cannot be changed in an update operation. Since the ``UpdateOneModel``
+includes instructions to update this field, the bulk operation generates a ``BulkWriteError`` and performs
+only an insert operation. If you do not set the ``ordered`` field to ``false``, the bulk operation will not
+attempt any subsequent operations after the unsuccessful update and will not insert the specified document.
 
 .. _rust-bulk-mixed-namespaces:
 
