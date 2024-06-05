@@ -246,8 +246,7 @@ To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the follow
 
    * - ``hint`` 
      - | (Optional) The index to use for the operation. To learn more about
-         indexes, see :manual:`Indexes </indexes/>` in the Server
-         manual.
+         indexes, see the :ref:`rust-indexes` guide.
        | Type: ``Bson``
 
    * - ``upsert`` 
@@ -316,8 +315,7 @@ To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the followin
 
    * - ``hint`` 
      - | (Optional) The index to use for the operation. To learn more about
-         indexes, see :manual:`Indexes </indexes/>` in the Server
-         manual.
+         indexes, see the :ref:`rust-indexes` guide.
        | Type: ``Bson``
 
 Example
