@@ -92,7 +92,8 @@ Insert
 To perform a bulk insert operation, create an ``InsertOneModel`` instance for each document
 you want to insert. Then, pass a list of models to the ``bulk_write()`` method.
 
-To construct an ``InsertOneModel``, specify the following struct fields:
+The following table describes ``InsertOneModel`` fields that you can set by calling their
+corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
@@ -141,7 +142,8 @@ Replace
 To perform a bulk replace operation, create a ``ReplaceOneModel`` instance for each document
 you want to replace. Then, pass a list of models to the ``bulk_write()`` method.
 
-To construct a ``ReplaceOneModel``, specify the following struct fields:
+The following table describes ``ReplaceOneModel`` fields that you can set by calling their
+corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
@@ -211,7 +213,8 @@ instance for each update you want to make. Then, pass a list of models to the ``
 An ``UpdateOneModel`` updates only one document that matches a filter, while an ``UpdateManyModel``
 updates all documents that match a filter.
 
-To construct an ``UpdateOneModel`` or an ``UpdateManyModel``, specify the following struct fields:
+The following table describes ``UpdateOneModel`` and ``UpdateManyModel`` fields that you can set
+by calling their corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
@@ -289,7 +292,8 @@ instance for each delete operation. Then, pass a list of models to the ``bulk_wr
 A ``DeleteOneModel`` deletes only one document that matches a filter, while a ``DeleteManyModel``
 deletes all documents that match a filter.
 
-To construct a ``DeleteOneModel`` or a ``DeleteManyModel``, specify the following struct fields:
+The following table describes ``DeleteOneModel`` and ``DeleteManyModel`` fields that you can set
+by calling their corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
@@ -396,8 +400,9 @@ The ``BulkWriteOptions`` struct contains the following fields:
 Example
 ~~~~~~~
 
-The following example sets the ``ordered`` field to ``false`` by chaining the ``ordered()`` method
-to the ``bulk_write()`` method: 
+This example attempts to perform update and insert operations on the ``mushrooms``
+collection. The following code sets the ``ordered`` field to ``false`` by chaining
+the ``ordered()`` method to the ``bulk_write()`` method:
 
 .. io-code-block::
 
@@ -419,9 +424,10 @@ to the ``bulk_write()`` method:
       labels: ... }
 
 The ``_id`` field is immutable and cannot be changed in an update operation. Since the ``UpdateOneModel``
-includes instructions to update this field, the bulk operation generates a ``BulkWriteError`` and performs
-only an insert operation. If you do not set the ``ordered`` field to ``false``, the bulk operation will not
-attempt any subsequent operations after the unsuccessful update and will not insert the specified document.
+includes instructions to update this field, the bulk operation returns a ``BulkWriteError`` and performs
+only the insert operation. If you set the ``ordered`` field to ``true``, the driver does not attempt any
+subsequent operations after the unsuccessful update operation, and the driver does not insert any
+documents.
 
 .. _rust-bulk-mixed-namespaces:
 
