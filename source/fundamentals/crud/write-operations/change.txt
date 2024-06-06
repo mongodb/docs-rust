@@ -413,7 +413,7 @@ and ``replace_one()`` methods by calling options methods that set
    using an earlier version of the driver, you must construct an ``UpdateOptions``
    instance by chaining option builder methods to the ``builder()`` method. Then, pass your
    options instance as a parameter to ``update_one()``, ``update_many``, or
-   ``replace_one()``
+   ``replace_one()``.
 
 The following table describes the options available in ``UpdateOptions``:
 
