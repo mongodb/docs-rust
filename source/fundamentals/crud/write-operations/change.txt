@@ -92,7 +92,7 @@ You can perform update operations with the following methods:
 - ``update_many()``, which updates all documents that match the search
   criteria
 
-You can also chain option methods to these update operation methods. To learn about
+You can also chain option builder methods to these update operation methods. To learn about
 modifying the behavior of the update methods, see the :ref:`Modify Update and Replace Behavior
 <rust-update-options>` section of this guide.
 
@@ -301,7 +301,7 @@ You can perform a replace operation with the ``replace_one()`` method.
 This method replaces all existing fields of a document except for the ``_id``
 field with new fields and values that you specify.
 
-You can also chain option methods to a replace operation method. To learn
+You can also chain option builder methods to a replace operation method. To learn
 about modifying the behavior of the ``replace_one()`` method, see the :ref:`Modify
 Update and Replace Behavior <rust-update-options>` section of this guide.
 
@@ -409,7 +409,7 @@ and ``replace_one()`` methods by calling options methods that set
 .. note:: Setting Options
    
    Beginning in {+driver-short+} v3.0, you can set ``UpdateOptions`` fields by
-   chaining option methods directly to the update or replace method call. If you're
+   chaining option builder methods directly to the update or replace method call. If you're
    using an earlier version of the driver, you must construct an ``UpdateOptions``
    instance by chaining option builder methods to the ``builder()`` method. Then, pass your
    options instance as a parameter to ``update_one()``, ``update_many``, or

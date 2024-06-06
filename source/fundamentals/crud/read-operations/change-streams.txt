@@ -223,10 +223,10 @@ must perform the following actions:
 Create a Collection with Pre-Image and Post-Images Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To enable pre-image and post-image documents for your collection, use
-the ``change_stream_pre_and_post_images()`` option method. The following example
-uses this option method to specify collection options and creates a
-collection for which pre- and post-images are available:
+To enable pre-image and post-image documents for your collection, use the
+``change_stream_pre_and_post_images()`` option builder method. The following example
+uses this builder method to specify collection options and creates a collection
+for which pre- and post-images are available:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
    :language: rust
@@ -251,7 +251,7 @@ Pre-Image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To configure a change stream that returns change events containing the pre-image,
-use the ``full_document_before_change()`` option method. The following example
+use the ``full_document_before_change()`` option builder method. The following example
 specifies change stream options and creates a change stream that returns pre-image
 documents:
 
@@ -262,7 +262,7 @@ documents:
    :end-before: end-pre
 
 The preceding example passes a value of ``FullDocumentBeforeChangeType::Required``
-to the ``full_document_before_change()`` option method. This method configures the change
+to the ``full_document_before_change()`` option builder method. This method configures the change
 stream to require pre-images for replace, update, and delete change events. If the pre-image
 is not available, the driver raises an error.
 
@@ -282,7 +282,7 @@ Post-Image Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To configure a change stream that returns change events containing the post-image,
-use the ``full_document()`` option method. The following example specifies change
+use the ``full_document()`` option builder method. The following example specifies change
 stream options and creates a change stream that returns post-image documents:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/watch.rs
@@ -292,8 +292,8 @@ stream options and creates a change stream that returns post-image documents:
    :end-before: end-post
 
 The preceding example passes a value of ``FullDocument::WhenAvailable`` to the ``full_document()``
-option method. This method configures the change stream to return post-images for replace, update,
-and delete change events if the post-image is available.
+option builder method. This method configures the change stream to return post-images for replace,
+update, and delete change events if the post-image is available.
 
 If you delete the document in which the value of ``name`` is ``"Todd Haynes"``, the
 change event produces the following output:

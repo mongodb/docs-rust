@@ -54,14 +54,14 @@ Implement Schema Validation
 ---------------------------
 
 You can implement schema validation by passing your schema and related options
-to the ``CreateCollectionOptions`` option methods.
+to the ``CreateCollectionOptions`` option builder methods.
 
 .. note:: Setting Options
    
    Beginning in {+driver-short+} v3.0, you can set ``CreateCollectionOptions`` fields by chaining
-   option methods directly to the ``create_collection()`` method call. If you're using an earlier
-   version of the driver, you must construct a ``CreateCollectionOptions`` instance by chaining
-   option builder methods to the ``builder()`` method.
+   option builder methods directly to the ``create_collection()`` method call. If you're using an
+   earlier version of the driver, you must construct a ``CreateCollectionOptions`` instance by
+   chaining option builder methods to the ``builder()`` method.
 
 Call the following ``CreateCollectionOptions`` methods to specify the validation
 options for the new collection:

@@ -105,11 +105,11 @@ Modify Find Behavior
 ~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of the ``find()`` method by chaining ``FindOptions``
-option methods to ``find()``, and you can modify the behavior of the ``find_one()``
-method by chaining ``FindOneOptions`` option methods to ``find_one()``.
+option builder methods to ``find()``, and you can modify the behavior of the ``find_one()``
+method by chaining ``FindOneOptions`` option builder methods to ``find_one()``.
 
 The following table describes commonly used ``FindOptions`` and ``FindOneOptions``
-fields that you can set by calling their corresponding option methods:
+fields that you can set by calling their corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
@@ -170,7 +170,7 @@ fields that you can set by calling their corresponding option methods:
 .. note:: Setting Options
    
    Beginning in {+driver-short+} v3.0, you can set ``FindOptions`` and ``FindOneOptions``
-   fields by chaining option methods directly to the find operation method call. If you're
+   fields by chaining option builder methods directly to the find operation method call. If you're
    using an earlier version of the driver, you must construct a ``FindOptions`` or ``FindOneOptions``
    instance by chaining option builder methods to the ``builder()`` method. Then, pass your
    options instance as a parameter to ``find()`` or ``find_one()``.
@@ -277,10 +277,10 @@ Modify Aggregation Behavior
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can modify the behavior of the ``aggregate()`` method by chaining
-``AggregateOptions`` option methods to ``aggregate()``.
+``AggregateOptions`` option builder methods to ``aggregate()``.
 
 The following table describes commonly used ``AggregateOptions`` fields
-that you can set by calling their corresponding option methods:
+that you can set by calling their corresponding builder methods:
 
 .. list-table::
    :widths: 30 70
