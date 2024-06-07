@@ -39,7 +39,7 @@ This guide includes the following sections:
   ``sync`` and ``tokio-sync`` synchronous runtimes
 
 - :ref:`rust-runtimes-configure-both` shows how to enable both the asynchronous and synchronous
-   runtimes APIs in your application
+  runtimes APIs in your application
 
 - :ref:`rust-addtl-info-runtimes` provides links to resources and API documentation for types
   and methods mentioned in this guide
