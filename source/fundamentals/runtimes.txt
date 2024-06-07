@@ -30,6 +30,20 @@ The driver also includes a synchronous API for use cases that require blocking, 
 is not necessary. You can select the synchronous API by adding feature flags to the ``mongodb`` dependency
 in your ``Cargo.toml`` file.
 
+This guide includes the following sections:
+
+- :ref:`rust-runtimes-configure-async` shows how to configure your application to use the
+  ``tokio`` asynchronous runtime
+
+- :ref:`rust-runtimes-configure-sync` shows how to configure your application to use the
+  ``sync`` and ``tokio-sync`` synchronous runtimes
+
+- :ref:`rust-runtimes-configure-both` shows how to enable both the asynchronous and synchronous
+   runtimes APIs in your application
+
+- :ref:`rust-addtl-info-runtimes` provides links to resources and API documentation for types
+  and methods mentioned in this guide
+
 .. _rust-runtimes-configure-async:
 
 Configure the Asynchronous Runtime
@@ -37,17 +51,14 @@ Configure the Asynchronous Runtime
 
 The driver uses the ``tokio`` runtime by default, so you can use this runtime without specifying any
 feature flags in your project's ``Cargo.toml`` file. You can also explicitly choose the ``tokio`` runtime
-by adding the ``"tokio-runtime"`` feature flag to the ``mongodb`` dependency, as shown in the following
-code:
+by adding the ``"tokio-runtime"`` feature flag to the ``mongodb`` dependency. For an example that
+specifies the ``"tokio-runtime"`` feature flag, see the :ref:`rust-runtimes-configure-both` section
+of this guide.
 
-.. code-block:: toml
+.. tip::
 
-   [dependencies.mongodb]
-   version = "{+version+}"
-   features = ["tokio-runtime"]
-
-For more information on installing the driver and adding feature flags,
-see the :ref:`rust-quick-start-download-and-install` step of the Quick Start.
+   For more information on installing the driver and adding feature flags,
+   see the :ref:`rust-quick-start-download-and-install` step of the Quick Start.
 
 Tokio Runtime Example
 ~~~~~~~~~~~~~~~~~~~~~
@@ -103,6 +114,8 @@ When the ``insert_one`` method runs inside the ``for`` loop, the driver waits fo
    :language: rust
    :dedent:
 
+.. _rust-runtimes-configure-both:
+
 Use Both Asynchronous and Synchronous APIs
 ------------------------------------------
 
@@ -119,6 +132,8 @@ For example, to enable both ``tokio`` runtimes, you can add the ``tokio`` depend
    [dependencies.mongodb]
    version = "{+version+}"
    features = ["tokio-sync"]
+
+.. _rust-addtl-info-runtimes:
 
 Additional Information
 ----------------------
