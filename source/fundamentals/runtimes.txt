@@ -50,10 +50,7 @@ Configure the Asynchronous Runtime
 ----------------------------------
 
 The driver uses the ``tokio`` runtime by default, so you can use this runtime without specifying any
-feature flags in your project's ``Cargo.toml`` file. You can also explicitly choose the ``tokio`` runtime
-by adding the ``"tokio-runtime"`` feature flag to the ``mongodb`` dependency. For an example that
-specifies the ``"tokio-runtime"`` feature flag, see the :ref:`rust-runtimes-configure-both` section
-of this guide.
+feature flags in your project's ``Cargo.toml`` file.
 
 .. tip::
 
