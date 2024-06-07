@@ -75,11 +75,11 @@ methods set ``DeleteOptions`` struct fields.
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``DeleteOptions`` fields by
-   chaining option builder methods directly to the delete method call. If you're
-   using an earlier version of the driver, you must construct an ``DeleteOptions``
-   instance by chaining option builder methods to the ``builder()`` method. Then, pass your
-   options instance as a parameter to ``delete_one()`` or ``delete_many()``.
+   You can set ``DeleteOptions`` fields by chaining option builder methods directly
+   to the delete method call. If you're using an earlier version of the driver,
+   you must construct an ``DeleteOptions`` instance by chaining option builder methods
+   to the ``builder()`` method. Then, pass your options instance as a parameter to
+   ``delete_one()`` or ``delete_many()``.
 
 The following table describes the options available in ``DeleteOptions``:
 

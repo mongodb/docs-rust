@@ -248,10 +248,10 @@ chain cursor-related option builder methods to the ``find()`` method.
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``FindOptions`` fields by chaining
-   option builder methods directly to the ``find()`` method call. If you're using an earlier
-   version of the driver, you must construct a ``FindOptions`` instance by chaining
-   option builder methods to the ``builder()`` method. Then, pass your ``FindOptions``
+   You can set ``FindOptions`` fields by chaining option builder methods directly
+   to the ``find()`` method call. If you're using an earlier version of the
+   driver, you must construct a ``FindOptions`` instance by chaining option
+   builder methods to the ``builder()`` method. Then, pass your ``FindOptions``
    instance as a parameter to ``find()``.
 
 The following table describes cursor-related options that you can set by

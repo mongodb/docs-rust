@@ -113,11 +113,11 @@ struct fields.
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``InsertOneOptions`` fields by
-   chaining option builder methods directly to the ``insert_one()`` method call. If you're
-   using an earlier version of the driver, you must construct an ``InsertOneOptions``
-   instance by chaining option builder methods to the ``builder()`` method. Then, pass your
-   options instance as a parameter to ``insert_one()``.
+   You can set ``InsertOneOptions`` fields by chaining option builder methods directly
+   to the ``insert_one()`` method call. If you're using an earlier version of the
+   driver, you must construct an ``InsertOneOptions`` instance by chaining option builder
+   methods to the ``builder()`` method. Then, pass your options instance as a parameter
+   to ``insert_one()``.
 
 The following table describes the options available in ``InsertOneOptions``:
 
@@ -288,14 +288,14 @@ collection:
    { "_id": 3, "title": "Goodnight Moon" }
 
 When you attempt to insert these documents, the result depends on the
-``ordered`` value passed to the ``ordered()`` option builder method:
+value passed to the ``ordered()`` option builder method:
 
-- If ``ordered`` is ``true`` (the default value), the driver throws a
+- If you pass a value of ``true`` (the default value), the driver throws a
   ``BulkWriteError`` when it attempts to insert the document with the
   duplicate ``_id`` value. However, the driver still inserts the
   documents before the error occurs. 
 
-- If you set ``ordered`` to ``false``, the driver still throws a
+- If you pass a value of ``false``, the driver still throws a
   ``BulkWriteError`` when it attempts to insert the document with the
   duplicate ``_id`` value, but it inserts every other document.
 

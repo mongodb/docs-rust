@@ -169,11 +169,11 @@ fields that you can set by calling their corresponding builder methods:
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``FindOptions`` and ``FindOneOptions``
-   fields by chaining option builder methods directly to the find operation method call. If you're
-   using an earlier version of the driver, you must construct a ``FindOptions`` or ``FindOneOptions``
-   instance by chaining option builder methods to the ``builder()`` method. Then, pass your
-   options instance as a parameter to ``find()`` or ``find_one()``.
+   You can set ``FindOptions`` and ``FindOneOptions`` fields by chaining option builder methods
+   directly to the find operation method call. If you're using an earlier version of the driver,
+   you must construct a ``FindOptions`` or ``FindOneOptions`` instance by chaining option builder
+   methods to the ``builder()`` method. Then, pass your options instance as a parameter to
+   ``find()`` or ``find_one()``.
 
 For a full list of settings you can specify for each type, see the API
 documentation for `FindOptions

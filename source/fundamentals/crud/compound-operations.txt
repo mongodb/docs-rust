@@ -98,10 +98,10 @@ Modify Find and Delete Behavior
 
 You can optionally modify the behavior of the ``find_one_and_delete()``
 method by chaining option builder methods to ``find_one_and_delete()``. These
-builder methods set ``FineOneAndDeleteOptions`` struct fields.
+builder methods set ``FindOneAndDeleteOptions`` struct fields.
 
 The following table describes the options available in
-``FineOneAndDeleteOptions``:
+``FindOneAndDeleteOptions``:
 
 .. list-table::
    :widths: 30 70
@@ -176,11 +176,10 @@ The following table describes the options available in
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``FineOneAndDeleteOptions`` fields by
-   chaining option builder methods directly to the ``find_one_and_delete()`` method call. If you're
-   using an earlier version of the driver, you must construct a ``FineOneAndDeleteOptions``
-   instance by chaining option builder methods to the ``builder()`` method. Then, pass your
-   options instance as a parameter to ``find_one_and_delete()``.
+   You can set ``FindOneAndDeleteOptions`` fields by chaining option builder methods directly
+   to the ``find_one_and_delete()`` method call. If you're using an earlier version of the driver,
+   you must construct a ``FindOneAndDeleteOptions`` instance by chaining option builder methods
+   to the ``builder()`` method. Then, pass your options instance as a parameter to ``find_one_and_delete()``.
 
 The following code shows how to set the ``comment`` field by chaining
 the ``comment()`` method to the ``find_one_and_delete()`` method:
@@ -239,10 +238,10 @@ Modify Find and Update Behavior
 
 You can optionally modify the behavior of the ``find_one_and_update()``
 method by chaining option builder methods to ``find_one_and_update()``. These
-builder methods set ``FineOneAndUpdateOptions`` struct fields.
+builder methods set ``FindOneAndUpdateOptions`` struct fields.
 
 The following table describes the options available in
-``FineOneAndUpdateOptions``:
+``FindOneAndUpdateOptions``:
 
 .. list-table::
    :widths: 30 70
@@ -408,10 +407,10 @@ Modify Find and Replace Behavior
 
 You can optionally modify the behavior of the ``find_one_and_replace()``
 method by chaining option builder methods to ``find_one_and_replace()``. These
-builder methods set ``FineOneAndReplaceOptions`` struct fields.
+builder methods set ``FindOneAndReplaceOptions`` struct fields.
 
 The following table describes the options available in
-``FineOneAndReplaceOptions``:
+``FindOneAndReplaceOptions``:
 
 .. list-table::
    :widths: 30 70

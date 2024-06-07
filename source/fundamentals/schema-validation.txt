@@ -58,9 +58,9 @@ to the ``CreateCollectionOptions`` option builder methods.
 
 .. note:: Setting Options
    
-   Beginning in {+driver-short+} v3.0, you can set ``CreateCollectionOptions`` fields by chaining
-   option builder methods directly to the ``create_collection()`` method call. If you're using an
-   earlier version of the driver, you must construct a ``CreateCollectionOptions`` instance by
+   You can set ``CreateCollectionOptions`` fields by chaining option builder methods
+   directly to the ``create_collection()`` method call. If you're using an earlier
+   version of the driver, you must construct a ``CreateCollectionOptions`` instance by
    chaining option builder methods to the ``builder()`` method.
 
 Call the following ``CreateCollectionOptions`` methods to specify the validation
