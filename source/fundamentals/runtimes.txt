@@ -23,8 +23,8 @@ runtime.
 .. important::
 
    Beginning in {+driver-short+} v3.0, the ``tokio`` runtime is the only asynchronous runtime crate that
-   the driver supports. Previous versions of the driver also support the ``async-std`` runtime. To enable
-   the ``async-std`` runtime, you must use an earlier version of the {+driver-short+}.
+   the driver supports. Previous versions of the driver also support the ``async-std`` runtime crate. To
+   enable the ``async-std`` runtime, you must use a version of the {+driver-short+} that precedes v3.0.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism
 is not necessary. You can select the synchronous API by adding feature flags to the ``mongodb`` dependency
