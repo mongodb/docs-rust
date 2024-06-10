@@ -178,7 +178,10 @@ async fn main() -> mongodb::error::Result<()> {
     ];
 
     let result = client.bulk_write(models).verbose_results().await?;
-    println!("{:?}", result.summary);
+    println!(
+        "Update results: {:?}\nDelete results: {:?}\n",
+        result.update_results, result.delete_results
+    );
     // end-verbose
 
     // begin-options
@@ -201,7 +204,7 @@ async fn main() -> mongodb::error::Result<()> {
             .build()),
     ];
 
-    let result = client.bulk_write(models).ordered(false).verbose_results().await?;
+    let result = client.bulk_write(models).ordered(false).await?;
     println!(
         "Inserted documents: {}\nDeleted documents: {}",
         result.inserted_count, result.deleted_count
