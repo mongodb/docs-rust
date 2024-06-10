@@ -7,6 +7,15 @@ use mongodb::{
     Client, Collection,
 };
 
+// begin-mushroom-struct
+#[derive(Serialize)]
+struct Mushroom {
+    name: String,
+    color: String,
+    edible: bool,
+}
+// end-mushroom-struct
+
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
     let uri = "<connection string>";
@@ -52,6 +61,28 @@ async fn main() -> mongodb::error::Result<()> {
     let result = client.bulk_write(models).await?;
     println!("Inserted documents: {}", result.inserted_count);
     // end-insert
+
+    // begin-insert-structs
+    let mushrooms: Collection<Mushroom> = client.database("db").collection("mushrooms");
+    
+    let lions_mane = Mushroom {
+        name: "lion's mane".to_string(),
+        color: "white".to_string(),
+        edible: true,
+    };
+
+    let angel_wing = Mushroom {
+        name: "angel wing".to_string(),
+        color: "white".to_string(),
+        edible: false,
+    };
+
+    let lions_mane_model = mushrooms.insert_one_model(lions_mane)?;
+    let angel_wing_model = mushrooms.insert_one_model(angel_wing)?;
+    
+    let result = client.bulk_write([lions_mane_model, angel_wing_model]).await?;
+    println!("Inserted documents: {}", result.inserted_count);
+    // end-insert-structs
 
     // begin-replace
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");

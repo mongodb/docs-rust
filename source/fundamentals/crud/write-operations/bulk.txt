@@ -66,11 +66,11 @@ are stored in the ``mushrooms`` collection in the ``db`` database:
 Bulk Operation Types
 --------------------
 
-To perform a bulk write operation, pass an array of ``WriteModel`` struct instances to the 
+To perform a bulk write operation, pass an array of ``WriteModel`` enum instances to the 
 ``bulk_write()`` method. 
 
 In this section, you can learn how to perform the following bulk write operations
-by defining their corresponding ``WriteModel`` struct types:
+by defining their corresponding ``WriteModel`` types:
 
 - :ref:`Bulk insert operations <rust-bulk-insert-operation>`
 - :ref:`Bulk replace operations <rust-bulk-replace-operation>`
@@ -133,6 +133,30 @@ This example performs the following actions:
       :visible: false
 
       Inserted documents: 2
+
+You can also model your documents as structs and insert them into the ``db.mushrooms`` namespace.
+This example performs the same operation as the preceding code but represents each document as a 
+``Mushroom`` struct instance. The code uses the ``insert_one_model()`` method to construct
+``InsertOneModel`` instances by serializing each struct into a ``Document``:
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-insert-structs
+      :end-before: end-insert-structs
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      Inserted documents: 2
+
+.. tip::
+
+   To learn more about custom struct types and serialization in the {+driver-short+}, see the
+   guide on :ref:`rust-serialization`.
 
 .. _rust-bulk-replace-operation:
 
@@ -368,8 +392,8 @@ The ``BulkWriteOptions`` struct contains the following fields:
 
    * - ``ordered`` 
      - | Whether the operations run in the order in which they were specified.
-       | When set to ``true``, the driver does not perform subsequent write operations if one operation fails.
-       | When set to ``false``, the driver continues to attempt write operations if one fails.
+       | When set to ``true``, one failed operation prevents subsequent operations from running.
+       | When set to ``false``, the server continues to attempt write operations if one fails.
        | Type: ``bool``
      - ``true``
 
