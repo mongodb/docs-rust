@@ -14,22 +14,18 @@ fn main() -> mongodb::error::Result<()> {
     let mut client_options = ClientOptions::parse_async(uri).await?;
 
     // begin-sdam
-    struct ServerOpenHandler;
-
-    impl SdamEventHandler for ServerOpenHandler {
-        fn handle_server_opening_event(&self, event: ServerOpeningEvent) {
-            eprintln!("Server opening: {:?}", event);
+    let mut client_options = ClientOptions::parse(uri).await?;
+    client_options.sdam_event_handler = Some(EventHandler::callback(|ev| match ev {
+        SdamEvent::ServerOpening(_) => {
+            println!("{:?}", ev)
         }
-    }
-
-    let handler: Arc<dyn SdamEventHandler> = Arc::new(ServerOpenHandler);
-    client_options.sdam_event_handler = Some(handler);
-
+        _ => (),
+    }));
+    
     let client = Client::with_options(client_options)?;
 
     // ... perform actions with the client to generate events
 
     // end-sdam
-
     Ok(())
 }
