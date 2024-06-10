@@ -61,6 +61,10 @@ are stored in the ``mushrooms`` collection in the ``db`` database:
    :start-after: begin-sample-data
    :end-before: end-sample-data
 
+You can also use custom struct types to represent your sample data. For
+an example that performs a bulk operation using the ``Mushroom`` struct type,
+see the :ref:`bulk-insert-structs-example` on this page.
+
 .. _rust-bulk-operation-types:
 
 Bulk Operation Types
@@ -110,8 +114,10 @@ corresponding builder methods:
      - | The document to insert.
        | Type: ``Document``
 
-Example
-```````
+.. _bulk-insert-docs-example:
+
+Insert Documents Example
+````````````````````````
 
 This example performs the following actions:
 
@@ -134,10 +140,24 @@ This example performs the following actions:
 
       Inserted documents: 2
 
+.. _bulk-insert-structs-example:
+
+Insert Structs Example
+``````````````````````
+
 You can also model your documents as structs and insert them into the ``db.mushrooms`` namespace.
-This example performs the same operation as the preceding code but represents each document as a 
-``Mushroom`` struct instance. The code uses the ``insert_one_model()`` method to construct
-``InsertOneModel`` instances by serializing each struct into a ``Document``:
+
+This example performs the same operation as the preceding :ref:`bulk-insert-docs-example` but
+inserts instances of the following ``Mushroom`` struct type:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/bulk.rs
+   :language: rust
+   :dedent:
+   :start-after: begin-mushroom-struct
+   :end-before: end-mushroom-struct
+
+The following code uses the ``insert_one_model()`` method to construct ``InsertOneModel`` instances
+by serializing each struct into a ``Document``:
 
 .. io-code-block::
 
