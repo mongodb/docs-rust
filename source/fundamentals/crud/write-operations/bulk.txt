@@ -156,8 +156,8 @@ inserts instances of the following ``Mushroom`` struct type:
    :start-after: begin-mushroom-struct
    :end-before: end-mushroom-struct
 
-The following code uses the ``insert_one_model()`` method to construct ``InsertOneModel`` instances
-by serializing each struct into a ``Document``:
+The following code uses the ``insert_one_model()`` method to construct an ``InsertOneModel``
+from each ``Mushroom`` instance:
 
 .. io-code-block::
 
