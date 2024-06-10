@@ -32,6 +32,8 @@ This guide includes the following sections:
   bulk operation examples
 - :ref:`rust-bulk-operation-types` describes how to use ``WriteModel`` types to
   perform bulk insert, replace, update, and delete operations
+- :ref:`rust-bulk-return-vals` describes the return value of the ``bulk_write()``
+  method and how to access information about the bulk operation
 - :ref:`rust-bulk-modify-behavior` describes how to modify the default behavior of
   the ``bulk_write()`` method
 - :ref:`rust-bulk-mixed-namespaces` describes how to perform a bulk operation on
@@ -390,6 +392,49 @@ This example performs the following actions:
       :visible: false
 
       Deleted documents: 4
+
+.. _rust-bulk-return-vals:
+
+See Bulk Write Results
+----------------------
+
+The ``bulk_write()`` method returns a ``SummaryBulkWriteResult`` struct instance from which
+you can access information about your bulk operation.
+
+The ``SummaryBulkWriteResult`` type has the following fields:
+
+- ``inserted_count``: the number of inserted documents
+- ``matched_count``: the number of matched documents
+- ``modified_count``: the number of updated documents
+- ``upserted_count``: the number of upserted documents
+- ``deleted_count``: the number of deleted documents
+
+You can also use the ``verbose_results()`` method to see more detailed information about each
+operation. The ``verbose_results()`` method returns a ``VerboseBulkWriteResult`` struct
+instance, which has the following fields:
+
+- ``delete_results``: the results of each successful delete operation
+- ``insert_results``: the results of each successful insert operation
+- ``update_results``: the results of each successful update operation
+- ``summary``: a summary of the results of each operation type
+
+The following example chains the ``verbose_results()`` method to the ``bulk_write()`` method
+and prints a summary of the bulk operation:
+
+.. io-code-block::
+
+   .. input:: /includes/fundamentals/code-snippets/crud/bulk.rs
+      :start-after: begin-verbose
+      :end-before: end-verbose
+      :language: rust
+      :dedent:
+
+   .. output:: 
+      :language: console
+      :visible: false
+
+      SummaryBulkWriteResult { inserted_count: 0, matched_count: 1, modified_count: 1,
+      upserted_count: 0, deleted_count: 1 }
 
 .. _rust-bulk-modify-behavior:
 

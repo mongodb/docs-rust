@@ -160,6 +160,27 @@ async fn main() -> mongodb::error::Result<()> {
     println!("Deleted documents: {}", result.deleted_count);
     // end-delete
 
+    // begin-verbose
+    let models = vec![
+        WriteModel::DeleteOne(
+            DeleteOneModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "name": "oyster" })
+                .build(),
+        ),
+        WriteModel::UpdateOne(
+            UpdateOneModel::builder()
+                .namespace(mushrooms.namespace())
+                .filter(doc! { "name": "chanterelle" })
+                .update(doc! { "$set": { "season": ["July", "August", "September"] } })
+                .build(),
+        ),
+    ];
+
+    let result = client.bulk_write(models).verbose_results().await?;
+    println!("{:?}", result.summary);
+    // end-verbose
+
     // begin-options
     let mushrooms: Collection<Document> = client.database("db").collection("mushrooms");
 
@@ -180,7 +201,7 @@ async fn main() -> mongodb::error::Result<()> {
             .build()),
     ];
 
-    let result = client.bulk_write(models).ordered(false).await?;
+    let result = client.bulk_write(models).ordered(false).verbose_results().await?;
     println!(
         "Inserted documents: {}\nDeleted documents: {}",
         result.inserted_count, result.deleted_count
