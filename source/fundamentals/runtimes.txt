@@ -25,9 +25,10 @@ runtime.
    Beginning in {+driver-short+} v3.0, the ``tokio`` runtime is the only asynchronous runtime crate that
    the driver supports. Previous versions of the driver also support the ``async-std`` runtime crate.
    
-   If your application uses the ``async-std`` runtime, you can start a ``tokio`` runtime in the same application
-   for {+driver-short+} operations. Specify the ``#[tokio::main]`` attribute above functions that run
-   driver operations.
+   If your application uses the ``async-std`` runtime, you can start a ``tokio`` runtime in the same
+   application by creating a ``Runtime`` struct instance and wrapping driver operations with the ``Runtime::spawn()``
+   method. For an example that instantiates a ``Runtime`` and calls the ``spawn()`` method, see the `API Documentation
+   <{+api+}/struct.Runtime.html#examples-2>`__.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism
 is not necessary. You can select the synchronous API by adding feature flags to the ``mongodb`` dependency
