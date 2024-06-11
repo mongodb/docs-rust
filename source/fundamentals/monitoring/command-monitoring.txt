@@ -26,7 +26,7 @@ This guide includes the following sections:
   the command events that the driver can generate
 
 - :ref:`Event Subscription Example <rust-command-monitoring-example>`
-  provides sample code that shows how to subscribe to a command event
+  provides sample code that shows how to subscribe to command events
 
 - :ref:`Example Event Documents <rust-command-monitoring-documents>`
   provides samples of each command event
@@ -61,8 +61,8 @@ events:
 
 .. _rust-command-monitoring-example:
 
-Event Subscription Example
---------------------------
+Event Monitoring Example
+------------------------
 
 You can monitor command events by assigning an ``EventHandler`` instance as the value of the
 ``command_event_handler`` client option. To construct an ``EventHandler``, which processes all

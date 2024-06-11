@@ -30,7 +30,7 @@ This guide includes the following sections:
   the connection pool events that the driver can generate
 
 - :ref:`Event Subscription Example <rust-cpm-example>`
-  provides sample code that shows how to subscribe to a connection pool event
+  provides sample code that shows how to subscribe to connection pool events
 
 - :ref:`Example Event Documents <rust-cpm-documents>`
   provides samples of each connection pool event
@@ -95,8 +95,8 @@ You can monitor the following connection pool events:
 
 .. _rust-cpm-example:
 
-Event Subscription Example
---------------------------
+Event Monitoring Example
+------------------------
 
 You can monitor connection pool events by assigning an ``EventHandler`` instance as the value
 of the ``cmap_event_handler`` client option. To construct an ``EventHandler``, which processes
