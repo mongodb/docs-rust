@@ -134,7 +134,7 @@ and using the ``try_next()`` method to iterate over ``Actor`` instances causes a
    // Add setup code here 
 
    let my_coll: Collection<Actor> = client.database("db").collection("actors");
-   let mut cursor = my_coll.find(None).await?;
+   let mut cursor = my_coll.find(doc! {}).await?;
    while let Some(result) = cursor.try_next().await? {
         println!("{:?}", result);
     };

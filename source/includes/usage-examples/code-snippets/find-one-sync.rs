@@ -20,7 +20,7 @@ fn main() -> mongodb::error::Result<()> {
 
     let result = my_coll.find_one(
         doc! { "name": "Tompkins Square Bagels" }
-    )?;
+    ).run()?;
 
     println!("{:#?}", result);
 
