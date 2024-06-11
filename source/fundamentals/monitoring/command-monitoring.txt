@@ -23,17 +23,17 @@ how the driver executes them.
 This guide includes the following sections:
 
 - :ref:`Event Descriptions <rust-command-monitoring-descriptions>` describes
-  the command events that the driver can generate
+  the command events that the driver can generate.
 
 - :ref:`Event Subscription Example <rust-command-monitoring-example>`
-  provides sample code that shows how to subscribe to command events
+  provides sample code that shows how to subscribe to command events.
 
 - :ref:`Example Event Documents <rust-command-monitoring-documents>`
-  provides samples of each command event
+  provides samples of each command event.
   
 - :ref:`Additional Information <rust-command-monitoring-addtl-info>`
   provides links to resources and API documentation for types
-  and methods mentioned in this guide
+  and methods mentioned in this guide.
 
 .. _rust-command-monitoring-descriptions:
 

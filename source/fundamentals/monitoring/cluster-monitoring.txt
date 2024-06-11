@@ -26,17 +26,17 @@ how they affect your application.
 This guide includes the following sections:
 
 - :ref:`Event Descriptions <rust-cluster-monitoring-descriptions>` describes
-  the SDAM events that the driver can generate
+  the SDAM events that the driver can generate.
 
 - :ref:`Event Subscription Example <rust-cluster-monitoring-example>`
-  provides sample code that shows how to subscribe to SDAM events
+  provides sample code that shows how to subscribe to SDAM events.
 
 - :ref:`Example Event Documents <rust-cluster-monitoring-documents>`
-  provides samples of each SDAM event
+  provides samples of each SDAM event.
   
 - :ref:`Additional Information <rust-cluster-addtl-info>`
   provides links to resources and API documentation for types
-  and methods mentioned in this guide
+  and methods mentioned in this guide.
 
 .. _rust-cluster-monitoring-descriptions:
 

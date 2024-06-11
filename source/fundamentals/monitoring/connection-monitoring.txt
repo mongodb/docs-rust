@@ -27,17 +27,17 @@ how the driver uses connections.
 This guide includes the following sections:
 
 - :ref:`Event Descriptions <rust-cpm-descriptions>` describes
-  the connection pool events that the driver can generate
+  the connection pool events that the driver can generate.
 
 - :ref:`Event Subscription Example <rust-cpm-example>`
-  provides sample code that shows how to subscribe to connection pool events
+  provides sample code that shows how to subscribe to connection pool events.
 
 - :ref:`Example Event Documents <rust-cpm-documents>`
-  provides samples of each connection pool event
+  provides samples of each connection pool event.
   
 - :ref:`Additional Information <rust-cpm-addtl-info>`
   provides links to resources and API documentation for types
-  and methods mentioned in this guide
+  and methods mentioned in this guide.
 
 .. _rust-cpm-descriptions:
 
