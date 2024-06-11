@@ -9,18 +9,9 @@ use mongodb::{
 };
 
 fn main() -> mongodb::error::Result<()> {
-    let uri = "<connection string>";
-
-    let mut client_options = ClientOptions::parse_async(uri).await?;
-
     // begin-sdam
-    let mut client_options = ClientOptions::parse(uri).await?;
-    client_options.sdam_event_handler = Some(EventHandler::callback(|ev| match ev {
-        SdamEvent::ServerOpening(_) => {
-            println!("{:?}", ev)
-        }
-        _ => (),
-    }));
+    let mut client_options = ClientOptions::parse("<connection string>").await?;
+    client_options.sdam_event_handler = Some(EventHandler::callback(|ev| println!("{:?}", ev)));
     
     let client = Client::with_options(client_options)?;
 

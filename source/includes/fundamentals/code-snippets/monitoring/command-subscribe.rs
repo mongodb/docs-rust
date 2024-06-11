@@ -12,12 +12,7 @@ async fn main() -> mongodb::error::Result<()> {
     
     // begin-command
     let mut client_options = ClientOptions::parse(uri).await?;
-    client_options.command_event_handler = Some(EventHandler::callback(|ev| match ev {
-        CommandEvent::Started(_) => {
-            println!("{:?}", ev)
-        }
-        _ => (),
-    }));
+    client_options.command_event_handler = Some(EventHandler::callback(|ev| println!("{:?}", ev)));
     
     let client = Client::with_options(client_options)?;
 
