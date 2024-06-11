@@ -27,8 +27,8 @@ runtime.
    
    If your application uses the ``async-std`` runtime, you can start a ``tokio`` runtime in the same
    application by creating a ``Runtime`` struct instance and wrapping driver operations with the ``Runtime::spawn()``
-   method. For an example that instantiates a ``Runtime`` and calls the ``spawn()`` method, see the `API Documentation
-   <{+api+}/struct.Runtime.html#examples-2>`__.
+   method. For an example that instantiates a ``Runtime`` and calls the ``spawn()`` method, see the `tokio documentation
+   <https://docs.rs/tokio/latest/tokio/runtime/struct.Runtime.html#examples-2>`__.
 
 The driver also includes a synchronous API for use cases that require blocking, or when parallelism
 is not necessary. You can select the synchronous API by adding feature flags to the ``mongodb`` dependency
