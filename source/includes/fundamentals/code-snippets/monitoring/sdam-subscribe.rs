@@ -1,8 +1,8 @@
 use mongodb::{
     bson::{doc, Document},
-    Client, Collection,
     event::EventHandler,
     options::ClientOptions,
+    Client, Collection,
 };
 
 #[tokio::main]
