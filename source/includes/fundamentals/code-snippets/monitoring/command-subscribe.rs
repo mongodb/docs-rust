@@ -7,7 +7,6 @@ use mongodb::{
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri = "<connection string>";
 
     // begin-command
     let mut client_options = ClientOptions::parse("<connection string>").await?;

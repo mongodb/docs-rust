@@ -40,8 +40,7 @@ This guide includes the following sections:
 Event Descriptions
 ------------------
 
-You can subscribe to one or more of the following command monitoring
-events:
+You can monitor the following command events:
 
 .. list-table::
    :widths: 33 67
@@ -147,6 +146,6 @@ API Documentation
 To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
-- `CommandEventHandler <{+api+}/event/command/trait.CommandEventHandler.html>`__
+- `EventHandler <{+api+}/event/enum.EventHandler.html>`__
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client::with_options() <{+api+}/struct.Client.html#method.with_options>`__

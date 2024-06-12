@@ -7,8 +7,6 @@ use mongodb::{
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
-    let uri = "<connection string>";
-
     // begin-cmap
     let mut client_options = ClientOptions::parse("<connection string>").await?;
     client_options.cmap_event_handler = Some(EventHandler::callback(|ev| println!("{:?}", ev)));
