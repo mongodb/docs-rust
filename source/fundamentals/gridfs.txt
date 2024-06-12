@@ -146,7 +146,8 @@ fields:
    * - | ``write_concern()``
      - | ``WriteConcern::w()``,
        | ``WriteConcern::w_timeout()``,
-       | ``WriteConcern::journal()``
+       | ``WriteConcern::journal()``,
+       | ``WriteConcern::majority()``
      - | Specifies the bucket's write concern, which is set to the database's write concern by default
 
    * - ``read_concern()``
