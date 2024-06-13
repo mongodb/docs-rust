@@ -50,8 +50,8 @@ The {+driver-short+} v3.0 release includes the following features, improvements,
 - Adds support for bulk write operations. To learn more about these operations, see the 
   :ref:`rust-bulk-guide` guide.
 
-- Introduces the ``EventHandler`` type to reduce the boilerplate code required for event monitoring. For 
-  examples that use the ``EventHandler`` type, see the :ref:`rust-monitoring` guides.
+- Introduces the ``EventHandler`` type to reduce the amount of boilerplate code required for event monitoring. 
+  For examples that use the ``EventHandler`` type, see the :ref:`rust-monitoring` guides.
 
 - Removes support for the ``async-std`` asynchronous runtime. To learn more about this change, see
   the :ref:`rust-runtimes-configure-async` section of the Asynchronous and Synchronous APIs guide.
