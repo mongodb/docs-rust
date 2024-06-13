@@ -41,11 +41,11 @@ The {+driver-short+} v3.0 release includes the following features, improvements,
   - To set synchronous method options, chain option builder methods to the method call, then
     call the ``run()`` method.
   
-  - If you need to construct a separate options struct, chain the ``with_options()``
+  - If you must construct a separate options struct, chain the ``with_options()``
     method to the method call and pass your options struct as a parameter.
 
   - To start a session, chain the ``session()`` method to the method call instead of using a separate
-    method with a ``_with_session`` suffix.
+    method that has a ``_with_session`` suffix.
 
 - Adds support for bulk write operations. To learn more about these operations, see the 
   :ref:`rust-bulk-guide` guide.
@@ -54,7 +54,7 @@ The {+driver-short+} v3.0 release includes the following features, improvements,
   examples that use the ``EventHandler`` type, see the :ref:`rust-monitoring` guides.
 
 - Removes support for the ``async-std`` asynchronous runtime. To learn more about this change, see
-  the :ref:`rust-runtimes-configure-async` section of the Runtimes guide.
+  the :ref:`rust-runtimes-configure-async` section of the Asynchronous and Synchronous APIs guide.
 
 - Requires the use of a ``compat`` feature if a {+driver-short+} application is compiled with
   the ``no-default-features`` command line flag. The ``rustls`` and ``dns-resolution`` features
@@ -73,7 +73,7 @@ The {+driver-short+} v3.0 release includes the following features, improvements,
 - Changes the type of ``ReadPreferenceOptions`` fields. These fields now have a ``Option<ReadPreferenceOptions>`` type.
 
 - Removes the ``CollectionOptions::human_readable_serialization`` option. Instead, use the ``bson::HumanReadable``
-  wrapper type to serialize user data types in human-readable form.
+  wrapper type to serialize user data into human-readable form.
 
 - Adds support for value conversion through the ``Into`` trait for all option struct builders.
 
