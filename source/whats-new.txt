@@ -54,10 +54,11 @@ The {+driver-short+} v3.0 release includes the following features, improvements,
   examples that use the ``EventHandler`` type, see the :ref:`rust-monitoring` guides.
 
 - Removes support for the ``async-std`` asynchronous runtime. To learn more about this change, see
-  the :ref:`rust-runtimes` guide.
+  the :ref:`rust-runtimes-configure-async` section of the Runtimes guide.
 
 - Requires the use of a ``compat`` feature if a {+driver-short+} application is compiled with
-  ``no-default-features``. The ``rustls`` and ``dns-resolution`` features are now optional.
+  the ``no-default-features`` command line flag. The ``rustls`` and ``dns-resolution`` features
+  are now optional.
 
 - Removes support for the ``bson-*`` driver features. You can select these features by including
   ``bson`` as a direct dependency in your application.
