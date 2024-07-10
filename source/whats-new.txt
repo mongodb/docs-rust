@@ -37,11 +37,9 @@ improvements, and fixes:
 - Fixes an issue in which aggregations run within explicit sessions which also used custom types wouldn't compile.
 
 - Fixes an issue in which the ``Collection::watch()`` method didn't use the type
- parameter of the ``Collection`` instance it was run on.
+  parameter of the ``Collection`` instance it was run on.
 
-To learn more about this release, see the
-`v3.0.1 Release Notes
-<{+driver-source+}releases/tag/v3.0.1>`__
+To learn more about this release, see the `v3.0.1 Release Notes <{+driver-source+}releases/tag/v3.0.1>`__
 on GitHub.
 
 .. _rust-version-3.0:
