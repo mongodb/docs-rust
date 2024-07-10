@@ -35,7 +35,7 @@ The {+driver-short+} v3.0.1 release includes the following features,
 improvements, and fixes:
 
 - Fixes an issue in which aggregations wouldn't compile when run within explicit
-  sessions and also implemented used custom types.
+  sessions and also implemented custom types.
 
 - Fixes an issue in which the ``Collection::watch()`` method didn't use the type
   parameter of the ``Collection`` instance it was run on.
