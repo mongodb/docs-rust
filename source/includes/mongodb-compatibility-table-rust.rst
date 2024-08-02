@@ -14,13 +14,13 @@
      - MongoDB 3.6
    * - 3.1 [#2.5-onwards-limitation]_
      - ✓
-     - ⊛
      - ✓
      - ✓
      - ✓
      - ✓
      - ✓
      - ✓
+     - 
    * - 3.0 [#2.5-onwards-limitation]_
      - ⊛
      - ⊛
@@ -50,7 +50,7 @@
      - ✓
    * - 2.6 [#2.5-onwards-limitation]_
      - ⊛
-     - ⊛
+     - ✓
      - ✓
      - ✓
      - ✓
