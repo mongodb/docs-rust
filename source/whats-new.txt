@@ -36,15 +36,16 @@ The {+driver-short+} v3.1 release includes the following features,
 improvements, and fixes:
 
 - Adds support for more than one KMS (Key Management Service) provider of the same type.
-  application. To learn more about KMS providers, see
+  To learn more about KMS providers, see
   :manual:`Queryable Encryption </core/queryable-encryption/>` in the {+server+}
   manual.
 - Adds support for v2 of the Queryable Encryption range protocol. Range indexes for
   Queryable Encryption are now GA.
 - Adds support for the ``type`` field when creating indexes. To learn more about
-  creating indexes, see :manual:</indexes/> in the {+server+} manual.
-- Implements the :wikipedia:`Happy Eyeballs <Happy_Eyeballs>` algorithm for managing
-  TCP connections.
+  creating indexes, see :manual:`Indexes </indexes/>` in the {+server+} manual.
+- Implements the Happy Eyeballs algorithm for managing
+  TCP connections. To learn more about this algorithm, see the Rust documentation
+  for the `happy_eyeballs <https://docs.rs/happy_eyeballs/0.2.0/happy_eyeballs/>`__ crate.
 - The driver now publishes a ``TopologyDescriptionChangedEvent`` event when a topology
   closes.
 
