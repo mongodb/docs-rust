@@ -78,10 +78,7 @@ Configure the Synchronous API
 
 The driver also provides a blocking, synchronous API.
 To use the ``tokio`` synchronous API, add the ``"sync"`` feature flag to
-the ``mongodb`` dependency.
-
-The following example configures the ``tokio`` synchronous API in the
-``Cargo.toml`` file:
+the ``mongodb`` dependency, as shown in the following example:
 
 .. code-block:: toml
 
