@@ -1,5 +1,5 @@
 use std::env;
-use mongodb::{ bson::doc, bson::Document, Client, Collection, options::{ FindOptions, ClientOptions } };
+use mongodb::{ bson::doc, bson::Document, Client, Collection, options::FindOptions };
 use serde::{Deserialize, Serialize};
 use futures::stream::StreamExt;
 
@@ -100,8 +100,8 @@ for result in cursor {
 let filter = doc! {};
 
 let find_options = mongodb::options::FindOptions::builder()
-.sort(doc! { "name": 1 })
-.build();
+    .sort(doc! { "name": 1 })
+    .build();
 
 let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
 
@@ -117,8 +117,8 @@ while let Some(result) = cursor.next().await {
 let filter = doc! {};
 
 let find_options = FindOptions::builder()
-.sort(doc! { "name": -1 })
-.build();
+    .sort(doc! { "name": -1 })
+    .build();
 
 let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
 
