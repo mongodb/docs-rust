@@ -46,8 +46,8 @@ The following code shows how to insert sample data into the ``books``
 collection:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
-   :start-after: start-insert-sample-data
-   :end-before: end-insert-sample-data
+   :start-after: start-sample-data
+   :end-before: end-sample-data
    :language: rust
    :dedent:
 
@@ -113,10 +113,11 @@ Example
 The following example specifies an ascending sort on the ``name`` field:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/sort.rs
       :start-after: start-ascending-sort
-      :end-afteR: end-ascending-sort
+      :end-after: end-ascending-sort
       :language: rust
       :dedent:
 
@@ -147,10 +148,11 @@ Example
 The following example specifies a descending sort on the ``name`` field:
 
 .. io-code-block::
+   :copyable: true
 
    .. input:: /includes/fundamentals/code-snippets/crud/sort.rs
       :start-after: start-descending-sort
-      :end-afteR: end-descending-sort
+      :end-after: end-descending-sort
       :language: rust
       :dedent:
 
