@@ -12,11 +12,11 @@ Read Operations
    /fundamentals/crud/read-operations/cursor
    /fundamentals/crud/read-operations/change-streams
    /fundamentals/crud/read-operations/text-search
+   /fundamentals/crud/read-operations/sort
 
 ..
    /fundamentals/crud/read-operations/count
    /fundamentals/crud/read-operations/distinct
-   /fundamentals/crud/read-operations/sort
    /fundamentals/crud/read-operations/skip
    /fundamentals/crud/read-operations/limit
    /fundamentals/crud/read-operations/project
