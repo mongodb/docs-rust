@@ -60,24 +60,34 @@ async fn main() -> mongodb::error::Result<()> {
         },
     ];
 
-    my_coll.insert_many(books, None).await?;
+    my_coll.insert_many(books).await?;
 // end-sample-data
 
 // start-sort-query
 let filter = doc! {};
 
 let find_options = FindOptions::builder()
-.sort(doc! { "author": 1 })  // 1 for ascending order, -1 for descending order
-.build();
+    .sort(doc! { "author": 1 })  // 1 for ascending order, -1 for descending order
+    .build();
 
+let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
+
+while let Some(result) = cursor.next().await {
+    match result {
+        Ok(document) => println!("{:?}", document),
+        Err(e) => return Err(e.into()),
+    }
+}
 // end-sort-query
 
 // start-sort-aggregation
 let pipeline = vec![
+    docs! { "$match": {} },
     doc! { "$sort": { "author": 1 } } // 1 for ascending order, -1 for descending order
 ];
 
 let mut cursor = my_coll.aggregate(pipeline, None).await?;
+
 for result in cursor {
     match result {
         Ok(document) => println!("{:?}", document),
@@ -107,7 +117,7 @@ while let Some(result) = cursor.next().await {
 let filter = doc! {};
 
 let find_options = FindOptions::builder()
-.sort(doc! { "name": -1 })  // -1 indicates descending order
+.sort(doc! { "name": -1 })
 .build();
 
 let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
