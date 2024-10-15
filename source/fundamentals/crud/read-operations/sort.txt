@@ -66,7 +66,7 @@ documents by ``author`` as follows:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-query
-   :end-after: end-sort-query
+   :end-before: end-sort-query
    :language: rust
    :dedent:
 
@@ -75,7 +75,7 @@ aggregation pipeline to sort documents by ``author`` as follows:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-aggregation
-   :end-after: end-sort-aggregation
+   :end-before: end-sort-aggregation
    :language: rust
    :dedent:
 
@@ -117,7 +117,7 @@ The following example specifies an ascending sort on the ``name`` field:
 
    .. input:: /includes/fundamentals/code-snippets/crud/sort.rs
       :start-after: start-ascending-sort
-      :end-after: end-ascending-sort
+      :end-before: end-ascending-sort
       :language: rust
       :dedent:
 
@@ -149,7 +149,7 @@ The following example specifies a descending sort on the ``name`` field:
 
    .. input:: /includes/fundamentals/code-snippets/crud/sort.rs
       :start-after: start-descending-sort
-      :end-after: end-descending-sort
+      :end-before: end-descending-sort
       :language: rust
       :dedent:
 
