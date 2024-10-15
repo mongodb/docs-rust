@@ -23,8 +23,8 @@ Overview
 In this guide, you can learn how to use **sort** operations to specify the order
 of your results from read operations with the {+driver-long+}.
 
-Use ``sort`` to change the order in which read operations return documents.
-``Sort`` tells MongoDB to order returned documents by the values of one or more
+Use ``sort()`` to change the order in which read operations return documents.
+``Sort()`` tells MongoDB to order returned documents by the values of one or more
 fields in a certain direction. To sort returned documents by a field in
 ascending (lowest first) order, use a value of ``1``. To sort in descending
 (greatest first) order instead, use ``-1``. If you do not specify a sort,
@@ -66,7 +66,7 @@ documents by ``author`` as follows:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-query
-   :end-afteR: end-sort-query
+   :end-after: end-sort-query
    :language: rust
    :dedent:
 
@@ -75,7 +75,7 @@ aggregation pipeline to sort documents by ``author`` as follows:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-aggregation
-   :end-afteR: end-sort-aggregation
+   :end-after: end-sort-aggregation
    :language: rust
    :dedent:
 
@@ -125,15 +125,12 @@ The following example specifies an ascending sort on the ``name`` field:
       :language: console
       :visible: false
 
-      * { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length":
-        1104 }
-      * { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
-      * { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918
-        }
-      * { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
-      * { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
-      * { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky,
-        "length": 824 }
+      { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
+      { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
+      { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918 }
+      { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
+      { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
+      { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
   
 Descending
 ~~~~~~~~~~
@@ -160,15 +157,12 @@ The following example specifies a descending sort on the ``name`` field:
       :language: console
       :visible: false
 
-      * { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky,
-        "length": 824 }
-      * { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
-      * { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
-      * { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918
-        }
-      * { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
-      * { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length":
-        1104 }
+      { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
+      { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
+      { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
+      { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918 }
+      { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
+      { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
 
 Additional Information
 ----------------------
