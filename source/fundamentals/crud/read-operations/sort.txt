@@ -24,7 +24,7 @@ In this guide, you can learn how to use the {+driver-long+} to perform **sort**
 operations to specify the order of your read operation results.
 
 Use the ``sort()`` method when building options to change the order in which
-read operations return documents.. The ``sort()`` method tells MongoDB to order
+read operations return documents. The ``sort()`` method tells MongoDB to order
 returned documents by the values of one or more fields in a certain direction.
 To sort returned documents by a field in ascending (lowest first) order, use a
 value of ``1``. To sort in descending (greatest first) order instead, use
@@ -135,7 +135,7 @@ Descending
 ~~~~~~~~~~
 
 To specify a descending sort, pass the field you want to sort by and ``-1`` to
-the ``sort()`` method within the ``FindOptions`` type.
+the ``sort()`` method of the ``FindOptions`` type.
 
 Example
 ^^^^^^^
