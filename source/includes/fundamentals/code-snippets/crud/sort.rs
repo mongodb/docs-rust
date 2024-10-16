@@ -1,13 +1,11 @@
 use std::env;
 use mongodb::{ bson::doc, bson::Document, Client, Collection, options::FindOptions };
 use serde::{Deserialize, Serialize};
-use futures::stream::StreamExt;
+use futures::stream::TryStreamExt;
 
 // start-book-struct
 #[derive(Debug, Serialize, Deserialize)]
 struct Book {
-    #[serde(rename = "_id")]
-    id: i32,
     name: String,
     author: String,
     length: i32,
@@ -30,30 +28,18 @@ async fn main() -> mongodb::error::Result<()> {
         },
         Book {
             id: 2,
-            name: "Les Misérables".to_string(),
-            author: "Hugo".to_string(),
-            length: 1462,
-        },
-        Book {
-            id: 3,
             name: "Atlas Shrugged".to_string(),
             author: "Rand".to_string(),
             length: 1088,
         },
         Book {
+            id: 3,
+            name: "Les Misérables".to_string(),
+            author: "Hugo".to_string(),
+            length: 1462,
+        },
+        Book {
             id: 4,
-            name: "Infinite Jest".to_string(),
-            author: "Wallace".to_string(),
-            length: 1104,
-        },
-        Book {
-            id: 5,
-            name: "Cryptonomicon".to_string(),
-            author: "Stephenson".to_string(),
-            length: 918,
-        },
-        Book {
-            id: 6,
             name: "A Dance with Dragons".to_string(),
             author: "Martin".to_string(),
             length: 1104,
@@ -64,19 +50,14 @@ async fn main() -> mongodb::error::Result<()> {
 // end-sample-data
 
 // start-sort-query
-let filter = doc! {};
-
 let find_options = FindOptions::builder()
     .sort(doc! { "author": 1 })  // 1 for ascending order, -1 for descending order
     .build();
 
-let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
+let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
 
-while let Some(result) = cursor.next().await {
-    match result {
-        Ok(document) => println!("{:?}", document),
-        Err(e) => return Err(e.into()),
-    }
+while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
 }
 // end-sort-query
 
@@ -88,45 +69,32 @@ let pipeline = vec![
 
 let mut cursor = my_coll.aggregate(pipeline, None).await?;
 
-for result in cursor {
-    match result {
-        Ok(document) => println!("{:?}", document),
-        Err(e) => eprintln!("Error: {}", e),
-    }
+while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
 }
 // end-sort-aggregation
 
 // start-ascending-sort
-let filter = doc! {};
-
 let find_options = mongodb::options::FindOptions::builder()
     .sort(doc! { "name": 1 })
     .build();
 
-let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
+let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
 
-while let Some(result) = cursor.next().await {
-    match result {
-        Ok(document) => println!("{:?}", document),
-        Err(e) => return Err(e.into()),
-    }
+while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
 }
 // end-ascending-sort
 
 // start-descending-sort
-let filter = doc! {};
-
 let find_options = FindOptions::builder()
     .sort(doc! { "name": -1 })
     .build();
 
-let mut cursor = my_coll.find(Some(filter), Some(find_options)).await?;
+let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
 
-while let Some(result) = cursor.next().await {
-    match result {
-        Ok(document) => println!("{:?}", document),
-        Err(e) => return Err(e.into()),
-    }
+while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
 }
 // end-descending-sort
 

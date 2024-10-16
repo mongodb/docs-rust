@@ -1,4 +1,4 @@
-.. _rust-crud-sort:
+.. _rust-sort-guide:
 
 ============
 Sort Results
@@ -20,15 +20,16 @@ Sort Results
 Overview
 --------
 
-In this guide, you can learn how to use **sort** operations to specify the order
-of your results from read operations with the {+driver-long+}.
+In this guide, you can learn how to use the {+driver-long+} to perform **sort**
+operations to specify the order of your read operation results.
 
-Use ``sort()`` to change the order in which read operations return documents.
-``Sort()`` tells MongoDB to order returned documents by the values of one or more
-fields in a certain direction. To sort returned documents by a field in
-ascending (lowest first) order, use a value of ``1``. To sort in descending
-(greatest first) order instead, use ``-1``. If you do not specify a sort,
-MongoDB does not guarantee the order of query results.
+Use the ``sort()`` method when building options to change the order in which
+read operations return documents.. The ``sort()`` method tells MongoDB to order
+returned documents by the values of one or more fields in a certain direction.
+To sort returned documents by a field in ascending (lowest first) order, use a
+value of ``1``. To sort in descending (greatest first) order instead, use
+``-1``. If you do not specify a sort, MongoDB does not guarantee the order of
+query results.
 
 Sample Data for Examples
 ------------------------
@@ -58,11 +59,12 @@ You can sort results retrieved by a query, or you can sort results within an
 aggregation pipeline.
 
 To sort your query results, use the ``sort()`` method of the ``FindOptions``
-struct. To sort your results within an aggregation pipeline, use the ``$sort``
-stage of the ``aggregate()`` method.
+struct. To sort your results within an aggregation pipeline, create a ``$sort``
+stage and pass the list of stages to the ``aggregate()`` method.
 
-You can use the ``sort()`` method of the ``FindOptions`` struct to sort
-documents by ``author`` as follows:
+Use the ``sort()`` method of the ``FindOptions`` struct to sort documents in
+ascending order of the values of the ``author`` fields as shown in the following
+code:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-query
@@ -70,8 +72,8 @@ documents by ``author`` as follows:
    :language: rust
    :dedent:
 
-You can use the ``$sort`` stage of the ``aggregate()`` method within an
-aggregation pipeline to sort documents by ``author`` as follows:
+Create a ``$sort`` stage that sorts documents in ascending order by the values
+of the ``author`` field as shown in the following code:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-aggregation
@@ -86,13 +88,13 @@ The direction of your sort can either be **ascending** or **descending**. An
 ascending sort orders your results from smallest to largest. A descending sort
 orders your results from largest to smallest.
 
-Here are some examples of data sorted in ascending order:
+The following list contains examples of data sorted in ascending order:
 
 * Numbers: 1, 2, 3, 43, 43, 55, 120
 * Dates: 1990-03-10, 1995-01-01, 2005-10-30, 2005-12-21 
 * Words (ASCII): Banana, Dill, carrot, cucumber, hummus
 
-Here are some examples of data sorted in descending order:
+The following list contains examples of data sorted in descending order:
 
 * Numbers: 100, 30, 12, 12, 9, 3, 1
 * Dates: 2020-01-01, 1998-12-11, 1998-12-10, 1975-07-22 
@@ -103,9 +105,8 @@ The following subsections show how to specify these sort criteria.
 Ascending
 ~~~~~~~~~
 
-An ascending sort orders your results from smallest to largest. To specify this sort,
-pass the field you want to sort by and ``1`` to the ``sort()`` method within the
-``FindOptions`` struct.
+To specify an ascending sort, pass the field you want to sort by and ``1`` to
+the ``sort()`` method of the ``FindOptions`` type.
 
 Example
 ^^^^^^^
@@ -125,19 +126,16 @@ The following example specifies an ascending sort on the ``name`` field:
       :language: console
       :visible: false
 
-      { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
-      { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
-      { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918 }
-      { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
-      { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
-      { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
+      Book { "_id": 4, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
+      Book { "_id": 2, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
+      Book { "_id": 3, "name": "Les Miserables", "author": Hugo, "length": 1462 }
+      Book { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
   
 Descending
 ~~~~~~~~~~
 
-A descending sort orders your results from largest to smallest. To specify this
-sort, pass the field you want to sort by and ``-1`` to the ``sort()`` method
-within the ``FindOptions`` struct.
+To specify a descending sort, pass the field you want to sort by and ``-1`` to
+the ``sort()`` method within the ``FindOptions`` type.
 
 Example
 ^^^^^^^
@@ -157,12 +155,10 @@ The following example specifies a descending sort on the ``name`` field:
       :language: console
       :visible: false
 
-      { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
-      { "_id": 2, "name": "Les Miserables", "author": Hugo, "length": 1462 }
-      { "_id": 4, "name": "Infinite Jest", "author": Wallace, "length": 1104 }
-      { "_id": 5, "name": "Crypotnomicon", "author": Stephenson, "length": 918 }
-      { "_id": 3, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
-      { "_id": 6, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
+      Book { "_id": 1, "name": "The Brothers Karamazov", "author": Dostoevsky, "length": 824 }
+      Book { "_id": 3, "name": "Les Miserables", "author": Hugo, "length": 1462 }
+      Book { "_id": 2, "name": "Atlas Shrugged", "author": Rand, "length": 1088 }
+      Book { "_id": 4, "name": "A Dance with Dragons", "author": Martin, "length": 1104 }
 
 Additional Information
 ----------------------
