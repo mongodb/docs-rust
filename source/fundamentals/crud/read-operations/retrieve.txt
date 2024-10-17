@@ -159,7 +159,7 @@ fields that you can set by calling their corresponding builder methods:
          returns documents in their natural order, or as they appear in
          the database. To learn more, see :manual:`natural order </reference/glossary/#std-term-natural-order>`
          in the Server manual glossary. To learn more about how to use the
-         ``sort()`` builder method, see the :ref:`rust-sort-guide`.
+         ``sort()`` builder method, see :ref:`rust-sort-guide`.
        |
        | Type: ``Document``
        | Default: ``None``
