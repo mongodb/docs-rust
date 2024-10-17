@@ -51,7 +51,8 @@ async fn main() -> mongodb::error::Result<()> {
 
 // start-sort-query
 let find_options = FindOptions::builder()
-    .sort(doc! { "author": 1 })  // 1 for ascending order, -1 for descending order
+    // 1 for ascending order, -1 for descending order
+    .sort(doc! { "author": 1 })
     .build();
 
 let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
@@ -64,7 +65,8 @@ while let Some(result) = cursor.try_next().await? {
 // start-sort-aggregation
 let pipeline = vec![
     docs! { "$match": {} },
-    doc! { "$sort": { "author": 1 } } // 1 for ascending order, -1 for descending order
+    // 1 for ascending order, -1 for descending order
+    doc! { "$sort": { "author": 1 } }
 ];
 
 let mut cursor = my_coll.aggregate(pipeline, None).await?;

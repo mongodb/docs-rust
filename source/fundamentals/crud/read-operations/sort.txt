@@ -72,8 +72,9 @@ code:
    :language: rust
    :dedent:
 
-Create a ``$sort`` stage that sorts documents in ascending order by the values
-of the ``author`` field as shown in the following code:
+Alternatively, you can create a ``$sort`` stage that sorts documents in
+ascending order by the values of the ``author`` field as shown in the following
+code:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-aggregation
