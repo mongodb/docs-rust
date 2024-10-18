@@ -59,7 +59,7 @@ let mut cursor = my_coll
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
 }
-// end-sort query
+// end-sort-query
 
 // start-sort-query-multiple-options
 let find_options = FindOptions::builder()
