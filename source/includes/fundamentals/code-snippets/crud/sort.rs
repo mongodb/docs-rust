@@ -50,9 +50,22 @@ async fn main() -> mongodb::error::Result<()> {
 // end-sample-data
 
 // start-sort-query
+let mut cursor = my_coll
+    .find(doc! {})
+    // 1 for ascending order, -1 for descending order
+    .sort(doc! { "author": 1 })
+    .await?;
+
+while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
+}
+// end-sort query
+
+// start-sort-query-multiple-options
 let find_options = FindOptions::builder()
     // 1 for ascending order, -1 for descending order
     .sort(doc! { "author": 1 })
+    .skip(1)
     .build();
 
 let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
@@ -60,7 +73,7 @@ let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
 }
-// end-sort-query
+// end-sort-query-multiple-options
 
 // start-sort-aggregation
 let pipeline = vec![
@@ -69,7 +82,7 @@ let pipeline = vec![
     doc! { "$sort": { "author": 1 } }
 ];
 
-let mut cursor = my_coll.aggregate(pipeline, None).await?;
+let mut cursor = my_coll.aggregate(pipeline).await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
@@ -77,7 +90,7 @@ while let Some(result) = cursor.try_next().await? {
 // end-sort-aggregation
 
 // start-ascending-sort
-let find_options = mongodb::options::FindOptions::builder()
+let find_options = FindOptions::builder()
     .sort(doc! { "name": 1 })
     .build();
 
