@@ -67,11 +67,11 @@ by the query, as shown in the following example:
    :language: rust
    :dedent:
 
-Multiple Options
-~~~~~~~~~~~~~~~~
+Options
+~~~~~~~
 
 Alternatively, you can use the ``sort()`` method of the ``FindOptions``
-struct. This is useful for configuring multiple options. 
+struct.
 
 The following example performs a ``find()`` operation with the following behavior:
 
