@@ -125,7 +125,7 @@ Ascending
 ~~~~~~~~~
 
 To specify an ascending sort, pass the field you want to sort by and ``1`` to
-the ``sort()`` method of the ``FindOptions`` type.
+the ``sort()`` method.
 
 Example
 ^^^^^^^
@@ -154,7 +154,7 @@ Descending
 ~~~~~~~~~~
 
 To specify a descending sort, pass the field you want to sort by and ``-1`` to
-the ``sort()`` method of the ``FindOptions`` type.
+the ``sort()`` method.
 
 Example
 ^^^^^^^
