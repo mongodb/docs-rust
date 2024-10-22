@@ -90,11 +90,10 @@ while let Some(result) = cursor.try_next().await? {
 // end-sort-aggregation
 
 // start-ascending-sort
-let find_options = FindOptions::builder()
+let mut cursor = my_coll
+    .find(doc! {})
     .sort(doc! { "name": 1 })
-    .build();
-
-let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
+    .await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
@@ -102,11 +101,10 @@ while let Some(result) = cursor.try_next().await? {
 // end-ascending-sort
 
 // start-descending-sort
-let find_options = FindOptions::builder()
+let mut cursor = my_coll
+    .find(doc! {})
     .sort(doc! { "name": -1 })
-    .build();
-
-let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
+    .await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
