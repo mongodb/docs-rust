@@ -115,7 +115,7 @@ behavior:
 Aggregation
 -----------
 
-You can use the ``$skip`` stage in an aggegation pipeline to skip documents. To
+You can use the ``$skip`` stage in an aggregation pipeline to skip documents. To
 learn more, see the :ref:`rust-aggregation` guide.
 
 Example
