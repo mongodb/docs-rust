@@ -388,8 +388,7 @@ following documentation:
 - :ref:`rust-cursor-guide` guide
 - :ref:`rust-aggregation` guide
 - :ref:`rust-sort-guide` guide
-
-.. - :ref:`rust-skip-guide`
+- :ref:`rust-skip-guide` guide
 
 .. - :ref:`rust-limit-guide`
 .. - :ref:`rust-project-guide`

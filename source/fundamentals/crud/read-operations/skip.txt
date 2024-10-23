@@ -1,0 +1,170 @@
+.. _rust-skip-guide:
+
+=====================
+Skip Returned Results
+=====================
+
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: code example, read operation, skip, skip results
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
+Overview
+--------
+
+In this guide, you can learn how to use the {+driver-long+} to specify the
+number of documents to skip in a read operation.
+
+Sample Data for Examples
+------------------------
+
+The examples in this guide use the following ``Book`` struct as a model for
+documents in the ``books`` collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
+   :start-after: start-book-struct
+   :end-before: end-book-struct
+   :language: rust
+   :dedent:
+
+The following code shows how to insert sample data into the ``books``
+collection:
+
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
+   :start-after: start-sample-data
+   :end-before: end-sample-data
+   :language: rust
+   :dedent:
+
+Skip
+----
+
+To skip results retrieved by a query, you can chain the ``skip()`` method to the
+``find()`` method. Alternatively, if you are setting and reusing options for
+your query, you can use the ``skip()`` method of the ``FindOptions`` struct.
+
+If the number of documents exceeds the number of matched documents for a query,
+that query returns no documents.
+
+Find operations return documents in a natural order that is not sorted on any
+fields. To avoid skipping random documents, use the ``sort()`` method to sort
+documents on a field with a unique value before setting a skip option. To learn
+more, see the :ref:`rust-sort-guide` guide.
+
+Example
+~~~~~~~
+
+The following example performs a ``find()`` operation with the following behavior:
+
+- Sorts the results in ascending order on the ``author`` field
+- Skips the first two documents
+- Returns the remaining documents
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/crud/skip.rs
+      :start-after: start-skip-example
+      :end-before: end-skip-example
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Book { name: "A Dance with Dragons", author: "Martin", length: 1104 }
+      Book { name: "Atlas Shrugged", author: "Rand", length: 1088 }
+
+Options Example
+~~~~~~~~~~~~~~~
+
+Alternatively, you can use the ``skip()`` method of the ``FindOptions`` struct.
+The following example performs a ``find()`` operation with the following
+behavior:
+
+- Sorts the results in descending order on the ``name`` field
+- Skips the first document
+- Limits the results to two documents
+- Returns the remaining documents
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/crud/skip.rs
+      :start-after: start-options-skip-example
+      :end-before: end-options-skip-example
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Book { name: "Les Misérables", author: "Hugo", length: 1462 }
+      Book { name: "Atlas Shrugged", author: "Rand", length: 1088 }
+
+Aggregation
+-----------
+
+You can use the ``$skip`` stage in an aggegation pipeline to skip documents. To
+learn more, see the :ref:`rust-aggregation-guide` guide.
+
+Example
+~~~~~~~
+
+The following example uses the ``aggregate()`` method to perform an aggregation
+operation with the following behavior: 
+
+- Sorts the results in ascending order on the ``author`` field 
+- Skips the first document
+- Returns the remaining documents
+
+.. io-code-block::
+   :copyable: true
+
+   .. input:: /includes/fundamentals/code-snippets/crud/skip.rs
+      :start-after: start-aggregation-example
+      :end-before: end-aggregation-example
+      :language: rust
+      :dedent:
+
+   .. output::
+      :language: console
+      :visible: false
+
+      Document({"_id": Int32(3), "name": String("Les Misérables"), "author": String("Hugo"), "length": Int32(1462)})
+      Document({"_id": Int32(4), "name": String("A Dance with Dragons"), "author": String("Martin"), "length": Int32(1104)})
+      Document({"_id": Int32(2), "name": String("Atlas Shrugged"), "author": String("Rand"), "length": Int32(1088)})
+
+Additional Information
+----------------------
+
+To learn more about the operations mentioned in this guide, see the following:
+
+- :ref:`rust-query-guide`
+- :ref:`rust-retrieve-guide`
+- :ref:`rust-compound-operations`
+- :ref:`rust-aggregation`
+- :ref:`rust-sort-guide`
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about any of the methods or types discussed in this guide, see the
+following API Documentation:
+
+- `find() <{+api+}/struct.Collection.html#method.find>`__
+- `FindOptions <{+api+}/options/struct.FindOptions.html>`__
+- `FindOneOptions <{+api+}/options/struct.FindOneOptions.html>`__
+- `Cursor <{+api+}/struct.Cursor.html>`__
+- `aggregate() <{+api+}/struct.Collection.html#method.aggregate>`__
+- `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__

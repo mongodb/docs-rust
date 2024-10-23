@@ -182,12 +182,13 @@ The following example specifies a descending sort on the ``name`` field:
 Additional Information
 ----------------------
 
-To learn more about the operations metnioned in this guide, see the following:
+To learn more about the operations mentioned in this guide, see the following:
 
 - :ref:`rust-query-guide`
 - :ref:`rust-retrieve-guide`
 - :ref:`rust-compound-operations`
 - :ref:`rust-aggregation`
+- :ref:`rust-skip-guide`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
