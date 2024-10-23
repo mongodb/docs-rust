@@ -95,8 +95,8 @@ describes these methods:
 
    * - ``and_run()``
      - | Runs the given callback, then commits or ends the transaction. If
-         the callback causes a transient transaction error, the server retries
-         the callback. If the callback causes any other error, the server
+         the callback raises a transient transaction error, the server retries
+         the callback. If the callback raises any other error, the server
          ends the transaction and returns the error to the caller. When
          you use this method to perform a transaction, the driver automatically
          handles any errors, so you can choose to omit error handling code.
