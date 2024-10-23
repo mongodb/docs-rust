@@ -52,7 +52,7 @@ To skip results retrieved by a query, you can chain the ``skip()`` method to the
 your query, you can use the ``skip()`` method of the ``FindOptions`` struct.
 
 If the number of skipped documents exceeds the number of matched documents for a
-query, that query returns no documents.
+query, then that query returns no documents.
 
 Find operations return documents in a natural order that is not sorted on any
 fields. To avoid skipping random documents, use the ``sort()`` method to sort
