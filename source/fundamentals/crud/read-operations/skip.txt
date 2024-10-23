@@ -51,8 +51,8 @@ To skip results retrieved by a query, you can chain the ``skip()`` method to the
 ``find()`` method. Alternatively, if you are setting and reusing options for
 your query, you can use the ``skip()`` method of the ``FindOptions`` struct.
 
-If the number of documents exceeds the number of matched documents for a query,
-that query returns no documents.
+If the number of skipped documents exceeds the number of matched documents for a
+query, that query returns no documents.
 
 Find operations return documents in a natural order that is not sorted on any
 fields. To avoid skipping random documents, use the ``sort()`` method to sort
@@ -116,7 +116,7 @@ Aggregation
 -----------
 
 You can use the ``$skip`` stage in an aggegation pipeline to skip documents. To
-learn more, see the :ref:`rust-aggregation-guide` guide.
+learn more, see the :ref:`rust-aggregation` guide.
 
 Example
 ~~~~~~~
@@ -155,6 +155,7 @@ To learn more about the operations mentioned in this guide, see the following:
 - :ref:`rust-compound-operations`
 - :ref:`rust-aggregation`
 - :ref:`rust-sort-guide`
+.. - :ref:`rust-limit-guide`
 
 API Documentation
 ~~~~~~~~~~~~~~~~~
