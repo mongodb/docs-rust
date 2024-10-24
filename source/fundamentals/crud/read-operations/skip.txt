@@ -111,7 +111,7 @@ the ``find()`` method and pass your ``FindOptions`` struct as a parameter to the
 
 This example runs a ``find()`` operation that performs the following actions:
 
-- Sorts the results in descending order on the ``name`` field
+- Sorts the results in descending order of their ``name`` field values
 - Skips the first document
 - Limits the results to two documents
 - Returns the remaining documents
@@ -142,7 +142,7 @@ learn more, see the :ref:`rust-aggregation` guide.
 
 This example runs an aggregation pipeline that performs the following actions:
 
-- Sorts the results in ascending order on the ``author`` field 
+- Sorts the results in ascending order of their ``author`` field values
 - Skips the first document
 - Returns the remaining documents
 
