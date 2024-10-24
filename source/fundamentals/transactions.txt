@@ -95,11 +95,12 @@ describes these methods:
 
    * - ``and_run()``
      - | Runs the given callback, then commits or ends the transaction. If
-         the callback raises a transient transaction error, the driver retries
-         the callback. If the callback raises any other error, the driver
-         ends the transaction and returns the error to the caller. When
-         you use this method to perform a transaction, the driver automatically
-         handles any errors, so you can choose to omit error handling code.
+         the callback raises an error with a ``TRANSIENT_TRANSACTION_ERROR``
+         label, the driver retries the callback. If the callback raises any
+         other error, the driver ends the transaction and returns the error
+         to the caller. When you use this method to perform a transaction,
+         the driver automatically handles any errors, so you can choose to omit
+         error handling code.
        |
        | Because the callback returns a future and can be run multiple
          times, the Rust language closure borrowing rules for captured
