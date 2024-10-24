@@ -52,8 +52,12 @@ This section describes how to skip results retrieved by a query in the following
 - :ref:`skip() method <rust-skip-method>`: Chain the ``skip()`` method to the 
   ``find()`` method
 - :ref:`FindOptions::skip() method <rust-findoptions-skip>`: Use the ``skip()``
-     method of the ``FindOptions`` struct if you are setting and reusing options
-     for your query
+  method of the ``FindOptions`` struct
+
+Alternatively, you can :ref:`skip documents in an aggregation pipeline
+<rust-aggregation-skip>`.
+
+When you skip documents, the driver omits the specified number of documents from
 
 If the number of skipped documents exceeds the number of matched documents for a
 query, then that query returns no documents.
@@ -69,7 +73,7 @@ skip() Method Example
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The ``skip()`` method takes an integer that specifies the number of documents to
-omit from the beginning of the result set. You can chain the ``skip()`` method
+omit from the beginning of the result set. Chain the ``skip()`` method
 to the ``find()`` method to skip documents.
 
 This example runs a ``find()`` operation that performs the following actions:
@@ -99,7 +103,8 @@ This example runs a ``find()`` operation that performs the following actions:
 Options Example
 ~~~~~~~~~~~~~~~
 
-Alternatively, you can set the ``skip`` field of the ``FindOptions`` struct by
+Alternatively, if you are setting and reusing options for your query, you can
+use ``FindOptions``. Set the ``skip`` field of the ``FindOptions`` struct by
 using the ``skip()`` setter method. Then, chain the ``with_options()`` method to
 the ``find()`` method and pass your ``FindOptions`` struct as a parameter to the
 ``with_options()`` method.
@@ -127,14 +132,13 @@ This example runs a ``find()`` operation that performs the following actions:
       Book { name: "Les Misérables", author: "Hugo", length: 1462 }
       Book { name: "Atlas Shrugged", author: "Rand", length: 1088 }
 
-Aggregation
-~~~~~~~~~~~
+.. _rust-aggregation-skip:
+
+Aggregation Example
+~~~~~~~~~~~~~~~~~~~
 
 You can use the ``$skip`` stage in an aggregation pipeline to skip documents. To
 learn more, see the :ref:`rust-aggregation` guide.
-
-Example
-~~~~~~~
 
 This example runs an aggregation pipeline that performs the following actions:
 

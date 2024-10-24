@@ -84,7 +84,6 @@ async fn main() -> mongodb::error::Result<()> {
 // start-aggregation-example
 let pipeline = vec![
     doc! { "$match": {} },
-    // 1 for ascending order, -1 for descending order
     doc! { "$sort": { "author": 1 } }
     doc! { "$skip": 1 },
 ];
