@@ -63,13 +63,11 @@ async fn main() -> mongodb::error::Result<()> {
 // end-skip-example
 
 // Sets the values for the `FindOptions` struct to sort results by their "name"
-// field values, skip the first two results, and limit the results to two
-// documents.
+// field values, skip the first two results, and return the remaining results.
 // start-options-skip-example
     let find_options = FindOptions::builder()
         .sort(doc! { "name": -1 })
         .skip(1)
-        .limit(2)
         .build();
 
     let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;

@@ -47,15 +47,16 @@ collection:
 Skip Documents
 --------------
 
-This section describes how to skip results retrieved by a query in the following ways:
+You can skip results retrieved by a query, or you can skip results within an
+aggregation pipeline. 
+
+This section describes how to skip results in the following ways:
 
 - :ref:`skip() method <rust-skip-method>`: Chain the ``skip()`` method to the 
   ``find()`` method
-- :ref:`FindOptions::skip() method <rust-findoptions-skip>`: Use the ``skip()``
-  method of the ``FindOptions`` struct
-
-Alternatively, you can :ref:`skip documents in an aggregation pipeline
-<rust-aggregation-skip>`.
+- :ref:`FindOptions struct <rust-findoptions-skip>`: Use the ``skip()`` option 
+  builder method to configure a ``FindOptions`` struct
+- :ref:`Aggregation pipleline <rust-aggregation-skip>`: Create a pipeline that uses the ``$skip`` stage
 
 If the number of skipped documents exceeds the number of matched documents for a
 query, then that query returns no documents.
@@ -70,9 +71,9 @@ more, see the :ref:`rust-sort-guide` guide.
 skip() Method Example
 ~~~~~~~~~~~~~~~~~~~~~~
 
+To skip documents, you can chain the ``skip()`` method to the ``find()`` method.
 The ``skip()`` method takes an integer that specifies the number of documents to
-omit from the beginning of the result set. Chain the ``skip()`` method
-to the ``find()`` method to skip documents.
+omit from the beginning of the result set. 
 
 This example runs a ``find()`` operation that performs the following actions:
 
@@ -103,15 +104,14 @@ Options Example
 
 Alternatively, if you are setting and reusing options for your query, you can
 use ``FindOptions``. Set the ``skip`` field of the ``FindOptions`` struct by
-using the ``skip()`` setter method. Then, chain the ``with_options()`` method to
-the ``find()`` method and pass your ``FindOptions`` struct as a parameter to the
-``with_options()`` method.
+using the ``skip()`` option builder method. Then, chain the ``with_options()``
+method to the ``find()`` method and pass your ``FindOptions`` struct as a
+parameter to the ``with_options()`` method.
 
 This example runs a ``find()`` operation that performs the following actions:
 
 - Sorts the results in descending order of their ``name`` field values
 - Skips the first document
-- Limits the results to two documents
 - Returns the remaining documents
 
 .. io-code-block::
@@ -136,7 +136,7 @@ Aggregation Example
 ~~~~~~~~~~~~~~~~~~~
 
 You can use the ``$skip`` stage in an aggregation pipeline to skip documents. To
-learn more, see the :ref:`rust-aggregation` guide.
+learn more about aggregation operations, see the :ref:`rust-aggregation` guide.
 
 This example runs an aggregation pipeline that performs the following actions:
 
