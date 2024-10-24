@@ -49,6 +49,8 @@ async fn main() -> mongodb::error::Result<()> {
     my_coll.insert_many(books).await?;
 // end-sample-data
 
+// Retrieves documents in the collection, sorts results by their "author" field
+// values, and skips the first two results.
 // start-skip-example
     let mut cursor = my_coll
         .find(doc! {})
@@ -60,6 +62,9 @@ async fn main() -> mongodb::error::Result<()> {
     }
 // end-skip-example
 
+// Sets the values for the `FindOptions` struct to sort results by their "name"
+// field values, skip the first two results, and limit the results to two
+// documents.
 // start-options-skip-example
     let find_options = FindOptions::builder()
         .sort(doc! { "name": -1 })
@@ -74,6 +79,8 @@ async fn main() -> mongodb::error::Result<()> {
     }
 // end-options-skip-example
 
+// Retrieves documents in the collection, sorts results by their "author" field,
+// then skips the first two results in an aggregation pipeline.
 // start-aggregation-example
 let pipeline = vec![
     doc! { "$match": {} },

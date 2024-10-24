@@ -194,7 +194,7 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 To learn more about any of the methods or types discussed in this guide, see the
-following API Documentation:
+following API documentation:
 
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__

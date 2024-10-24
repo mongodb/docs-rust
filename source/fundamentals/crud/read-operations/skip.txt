@@ -20,8 +20,8 @@ Skip Returned Results
 Overview
 --------
 
-In this guide, you can learn how to use the {+driver-long+} to specify the
-number of documents to skip in a read operation.
+In this guide, you can learn how to use the {+driver-long+} to perform a read
+operation that skips a specified number of documents when returning results.
 
 Sample Data for Examples
 ------------------------
@@ -44,12 +44,16 @@ collection:
    :language: rust
    :dedent:
 
-Skip
-----
+Skip Documents
+--------------
 
-To skip results retrieved by a query, you can chain the ``skip()`` method to the
-``find()`` method. Alternatively, if you are setting and reusing options for
-your query, you can use the ``skip()`` method of the ``FindOptions`` struct.
+This section describes how to skip results retrieved by a query in the following ways:
+
+- :ref:`skip() method <rust-skip-method>`: Chain the ``skip()`` method to the 
+  ``find()`` method
+- :ref:`FindOptions::skip() method <rust-findoptions-skip>`: Use the ``skip()``
+     method of the ``FindOptions`` struct if you are setting and reusing options
+     for your query
 
 If the number of skipped documents exceeds the number of matched documents for a
 query, then that query returns no documents.
@@ -59,12 +63,18 @@ fields. To avoid skipping random documents, use the ``sort()`` method to sort
 documents on a field with a unique value before setting a skip option. To learn
 more, see the :ref:`rust-sort-guide` guide.
 
-Example
-~~~~~~~
+.. _rust-skip-method:
 
-The following example performs a ``find()`` operation with the following behavior:
+skip() Method Example
+~~~~~~~~~~~~~~~~~~~~~~
 
-- Sorts the results in ascending order on the ``author`` field
+The ``skip()`` method takes an integer that specifies the number of documents to
+omit from the beginning of the result set. You can chain the ``skip()`` method
+to the ``find()`` method to skip documents.
+
+This example runs a ``find()`` operation that performs the following actions:
+
+- Sorts the results in ascending order of their ``author`` field values
 - Skips the first two documents
 - Returns the remaining documents
 
@@ -84,12 +94,17 @@ The following example performs a ``find()`` operation with the following behavio
       Book { name: "A Dance with Dragons", author: "Martin", length: 1104 }
       Book { name: "Atlas Shrugged", author: "Rand", length: 1088 }
 
+.. _rust-findoptions-skip:
+
 Options Example
 ~~~~~~~~~~~~~~~
 
-Alternatively, you can use the ``skip()`` method of the ``FindOptions`` struct.
-The following example performs a ``find()`` operation with the following
-behavior:
+Alternatively, you can set the ``skip`` field of the ``FindOptions`` struct by
+using the ``skip()`` setter method. Then, chain the ``with_options()`` method to
+the ``find()`` method and pass your ``FindOptions`` struct as a parameter to the
+``with_options()`` method.
+
+This example runs a ``find()`` operation that performs the following actions:
 
 - Sorts the results in descending order on the ``name`` field
 - Skips the first document
@@ -113,7 +128,7 @@ behavior:
       Book { name: "Atlas Shrugged", author: "Rand", length: 1088 }
 
 Aggregation
------------
+~~~~~~~~~~~
 
 You can use the ``$skip`` stage in an aggregation pipeline to skip documents. To
 learn more, see the :ref:`rust-aggregation` guide.
@@ -121,8 +136,7 @@ learn more, see the :ref:`rust-aggregation` guide.
 Example
 ~~~~~~~
 
-The following example uses the ``aggregate()`` method to perform an aggregation
-operation with the following behavior: 
+This example runs an aggregation pipeline that performs the following actions:
 
 - Sorts the results in ascending order on the ``author`` field 
 - Skips the first document
@@ -148,7 +162,7 @@ operation with the following behavior:
 Additional Information
 ----------------------
 
-To learn more about the operations mentioned in this guide, see the following:
+To learn more about the operations mentioned in this guide, see the following guides:
 
 - :ref:`rust-query-guide`
 - :ref:`rust-retrieve-guide`
@@ -161,7 +175,7 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 To learn more about any of the methods or types discussed in this guide, see the
-following API Documentation:
+following API documentation:
 
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__
