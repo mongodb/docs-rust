@@ -57,8 +57,6 @@ This section describes how to skip results retrieved by a query in the following
 Alternatively, you can :ref:`skip documents in an aggregation pipeline
 <rust-aggregation-skip>`.
 
-When you skip documents, the driver omits the specified number of documents from
-
 If the number of skipped documents exceeds the number of matched documents for a
 query, then that query returns no documents.
 
