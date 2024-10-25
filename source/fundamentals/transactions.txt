@@ -94,9 +94,9 @@ describes these methods:
          transaction was committed or ended.
 
    * - ``and_run()``
-     - | Runs the given callback, then commits or ends the transaction. If
-         the callback raises an error with a ``TRANSIENT_TRANSACTION_ERROR``
-         label, the driver retries the callback. If the callback raises any
+     - | Runs the given callback, then commits or ends the transaction. The
+         driver retries callbacks and commits that raise an error with a
+         ``TRANSIENT_TRANSACTION_ERROR`` label. If they raise any
          other error, the driver ends the transaction and returns the error
          to the caller. When you use this method to perform a transaction,
          the driver automatically handles any errors, so you can choose to omit
