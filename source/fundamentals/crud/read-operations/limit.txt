@@ -76,7 +76,7 @@ to the ``find()`` method.
 This example runs a ``find()`` operation that performs the following actions:
 
 - Sorts the results in ascending order of their ``length`` field values
-- Limits the results to the first three results
+- Limits the results to the first three documents
 
 .. io-code-block::
    :copyable: true
