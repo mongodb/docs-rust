@@ -24,13 +24,12 @@ In this guide, you can learn how to use the {+driver-long+} to perform **limit**
 operations to limit the number of returned documents from a read operation.
 
 Use the ``limit()`` method to cap the number of documents that a read operation
-can return. The operation will return a smaller number of documents if there are
-not enough documents present to reach the specified limit. 
+can return. The operation returns fewer documents if there are not enough
+documents present to reach the specified limit. 
 
 If you use the ``limit()`` method with the ``skip()`` method, the skip applies
-first and the limit only applies to the documents remaining after the skip. To
-learn more about skip operations, see :ref:`Skip Returned Results
-<rust-skip-guide>`.
+first, and the limit only applies to the remaining documents. To learn more
+about skip operations, see :ref:`Skip Returned Results <rust-skip-guide>`.
 
 Sample Data for Examples
 ------------------------
@@ -77,7 +76,7 @@ to the ``find()`` method.
 This example runs a ``find()`` operation that performs the following actions:
 
 - Sorts the results in ascending order of their ``length`` field values
-- Limits the results to the first two results
+- Limits the results to the first three results
 
 .. io-code-block::
    :copyable: true
