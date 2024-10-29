@@ -21,7 +21,8 @@ Overview
 --------
 
 In this guide, you can learn how to use the {+driver-long+} to perform **limit**
-operations to limit the number of returned documents from a read operation.
+operations. These operations specify the number of documents returned from a
+read operation.
 
 Use the ``limit()`` method to cap the number of documents that a read operation
 can return. The operation returns fewer documents if there are not enough
@@ -29,7 +30,8 @@ documents present to reach the specified limit.
 
 If you use the ``limit()`` method with the ``skip()`` method, the skip applies
 first, and the limit only applies to the remaining documents. To learn more
-about skip operations, see :ref:`Skip Returned Results <rust-skip-guide>`.
+about skip operations, see the :ref:`Skip Returned Results <rust-skip-guide>`
+guide.
 
 Sample Data for Examples
 ------------------------
@@ -62,7 +64,7 @@ This section describes how to limit results in the following ways:
 
 - :ref:`limit() method <rust-limit-method>`: Chain the ``limit()`` method to the
   ``find()`` method
-- :ref:`FindOptions struct <rust-findoptions-limit>`: Use the ``limit()`` option
+- :ref:`FindOptions struct <rust-findoptions-limit>`: Use the ``limit`` option
 - :ref:`Aggregation pipleline <rust-aggregation-limit>`: Create a pipeline that uses the ``$limit`` stage
 
 .. _rust-limit-method:
@@ -166,7 +168,6 @@ To learn more about the operations mentioned in this guide, see the following gu
 
 - :ref:`rust-query-guide`
 - :ref:`rust-retrieve-guide`
-- :ref:`rust-compound-operations`
 - :ref:`rust-aggregation`
 - :ref:`rust-sort-guide`
 
@@ -178,7 +179,5 @@ following API documentation:
 
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__
-- `FindOneOptions <{+api+}/options/struct.FindOneOptions.html>`__
 - `Cursor <{+api+}/struct.Cursor.html>`__
 - `aggregate() <{+api+}/struct.Collection.html#method.aggregate>`__
-- `AggregateOptions <{+api+}/options/struct.AggregateOptions.html>`__

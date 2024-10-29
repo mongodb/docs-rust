@@ -81,7 +81,7 @@ async fn main() -> mongodb::error::Result<()> {
 // end-limit-options-example
 
 // Retrieves documents in the collection, sorts results by their "length" field
-// values, the limits the results to the first document.
+// values, then limits the results to the first document.
 // start-aggregation-limit-example
 let pipeline = vec![
     doc! { "$match": {} },
