@@ -352,10 +352,10 @@ Example
 This example shows how to call the ``aggregate()`` method with a
 pipeline that contains the following stages:
 
-- A ``$group`` stage to calculate the average of the ``unit_price``
-  field for each value of the ``category`` field.
-- A ``$sort`` stage to order results by ``avg_price`` in ascending
-  order.
+- ``$group`` stage to calculate the average of the ``unit_price``
+  field for each value of the ``category`` field
+- ``$sort`` stage to order results by ``avg_price`` in ascending
+  order
 
 .. io-code-block::
    :copyable: true
