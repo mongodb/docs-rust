@@ -130,8 +130,11 @@ To learn more about the operations mentioned in this guide, see the following gu
 - :ref:`rust-compound-operations`
 - :ref:`rust-aggregation`
 - :ref:`rust-sort-guide`
+<<<<<<< HEAD
 
 .. - :ref:`rust-limit-guide`
+=======
+>>>>>>> 1704aa5 (DOCSP-43423 Add limit returned results page (#134))
 
 API Documentation
 ~~~~~~~~~~~~~~~~~

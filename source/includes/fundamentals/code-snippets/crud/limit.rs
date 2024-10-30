@@ -1,5 +1,5 @@
 use std::env;
-use mongodb::{ bson::doc, Client, Collection, options::FindOptions };
+use mongodb::{ bson::doc, bson::Document, Client, Collection, options::FindOptions };
 use serde::{Deserialize, Serialize};
 use futures::stream::TryStreamExt;
 
@@ -21,59 +21,80 @@ async fn main() -> mongodb::error::Result<()> {
 
     let books = vec![
         Book {
+            id: 1,
             name: "The Brothers Karamazov".to_string(),
             author: "Dostoyevsky".to_string(),
             length: 824,
         },
         Book {
+            id: 2,
             name: "Atlas Shrugged".to_string(),
             author: "Rand".to_string(),
             length: 1088,
         },
         Book {
+            id: 3,
             name: "Les Misérables".to_string(),
             author: "Hugo".to_string(),
             length: 1462,
         },
         Book {
+            id: 4,
             name: "A Dance with Dragons".to_string(),
             author: "Martin".to_string(),
             length: 1104,
         },
     ];
 
-    my_coll.insert_many(books, None).await?;
+    my_coll.insert_many(books).await?;
 // end-sample-data
 
-// Retrieves documents in the collection, sorts results by their "author" field
-// values, and skips the first two results.
-// start-skip-example
+// Retrieves documents in the collection, sorts results by their "length" field
+// values, and limits the results to three documents.
+// start-limit-example
+    let mut cursor = my_coll
+        .find(doc! {})
+        .sort(doc! { "length": 1 })
+        .limit(3).await?;
+
+    while let Some(result) = cursor.try_next().await? {
+    println!("{:?}", result);
+    }
+// end-limit-example
+
+// Filters the results to only include documents where the "length" field value
+// is greater than 1000, then sorts results by their "length" field values, and
+// limits the results to the first two documents.
+// start-limit-options-example
+    let filter = doc! { "length": { "$gt": 1000 } };
+
     let find_options = FindOptions::builder()
-        .sort(doc! { "author": 1 })
-        .skip(2)
+        .sort(doc! { "length": 1 })
+        .limit(2)
         .build();
-    let mut cursor = my_coll.find(doc! {}, find_options).await?;
+
+    let mut cursor = my_coll.find(filter).with_options(find_options).await?;
 
     while let Some(result) = cursor.try_next().await? {
         println!("{:?}", result);
     }
-// end-skip-example
+// end-limit-options-example
 
-// Retrieves documents in the collection, sorts results by their "author" field,
-// then skips the first two results in an aggregation pipeline.
-// start-aggregation-example
+// Retrieves documents in the collection, sorts results by their "length" field
+// values, then limits the results to the first document.
+// start-aggregation-limit-example
 let pipeline = vec![
     doc! { "$match": {} },
-    doc! { "$sort": { "author": 1 } },
-    doc! { "$skip": 1 },
+    doc! { "$sort": { "length": -1 } },
+    doc! { "$limit": 2 },
 ];
 
-let mut cursor = my_coll.aggregate(pipeline, None).await?;
+let mut cursor = my_coll.aggregate(pipeline).await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
 }
-// end-aggregation-example
+// end-aggregation-limit-example
 
     Ok(())
 }
