@@ -4,6 +4,19 @@
 Find a Document
 ===============
 
+.. facet::
+   :name: genre
+   :values: reference
+
+.. meta::
+   :keywords: first, retrieve, code example
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 2
+   :class: singlecol
+
 You can retrieve a single document from a collection by calling the `find_one() 
 <{+api+}/struct.Collection.html#method.find_one>`__ method on a ``Collection`` instance. 
 
