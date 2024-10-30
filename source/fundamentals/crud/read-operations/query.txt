@@ -240,7 +240,7 @@ divisible by ``3``:
    .. code-block:: rust
 
       my_coll.find(doc! {
-         $and: [
+         "$and": [
             doc! { "price": { "$eq": 5 }},
             doc! { "quantity": { "$gt": 4 }}
          ]
