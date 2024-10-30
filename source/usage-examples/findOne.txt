@@ -39,7 +39,7 @@ collection in the ``sample_restaurants`` database. The ``find_one()`` method ret
 first document in which the value of the ``name`` field is ``"Tompkins Square Bagels"``.
 
 You can model the retrieved document as a BSON data type or a custom data type. To specify
-which data type models the collection's data, replace the ``<T>`` type parameter on the
+which data type represents the collection's data, replace the ``<T>`` type parameter on the
 highlighted line with one of the following values:
 
 - ``<Document>``: Retrieves and prints collection documents as BSON documents
