@@ -43,7 +43,7 @@ see the corresponding code for each runtime:
 
       .. literalinclude:: /includes/usage-examples/code-snippets/find-one-async.rs
          :language: rust
-         :emphasize-lines: 19
+         :emphasize-lines: 20
          :dedent:
 
    .. tab:: Synchronous
@@ -51,7 +51,7 @@ see the corresponding code for each runtime:
 
       .. literalinclude:: /includes/usage-examples/code-snippets/find-one-sync.rs
          :language: rust
-         :emphasize-lines: 17
+         :emphasize-lines: 18
          :dedent:
 
 Output 
