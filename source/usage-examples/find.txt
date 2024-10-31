@@ -60,7 +60,7 @@ see the corresponding code for each runtime:
 
       .. literalinclude:: /includes/usage-examples/code-snippets/find-async.rs
          :language: rust
-         :emphasize-lines: 22
+         :emphasize-lines: 21
          :dedent:
 
    .. tab:: Synchronous
@@ -68,7 +68,7 @@ see the corresponding code for each runtime:
 
       .. literalinclude:: /includes/usage-examples/code-snippets/find-sync.rs
          :language: rust
-         :emphasize-lines: 19
+         :emphasize-lines: 18
          :dedent:
 
 Output 
@@ -127,6 +127,12 @@ see the corresponding code output based on your collection's type parameter:
          :copyable: false
 
          ...
-         Restaurant { name: "Cafe Un Deux Trois", cuisine: "French" }
-         Restaurant { name: "Calliope", cuisine: "French" }
+         Restaurant {
+            name: "Cafe Un Deux Trois",
+            cuisine: "French",
+         }
+         Restaurant {
+            name: "Calliope",
+            cuisine: "French",
+         }
          ...
