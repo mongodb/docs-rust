@@ -91,15 +91,11 @@ see the corresponding code output based on your collection's type parameter:
                "_id": ObjectId(
                      "...",
                ),
-
                ...
-
                "name": String(
                      "Cafe Un Deux Trois",
                ),
-               "restaurant_id": String(
-                     "40369461",
-               ),
+               ...
             }),
          ),
          Some(
@@ -107,15 +103,11 @@ see the corresponding code output based on your collection's type parameter:
                "_id": ObjectId(
                      "...",
                ),
-
                ...
-
                "name": String(
                      "Calliope",
                ),
-               "restaurant_id": String(
-                     "41665122",
-               ),
+               ...
             }),
          )
          ...

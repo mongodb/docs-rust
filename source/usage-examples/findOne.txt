@@ -86,15 +86,11 @@ see the corresponding code output based on your collection's type parameter:
                "_id": ObjectId(
                      "...",
                ),
-
                ...
-
                "name": String(
                      "Tompkins Square Bagels",
                ),
-               "restaurant_id": String(
-                     "41605054",
-               ),
+               ...
             }),
          )
 
