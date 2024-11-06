@@ -1,6 +1,7 @@
 use std::env;
 use mongodb::{ bson::doc, Client, Collection };
 use bson::Document;
+use serde::{ Deserialize, Serialize };
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Address {

@@ -3,6 +3,7 @@ use mongodb::{
     bson::{ Document, doc },
     sync::{ Client, Collection } 
 };
+use serde::{ Deserialize, Serialize };
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Address {
