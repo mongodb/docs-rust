@@ -59,6 +59,9 @@ information about its categorization and unit price:
    :start-after: start-sample
    :end-before: end-sample
 
+To learn how to insert this data into a collection, see the
+:ref:`rust-insert-guide` guide.
+
 .. _rust-retrieve-find:
 
 Find Operations
@@ -166,7 +169,6 @@ fields that you can set by calling their corresponding builder methods:
        | Default: ``None``
 
 .. TODO link to projection fundamentals page under projection setting
-.. TODO link to skip fundamentals page under skip setting
 
 .. note:: Setting Options
    
@@ -350,9 +352,10 @@ Example
 This example shows how to call the ``aggregate()`` method with a
 pipeline that contains the following stages:
 
-- A ``$group`` stage to group documents by the ``category`` field and
-  calculate the average of the ``unit_price`` field by ``category``
-- A ``$sort`` stage to by ``avg_price`` in ascending order
+- ``$group`` stage to calculate the average of the ``unit_price``
+  field for each value of the ``category`` field
+- ``$sort`` stage to order results by ``avg_price`` in ascending
+  order
 
 .. io-code-block::
    :copyable: true
@@ -390,8 +393,7 @@ following documentation:
 - :ref:`rust-aggregation` guide
 - :ref:`rust-sort-guide` guide
 - :ref:`rust-skip-guide` guide
-
-.. - :ref:`rust-limit-guide`
+- :ref:`rust-limit-guide` guide
 .. - :ref:`rust-project-guide`
 .. - :ref:`rust-collations-guide`
 
