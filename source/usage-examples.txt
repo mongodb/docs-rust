@@ -19,17 +19,17 @@ Usage Examples
 
 .. toctree::
 
-   /usage-examples/findOne
-   /usage-examples/find
-   /usage-examples/insertOne
-   /usage-examples/insertMany
-   /usage-examples/updateOne
-   /usage-examples/updateMany
-   /usage-examples/replace
-   /usage-examples/deleteOne
-   /usage-examples/deleteMany
-   /usage-examples/count
-   /usage-examples/distinct
+   Find a Document </usage-examples/findOne>
+   Find Multiple Documents </usage-examples/find>
+   Insert a Document </usage-examples/insertOne>
+   Insert Multiple Documents </usage-examples/insertMany>
+   Update a Document </usage-examples/updateOne>
+   Update Multiple Documents </usage-examples/updateMany>
+   Update a Document </usage-examples/replace>
+   Update Multiple Documents </usage-examples/deleteOne>
+   Replace a Document </usage-examples/deleteMany>
+   Count Documents </usage-examples/count>
+   List Distinct Field Values </usage-examples/distinct>
 
 Overview
 --------
