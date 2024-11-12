@@ -25,9 +25,9 @@ Usage Examples
    Insert Multiple Documents </usage-examples/insertMany>
    Update a Document </usage-examples/updateOne>
    Update Multiple Documents </usage-examples/updateMany>
-   Update a Document </usage-examples/replace>
-   Update Multiple Documents </usage-examples/deleteOne>
-   Replace a Document </usage-examples/deleteMany>
+   Replace a Document </usage-examples/replace>
+   Delete a Documents </usage-examples/deleteOne>
+   Delete Multiple Documents </usage-examples/deleteMany>
    Count Documents </usage-examples/count>
    List Distinct Field Values </usage-examples/distinct>
 
