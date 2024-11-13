@@ -31,7 +31,7 @@ the ``near_me`` field to documents in which the value of the ``address.street``
 field is ``"Sullivan Street"`` and the ``borough`` field is ``"Manhattan"``.
 
 You can access the documents in the ``restaurants`` collection as instances
-of the BSON data type or a custom data type. To specify which data type represents
+of the ``Document`` type or a custom data type. To specify which data type represents
 the collection's data, replace the ``<T>`` type parameter on the highlighted
 line with one of the following values:
 

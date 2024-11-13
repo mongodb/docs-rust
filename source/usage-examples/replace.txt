@@ -31,7 +31,7 @@ the first document in which the value of the ``name`` field is
 ``"Landmark Coffee Shop"`` with a new document.
 
 You can access the documents in the ``restaurants`` collection as instances
-of the BSON data type or a custom data type. To specify which data type represents
+of the ``Document`` type or a custom data type. To specify which data type represents
 the collection's data, perform the following actions on the highlighted lines:
 
 - To access collection documents as BSON documents, replace the ``<T>`` type
