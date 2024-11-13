@@ -9,7 +9,7 @@
    Quick Start </quick-start>
    Quick Reference </quick-reference>
    What's New </whats-new>
-   Usage Examples </usage-examples>
+   CRUD Examples </usage-examples>
    Fundamentals </fundamentals>
    API Documentation <{+api+}/>
    FAQ </faq>

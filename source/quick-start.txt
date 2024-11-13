@@ -20,9 +20,9 @@ Rust Driver Quick Start
 .. toctree::
 
    Download & Install </quick-start/download-and-install/>
-   Create a MongDB Deployment </quick-start/create-a-deployment/>
+   Create a Deployment </quick-start/create-a-deployment/>
    Create a Connection String </quick-start/create-a-connection-string/>
-   Connect to MongoDB </quick-start/connect-to-mongodb/>
+   Connect </quick-start/connect-to-mongodb/>
    Next Steps </quick-start/next-steps/>
 
 Overview

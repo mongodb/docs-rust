@@ -21,7 +21,7 @@ Fundamentals
    Transactions </fundamentals/transactions>
    Time Series Collections </fundamentals/time-series>
    Tracing & Logging </fundamentals/tracing-logging>
-   Run a Command </fundamentals/run-command>
+   Database Commands </fundamentals/run-command>
    Performance Considerations </fundamentals/performance>
    Async & Sync APIs </fundamentals/runtimes>
    Monitoring </fundamentals/monitoring>
