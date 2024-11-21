@@ -83,7 +83,7 @@ async fn main() -> mongodb::error::Result<()> {
     async fn cb(params: CallbackContext) -> mongodb::error::Result<IdpServerResponse> {
 	    idp_info := params.idp_info.ok_or(Error::NoIDPInfo)?;
         let (access_token, expires, refresh_token) = negotiate_with_idp(ctx, idpInfo.Issuer).await?;
-	    Ok(oidc::IdpServerResponse {
+	        Ok(oidc::IdpServerResponse {
             access_token,
             expires: Some(expires),
             refresh_token: Some(refresh_token),

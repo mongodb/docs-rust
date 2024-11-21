@@ -175,8 +175,8 @@ You can configure the OIDC for GCP IMDS by setting the ``mechanism`` field of yo
 specifies the authentication mechaism by using the following placeholders in the 
 ``mechanism_properties`` field:
 
-- ``ENVIRONMENT``: Set this to ``gcp``.
-- ``TOKEN_RESOURCE``: Set this to the value of the audience parameter configured
+- ``ENVIRONMENT``: Set this property to ``gcp``.
+- ``TOKEN_RESOURCE``: Set this property to the value of the audience parameter configured
   on your MongoDB deployment.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/enterprise-auth.rs
@@ -196,9 +196,9 @@ including the AWS Elastic Kubernetes Service (EKS). To authenticate
 against unsupported platforms, you must define a custom callback
 function to use OIDC to authenticate.
 
-The following example defines a custom callback for an EKS
-cluster with a configured IAM OIDC provider. The access token is 
-read from a path set in the ``AWS_WEB_IDENTITY_TOKEN_FILE`` environment
+The following example defines a custom callback for an EKS cluster with a
+configured Identity and Access Management (IAM) OIDC provider. The access token
+is read from a path set in the ``AWS_WEB_IDENTITY_TOKEN_FILE`` environment
 variable. Then, you can set the ``oidc_callback`` field of your ``Credential``
 struct to ``oidc::Callback::machine``:
 
@@ -207,16 +207,18 @@ struct to ``oidc::Callback::machine``:
    :dedent:
    :start-after: start-custom-callback-machine
    :end-before: end-custom-callback-machine
+   :emphasize-lines: 3, 5-10
 
-For workforce identity, you must configure the client by setting the
-``oidc_callback`` field of your ``Credential`` struct to
-``oidc::Callback::human`` instead of ``oidc::Callback::machine``. The
-{+driver-short+} uses the callback in the following process:
+When the workforce identity authentication process involves human interaction,
+you must configure the client by setting the ``oidc_callback`` field of your
+``Credential`` struct to ``oidc::Callback::human`` instead of
+``oidc::Callback::machine``. The {+driver-short+} uses the callback in the
+following process:
 
-1. The driver retrieves the Identiy Provider Information (IDPInfo) for the
+1. The driver retrieves the Identity Provider Information (IDPInfo) for the
    provided username.
 2. The callback negotiates with the IDP to obtain an ``AccessToken``, possible
-   ``RefreshToken``, and any times. Then, it returns them, similar to the
+   ``RefreshToken``, and any timeouts. Then, it returns them, similar to the
    ``OIDCMachineCallbacks``.
 
 The following example defines a custom callback to handle workforce identity.
