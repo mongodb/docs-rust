@@ -170,21 +170,24 @@ If your application runs on a Google Compute Engine VM, or otherwise uses the
 you can authenticate to MongoDB by using the {+driver-short+}'s built-in GCP
 support.
 
-You can configure the OIDC for GCP IMDS by setting the ``mechanism`` field of your
-``Credential`` struct to ``AuthMechanism::MongoDBOidc``. The following example
-specifies the authentication mechaism by using the following placeholders in the 
+You can configure OIDC for GCP IMDS by setting the ``mechanism`` field of your
+``Credential`` struct to ``AuthMechanism::MongoDBOidc``. Then, specify the
+authentication mechanism by setting the following values in the
 ``mechanism_properties`` field:
 
 - ``ENVIRONMENT``: Set this property to ``gcp``.
 - ``TOKEN_RESOURCE``: Set this property to the value of the audience parameter configured
   on your MongoDB deployment.
 
+The following code example shows how to set these options when creating a
+``Client``:
+
 .. literalinclude:: /includes/fundamentals/code-snippets/enterprise-auth.rs
    :language: rust
    :dedent:
    :start-after: start-gcp-imds
    :end-before: end-gcp-imds
-   :emphasize-lines: 2-3
+   :emphasize-lines: 2-4
 
 .. _rust-mongodb-oidc-custom-callback:
 
@@ -218,8 +221,7 @@ following process:
 1. The driver retrieves the Identity Provider Information (IDPInfo) for the
    provided username.
 2. The callback negotiates with the IDP to obtain an ``AccessToken``, possible
-   ``RefreshToken``, and any timeouts. Then, it returns them, similar to the
-   ``OIDCMachineCallbacks``.
+   ``RefreshToken``, and any timeouts, then returns them.
 
 The following example defines a custom callback to handle workforce identity.
 The callback retrieves the IDPInfo for the provided username and negotiates with
