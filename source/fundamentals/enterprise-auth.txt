@@ -129,7 +129,7 @@ authentication mechanism to authenticate to various platforms.
 To learn more about the MONGODB-OIDC authentication mechanism, see
 :manual:`OpenID Connect Authentication </core/security-oidc/>` and
 :manual:`MongoDB Server Parameters </reference/parameters/#mongodb-parameter-param.oidcIdentityProviders>`
-in the {+server+} manual.
+in the Server manual.
 
 .. _rust-mongodb-oidc-azure-imds:
 
