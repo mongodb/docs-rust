@@ -201,7 +201,7 @@ The {+driver-short+} doesn't offer built-in support for all platforms, including
 the AWS Elastic Kubernetes Service (EKS). To use OIDC to authenticate against
 unsupported platforms, you must define a custom callback function.
 
-The following code is an example implementation of custom callback for an EKS
+The following code is an example implementation of a custom callback for an EKS
 cluster. First, set the ``oidc_callback`` field of your ``Credential`` struct to
 ``oidc::Callback::machine``. Then, read the access token from a path set in the
 ``AWS_WEB_IDENTITY_TOKEN_FILE`` environment variable. Finally, set the value of
