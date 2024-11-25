@@ -142,9 +142,8 @@ If your application runs on an Azure VM, or otherwise uses the
 built-in Azure support.
 
 You can configure OIDC for Azure IMDS by setting the ``mechanism`` field of your
-``Credential`` struct to ``AuthMechanism::MongoDBOidc``. Then, specify the
-authentication mechanism by seting the following values in the
-``mechanism_properties`` field:
+``Credential`` struct to ``AuthMechanism::MongoDBOidc``. This example specifies
+the authentication mechanism by using the following placeholders:
 
 - ``username``:  If you're using an Azure managed identity, set this to the
   client ID of the managed identity. If you're using a service principal to
@@ -202,11 +201,12 @@ The {+driver-short+} doesn't offer built-in support for all platforms, including
 the AWS Elastic Kubernetes Service (EKS). To use OIDC to authenticate against
 unsupported platforms, you must define a custom callback function.
 
-First, define a custom callback for an EKS cluster with a configured Identity
-and Access Management (IAM) OIDC provider. Then, read the access token from a
-path set in the ``AWS_WEB_IDENTITY_TOKEN_FILE`` environment variable. Finally,
-set the ``oidc_callback`` field of your ``Credential`` struct to
-``oidc::Callback::machine`` as shown in the following example:
+The following code is an example implementation of custom callback for an EKS
+cluster. First, set the ``oidc_callback`` field of your ``Credential`` struct to
+``oidc::Callback::machine``. Then, read the access token from a path set in the
+``AWS_WEB_IDENTITY_TOKEN_FILE`` environment variable. Finally, set the value of
+the ``access_token`` field of the ``IdpServerResponse`` struct. Optionally, set
+the values of the ``expires`` and ``refresh_token`` fields.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/enterprise-auth.rs
    :language: rust
@@ -223,8 +223,8 @@ following process:
 
 1. The driver retrieves the Identity Provider Information (IDPInfo) for the
    provided username.
-#. The callback negotiates with the IDP to obtain an ``AccessToken``, and any
-   potential ``RefreshToken`` and timeout values, if configured, then returns
+#. The callback negotiates with the IDP to obtain an ``access_token``, and any
+   potential ``refresh_token`` and timeout values, if configured, then returns
    them.
 
 The following example defines a custom callback to handle workforce identity.
@@ -259,3 +259,5 @@ guide, see the following API documentation:
 - `ClientOptions <{+api+}/options/struct.ClientOptions.html>`__
 - `Client <{+api+}/struct.Client.html>`__
 - `with_options() <{+api+}/struct.Client.html#method.with_options>`__
+- `CallbackContext <{+api+}/options/oidc/struct.CallbackContext.html>`__
+- `IdpServerResponse <{+api+}/options/oidc/struct.IdpServerResponse.html>`__
