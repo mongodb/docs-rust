@@ -1,5 +1,12 @@
-use mongodb::{ bson::doc, options::{ ClientOptions, Credential, AuthMechanism }, Client };
 use mongodb::options::oidc::{self, CallbackContext, IdpServerResponse};
+use mongodb::{ 
+    bson::doc, 
+    bson::Document,
+    options::{ClientOptions, Credential, AuthMechanism}, 
+    Client,
+};
+use std::error::Error;
+use futures::FutureExt;
 
 #[tokio::main]
 async fn main() -> mongodb::error::Result<()> {
@@ -19,15 +26,16 @@ async fn main() -> mongodb::error::Result<()> {
     // end-ldap
 
     // start-azure-imds
-    client_options.credential = Credential::builder()
+    let credential = Credential::builder()
         .username("<username>".to_owned())
         .mechanism(AuthMechanism::MongoDbOidc)
         .mechanism_properties(
             doc! {"ENVIRONMENT": "azure", "TOKEN_RESOURCE": "<audience>"}
         )
         .build()
-        .into(); // Convert the builder into a Credential object
+        .into();
     
+    client_options.credential = Some(credential);
     let client = Client::with_options(client_options)?;
     let res = client
         .database("test")
@@ -37,14 +45,16 @@ async fn main() -> mongodb::error::Result<()> {
     // end-azure-imds
 
     // start-gcp-imds
-    opts.credential = Credential::builder()
+    let credential = Credential::builder()
         .mechanism(AuthMechanism::MongoDbOidc)
         .mechanism_properties(
             doc! {"ENVIRONMENT": "gcp", "TOKEN_RESOURCE": "<audience>"}
         )
         .build()
         .into();
-    let client = Client::with_options(opts)?;
+    
+    client_options.credential = Some(credential);
+    let client = Client::with_options(client_options)?;
     let res = client
         .database("test")
         .collection::<Document>("test")
@@ -53,11 +63,11 @@ async fn main() -> mongodb::error::Result<()> {
     // end-gcp-imds
 
     // start-custom-callback-machine
-    opts.credential = Credential::builder()
+    let credential = Credential::builder()
     .mechanism(AuthMechanism::MongoDbOidc)
     .oidc_callback(oidc::Callback::machine(move |_| {
         async move {
-            let token_file_path = std::env::var("AWS_WEB_IDENTITY_TOKEN_FILE")?;
+            let token_file_path = std::env::var("AWS_WEB_IDENTITY_TOKEN_FILE").map_err(mongodb::error::Error::custom)?;
             let access_token = tokio::fs::read_to_string(token_file_path).await?;
             Ok(IdpServerResponse {
                 access_token,
@@ -70,18 +80,19 @@ async fn main() -> mongodb::error::Result<()> {
     .build()
     .into();
 
-    let client = Client::with_options(opts)?;
+    credential_options.credentials = Some(credential);
+    let client = Client::with_options(client_options)?;
 
     let res = client
     .database("test")
-    .collection::<bson::Document>("test")
-    .find_one(doc! {}, None)
+    .collection::<Document>("test")
+    .find_one(doc! {})
     .await?;
     // end-custom-callback-machine
 
     // start-custom-callback-user
     async fn cb(params: CallbackContext) -> mongodb::error::Result<IdpServerResponse> {
-	    idp_info := params.idp_info.ok_or(Error::NoIDPInfo)?;
+	    let idp_info = params.idp_info.ok_or(Error::NoIDPInfo)?;
         let (access_token, expires, refresh_token) = negotiate_with_idp(ctx, idpInfo.Issuer).await?;
 	        Ok(oidc::IdpServerResponse {
             access_token,
@@ -89,7 +100,7 @@ async fn main() -> mongodb::error::Result<()> {
             refresh_token: Some(refresh_token),
          })
     }
-    opts.credential = Credential::builder()
+    client_options.credential = Credential::builder()
             .mechanism(AuthMechanism::MongoDbOidc)
             .oidc_callback(oidc::Callback::human(move|c| {
                  async move { cb(c).await }.boxed()

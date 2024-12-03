@@ -142,7 +142,7 @@ If your application runs on an Azure VM, or otherwise uses the
 built-in Azure support.
 
 You can configure OIDC for Azure IMDS by setting the ``mechanism`` field of your
-``Credential`` struct to ``AuthMechanism::MongoDBOidc``. This example specifies
+``Credential`` struct to ``AuthMechanism::MongoDbOidc``. This example specifies
 the authentication mechanism by using the following placeholders:
 
 - ``username``:  If you're using an Azure managed identity, set this to the
@@ -174,7 +174,7 @@ you can authenticate to MongoDB by using the {+driver-short+}'s built-in GCP
 support.
 
 You can configure OIDC for GCP IMDS by setting the ``mechanism`` field of your
-``Credential`` struct to ``AuthMechanism::MongoDBOidc``. Then, specify the
+``Credential`` struct to ``AuthMechanism::MongoDbOidc``. Then, specify the
 authentication mechanism by setting the following values in the
 ``mechanism_properties`` field:
 
