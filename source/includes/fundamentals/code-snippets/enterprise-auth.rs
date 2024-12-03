@@ -69,18 +69,14 @@ async fn main() -> mongodb::error::Result<()> {
         async move {
             let token_file_path = std::env::var("AWS_WEB_IDENTITY_TOKEN_FILE").map_err(mongodb::error::Error::custom)?;
             let access_token = tokio::fs::read_to_string(token_file_path).await?;
-            Ok(IdpServerResponse {
-                access_token,
-                expires: None,
-                refresh_token: None,
-            })
+            Ok(IdpServerResponse::builder().access_token(access_token).build())
         }
         .boxed()
     }))
     .build()
     .into();
 
-    credential_options.credentials = Some(credential);
+    client_options.credential = Some(credential);
     let client = Client::with_options(client_options)?;
 
     let res = client
@@ -94,11 +90,7 @@ async fn main() -> mongodb::error::Result<()> {
     async fn cb(params: CallbackContext) -> mongodb::error::Result<IdpServerResponse> {
 	    let idp_info = params.idp_info.ok_or(Error::NoIDPInfo)?;
         let (access_token, expires, refresh_token) = negotiate_with_idp(ctx, idpInfo.Issuer).await?;
-	        Ok(oidc::IdpServerResponse {
-            access_token,
-            expires: Some(expires),
-            refresh_token: Some(refresh_token),
-         })
+	        Ok(IdpServerResponse::builder().access_token(access_token).expires(expires).refresh_token(refresh_token).build())
     }
     client_options.credential = Credential::builder()
             .mechanism(AuthMechanism::MongoDbOidc)
