@@ -57,7 +57,7 @@ see the corresponding code for each runtime:
 
          .. input:: /includes/usage-examples/code-snippets/insert-one-async.rs
             :language: rust
-            :emphasize-lines: 19, 35
+            :emphasize-lines: 23, 39
             :dedent:
 
          .. output::
@@ -74,7 +74,7 @@ see the corresponding code for each runtime:
 
          .. input:: /includes/usage-examples/code-snippets/insert-one-sync.rs
             :language: rust
-            :emphasize-lines: 18, 34
+            :emphasize-lines: 21, 37
             :dedent:
 
          .. output::
