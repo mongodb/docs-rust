@@ -1,5 +1,8 @@
 use std::env;
-use mongodb::{ bson::doc, sync::{ Client, Collection } };
+use mongodb::{
+    bson::{doc, Document},
+    sync::{ Client, Collection }
+};
 use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize, Debug)]

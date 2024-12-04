@@ -1,5 +1,5 @@
 use mongodb::{
-    bson::doc,
+    bson::{doc, Document},
     sync::{Client, Collection}
 };
 use serde::{ Deserialize, Serialize };
@@ -23,11 +23,11 @@ fn main() -> mongodb::error::Result<()> {
         doc! { 
             "name": "While in Kathmandu",
             "cuisine": "Nepalese",
-        };
+        },
         doc! { 
             "name": "Cafe Himalaya",
             "cuisine": "Nepalese",
-        };
+        }
     ];
     let insert_structs = vec! [
         Restaurant {

@@ -1,5 +1,9 @@
 use std::env;
-use mongodb::{ bson::doc, Client, Collection };
+use mongodb::{ 
+    bson::{doc, Document},
+    Client,
+    Collection 
+};
 use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize, Debug)]
