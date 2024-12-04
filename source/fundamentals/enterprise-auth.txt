@@ -213,7 +213,7 @@ the values of the ``expires`` and ``refresh_token`` fields.
    :dedent:
    :start-after: start-custom-callback-machine
    :end-before: end-custom-callback-machine
-   :emphasize-lines: 3, 5-10
+   :emphasize-lines: 3, 5-7
 
 When the workforce identity authentication process involves human interaction,
 you must configure the client by setting the ``oidc_callback`` field of your
@@ -227,16 +227,18 @@ following process:
    potential ``refresh_token`` and timeout values, if configured, then returns
    them.
 
-The following example defines a custom callback to handle workforce identity.
-The callback retrieves the IDPInfo for the provided username and negotiates with
-the IDP to obtain the necessary tokens:
+The following example defines a custom callback to handle workforce identity. To
+customize this example for your use case, replace ``<human flow>`` with your own
+custom flow. Refer to `Authorization Code Flow with OIDC
+<https://auth0.com/docs/authenticate/login/oidc-conformant-authentication/oidc-adoption-auth-code-flow>`__
+for more details.
 
 .. literalinclude:: /includes/fundamentals/code-snippets/enterprise-auth.rs
    :language: rust
    :dedent:
    :start-after: start-custom-callback-user
    :end-before: end-custom-callback-user
-   :emphasize-lines: 3-7, 12
+   :emphasize-lines: 3
 
 Additional Information
 ----------------------

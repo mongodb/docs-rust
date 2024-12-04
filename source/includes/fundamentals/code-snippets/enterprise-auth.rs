@@ -30,10 +30,9 @@ async fn main() -> mongodb::error::Result<()> {
         .username("<username>".to_owned())
         .mechanism(AuthMechanism::MongoDbOidc)
         .mechanism_properties(
-            doc! {"ENVIRONMENT": "azure", "TOKEN_RESOURCE": "<audience>"}
+            doc! { "ENVIRONMENT": "azure", "TOKEN_RESOURCE": "<audience>" }
         )
-        .build()
-        .into();
+        .build();
     
     client_options.credential = Some(credential);
     let client = Client::with_options(client_options)?;
@@ -48,10 +47,9 @@ async fn main() -> mongodb::error::Result<()> {
     let credential = Credential::builder()
         .mechanism(AuthMechanism::MongoDbOidc)
         .mechanism_properties(
-            doc! {"ENVIRONMENT": "gcp", "TOKEN_RESOURCE": "<audience>"}
+            doc! { "ENVIRONMENT": "gcp", "TOKEN_RESOURCE": "<audience>" }
         )
-        .build()
-        .into();
+        .build();
     
     client_options.credential = Some(credential);
     let client = Client::with_options(client_options)?;
@@ -87,23 +85,25 @@ async fn main() -> mongodb::error::Result<()> {
     // end-custom-callback-machine
 
     // start-custom-callback-user
-    async fn cb(params: CallbackContext) -> mongodb::error::Result<IdpServerResponse> {
-	    let idp_info = params.idp_info.ok_or(Error::NoIDPInfo)?;
-        let (access_token, expires, refresh_token) = negotiate_with_idp(ctx, idpInfo.Issuer).await?;
-	        Ok(IdpServerResponse::builder().access_token(access_token).expires(expires).refresh_token(refresh_token).build())
-    }
-    client_options.credential = Credential::builder()
-            .mechanism(AuthMechanism::MongoDbOidc)
-            .oidc_callback(oidc::Callback::human(move|c| {
-                 async move { cb(c).await }.boxed()
-            }))
-            .build()
-            .into();
+    let callback = Callback::human(move |context| {
+        async move {
+            "<human flow>"
+            todo!()
+        }
+        .boxed()
+    });
+    let credential = Credential::builder()
+        .mechanism(AuthMechanism::MongoDbOidc)
+        .oidc_callback(callback)
+        .build();
+    client_options.credential = Some(credential);
+    let client = Client::with_options(client_options)?;
+    
     let res = client
             .database("test")
             .collection::<Document>("test")
             .find_one(doc! {})
-            .await;
+            .await?;
     // end-custom-callback-user
 
     Ok(())
