@@ -224,8 +224,8 @@ following process:
 1. The driver retrieves the Identity Provider Information (IDPInfo) for the
    provided username.
 #. The callback negotiates with the IDP to obtain an ``access_token``, and any
-   potential ``refresh_token`` and timeout values, if configured, then returns
-   them.
+   potential ``refresh_token`` and timeout values, if configured. The callback
+   returns a ``Result<IdpServerInfo>``.
 
 The following example defines a custom callback to handle workforce identity. To
 customize this example for your use case, replace ``<human flow>`` with your own
@@ -263,3 +263,4 @@ guide, see the following API documentation:
 - `with_options() <{+api+}/struct.Client.html#method.with_options>`__
 - `CallbackContext <{+api+}/options/oidc/struct.CallbackContext.html>`__
 - `IdpServerResponse <{+api+}/options/oidc/struct.IdpServerResponse.html>`__
+- `IdpServerInfo <{+api+}/options/oidc/struct.IdpServerInfo.html>`__

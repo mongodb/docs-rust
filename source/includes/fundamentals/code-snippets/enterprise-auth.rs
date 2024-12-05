@@ -1,4 +1,4 @@
-use mongodb::options::oidc::{self, CallbackContext, IdpServerResponse};
+use mongodb::options::oidc::{self, Callback, CallbackContext, IdpServerResponse};
 use mongodb::{ 
     bson::doc, 
     bson::Document,
@@ -78,17 +78,17 @@ async fn main() -> mongodb::error::Result<()> {
     let client = Client::with_options(client_options)?;
 
     let res = client
-    .database("test")
-    .collection::<Document>("test")
-    .find_one(doc! {})
-    .await?;
+        .database("test")
+        .collection::<Document>("test")
+        .find_one(doc! {})
+        .await?;
     // end-custom-callback-machine
 
     // start-custom-callback-user
     let callback = Callback::human(move |context| {
         async move {
-            "<human flow>"
-            todo!()
+            "<human flow>";
+            todo!("human flow")
         }
         .boxed()
     });
@@ -98,12 +98,12 @@ async fn main() -> mongodb::error::Result<()> {
         .build();
     client_options.credential = Some(credential);
     let client = Client::with_options(client_options)?;
-    
+
     let res = client
-            .database("test")
-            .collection::<Document>("test")
-            .find_one(doc! {})
-            .await?;
+        .database("test")
+        .collection::<Document>("test")
+        .find_one(doc! {})
+        .await?;
     // end-custom-callback-user
 
     Ok(())
