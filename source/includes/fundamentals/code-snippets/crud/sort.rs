@@ -46,14 +46,17 @@ async fn main() -> mongodb::error::Result<()> {
         },
     ];
 
-    my_coll.insert_many(books).await?;
+    my_coll.insert_many(books, None).await?;
 // end-sample-data
 
 // start-sort-query
-let mut cursor = my_coll
-    .find(doc! {})
+let opts = FindOptions::builder()
     // 1 for ascending order, -1 for descending order
     .sort(doc! { "author": 1 })
+    .build();
+
+let mut cursor = my_coll
+    .find(doc! {}, opts)
     .await?;
 
 while let Some(result) = cursor.try_next().await? {
@@ -61,28 +64,14 @@ while let Some(result) = cursor.try_next().await? {
 }
 // end-sort-query
 
-// start-sort-query-multiple-options
-let find_options = FindOptions::builder()
-    // 1 for ascending order, -1 for descending order
-    .sort(doc! { "author": 1 })
-    .skip(1)
-    .build();
-
-let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
-
-while let Some(result) = cursor.try_next().await? {
-    println!("{:?}", result);
-}
-// end-sort-query-multiple-options
-
 // start-sort-aggregation
 let pipeline = vec![
-    docs! { "$match": {} },
+    doc! { "$match": {} },
     // 1 for ascending order, -1 for descending order
     doc! { "$sort": { "author": 1 } }
 ];
 
-let mut cursor = my_coll.aggregate(pipeline).await?;
+let mut cursor = my_coll.aggregate(pipeline, None).await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
@@ -90,9 +79,12 @@ while let Some(result) = cursor.try_next().await? {
 // end-sort-aggregation
 
 // start-ascending-sort
-let mut cursor = my_coll
-    .find(doc! {})
+let opts = FindOptions::builder()
     .sort(doc! { "name": 1 })
+    .build();
+
+let mut cursor = my_coll
+    .find(doc! {}, opts)
     .await?;
 
 while let Some(result) = cursor.try_next().await? {
@@ -101,9 +93,12 @@ while let Some(result) = cursor.try_next().await? {
 // end-ascending-sort
 
 // start-descending-sort
-let mut cursor = my_coll
-    .find(doc! {})
+let opts = FindOptions::builder()
     .sort(doc! { "name": -1 })
+    .build();
+
+let mut cursor = my_coll
+    .find(doc! {}, opts)
     .await?;
 
 while let Some(result) = cursor.try_next().await? {

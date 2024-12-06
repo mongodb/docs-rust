@@ -58,30 +58,16 @@ Methods for Sorting
 You can sort results retrieved by a query, or you can sort results within an
 aggregation pipeline.
 
-Chain the ``sort()`` method to the ``find()`` method to sort results retrieved
-by the query, as shown in the following example:
+This example shows how to call the ``find()`` method with the following
+parameters:
+
+- A query filter that matches all documents
+- A ``FindOptions`` instance that sorts matched documents by ``author`` in
+  ascending order
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
    :start-after: start-sort-query
    :end-before: end-sort-query
-   :language: rust
-   :dedent:
-
-Options
-~~~~~~~
-
-Alternatively, you can use the ``sort()`` method of the ``FindOptions``
-struct.
-
-The following example performs a ``find()`` operation with the following behavior:
-
-- Sorts the results in ascending order of the values of the ``author`` field
-- Skips the first document
-- Returns the remaining documents
-
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
-   :start-after: start-sort-query-multiple-options
-   :end-before: end-sort-query-multiple-options
    :language: rust
    :dedent:
 
@@ -193,7 +179,7 @@ API Documentation
 ~~~~~~~~~~~~~~~~~
 
 To learn more about any of the methods or types discussed in this guide, see the
-following API Documentation:
+following API documentation:
 
 - `find() <{+api+}/struct.Collection.html#method.find>`__
 - `FindOptions <{+api+}/options/struct.FindOptions.html>`__
