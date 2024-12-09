@@ -31,6 +31,9 @@ This guide includes the following sections:
 - :ref:`Delete Operations <rust-delete-operations>` describes how to use the
   driver to execute delete operations
 
+- :ref:`Delete Examples <rust-delete-operations>` provides code examples
+  for the delete operations
+
 - :ref:`Additional Information <rust-crud-del-addtl-info>`
   provides links to resources and API documentation for types
   and methods mentioned in this guide
