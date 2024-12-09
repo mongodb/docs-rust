@@ -61,8 +61,8 @@ aggregation pipeline.
 This example shows how to call the ``find()`` method with the following
 parameters:
 
-- A query filter that matches all documents
-- A ``FindOptions`` instance that sorts matched documents by ``author`` in
+- Query filter that matches all documents
+- ``FindOptions`` instance that sorts matched documents by ``author`` in
   ascending order
 
 .. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
