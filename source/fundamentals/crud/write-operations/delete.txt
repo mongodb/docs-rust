@@ -169,7 +169,7 @@ Delete One Example
 ~~~~~~~~~~~~~~~~~~
 
 The following example uses the ``delete_one()`` method to delete a document
-that has a ``item`` value of ``"placemat"``:
+that has an ``item`` value of ``"placemat"``:
 
 .. io-code-block::
 
