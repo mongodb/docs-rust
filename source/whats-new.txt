@@ -42,14 +42,15 @@ improvements, and fixes:
   See the :manual:`Release Notes </release-notes/>` section in the Server manual to
   learn more about upgrading.
 
-- Increases the minimum supported Rust version to 1.71.1.
+- Increases the Minimum Supported Rust Version to 1.71.1. To learn more
+  about driver compatibility, see the :ref:`rust-compatibility` guide.
 
-- In-use encryption feature is stable and has the same backwards
+- Marks the in-use encryption feature as stable with the same backwards
   compatibility guarantees as the driver. The feature flag is named
   ``in-use-encryption``. This is a policy change and the API is not
   changed from the previous release.
 
-- Allows SRV hostnames with less than three parts.
+- Allows SRV hostnames with fewer than three parts.
 
 - Allows you to supply a sort option when performing update operations.
 
