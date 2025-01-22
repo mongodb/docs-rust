@@ -1,1 +1,1 @@
-The {+driver-long+} requires Rust 1.60.0 or later.
+The {+driver-long+} requires Rust {+min-rust-version+} or later.
