@@ -54,7 +54,7 @@ see the corresponding code for each runtime:
 
          .. input:: /includes/usage-examples/code-snippets/count-async.rs
             :language: rust
-            :emphasize-lines: 18
+            :emphasize-lines: 21
             :dedent:
 
          .. output::
