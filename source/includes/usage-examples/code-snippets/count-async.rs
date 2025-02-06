@@ -1,6 +1,6 @@
 use std::env;
 use mongodb::{
-    bson::{ doc, Document},
+    bson::{ doc, Document },
     Client,
     Collection
 };
