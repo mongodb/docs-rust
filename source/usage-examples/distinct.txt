@@ -40,8 +40,8 @@ of the ``Document`` type or a custom data type. To specify which data type repre
 the collection's data, replace the ``<T>`` type parameter on the highlighted
 line with one of the following values:
 
-- ``<Document>``: Accesses collection documents as BSON documents
-- ``<Restaurant>``: Accesses collection documents as instances of the ``Restaurant``
+- ``<Document>``: Represents collection documents as BSON documents
+- ``<Restaurant>``: Represents collection documents as instances of the ``Restaurant``
   struct, defined at the top of the code
 
 Select the :guilabel:`Asynchronous` or :guilabel:`Synchronous` tab to
