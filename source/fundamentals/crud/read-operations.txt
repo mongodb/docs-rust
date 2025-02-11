@@ -13,6 +13,7 @@ Read Operations
    Open Change Streams </fundamentals/crud/read-operations/change-streams>
    Search Text </fundamentals/crud/read-operations/text-search>
    Sort Data </fundamentals/crud/read-operations/sort>
+   Skip Results </fundamentals/crud/read-operations/skip>
 
 ..
    /fundamentals/crud/read-operations/count

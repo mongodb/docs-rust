@@ -1,5 +1,5 @@
 use std::env;
-use mongodb::{ bson::doc, bson::Document, Client, Collection, options::FindOptions };
+use mongodb::{ bson::doc, Client, Collection, options::FindOptions };
 use serde::{Deserialize, Serialize};
 use futures::stream::TryStreamExt;
 
@@ -46,36 +46,22 @@ async fn main() -> mongodb::error::Result<()> {
         },
     ];
 
-    my_coll.insert_many(books).await?;
+    my_coll.insert_many(books, None).await?;
 // end-sample-data
 
 // Retrieves documents in the collection, sorts results by their "author" field
 // values, and skips the first two results.
 // start-skip-example
-    let mut cursor = my_coll
-        .find(doc! {})
+    let find_options = FindOptions::builder()
         .sort(doc! { "author": 1 })
-        .skip(2).await?;
+        .skip(2)
+        .build();
+    let mut cursor = my_coll.find(doc! {}, find_options).await?;
 
     while let Some(result) = cursor.try_next().await? {
         println!("{:?}", result);
     }
 // end-skip-example
-
-// Sets the values for the `FindOptions` struct to sort results by their "name"
-// field values, skip the first two results, and return the remaining results.
-// start-options-skip-example
-    let find_options = FindOptions::builder()
-        .sort(doc! { "name": -1 })
-        .skip(1)
-        .build();
-
-    let mut cursor = my_coll.find(doc! {}).with_options(find_options).await?;
-
-    while let Some(result) = cursor.try_next().await? {
-        println!("{:?}", result);
-    }
-// end-options-skip-example
 
 // Retrieves documents in the collection, sorts results by their "author" field,
 // then skips the first two results in an aggregation pipeline.
@@ -86,7 +72,7 @@ let pipeline = vec![
     doc! { "$skip": 1 },
 ];
 
-let mut cursor = my_coll.aggregate(pipeline).await?;
+let mut cursor = my_coll.aggregate(pipeline, None).await?;
 
 while let Some(result) = cursor.try_next().await? {
     println!("{:?}", result);
