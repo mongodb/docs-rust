@@ -21,25 +21,21 @@ async fn main() -> mongodb::error::Result<()> {
 
     let books = vec![
         Book {
-            id: 1,
             name: "The Brothers Karamazov".to_string(),
             author: "Dostoyevsky".to_string(),
             length: 824,
         },
         Book {
-            id: 2,
             name: "Atlas Shrugged".to_string(),
             author: "Rand".to_string(),
             length: 1088,
         },
         Book {
-            id: 3,
             name: "Les Misérables".to_string(),
             author: "Hugo".to_string(),
             length: 1462,
         },
         Book {
-            id: 4,
             name: "A Dance with Dragons".to_string(),
             author: "Martin".to_string(),
             length: 1104,

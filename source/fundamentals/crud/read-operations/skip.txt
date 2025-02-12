@@ -116,9 +116,9 @@ This example runs an aggregation pipeline that performs the following actions:
       :language: console
       :visible: false
 
-      Document({"_id": Int32(3), "name": String("Les Misérables"), "author": String("Hugo"), "length": Int32(1462)})
-      Document({"_id": Int32(4), "name": String("A Dance with Dragons"), "author": String("Martin"), "length": Int32(1104)})
-      Document({"_id": Int32(2), "name": String("Atlas Shrugged"), "author": String("Rand"), "length": Int32(1088)})
+      Document({"_id": ObjectId("..."), "name": String("Les Misérables"), "author": String("Hugo"), "length": Int32(1462)})
+      Document({"_id": ObjectId("..."), "name": String("A Dance with Dragons"), "author": String("Martin"), "length": Int32(1104)})
+      Document({"_id": ObjectId("..."), "name": String("Atlas Shrugged"), "author": String("Rand"), "length": Int32(1088)})
 
 Additional Information
 ----------------------
