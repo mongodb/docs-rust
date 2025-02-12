@@ -29,7 +29,7 @@ Sample Data for Examples
 The examples in this guide use the following ``Book`` struct as a model for
 documents in the ``books`` collection:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/skip.rs
    :start-after: start-book-struct
    :end-before: end-book-struct
    :language: rust
@@ -38,7 +38,7 @@ documents in the ``books`` collection:
 The following code shows how to insert sample data into the ``books``
 collection:
 
-.. literalinclude:: /includes/fundamentals/code-snippets/crud/sort.rs
+.. literalinclude:: /includes/fundamentals/code-snippets/crud/skip.rs
    :start-after: start-sample-data
    :end-before: end-sample-data
    :language: rust
