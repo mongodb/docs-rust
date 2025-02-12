@@ -64,7 +64,7 @@ Query Results Example
 ~~~~~~~~~~~~~~~~~~~~~
 
 To skip documents, you can initialize a ``FindOptions`` instance and specify the
-number of documents you want to skip using the ``skip()`` option. Then, pass
+number of documents you want to skip using the ``skip()`` method. Then, pass
 your ``FindOptions`` struct as a parameter to the ``find()`` method.
 
 This example runs a ``find()`` operation that performs the following actions:
