@@ -9,7 +9,7 @@ async fn main() -> mongodb::error::Result<()> {
 
     let ca_file = PathBuf::from(r"<path to CA certificate>");
     let key_file = PathBuf::from(r"<path to client certificate>");
-    let key_password = b"<your-password>".to_vec();
+    let key_password = b"<password for client key>".to_vec();
 
     let tls_opts = TlsOptions::builder()
         .ca_file_path(ca_file)
