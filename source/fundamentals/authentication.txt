@@ -282,8 +282,8 @@ The ``MONGODB-X509`` authentication mechanism uses Transport Level Security (TLS
 with X.509 certificates to authenticate your user, which is identified
 by the relative distinguished names (RDNs) of your client certificate.
 
-When you specify this authentication mechanism, the server authenticates
-the connection by reading the following files:
+When specifying this authentication mechanism, you must provide the
+following files:
 
 - A certificate authority (CA) file, which contains one or more
   certificate authorities to trust when making a TLS connection.
