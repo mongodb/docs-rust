@@ -80,7 +80,7 @@ async fn main() -> mongodb::error::Result<()> {
         tlsCertificateKeyFilePassword = "<password for client key>"
     );
     let mut client_options = ClientOptions::parse(uri).await?;
-    let x509_cred = Credential::builder().mechanism(AuthMechanism::MongoDbAws).build();
+    let x509_cred = Credential::builder().mechanism(AuthMechanism::MongoDbX509).build();
 
     client_options.credential = Some(x509_cred);
     let client = Client::with_options(client_options)?;
