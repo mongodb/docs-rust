@@ -288,7 +288,7 @@ the connection by reading the following files:
 - A certificate authority (CA) file, which contains one or more
   certificate authorities to trust when making a TLS connection.
   Before connecting to the server, the driver uses this file to verify that the
-  server's certificate is from the specified certificate authorities.
+  server's certificate is from one of the specified certificate authorities.
 
 - A certificate key file, which contains the client certificate 
   and private key. The driver presents this file to the server to
