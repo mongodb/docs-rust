@@ -17,7 +17,7 @@
    Operation Error Handling </op-error-handling>
    Issues & Help </issues-and-help>
    Compatibility </compatibility>
-   View the Source <https://github.com/mongodb/mongo-rust-driver>
+   View the Source </view-source>
 
 Introduction
 ------------
