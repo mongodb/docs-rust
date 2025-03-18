@@ -31,7 +31,7 @@ from the **Serde framework**.
 
 By implementing functionality from the ``serde`` crate into your
 application, you can use custom Rust types such as structs and enums
-to model your data and Rust data types to model your field values.
+to model your data.
 
 This guide includes the following sections:
 
@@ -93,7 +93,9 @@ the ``serde`` serialization traits:
 .. tip:: Vector Type
 
    Starting in ``bson`` library v2.14, you can use the
-   ``bson::binary::Vector`` type to represent vectors of numeric values.
+   `bson::binary::Vector <{+bson-api+}/binary/enum.Vector.html>`__ type
+   to represent vectors of numeric values.
+
    Since this type is serialized as a BSON binary vector, usage of
    ``Vector`` can improve storage efficiency. To learn more, see the
    `BSON specification <https://bsonspec.org/spec.html>`__.
@@ -339,6 +341,7 @@ To learn more about the methods and types mentioned in this
 guide, see the following API documentation:
 
 - `collection() <{+api+}/struct.Database.html#method.collection>`__
+- `Vector <{+bson-api+}/binary/enum.Vector.html>`__
 - `clone_with_type() <{+api+}/struct.Collection.html#method.clone_with_type>`__
 - `serialize_with <https://serde.rs/field-attrs.html#serialize_with>`__
   Serde attribute

@@ -23,6 +23,8 @@ async fn main() -> mongodb::error::Result<()> {
         .collection("embedded_movies");
 
     // start-basic-query
+    // Replace this query vector with the 1536-element vector in the
+    // Atlas documentation example
     let query_vector = Vector::Float32(vec![-0.0016261312, -0.028070757, -0.011342932]);
     let pipeline = vec![
         doc! {

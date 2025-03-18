@@ -99,11 +99,13 @@ tutorial in the Atlas documentation.
     
    For demonstrative purposes, the examples in this section use
    sample query vectors that contain very few elements, compared to 
-   the query vector you might use in a runnable application. To view an
-   example that contains the full-length query vector, see the
+   the query vector you use in a runnable application.
+   
+   To view an example that contains the full-length query vector, see the
    :atlas:`Atlas Vector Search Quick Start </atlas-vector-search/tutorials/vector-search-quick-start/>`
-   and select :guilabel:`Rust` from the :guilabel:`Select your language` dropdown in the upper-right
-   corner of the page.
+   and select :guilabel:`Rust` from the :guilabel:`Select your language`
+   dropdown in the upper-right corner of the page. Then, copy the query
+   vector and replace the vector in the following examples.
 
 Basic Vector Search Query
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,6 +175,7 @@ Vector Search queries. Depending on your desired query, you can specify the
 following options in the stage definition:
 
 .. list-table::
+   :widths: 20 20 40 20
    :header-rows: 1
 
    * - Optional Parameter
@@ -200,3 +203,28 @@ following options in the stage definition:
 To learn more about these parameters, see the :atlas:`Fields
 </atlas-vector-search/vector-search-stage/#fields>` section of the
 ``$vectorSearch`` operator reference in the Atlas documentation.
+
+.. _rust-avs-addtl-info:
+
+Additional Information
+----------------------
+
+To learn more about the concepts mentioned in this guide, see the
+following Server manual entries:
+
+- :atlas:`Run Vector Search Queries </atlas-vector-search/vector-search-stage/>`
+- :manual:`Aggregation Pipeline </core/aggregation-pipeline/>`
+- :manual:`Aggregation Stages </meta/aggregation-quick-reference/#stages>`
+
+To learn more about the behavior of the ``aggregate()`` method, see the
+:ref:`Aggregation Operations <rust-retrieve-aggregation>` section of the
+Retrieve Data guide.
+
+API Documentation
+~~~~~~~~~~~~~~~~~
+
+To learn more about the methods and types mentioned in this
+guide, see the following API documentation:
+
+- `aggregate() <{+api+}/struct.Collection.html#method.aggregate>`__
+- `Vector <{+bson-api+}/binary/enum.Vector.html>`__
