@@ -95,18 +95,6 @@ Search queries. The examples in this section use sample data from the
 sample data, see the :atlas:`Load Data into Atlas </sample-data/>`
 tutorial in the Atlas documentation.
 
-.. note:: Query Vector Length
-    
-   For demonstrative purposes, the examples in this section use
-   sample query vectors that contain very few elements, compared to 
-   the query vector you use in a runnable application.
-   
-   To view an example that contains the full-length query vector, see the
-   :atlas:`Atlas Vector Search Quick Start </atlas-vector-search/tutorials/vector-search-quick-start/>`
-   and select :guilabel:`Rust` from the :guilabel:`Select your language`
-   dropdown in the upper-right corner of the page. Then, copy the query
-   vector and replace the vector in the following examples.
-
 Basic Vector Search Query
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
