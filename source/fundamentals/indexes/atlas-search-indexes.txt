@@ -183,6 +183,7 @@ method to create the indexes.
       :start-after: begin-atlas-create-many
       :end-before: end-atlas-create-many
       :language: rust
+      :emphasize-lines: 20
       :dedent:
 
    .. output::
@@ -260,6 +261,7 @@ the ``update_search_index()`` method to update the index:
    :start-after: begin-atlas-update
    :end-before: end-atlas-update
    :language: rust
+   :emphasize-lines: 10
    :dedent:
 
 .. _rust-drop-search-index:
