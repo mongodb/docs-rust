@@ -99,7 +99,8 @@ Basic Vector Search Query
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following code performs an Atlas Vector Search query on the
-``plot_embedding`` vector field:
+``plot_embedding`` vector field by using a query vector that represents
+the term *time travel*:
 
 .. io-code-block::
    :copyable: true
@@ -188,7 +189,7 @@ following options in the stage definition:
        search
      - No limit
 
-To learn more about these parameters, see the :atlas:`Fields
+To learn more about these options, see the :atlas:`Fields
 </atlas-vector-search/vector-search-stage/#fields>` section of the
 ``$vectorSearch`` operator reference in the Atlas documentation.
 
