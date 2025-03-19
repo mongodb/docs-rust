@@ -39,7 +39,7 @@ Search Overview </atlas-vector-search/vector-search-overview/>`.
 
    To perform advanced full-text search on your documents, you can use the
    Atlas Search feature. To learn about this feature, see the
-   :atlas:`Atlas Search Overview </atlas-search/atlas-search-overview/>`
+   :atlas:`Atlas Search Overview </atlas-search/atlas-search-overview/>`.
 
 .. TODO update when we add VS type updates to the linked page
 
