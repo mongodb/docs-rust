@@ -46,7 +46,7 @@ Atlas Vector Search Index
 
 Before you can perform Atlas Vector Search queries, you must create an
 Atlas Vector Search index on your collection. To learn more about
-creating this index type, see the :ref:`rust-atlas-search-indexes` guide.
+creating this index, see the :ref:`rust-atlas-search-indexes` guide.
 
 Vector Search Aggregation Stage
 -------------------------------

@@ -31,7 +31,8 @@ features:
   semantic (similarity) searches on vector embeddings
 
 Atlas Search and Vector Search indexes specify which fields to index,
-how these fields are indexed, and can set other optional configurations.
+specify how these fields are indexed, and set other optional
+configurations.
 
 This guide explains how to perform the following actions to manage your
 Atlas Search and Vector Search indexes:
@@ -45,7 +46,7 @@ Atlas Search and Vector Search indexes:
 
 .. note:: Sample Data
 
-   The examples in this guide access the ``embedded_movies`` collection
+   The examples in this guide use the ``embedded_movies`` collection
    in the ``sample_mflix`` database, which is one of the Atlas sample
    datasets. For instructions on importing the Atlas sample data, see
    :atlas:`Load Sample Data </sample-data>` in the Atlas documentation.
@@ -78,17 +79,17 @@ The {+driver-short+} provides the following ``SearchIndexModel`` builder methods
 
    * - ``definition()``
      - ``Document``
-     - Specifies the index definition. If you exclude this setting, the
+     - Specifies the index definition. If you omit this setting, the
        driver creates an Atlas Search index with dynamic mappings.
 
    * - ``name()``
      - ``String``
-     - Sets the index name. If you exclude this setting, the
+     - Sets the index name. If you omit this setting, the
        driver sets the name to ``default``.
 
    * - ``index_type()``
      - ``SearchIndexType``
-     - Sets the index type. If you exclude this setting, the
+     - Sets the index type. If you omit this setting, the
        driver creates an Atlas Search index by default.
 
 To learn more about Atlas Search field mappings, see :atlas:`Define Field Mappings
@@ -101,9 +102,9 @@ To learn more about defining Atlas Vector Search indexes, see
 Example Models
 ~~~~~~~~~~~~~~
 
-The following example creates specifications for a index named ``search_idx`` in a
-``SearchIndexModel`` instance. The code sets a static mapping to index only the ``title``
-and ``released`` fields:
+The following example creates a ``SearchIndexModel`` instance to provide
+specifications for a index named ``search_idx``. The code specifies static
+mappings of the ``title`` and ``released`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes/atlas-indexes.rs
    :start-after: begin-as-model
@@ -111,10 +112,10 @@ and ``released`` fields:
    :language: rust
    :dedent:
 
-The following example creates specifications for a index named ``vs_idx`` in a
-``SearchIndexModel`` instance. The code specifies the embedding path as
-``plot_embedding``, indexes ``1536`` dimensions, and uses the ``"euclidean"``
-vector similarity function.
+The following example creates a ``SearchIndexModel`` instance to provide
+specifications for a index named ``vs_idx``. The code specifies the
+embedding path as  ``plot_embedding``, indexes ``1536`` dimensions, and
+uses the ``"euclidean"`` vector similarity function:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes/atlas-indexes.rs
    :start-after: begin-avs-model
@@ -135,9 +136,10 @@ in a ``SearchIndexModel`` instance.
 Example
 ~~~~~~~
 
-The following example creates an Atlas Search index on the ``embedded_movies`` collection.
-The code creates a ``SearchIndexModel`` that sets the index name and enables dynamic
-mapping. Then, the code passes the ``SearchIndexModel`` instance to the ``create_search_index()``
+The following example creates an Atlas Search index on the
+``embedded_movies`` collection. The code creates a ``SearchIndexModel``
+that sets the index name and enables dynamic mapping. Then, the code
+passes the ``SearchIndexModel`` instance to the ``create_search_index()``
 method to create the Atlas Search index:
 
 .. io-code-block::
@@ -170,11 +172,19 @@ as a parameter.
 Example
 ~~~~~~~
 
-The following example creates an Atlas Search and a Vector Search index
-on the ``embedded_movies`` collection. The code creates ``SearchIndexModel``
-instances for each index that specify the index names and definitions. Then, the code
-passes these models as a vector to the ``create_search_indexes()``
-method to create the indexes.
+This example performs the following actions:
+
+1. Creates a ``SearchIndexModel`` instance that specifies an Atlas
+   Search index named ``as_idx``
+
+#. Creates a ``SearchIndexModel`` instance that specifies an Atlas
+   Vector Search index named ``vs_idx``
+
+#. Passes a ``vec`` of both ``SearchIndexModel`` instances to
+   the ``create_search_indexes()`` method
+
+#. Creates the Atlas Search and Vector Search indexes on the
+   ``embedded_movies`` collection
 
 .. io-code-block::
    :copyable: true
@@ -208,7 +218,8 @@ Example
 The following example accesses information about the Atlas Search and
 Vector Search indexes created in the :ref:`rust-create-search-indexes`
 section of this page. The code calls the ``list_search_indexes()``
-method and outputs all the Search indexes on the collection:
+method and prints a list of the Atlas Search and Vector Search indexes
+on the collection:
 
 .. io-code-block::
    :copyable: true
