@@ -103,7 +103,7 @@ Example Models
 ~~~~~~~~~~~~~~
 
 The following example creates a ``SearchIndexModel`` instance to provide
-specifications for a index named ``search_idx``. The code specifies static
+specifications for an index named ``search_idx``. The code specifies static
 mappings of the ``title`` and ``released`` fields:
 
 .. literalinclude:: /includes/fundamentals/code-snippets/indexes/atlas-indexes.rs
@@ -113,7 +113,7 @@ mappings of the ``title`` and ``released`` fields:
    :dedent:
 
 The following example creates a ``SearchIndexModel`` instance to provide
-specifications for a index named ``vs_idx``. The code specifies the
+specifications for an index named ``vs_idx``. The code specifies the
 embedding path as  ``plot_embedding``, indexes ``1536`` dimensions, and
 uses the ``"euclidean"`` vector similarity function:
 
