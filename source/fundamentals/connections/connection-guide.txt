@@ -220,10 +220,6 @@ When connecting to a replica set, the driver takes the following actions by defa
    However, to ensure connectivity when the specified host
    is unavailable, provide the full list of hosts.
 
-.. note:: Replica Set in Docker
-
-   .. sharedinclude:: dbx/docker-replica-set.rst
-
 Direct Connection
 `````````````````
 
@@ -238,3 +234,7 @@ following behavior:
   specified host isn't the primary member. To learn more about these
   replica set members, see :manual:`Replica Set Secondary Members
   </core/replica-set-secondary/>` in the Server manual.
+
+.. note:: Replica Set in Docker
+
+   .. sharedinclude:: dbx/docker-replica-set.rst
