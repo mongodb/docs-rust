@@ -4,6 +4,9 @@
 Run a Command
 =============
 
+.. meta::
+   :description: Learn how to use the Rust driver to execute database commands for administrative and diagnostic tasks, including syntax, response handling, and examples.
+
 .. contents:: On this page
    :local:
    :backlinks: none

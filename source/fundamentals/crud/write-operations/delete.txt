@@ -10,6 +10,7 @@ Delete Documents
 
 .. meta::
    :keywords: set options, code example 
+   :description: Learn how to remove documents from MongoDB collections using Rust driver delete operations, including `delete_one()` and `delete_many()` methods.
 
 .. contents:: On this page
    :local:
