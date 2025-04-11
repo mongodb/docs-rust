@@ -4,6 +4,9 @@
 Connection Options
 ==================
 
+.. meta::
+   :description: Explore MongoDB connection and authentication options, including parameters like appName, authMechanism, and tls, to configure your Client instance's behavior.
+
 Overview
 --------
 

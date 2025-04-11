@@ -4,6 +4,9 @@
 CRUD Operations
 ===============
 
+.. meta::
+   :description: Explore how to perform CRUD operations in Rust, including reading, writing, and modifying documents in MongoDB.
+
 .. toctree::
    :caption: CRUD Operations
 
