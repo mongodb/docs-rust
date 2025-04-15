@@ -10,7 +10,7 @@ Find a Document
 
 .. meta::
    :keywords: first, retrieve, code example
-   :description: Retrieve a single document from a collection using the `find_one()` method in Rust, with options for asynchronous or synchronous execution.
+   :description: Retrieve a single document from a collection with the MongoDB Rust Driver, with options for asynchronous or synchronous execution.
 
 .. contents:: On this page
    :local:

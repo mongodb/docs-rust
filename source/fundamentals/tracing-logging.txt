@@ -5,7 +5,7 @@ Tracing & Logging
 =================
 
 .. meta::
-   :description: Learn how to configure tracing and logging in the Rust driver to observe application activities with different levels of detail.
+   :description: Learn how to configure tracing and logging i with the MongoDB Rust Driver to observe application activities with different levels of detail.
 
 .. contents:: On this page
    :local:

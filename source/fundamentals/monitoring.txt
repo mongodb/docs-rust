@@ -5,7 +5,7 @@ Monitoring
 ==========
 
 .. meta::
-   :description: Explore monitoring techniques for cluster configuration, command execution, and connection pool changes in Rust.
+   :description: Explore monitoring techniques for cluster configuration, command execution, and connection pool changes with the MongoDB Rust Driver.
 
 .. toctree::
    :caption: Monitoring categories

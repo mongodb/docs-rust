@@ -10,7 +10,7 @@ Indexes
 
 .. meta::
    :keywords: code example, search performance
-   :description: Learn to create and manage indexes using the Rust driver to enhance query performance in MongoDB.
+   :description: Learn to create and manage indexes with the MongoDB Rust Driver to enhance query performance in MongoDB.
 
 .. contents:: On this page
    :local:

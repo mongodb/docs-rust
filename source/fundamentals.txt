@@ -5,7 +5,7 @@ Fundamentals
 ============
 
 .. meta::
-   :description: Explore tasks like connecting, authenticating, and performing operations with MongoDB using the Rust driver, including data conversion and performance optimization.
+   :description: Explore tasks like connecting, authenticating, and performing operations with the MongoDB Rust Driver, including data conversion and performance optimization.
 
 .. toctree::
    :titlesonly:

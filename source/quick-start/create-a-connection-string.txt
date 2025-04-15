@@ -5,7 +5,7 @@ Create a Connection String
 ==========================
 
 .. meta::
-   :description: Connect to your MongoDB deployment by creating a connection string, including hostname, port, authentication, and options, and update placeholders with your credentials.
+   :description: Connect to your MongoDB deployment by using a connection string.
 
 You can connect to your MongoDB deployment by providing a
 **connection URI**, also called a *connection string*, which
