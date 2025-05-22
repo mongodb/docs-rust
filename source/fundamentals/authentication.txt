@@ -74,12 +74,8 @@ MongoDB supports the following SCRAM-based authentication mechanisms:
 .. important:: Default Authentication Mechanism
 
    If you do not specify an authentication mechanism, the server
-   attempts to validate credentials by using the default authentication
-   mechanism, a SCRAM-based mechanism that varies depending on the
-   version of the server that you are connecting to.
-
-   The ``SCRAM-SHA-256`` mechanism is the default authentication
-   mechanism for MongoDB Server versions 4.0 and later.
+   attempts to validate credentials by using the default ``SCRAM-SHA-256``
+   authentication mechanism.
 
    To use the default authentication mechanism, omit only the
    ``mechanism`` field when you instantiate your ``Credential`` struct.
@@ -160,11 +156,8 @@ feature flag to your ``mongodb`` dependency in your project's
 .. important::
 
    To use the ``MONGODB-AWS`` authentication mechanism in the
-   {+driver-short+}, your application must meet the following
-   requirements:
-
-   - You are connected to MongoDB Server version 4.4 or later.
-   - You are using the ``tokio`` asynchronous runtime.
+   {+driver-short+}, your application must use the ``tokio``
+   asynchronous runtime.
 
 The driver obtains the credentials only from the first source in which
 they are found. The driver checks for your credentials from the following
