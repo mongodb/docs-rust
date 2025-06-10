@@ -96,13 +96,13 @@ Steps
    .. step:: Insert sample data.
 
       In the Atlas UI, create a ``bread`` database, and
-      within it, a collecton called ``recipes``. Select the
+      within it, a collection called ``recipes``. Select the
       :guilabel:`INSERT DOCUMENT` button and paste the contents of the
       :github:`bread_data.json
       <latonis/mongodb-api-rs/blob/main/bread_data.json>` file in the
       sample app repository.
 
-      After you insert the data, you should see the sample documents in
+      After you insert the data, you can see the sample documents in
       the ``recipes`` collection.
 
    .. step:: Install Rocket.
@@ -239,7 +239,7 @@ Steps
 
       Routing allows the program to direct the request to the proper
       endpoint to send or receive the data. The file ``routes.rs``
-      stores all of the routes defined in the API.
+      stores all the routes defined in the API.
 
       Add the following code to your ``routes.rs`` file to define the
       index route and a simple ``get_recipes()`` route:
@@ -315,7 +315,7 @@ Steps
       Then, modify the ``get_recipes()`` route shown to avoid panics and
       return custom HTTP status codes. You can leverage Rocket’s
       ``status::Custom`` structs, which allow you to specify the HTTP
-      status code to return along with custom data.
+      status code and any custom data to return.
 
       Modify the return type of ``get_recipes()`` to be
       ``status::Custom<Json<Value>>``. This lets the {+language+} compiler know
