@@ -26,8 +26,8 @@ The {+driver-short+} allows you to leverage features such as memory
 management, lifetimes, and database pooling to improve your
 application's performance.
 
-After you complete this tutorial, you have a web application with routes
-to perform CRUD operations.
+After you complete this tutorial, you will have a web application with
+routes to perform CRUD operations.
 
 .. tip:: Complete App
 
@@ -88,17 +88,22 @@ Steps
       synchronous or asynchronous runtime. This tutorial uses the
       asynchronous runtime, which is more suitable for building APIs.
 
-      The driver runs by default with the async ``tokio`` runtime.
+      The driver runs with the async ``tokio`` runtime by default.
 
       To learn more about the available runtimes, see the
       :ref:`rust-runtimes` guide.
 
+   .. step:: Create a database and collection in the Atlas UI.
+
+      Access the the Atlas UI, then select the :guilabel:`Collections` tab
+      in your cluster settings. Select the :guilabel:`+ Create Database`
+      button, then create a database called ``bread``, and within it, a
+      collection called ``recipes``.
+
    .. step:: Insert sample data.
 
-      In the Atlas UI, create a ``bread`` database, and
-      within it, a collection called ``recipes``. Select the
-      :guilabel:`INSERT DOCUMENT` button and paste the contents of the
-      :github:`bread_data.json
+      Select the :guilabel:`INSERT DOCUMENT` button and paste the
+      contents of the :github:`bread_data.json
       <latonis/mongodb-api-rs/blob/main/bread_data.json>` file in the
       sample app repository.
 
@@ -107,8 +112,9 @@ Steps
 
    .. step:: Install Rocket.
 
-      Run the following command from your project directory to install
-      the Rocket web framework:
+      Open your IDE and enter your project directory. Run the following
+      command from your project root to install the Rocket web
+      framework:
 
       .. code-block:: bash
 
@@ -154,10 +160,11 @@ Steps
    .. step:: Learn about the app structure.
 
       Before you begin writing the API, learn about the structure of a
-      simple Rocket app.
+      simple Rocket app and create the corresponding files in your
+      application.
 
-      The following diagram demonstrates the file structure of a Rocket
-      app that explains where different components are stored:
+      The following diagram demonstrates the file structure that your
+      Rocket app must have and explains the function of each file:
 
       .. code-block:: text
 
@@ -166,13 +173,13 @@ Steps
          ├── Cargo.toml      # Project and dependency info
          ├── Rocket.toml     # Rocket configuration
          └── src             # Directory for all app code
-             ├── db.rs       # Establish database connection
-             ├── main.rs     # Start the web app
+             ├── db.rs       # Establishes database connection
+             ├── main.rs     # Starts the web app
              ├── models.rs   # Organizes data
              └── routes.rs   # Stores API routes
 
-      Create the ``src`` directory and its files, which can be blank at
-      this step.
+      Create the ``src`` directory and the files it contains, according
+      to the preceding diagram. At this point, the files can be empty.
 
    .. step:: Set up the database connection.
 
@@ -305,23 +312,21 @@ Steps
       responses to deal with unexpected outcomes of your CRUD
       operations.
 
-      First, install the ``serde_json`` crate by running the following
+      Install the ``serde_json`` crate by running the following
       command:
 
       .. code-block:: bash
 
          cargo add serde_json
 
-      Then, modify the ``get_recipes()`` route shown to avoid panics and
-      return custom HTTP status codes. You can leverage Rocket’s
-      ``status::Custom`` structs, which allow you to specify the HTTP
-      status code and any custom data to return.
+      This crate includes the ``Value`` enum that represents a JSON
+      value.
 
-      Modify the return type of ``get_recipes()`` to be
-      ``status::Custom<Json<Value>>``. This lets the {+language+} compiler know
-      that the route will return Rocket’s custom HTTP response struct, which
-      includes an HTTP status code and a serde value that can be
-      serialized into JSON.
+      You can specify that your routes return HTTP status codes
+      by using Rocket's ``status::Custom`` structs, which allow you to
+      specify the HTTP status code and any custom data to return. The
+      following step describes how to write routes that return the
+      ``status::Custom`` type.
 
    .. step:: Write CRUD operation routes.
 
@@ -408,7 +413,7 @@ Steps
 
    .. step:: Test routes to perform CRUD operations.
 
-      First, start your application by running the following command in
+      Start your application by running the following command in
       your terminal:
 
       .. code-block:: bash
@@ -417,24 +422,55 @@ Steps
       
       In another terminal window, run the following command to test the
       ``create_recipe()`` route:
+
+      .. io-code-block::
+         :copyable: true
       
-      .. code-block:: bash
+         .. input::
+            :language: bash
       
-         curl -v --header "Content-Type: application/json" --request POST --data '{"title":"simple bread recipe","ingredients":["water, flour"], "temperature": 250, "bake_time": 120}' http://127.0.0.1:8000/recipes
+            curl -v --header "Content-Type: application/json" --request POST --data '{"title":"simple bread recipe","ingredients":["water, flour"], "temperature": 250, "bake_time": 120}' http://127.0.0.1:8000/recipes
+      
+         .. output::
+            :language: none
+            :visible: false
+      
+            {"status":"success","message":"Recipe (684c4245f5a3ca09efa92593) created successfully"}
 
       Run the following command to test the ``get_recipes()`` route:
-      
-      .. code-block:: bash
-      
-         curl -v --header "Content-Type: application/json" --header "Accept: application/json" http://127.0.0.1:8000/recipes/
 
+      .. io-code-block::
+         :copyable: true
+      
+         .. input::
+            :language: bash
+      
+            curl -v --header "Content-Type: application/json" --header "Accept: application/json" http://127.0.0.1:8000/recipes/
+      
+         .. output::
+            :language: none
+            :visible: false
+      
+            [{"_id":...,"title":"artisan","ingredients":["salt","flour","water","yeast"],"temperature":404,"bake_time":5},
+            {"_id":...,"title":"rye","ingredients":["salt"],"temperature":481,"bake_time":28},...]
+      
       Run the following command to test the ``delete_recipe()`` route.
       Replace the ``<id>`` placeholder with a known ``_id`` value from
       your collection, which might resemble ``68484d020f561e78c03c7800``:
+
+      .. io-code-block::
+         :copyable: true
       
-      .. code-block:: bash
+         .. input::
+            :language: bash
       
-         curl -v --header "Content-Type: application/json" --header "Accept: application/json" --request DELETE http://127.0.0.1:8000/recipes/<id>
+            curl -v --header "Content-Type: application/json" --header "Accept: application/json" --request DELETE http://127.0.0.1:8000/recipes/<id>
+      
+         .. output::
+            :language: none
+            :visible: false
+      
+            {"status":"","message":"Recipe (68484d020f561e78c03c7800) successfully deleted"}
 
 Conclusion
 ----------
@@ -442,5 +478,13 @@ Conclusion
 In this tutorial, you learned how to build a simple web application with
 Rocket to perform CRUD operations.
 
-To learn more about CRUD operations, see the other
-:ref:`rust-crud` guides.
+Resources
+~~~~~~~~~
+
+To learn more about CRUD operations, see the following guides:
+
+- :ref:`rust-insert-guide`
+- :ref:`rust-retrieve-guide`
+- :ref:`rust-query-guide`
+- :ref:`rust-change-guide`
+- :ref:`rust-delete-guide`
