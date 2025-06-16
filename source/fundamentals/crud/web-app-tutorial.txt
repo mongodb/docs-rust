@@ -95,10 +95,10 @@ Steps
 
    .. step:: Create a database and collection in the Atlas UI.
 
-      Access the the Atlas UI, then select the :guilabel:`Collections` tab
+      Access the Atlas UI, and then select the :guilabel:`Collections` tab
       in your cluster settings. Select the :guilabel:`+ Create Database`
-      button, then create a database called ``bread``, and within it, a
-      collection called ``recipes``.
+      button. In the modal, create a database called ``bread``, and
+      within it, a collection called ``recipes``.
 
    .. step:: Insert sample data.
 
