@@ -51,6 +51,14 @@ This guide includes the following sections:
   provides links to resources and API documentation for types
   and methods mentioned in this guide
 
+.. sharedinclude:: dbx/agg-tutorials-manual-tip.rst
+
+   .. replacement:: language
+
+      :guilabel:`{+language+}`
+
+.. _rust-agg-compare:
+
 Analogy
 ~~~~~~~
 
@@ -65,14 +73,6 @@ The assembly line represents the *aggregation pipeline*, the individual
 stations represent the *aggregation stages*, the specialized tools
 represent the *expression operators*, and the finished product
 represents the *aggregated result*.
-
-.. sharedinclude:: dbx/agg-tutorials-manual-tip.rst
-
-   .. replacement:: language
-
-      :guilabel:`{+language+}`
-
-.. _rust-agg-compare:
 
 Compare Aggregation and Find Operations
 ---------------------------------------
