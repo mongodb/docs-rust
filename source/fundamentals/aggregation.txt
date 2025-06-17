@@ -57,8 +57,6 @@ This guide includes the following sections:
 
       :guilabel:`{+language+}`
 
-.. _rust-agg-compare:
-
 Analogy
 ~~~~~~~
 
@@ -73,6 +71,8 @@ The assembly line represents the *aggregation pipeline*, the individual
 stations represent the *aggregation stages*, the specialized tools
 represent the *expression operators*, and the finished product
 represents the *aggregated result*.
+
+.. _rust-agg-compare:
 
 Compare Aggregation and Find Operations
 ---------------------------------------
